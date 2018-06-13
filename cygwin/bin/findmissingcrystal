@@ -1,0 +1,32 @@
+#!/bin/sh
+#
+# Small script to look at Crystal icons and see which ones are still the
+# same as kdeclassic/hicolor.
+
+if [ -z "$1" ] ; then
+	echo "usage: findmissingcrystal module"
+	exit 1
+fi
+
+for icon in `find $1 -name cr*.png` ; do
+	fullname=`echo $icon | sed 's,.*cr,,'`
+	res=`echo $fullname | cut -d- -f1`
+	type=`echo $fullname | cut -d- -f2`
+	name=`echo $fullname | cut -d- -f3`
+	dir="kdeartwork/IconThemes/kdeclassic/${res}x${res}/${type}s/"
+	if [ -d "$dir" ]; then
+		classic=`find "${dir}" -name "$name"`
+		if [ -s "$classic" ]; then
+			diff=`diff $icon $classic`
+			if [ -z "$diff" ]; then
+				echo "ERR/same: $icon"
+			else
+				echo "OK /diff: $icon"
+			fi
+		else
+			echo "OK /new : $icon"
+		fi
+	else
+		echo "OK /new : $icon"
+	fi
+done

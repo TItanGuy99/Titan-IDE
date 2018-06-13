@@ -1,0 +1,6 @@
+if [ ! -f /etc/rpc ]
+then
+    /usr/bin/mkdir -p /etc
+    /usr/bin/cp /etc/defaults/etc/rpc /etc/rpc
+fi
+

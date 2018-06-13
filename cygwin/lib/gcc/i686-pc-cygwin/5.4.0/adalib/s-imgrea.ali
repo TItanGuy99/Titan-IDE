@@ -1,0 +1,144 @@
+V "GNAT Lib v5"
+A -gnatwa
+A -nostdinc
+A -O2
+A -Wextra
+A -Wall
+A -g
+A -gnatp
+A -gnatg
+A -mtune=generic
+A -march=i686
+P ZX
+
+RN
+RV NO_EXCEPTIONS
+RV NO_FLOATING_POINT
+RV NO_IMPLICIT_CONDITIONALS
+RV SPARK_05
+
+U system.img_real%b	s-imgrea.adb		f0df9003 NE OL PK
+W system%s		system.ads		system.ali
+W system.fat_llf%s	s-fatllf.ads		s-fatllf.ali
+W system.float_control%s  s-flocon.adb		s-flocon.ali
+W system.img_llu%s	s-imgllu.adb		s-imgllu.ali
+W system.img_uns%s	s-imguns.adb		s-imguns.ali
+W system.powten_table%s	s-powtab.ads		s-powtab.ali
+W system.unsigned_types%s  s-unstyp.ads		s-unstyp.ali
+
+U system.img_real%s	s-imgrea.ads		3366ddd8 NE OL PU PK
+W system%s		system.ads		system.ali
+
+D system.ads		20141030114420 f4ce8c3a system%s
+D s-fatgen.ads		20150107111315 49cbaf86 system.fat_gen%s
+D s-fatllf.ads		20090409150019 4d5c1475 system.fat_llf%s
+D s-flocon.ads		20110804091348 e0fc433c system.float_control%s
+D s-imgllu.ads		20090409150019 49c900c3 system.img_llu%s
+D s-imgrea.ads		20090409150019 c7a851e2 system.img_real%s
+D s-imgrea.adb		20140804080931 cc9e7c5e system.img_real%b
+D s-imguns.ads		20140717070019 9ff43cf7 system.img_uns%s
+D s-powtab.ads		20140801083227 50706677 system.powten_table%s
+D s-unstyp.ads		20140731130224 9d58a4c0 system.unsigned_types%s
+X 1 system.ads
+37K9*System 199e11 6|34r9 76r5 7|32r6 32r33 33r6 33r33 34r6 34r33 35r6 35r33
+. 36r6 38r14 478r7 704r5
+X 4 s-flocon.ads
+34K16*Float_Control 59e25 7|36w13 478r14
+39U14*Reset 7|478s28
+X 5 s-imgllu.ads
+38K16*Img_LLU 61e19 7|32w13 32r40
+51U14*Set_Image_Long_Long_Unsigned 7|393s13
+X 6 s-imgrea.ads
+34K16*Img_Real 1|37k9 6|76l12 76e20 7|38b21 704l12 704t20
+37U14*Image_Ordinary_Fixed_Point 38>7 39=7 40<7 41>7 7|115b14 134l8 134t34
+38f7 V{long_long_float} 7|116b7 126r10 133r23
+39a7 S{string} 7|117b7 121r22 127m10 133m26
+40i7 P{natural} 7|118b7 128m10 130m10 133m29
+41i7 Aft{natural} 7|119b7 133r35
+50U14*Image_Floating_Point 51>7 52=7 53<7 54>7 7|80b14 109l8 109t28
+51f7 V{long_long_float} 7|81b7 99r28 99r40 100r60 108r23
+52a7 S{string} 7|82b7 86r22 102m10 108m26
+53i7 P{natural} 7|83b7 103m10 105m10 108m29
+54i7 Digs{natural} 7|84b7 108r35
+61U14*Set_Image_Real 62>7 63<7 64=7 65>7 66>7 67>7 7|108s7 133s7 140b14 702l8
+. 702t22
+62f7 V{long_long_float} 7|141b7 484r14 497r13 506r16 525r10 526r15 531r13
+. 532r16 537r13 538r64
+63a7 S{string} 7|142b7 406m10
+64i7 P{natural} 7|143b7 405m10 405r15 406r13
+65i7 Fore{natural} 7|144b7 448r15 544r31 638r34 647r34 676r31
+66i7 Aft{natural} 7|145b7 148r48 448r26
+67i7 Exp{natural} 7|146b7 450r13 451r22 549r13 552r40 571r10 698r21
+X 7 s-imgrea.adb
+56N4 Maxdigs 586r32 596r33 659r21 666r27 669r35
+60N4 Unsdigs 382r25
+64N4 Maxscaling 229r64 240r25 299r58 310r24
+73V13 Is_Negative{boolean} 73>26 74b30 99s15 538s51
+73f26 V{long_long_float}
+148i7 NFrac{natural} 547r21 577r29 637r22 641r24 647r50 648r34 650r31 659r13
+. 660r27 669r27 685r27
+149e7 Sign{character} 415r13 527m10 533m10 539m13 541m13
+150f7 X{long_long_float} 222r13 228r22 230m16 258r22 287m13 292r16 298r22
+. 300m16 322r22 351m13 364m10 364r15 366r13 367m13 367r18 382r13 385r54 394r64
+. 526m10 532m10 586r19 614m19 614r24 622m19 622r24 628m19 628r24
+156i7 Scale{integer} 229r55 231m16 231r25 240r16 288m13 288r22 299r50 301m16
+. 301r25 310r16 352m13 352r22 368m13 368r22 480m7 603r33 672m16 672r25 685r19
+157i7 Expon{integer} 685m10 690r13 692r43 695r44
+159N7 Field_Max 164r31
+164a7 Digs{string} 386m16 386r16 395m16 395r16 436r18 605m22 671m16 677r15
+. 692m51 692r51 695m52 695r52
+168i7 Ndigs{natural} 383m13 386m22 386r22 392m13 395m22 395r22 604m22 604r31
+. 605r28 637r13 641r32 642r26 647r42 648r26 650r23 650r42 670m16 670r25 671r22
+. 679r23 688m10 692m57 692r57 695m58 695r58 698r27 699r23
+171U17 Adjust_Scale 171>31 213b17 371l11 371t23 596s19 660s13 666s13
+171i31 S{natural} 213b31 222r25 229r40 260r32 271r36 292r29 299r39 324r32
+. 335r36 366r26
+180U17 Convert_Integer 377b17 397l11 397t26 597s19 615s19 661s13 667s13
+185U17 Set 185>22 205r22 403b17 407l11 407t14 417s16 420s13 424s16 436s13
+. 455s13 466s13 498s13 499s13 500s13 501s13 507s13 508s13 509s13 510s13 514s13
+. 515s13 516s13 545s10 546s10 550s13 551s13 639s13 640s13 649s13 677s10 678s10
+. 687s10 691s13 694s13
+185e22 C{character} 403b22 406r19
+188U17 Set_Blanks_And_Sign 188>38 413b17 427l11 427t30 544s10 638s13 647s13
+. 676s10
+188i38 N{integer} 413b38 416r27 423r27
+194U17 Set_Digs 194>27 194>30 206r22 433b17 438l11 438t19 642s13 648s13 650s13
+. 679s10 699s10
+194i27 S{natural} 433b27 435r19
+194i30 E{natural} 433b30 435r24
+197U17 Set_Special_Fill 197>35 444b17 457l11 457t27 502s13 511s13 517s13
+197i35 N{natural} 444b35 448r32
+202U17 Set_Zeros 202>28 207r22 463b17 468l11 468t20 547s10 552s13 641s13
+. 698s10
+202i28 N{integer} 463b28 465r24
+214i10 Lo{natural} 253m13 257r24 262r22 268m22 273r22 317m13 321r24 326r22
+. 337r22 343m22
+215i10 Hi{natural} 254m13 257r29 262r28 273r28 279m22 318m13 321r29 326r28
+. 332m22 337r28
+216i10 Mid{natural} 257m16 258r34 263m22 263r29 268r28 274m22 274r29 279r28
+. 288r30 321m16 322r34 328m22 328r29 332r28 339m22 339r29 343r28 352r30
+217f10 XP{long_long_float} 228m16 229r26 230r21 258m16 260r19 264m22 264r28
+. 271r22 275m22 275r28 287r18 298m16 299r26 300r21 322m16 324r19 327m22 327r28
+. 335r22 338m22 338r28 351r18
+416i17 J{integer}
+423i17 J{integer}
+435i14 J{integer} 436r24
+445i10 F{natural} 448m10 451m13 451r18 454r24
+454i14 J{integer}
+465i14 J{integer}
+577i13 NF{natural} 603r41 613r22 621r22 622r36 623m19 629m19 629r25
+603i23 J{integer}
+669i17 J{integer}
+X 8 s-imguns.ads
+38K16*Img_Uns 7|33w13 33r40 8|60e19
+50U14*Set_Image_Unsigned 7|384s13 692s13 695s13
+X 9 s-powtab.ads
+34K16*Powten_Table 7|34w13 34r40 9|70e24
+37N4*Maxpow 7|228r34 231r33 254r19 298r34 301r33 318r19 621r27 628r36 629r30
+45a4*Powten(long_long_float) 7|222r17 228r26 229r32 258r26 260r24 271r28
+. 292r21 298r26 299r31 322r26 324r24 335r28 366r18 382r17 586r24 622r28 628r28
+X 10 s-unstyp.ads
+40K16*Unsigned_Types 7|35w13 35r40 10|211e26
+45M9*Unsigned 7|60r26 385r16 692r33 695r33
+47M9*Long_Long_Unsigned 7|58r19 394r16
+

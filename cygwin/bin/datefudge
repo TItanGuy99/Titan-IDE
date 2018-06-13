@@ -1,0 +1,78 @@
+#!/bin/sh
+# vim:noet:ts=2
+# Fake the system time
+
+dat="$1"
+static=0
+
+if [ "$dat" = "-s" -o "$dat" = "--static" ] ; then
+	static=1
+	shift
+	dat="$1"
+fi
+if [ "$dat" = "-v" -o "$dat" = "--version" ] ; then
+	echo "$0: Version "
+	echo ""
+	echo "For usage information, use '$0 --help'."
+	exit 0
+fi
+if [ -z "$dat" -o "$dat" = "-h" -o "$dat" = "-?" -o "$dat" = "--help" ] ; then
+	echo "Usage: $0 [-s|--static] date program args..."
+	echo ""
+	echo "Run 'program' with 'args'."
+	echo "The program will believe that the current time is 'date'."
+	if [ -z "$dat" ] ; then exit 1; else exit 0; fi
+fi
+
+shift
+
+# Assume that 'date' already printed an error message
+sec1=$(date -d "$dat" '+%s')
+[ $? -eq 0 ] || exit 1
+
+sec2=$(expr $(date '+%s') - $sec1)
+# According to its documentation expr returns exit status 1,
+# when the expression evaluates to 0
+[ $? -le 1 ] || exit 1
+
+add_ld_preload()
+{
+	export LD_PRELOAD="${1}${LD_PRELOAD:+:}${LD_PRELOAD}"
+}
+
+add_ld_library_path()
+{
+	export LD_LIBRARY_PATH="${1}${LD_LIBRARY_PATH:+:}${LD_LIBRARY_PATH}"
+}
+
+set_ld_environment()
+{
+	lib="datefudge.so"
+	libpath="/usr/lib"
+	set --	"$libpath""/datefudge/$lib"
+	if [ ! -e "$1" ]; then
+		echo "Cannot find $lib in $libpath" >&2
+		[ -z "$POSH_VERSION" ] || echo "You might have just encountered posh bug#636601, please try using another shell." >&2
+		exit 1;
+	fi
+	for path in "$@"; do
+		add_ld_preload "$path"
+	done
+}
+
+set_datefudge_vars()
+{
+	if [ "$static" = "1" ]; then
+		export DATEFUDGE=$sec1
+		export DATEFUDGE_DOSTATIC="1"
+	else
+		export DATEFUDGE=$sec2
+		unset  DATEFUDGE_DOSTATIC
+	fi
+}
+
+
+set_ld_environment
+set_datefudge_vars
+
+exec "$@"

@@ -1,0 +1,6 @@
+if [ ! -f /etc/xdg/khtmlrc ]
+then
+    /usr/bin/mkdir -p /etc/xdg
+    /usr/bin/cp /etc/defaults/etc/xdg/khtmlrc /etc/xdg/khtmlrc
+fi
+

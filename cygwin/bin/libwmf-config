@@ -1,0 +1,121 @@
+#!/bin/sh
+
+exec_prefix_set=no
+
+prefix=/usr
+exec_prefix=/usr
+
+usage()
+{
+	cat <<EOF
+Usage: libwmf-config [OPTIONS] [LIBRARIES]
+Options:
+	[--prefix[=DIR]]
+	[--exec-prefix[=DIR]]
+	[--version]
+	[--libs]
+	[--cflags]
+Libraries/Headers:
+	gd
+	wmf
+EOF
+	exit $1
+}
+
+if test $# -eq 0; then
+	usage 1 1>&2
+fi
+
+lib_gd=no
+lib_wmf=yes
+
+while test $# -gt 0; do
+  case "$1" in
+  -*=*) optarg=`echo "$1" | sed 's/[-_a-zA-Z0-9]*=//'` ;;
+  *) optarg= ;;
+  esac
+
+  case $1 in
+    --prefix=*)
+      prefix=$optarg
+      if test $exec_prefix_set = no ; then
+        exec_prefix=$optarg
+      fi
+      ;;
+    --prefix)
+      echo_prefix=yes
+      ;;
+    --exec-prefix=*)
+      exec_prefix=$optarg
+      exec_prefix_set=yes
+      ;;
+    --exec-prefix)
+      echo_exec_prefix=yes
+      ;;
+    --version)
+      echo 0.2.8
+      ;;
+    --cflags)
+      echo_cflags=yes
+      ;;
+    --libs)
+      echo_libs=yes
+      ;;
+    gd)
+      lib_gd=yes
+      ;;
+    wmf)
+      lib_wmf=yes
+      ;;
+    *)
+      usage 1 1>&2
+      ;;
+  esac
+  shift
+done
+
+if test "$echo_prefix" = "yes"; then
+	echo $prefix
+fi
+
+if test "$echo_exec_prefix" = "yes"; then
+	echo $exec_prefix
+fi
+
+wmf_cflags="-I/usr/include/freetype2  "
+wmf_liblflags="  -lfreetype  -lX11 -lexpat -ljpeg -lpng -lz -lm"
+
+
+libwmf_buildstyle=heavy
+if test $libwmf_buildstyle = heavy; then
+	wmf_libs="-lwmf -lwmflite"
+else
+	wmf_libs="-lwmflite"
+fi
+
+if test "$echo_cflags" = "yes"; then
+	includes="$wmf_cflags"
+	if test "$lib_gd" = "yes"; then
+		includes="$includes -I${prefix}/include/libwmf/gd"
+	fi
+	if test "$lib_wmf" = "yes"; then
+		includes="$includes"
+	fi
+	echo $includes
+fi
+
+if test "$echo_libs" = "yes"; then
+	libdirs=-L${exec_prefix}/lib
+	my_wmf_libs=
+	for i in $wmf_libs ; do
+		if test "x$i" != "x-L${exec_prefix}/lib" ; then
+			if test -z "$my_wmf_libs" ; then
+				my_wmf_libs="$i"
+			else
+				my_wmf_libs="$my_wmf_libs $i"
+			fi
+		fi
+	done
+
+	echo $my_wmf_libs
+fi      

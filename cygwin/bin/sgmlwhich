@@ -1,0 +1,7 @@
+#!/bin/sh
+# Location of the main configuration file for consistency with non-LSB platforms
+# Send any comments to Eric Bischoff <eric@caldera.de>
+# This program is under GPL license. See LICENSE file for details.
+
+echo "/etc/sgml/sgml.conf"
+# Simple, isn't it? ;-)

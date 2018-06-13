@@ -1,0 +1,10 @@
+#
+prefix /usr
+datadir /usr/share
+ANTHYDIR /usr/share/anthy/
+DIC_FILE /usr/share/anthy/anthy.dic
+ZIPDICT_EUC /usr/share/anthy/zipcode.t
+WORDS_FILE /usr/share/dict/words
+# for compilation and testing
+INDEPWORD indepword.txt
+DEPWORD master.depword

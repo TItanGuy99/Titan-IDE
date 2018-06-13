@@ -1,0 +1,127 @@
+#! /usr/bin/env perl
+
+# Offline check for extra in a checked-out
+# CVS module. Sirtaj Singh Kang <taj@kde.org> May 2000.
+# Usage:
+# 	noncvsfiles <module dir>...
+
+@dirqueue = @ARGV;
+%entries = ();
+@files = ();
+
+sub processEntries
+{
+	my ( $dir ) = @_;
+
+	open( ENTRIES, $dir."/CVS/Entries" ) 
+		|| warn "Couldn't read '$dir/CVS/Entries'";
+
+	while( <ENTRIES> ) {
+		if ( m#^\s*D/([^/]+)/# ) {
+			push ( @dirqueue, "$dir/$1" );
+			$entries{ "$dir/$1" } = 1;
+			next;
+		}
+
+		next unless m#^\s*/([^/]+)/([\d\.]*)/([^/]+)/#;
+
+		$fname = $1;
+		$ver = $2;
+		$stamp = $3;
+
+		$entries{ "$dir/$fname" } = $stamp;
+	}
+
+	close( ENTRIES );
+
+        open( IGNORE, $dir."/.cvsignore" ) || return;
+
+        while( <IGNORE> ) {
+                chomp;
+                s/^\s+//;
+                s/\s+$//;
+                $entries{ "$dir/$_" } = "ignored";
+        }
+
+        close( IGNORE );
+}
+
+# month assoc array for name -> index lookups
+$mctr = 0;
+
+foreach $month ( @monthlist ) {
+	$months{ $month } = $mctr;
+	$mctr++;
+}
+
+# Try current directory if none specified
+
+if( $#dirqueue < 0 ) {
+	push( @dirqueue, "." );
+}
+
+# process directory queue, filling entries hash
+foreach $dir ( @dirqueue ) {
+	processEntries( $dir );
+
+	open( FILES, 'find "'.$dir.'" | grep -v "/CVS"|' )
+			|| die "Couldn't find files in $dir";
+
+	while( <FILES> ) {
+		chop;
+		next if $_ eq '.';
+		next if m/\/\.#/;     #ignore .#blah
+		push @files, $_;
+	}
+}
+
+#foreach my $entry ( sort keys %entries ) 
+#{
+#	print $entry,"\n";
+#}
+
+my $lastfile = "";
+
+foreach my $file ( sort @files ) 
+{
+	next if $file eq $lastfile;
+	$lastfile = $file;
+
+	if ( !exists $entries{ $file } ) {
+		print $file,"\n";
+	}
+}
+
+=head1 NAME
+
+noncvslist -- List all files in a checked out CVS module that are not
+known by the CVS server.
+
+=head1 SYNOPSIS
+
+When the current directory is a CVS module:
+ 
+        noncvslist
+ 
+Checking checked out subdirectories:
+ 
+        noncvslist [<dir>...]
+
+=head1 DESCRIPTION
+
+This script will list all files and directories in the module(s) that are 
+not listed in the CVS/Entries files. These may be files created during builds,
+new un-added sources files etc. It is a useful housekeeping tool.
+
+=head1 EXAMPLES
+
+Assuming baseline/ has kdelibs/ and kdebase/ checked out within it:
+
+	cd baseline/kdelibs; noncvslist
+	cd baseline; noncvslist kdelibs kdebase
+
+=head1 AUTHOR
+
+Sirtaj Singh Kang <taj@kde.org>
+
+=cut

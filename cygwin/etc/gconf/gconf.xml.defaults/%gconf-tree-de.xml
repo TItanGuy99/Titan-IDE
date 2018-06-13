@@ -1,0 +1,627 @@
+<?xml version="1.0"?>
+<gconf>
+	<dir name="schemas">
+		<dir name="system">
+			<dir name="smb">
+				<entry name="workgroup">
+					<local_schema short_desc="SMB-Arbeitsgruppe">
+						<longdesc>Die Windows-Netzwerkarbeitsgruppe oder -domäne zu der der Benutzer gehört. Damit eine neue Arbeitsgruppe vollständig übernommen werden kann, muss sich der Benutzer ab- und wieder anmelden.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="proxy">
+				<entry name="autoconfig_url">
+					<local_schema short_desc="URL zur automatischen Proxy-Konfiguration">
+						<longdesc>URL, die Proxy-Konfigurationswerte liefert.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="socks_port">
+					<local_schema short_desc="Port am SOCKS-Proxy">
+						<longdesc>Der Proxy-Port am von »/system/http_proxy/socks_host« festgelegten Rechner.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="socks_host">
+					<local_schema short_desc="Rechnername des Socks-Proxys">
+						<longdesc>Der Rechnername des Socks-Proxys.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="ftp_port">
+					<local_schema short_desc="Port am FTP-Proxy">
+						<longdesc>Der Proxy-Port am von »/system/http_proxy/ftp_host« festgelegten Rechner.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="ftp_host">
+					<local_schema short_desc="Rechnername des FTP-Proxys">
+						<longdesc>Der Rechnername des FTP-Proxys.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="secure_port">
+					<local_schema short_desc="Port am sicheren HTTP-Proxy">
+						<longdesc>Der Proxy-Port am von »/system/http_proxy/secure_host« festgelegten Rechner.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="secure_host">
+					<local_schema short_desc="Rechnername des sicheren HTTP-Proxys">
+						<longdesc>Der Rechnername des sicheren HTTP-Proxys.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="mode">
+					<local_schema short_desc="Proxy-Konfigurationsmodus">
+						<longdesc>Legt den Proxy-Konfigurationsmodus fest. Zulässige Werte: »none« (keiner), »manual« (manuell) sowie »auto« (automatisch).</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="http_proxy">
+				<entry name="ignore_hosts">
+					<local_schema short_desc="Nicht-Proxy-Rechner">
+						<longdesc>Dieser Schlüssel enthält eine Liste der Rechner, mit denen eine Direktverbindung aufgebaut werden soll, also nicht via Proxy (falls aktiv). Als Werte sind Rechnernamen, Domänen (per Wildcard, z.B. *.foo.de), IP-Rechneradresse (sowohl IPv4 als auch IPv6) und Netzwerkadressen mit einer Netzmaske (der Form 192.168.0.0/24) zulässig.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="authentication_password">
+					<local_schema short_desc="Passwort am HTTP-Proxy">
+						<longdesc>Zur HTTP-Proxy-Legitimation zu übergebendes Passwort</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="authentication_user">
+					<local_schema short_desc="Benutzername am HTTP-Proxy">
+						<longdesc>Zur HTTP-Proxy-Legitimation zu übergebender Benutzername.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="use_authentication">
+					<local_schema short_desc="Verbindungen mit dem Proxy-Server legitimieren">
+						<longdesc>Legt fest, ob Verbindungen mit dem Proxy-Server legitimiert werden müssen. Hierbei werden die Werte von »/system/http_proxy/authentication_user« und »/system/http_proxy/authentication_password« als Benutzername bzw. Passwort verwendet.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="port">
+					<local_schema short_desc="Port am HTTP-Proxy">
+						<longdesc>Der Proxy-Port am von »/system/http_proxy/host« festgelegten Rechner.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="host">
+					<local_schema short_desc="Rechnername des HTTP-Proxys">
+						<longdesc>Der Rechnername des HTTP-Proxys.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="use_http_proxy">
+					<local_schema short_desc="HTTP-Proxy verwenden">
+						<longdesc>Sollen die Proxy-Einstellungen zum HTTP-Zugriff per Internet verwendet werden?</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="dns_sd">
+				<entry name="extra_domains">
+					<local_schema short_desc="Zusätzlich nach DNS-SD-Diensten zu durchsuchende Domänen">
+						<longdesc>Durch Kommata unterteilte Liste der DNS-SD-Domänen, die am Netzwerk-Speicherort »network:///« angezeigt werden sollen.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="display_local">
+					<local_schema short_desc="Legt fest, wie der lokale DNS-SD-Dienst angezeigt werden soll">
+						<longdesc>Zulässige Werte: »merged«, »separate« sowie »disabled«.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+		</dir>
+		<dir name="desktop">
+			<dir name="gnome">
+				<dir name="typing_break">
+					<entry name="enabled">
+						<local_schema short_desc="Soll die Tastatur gesperrt werden?">
+							<longdesc>Soll die Tastatur gesperrt werden?</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="allow_postpone">
+						<local_schema short_desc="Verschieben von Pausen zulassen">
+							<longdesc>Soll der Benutzer die Eingabepause verschieben können?</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="break_time">
+						<local_schema short_desc="Pausenzeit">
+							<longdesc>Die Anzahl der Minuten, die die Eingabepause dauern soll.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="type_time">
+						<local_schema short_desc="Tippdauer">
+							<longdesc>Die Anzahl der Eingabeminuten bevor der Pausenmodus beginnt.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="thumbnailers">
+					<entry name="disable_all">
+						<local_schema short_desc="Alle externen Miniatur-Vorschaubilderzeuger deaktivieren">
+							<longdesc>Sollen alle externen Programme zum Erzeugen von Miniatur-Vorschaubildern deaktiviert werden, unabhängig davon, ob sie anderweitig aktiviert wurden?</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="thumbnail_cache">
+					<entry name="maximum_size">
+						<local_schema>
+							<longdesc>Maximale Größer des Zwischenspeichers für die Miniatur-Vorschaubilder. Der Wert -1 deaktiviert das Löschen.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="maximum_age">
+						<local_schema>
+							<longdesc>Maximales Alter der Miniatur-Vorschaubilder im Zwischenspeicher, in Tagen. Der Wert -1 deaktiviert das Löschen.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="sound">
+					<entry name="input_feedback_sounds">
+						<local_schema short_desc="Klänge bei Eingaben">
+							<longdesc>Sollen bei Eingabe-Ereignissen Klänge abgespielt werden?</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="theme_name">
+						<local_schema short_desc="Name des Audio-Themas">
+							<longdesc>Für Ereignis-Klänge zu verwendenes Audio-Thema.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="event_sounds">
+						<local_schema short_desc="Klänge bei Ereignissen">
+							<longdesc>Sollen bei Benutzer-Ereignissen Klänge abgespielt werden?</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="enable_esd">
+						<local_schema short_desc="ESD aktivieren">
+							<longdesc>Soll der Sound-Server beim Start von GNOME gestartet werden?</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="default_mixer_tracks">
+						<local_schema short_desc="Voreingestellte Mixer-Kanäle">
+							<longdesc>Die voreingestellten Mixer-Kanäle die beim Verwenden der Multimedia-Tasten benutzt wird.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="default_mixer_device">
+						<local_schema short_desc="Voreingestelltes Mixer-Gerät">
+							<longdesc>Das voreingestellte Mixer-Gerät das beim Verwenden der Multimedia-Tasten benutzt wird.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="peripherals">
+					<dir name="mouse">
+						<entry name="cursor_size">
+							<local_schema short_desc="Zeigergröße">
+								<longdesc>Größe des Mauszeigers bezogen auf »cursor_theme«.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="cursor_theme">
+							<local_schema short_desc="Zeiger-Thema">
+								<longdesc>Name des Mauszeiger-Themas. Wird nur von X-Servern benutzt, die Xcursor unterstützen, wie z.B. XFree86 4.3 und neuer.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="cursor_font">
+							<local_schema short_desc="Zeigerschrift">
+								<longdesc>Schriftname des Zeigers. Falls dieser Schlüssel nicht gesetzt wurde, wird die Vorgabeschrift verwendet. Dieser Wert wird dem X-Server lediglich am Anfang jeder Sitzung mitgeteilt, daher werden Änderungen an diesem Schlüssel erst ausgewertet, wenn Sie sich das nächste Mal anmelden.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="locate_pointer">
+							<local_schema short_desc="Mauszeiger finden">
+								<longdesc>Hebt die aktuelle Position des Mauszeigers hervor, wenn die Strg-Taste gedrückt und wieder losgelassen wird.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="double_click">
+							<local_schema short_desc="Doppelklick-Verzögerung">
+								<longdesc>Länge eines Doppelklicks.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="drag_threshold">
+							<local_schema short_desc="Ziehen Schwellwert">
+								<longdesc>Distanz bevor das Ziehen einsetzt.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="motion_threshold">
+							<local_schema short_desc="Bewegungsschwellwert">
+								<longdesc>Die Distanz in Pixel, die der Mauszeiger bewegt werden muss, bevor eine beschleunigte Mausbewegung aktiviert wird. Der Wert -1 ist die Systemvorgabe.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="motion_acceleration">
+							<local_schema short_desc="Einfacher Klick">
+								<longdesc>Beschleunigungsmultiplikator für Mausbewegungen. Der Wert »-1« ist die Systemvorgabe.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="single_click">
+							<local_schema short_desc="Einfacher Klick">
+								<longdesc>Einfacher Klick zum Öffnen von Symbolen.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="left_handed">
+							<local_schema short_desc="Ausrichtung der Mausknöpfe">
+								<longdesc>Vertauscht den rechten und den linken Mausknopf, so dass Linkshänder die Maus verwenden können.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="keyboard">
+						<entry name="remember_numlock_state">
+							<local_schema short_desc="Status von NumLock speichern">
+								<longdesc>Falls auf TRUE (wahr) gesetzt, speichert GNOME den Status der NumLock-LED zwischen zwei Sitzungen.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bell_custom_file">
+							<local_schema short_desc="Benutzerdefinierter Dateiname für Tastaturglocke">
+								<longdesc>Dateiname des wiederzugebenden Glockenklangs.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bell_mode">
+							<local_schema>
+								<longdesc>Zulässige Werte: »on« (aktivieren), »off« (deaktivieren) sowie »custom« (benutzerdefiniert).</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+				<dir name="lockdown">
+					<entry name="disable_application_handlers">
+						<local_schema short_desc="Verarbeitung von URL- und MIME-Typen verhinden">
+							<longdesc>Verhindert, dass Anwendungen zum Verarbeiten von URL- oder MIME-Typen gestartet werden.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_lock_screen">
+						<local_schema short_desc="»Bildschirm sperren« deaktivieren">
+							<longdesc>Den Benutzer am Sperren seines Bildschirms hindern.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_user_switching">
+						<local_schema short_desc="Benutzerwechsel deaktivieren">
+							<longdesc>Den Benutzer am Wechsel in andere Benutzerkonten hindern, solange seine Sitzung aktiv ist.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_print_setup">
+						<local_schema short_desc="Druckeinstellungen deaktivieren">
+							<longdesc>Den Benutzer daran hindern, die Druckeinstellungen zu verändern. Dies verhindert beispielsweise den Zugriff auf den Druckeinstellungsdialog aller Anwendungen.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_printing">
+						<local_schema short_desc="Drucken deaktivieren">
+							<longdesc>Den Benutzer am Drucken hindern. Dies verhindert beispielsweise den Zugriff auf den Druckdialog aller Anwendungen.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_save_to_disk">
+						<local_schema short_desc="Speichern von Dateien auf Platte deaktivieren">
+							<longdesc>Den Benutzer am Speichern von Dateien auf Platte hindern. Dies verhindert beispielsweise den Zugriff auf den »Speichern unter«-Dialog aller Anwendungen.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_command_line">
+						<local_schema short_desc="Befehlszeile deaktivieren">
+							<longdesc>Den Benutzer daran hindern, auf das Terminal zuzugreifen oder eine auszuführende Befehlszeile anzugeben. Dies verhindert beispielsweise den Zugriff auf den Panel-Dialog »Anwendung ausführen«.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="interface">
+					<entry name="show_unicode_menu">
+						<local_schema short_desc="Das Menü »Unicode-Steuerzeichen einfügen« anzeigen">
+							<longdesc>Legt fest, ob die Kontextmenüs der Eingabefelder und Textbereiche die Möglichkeit bieten sollen, Steuerzeichen einzugeben.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="show_input_method_menu">
+						<local_schema short_desc="Das Menü »Eingabemethoden« anzeigen">
+							<longdesc>Legt fest, ob die Kontextmenüs der Eingabefelder und Textbereiche die Möglichkeit bieten sollen, die Eingabemethode zu ändern.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menubar_accel">
+						<local_schema short_desc="Menüleistetastenkürzel">
+							<longdesc>Tastenkürzel um Menüleisten zu öffnen.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="file_chooser_backend">
+						<local_schema short_desc="Modul für GtkFileChooser">
+							<longdesc>Als Dateisystemmodell für das GtkFileChooser-Widget zu verwendendes Modul. Zulässige Werte: »gio«, »gnome-vfs« sowie »gtk+«.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="status_bar_meter_on_right">
+						<local_schema short_desc="Statusleiste rechts">
+							<longdesc>Legt fest, ob Status-Anzeigen auf der rechten Seite angezeigt werden.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="use_custom_font">
+						<local_schema short_desc="Benutzerdefinierte Schrift verwenden">
+							<longdesc>Soll eine benutzerdefinierte Schrift in GTK+-Anwendungen verwendet werden?</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="monospace_font_name">
+						<local_schema short_desc="Dicktengleiche Schrift">
+							<longdesc>Name einer dicktengleichen Schrift, die z.B. im Terminal verwendet werden soll.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="document_font_name">
+						<local_schema short_desc="Dokumentenschrift">
+							<longdesc>Name der Vorgabeschrift zum Anzeigen von Dokumenten.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-module">
+						<local_schema short_desc="GTK-Eingabemethoden-Modul">
+							<longdesc>Name des von GTK+ genutzten Eingabemethoden-Moduls.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-status-style">
+						<local_schema short_desc="Statusstil der GTK-Eingabemethoden">
+							<longdesc>Name des von GTK+ verwendeten Statusstils der Eingabemethode.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-preedit-style">
+						<local_schema short_desc="Stil der Vorbearbeitung der GTK-Eingabemethoden">
+							<longdesc>Name des von GTK+ verwendeten Preedit-Stils der Eingabemethode.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="font_name">
+						<local_schema short_desc="Vorgabeschrift">
+							<longdesc>Name der von GTK+ verwendeten Vorgabeschrift.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_key_theme">
+						<local_schema short_desc="GTK+-Thema">
+							<longdesc>Basisname des von GTK+ verwendeten Vorgabethemas.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_theme">
+						<local_schema short_desc="GTK+-Thema">
+							<longdesc>Basisname des von GTK+ verwendeten Vorgabethemas.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="icon_theme">
+						<local_schema short_desc="Symbol-Thema">
+							<longdesc>Für das Panel, Nautilus, usw. zu verwendendes Symbol-Thema.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink_time">
+						<local_schema short_desc="Cursor-Blinkfrequenz">
+							<longdesc>Die Cursor-Blinkfrequenz in Millisekunden.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink">
+						<local_schema short_desc="Cursor-Blinken">
+							<longdesc>Legt fest, ob der Cursor blinken soll.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_icons_size">
+						<local_schema short_desc="Symbolgröße in Werkzeugleisten">
+							<longdesc>Symbolgröße in Werkzeugleisten, entweder »small-toolbar« (klein) oder »large-toolbar« (groß).</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_detachable">
+						<local_schema short_desc="Werkzeugleisten abtrennbar">
+							<longdesc>Legt fest, ob der Benutzer Werkzeugleisten abnehmen und verschieben kann.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menubar_detachable">
+						<local_schema short_desc="Menüleiste ist abnehmbar">
+							<longdesc>Legt fest, ob der Benutzer Menüleisten abnehmen und verschieben kann.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="buttons_have_icons">
+						<local_schema short_desc="Knöpfe haben Symbole">
+							<longdesc>Legt fest, ob Knöpfe ein Symbol neben dem Text anzeigen dürfen.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menus_have_icons">
+						<local_schema short_desc="Menüs haben Symbole">
+							<longdesc>Legt fest, ob Menüs ein Symbol neben den Menüeinträgen anzeigen dürfen.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_style">
+						<local_schema short_desc="Werkzeugleisten-Stil">
+							<longdesc>Der Stil der Werkzeugleiste. Zulässige Werte: »both« (Symbol und Text darunter), »both_horiz« (Symbol und Text daneben), »icon« (nur Symbol) sowie »text« (nur Text).</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="can_change_accels">
+						<local_schema short_desc="Veränderliche Tastenkombinationen">
+							<longdesc>Legt fest, ob der Benutzer dynamisch eine Tastenkombination für Menüeinträge festlegen kann, wenn diese durch Maus oder Tastatur hervorgehoben werden.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menus_have_tearoff">
+						<local_schema short_desc="Menüs haben Abreißer">
+							<longdesc>Legt fest, ob in Menüs ein Abreißer angezeigt werden soll.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="enable_animations">
+						<local_schema short_desc="Animationen aktivieren">
+							<longdesc>Sollen Animationen angezeigt werden? Hinweis: Dies ist ein globaler Schlüssel. Er ändert das Verhalten des Fenstermanagers, des Panels usw.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="accessibility">
+						<local_schema short_desc="Barrierefreiheit aktivieren">
+							<longdesc>Legt fest, ob Anwendungen barrierefreien Zugriff ermöglichen sollen.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="file-views">
+					<entry name="icon_theme">
+						<local_schema short_desc="Dateisymbol-Thema">
+							<longdesc>Zum Anzeigen von Dateisymbole verwendetes Thema.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="background">
+					<entry name="color_shading_type">
+						<local_schema short_desc="Typ der Farbschattierung">
+							<longdesc>Legt fest, wie die Hintergrundfarbe schattiert werden soll. Zulässige Werte: »horizontal-gradient« (Horizontaler Verlauf), »vertical-gradient« (Vertikaler Verlauf) sowie »solid« (Einfarbig).</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="secondary_color">
+						<local_schema short_desc="Zweite Farbe">
+							<longdesc>Rechte bzw. untere Farbe beim Zeichnen eines Farbverlaufs. Bei einem einfarbigen Hintergrund wir diese Farbe nicht verwendet.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="primary_color">
+						<local_schema short_desc="Erste Farbe">
+							<longdesc>Linke bzw. obere Farbe beim Zeichnen eines Farbverlaufs, oder die bei einem einfarbigen Hintergrund verwendete Farbe.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_opacity">
+						<local_schema short_desc="Deckkraft des Bildes">
+							<longdesc>Deckkraft, mit der das Hintergrundbild gezeichnet wird.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_filename">
+						<local_schema short_desc="Dateiname des Bildes">
+							<longdesc>Als Hintergrundbild zu verwendende Datei.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_options">
+						<local_schema short_desc="Bildoptionen">
+							<longdesc>Legt fest, wie das von »wallpaper_filename« festgelegte Bild dargestellt werden soll. Zulässige Werte: »none« (Keins), »wallpaper« (Tapete), »centered« (zentriert), »scaled« (skaliert), »stretched« (gestreckt), »zoom« (Zoom) sowie »spanned« (gespannt).</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="draw_background">
+						<local_schema short_desc="Desktop-Hintergrund zeichnen">
+							<longdesc>Legt fest, ob GNOME den Desktop-Hintergrund zeichnet.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="applications">
+					<dir name="component_viewer">
+						<entry name="exec">
+							<local_schema short_desc="Vorgabeanwendung für Ansichtskomponenten">
+								<longdesc>Die zum Anzeigen von Dateien, die eine Ansichtskomponente erforderlich machen, verwendete Anwendung. Der Parameter %s wird durch die Dateiadresse, der Parameter %d durch die Komponenten-IID ersetzt.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="window_manager">
+						<entry name="workspace_names">
+							<local_schema short_desc="Namen der Arbeitsflächen (veraltet)">
+								<longdesc>Eine Liste mit den Namen der ersten, vom Fenster-Manager verwendeten Arbeitsflächen. Dieser Schlüssel ist seit GNOME 2.12 veraltet.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="number_of_workspaces">
+							<local_schema short_desc="Die Anzahl der Arbeitsflächen (veraltet)">
+								<longdesc>Die Anzahl der Arbeitsflächen, die der Fenster-Manager verwenden soll. Dieser Schlüssel ist seit GNOME 2.12 veraltet.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="current">
+							<local_schema short_desc="Bevorzugter Fenster-Manager (veraltet)">
+								<longdesc>Der Fenster-Manager der als erster versucht werden soll. Dieser Schlüssel ist seit GNOME 2.12 veraltet.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="default">
+							<local_schema short_desc="Fenster-Manager im Problemfall (veraltet)">
+								<longdesc>Fenster-Manager, der verwendet werden soll, wenn der bevorzugte Fenster-Manager nicht gefunden werden konnte. Dieser Schlüssel ist seit GNOME 2.12 veraltet.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="terminal">
+						<entry name="exec_arg">
+							<local_schema short_desc="Exec-Argument für Vorgabe-Terminal">
+								<longdesc>Das an die Vorgabe-Terminal-Anwendung zu übergebende exec-Argument.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Vorgabe-Terminal-Anwendung">
+								<longdesc>Die Vorgabe-Terminal-Anwendung, die für Anwendungen verwendet wird, die ein Terminal erforderlich machen.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="tasks">
+						<entry name="needs_term">
+							<local_schema short_desc="Aufgaben-Anwendung benötigt Terminal">
+								<longdesc>Legt fest, ob die voreingestellte Aufgaben-Anwendung ein Terminal benötigt, um ausgeführt zu werden</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Voreingestellte Aufgaben">
+								<longdesc>Voreingestellte Aufgaben-Anwendung</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="calendar">
+						<entry name="needs_term">
+							<local_schema short_desc="Kalender benötigt Terminal">
+								<longdesc>Legt fest, ob die voreingestellte Kalender-Anwendung ein Terminal benötigt, um ausgeführt zu werden</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Voreingestellter Kalender">
+								<longdesc>Voreingestellte Kalender-Anwendung</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="browser">
+						<entry name="nremote">
+							<local_schema short_desc="Kann der Browser fernbedient werden?">
+								<longdesc>Legt fest, ob sich der Vorgabe-Browser mittels »netscape remote« fernbedienen lässt.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="needs_term">
+							<local_schema short_desc="Browser benötigt Terminal">
+								<longdesc>Legt fest, ob der Vorgabe-Browser ein Terminal benötigt, um ausgeführt zu werden.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Vorgabe-Browser">
+								<longdesc>Für alle URLs voreingestellter Browser.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="at">
+						<dir name="visual">
+							<entry name="startup">
+								<local_schema short_desc="Bevorzugte Anwendung für visuelle Hilfstechnologie starten">
+									<longdesc>Bevorzugte Anwendung für visuelle Hilfstechnologie beim Anmelden starten.</longdesc>
+								</local_schema>
+							</entry>
+							<entry name="exec">
+								<local_schema short_desc="Bevorzugte Anwendung für visuelle Hilfstechnologie">
+									<longdesc>Die bevorzugte Anwendung für visuelle Hilfstechnologie, die beim Anmelden, in Menüs oder der Kommandozeile verwendet wird.</longdesc>
+								</local_schema>
+							</entry>
+						</dir>
+						<dir name="mobility">
+							<entry name="startup">
+								<local_schema short_desc="Bevorzugte Anwendung für mobile Hilfstechnologie starten">
+									<longdesc>Bevorzugte Anwendung für mobile Hilfstechnologie beim Anmelden starten.</longdesc>
+								</local_schema>
+							</entry>
+							<entry name="exec">
+								<local_schema short_desc="Bevorzugte Anwendung für mobile Hilfstechnologie">
+									<longdesc>Die bevorzugte Anwendung für mobile Hilfstechnologie, die beim Anmelden, in Menüs oder der Kommandozeile verwendet wird.</longdesc>
+								</local_schema>
+							</entry>
+						</dir>
+					</dir>
+				</dir>
+				<dir name="accessibility">
+					<dir name="startup">
+						<entry name="exec_ats">
+							<local_schema short_desc="Beim Anmelden zu startende Anwendungen, die Hilfstechnologie bereitstellen">
+								<longdesc>Liste der beim Anmelden am GNOME-Desktop zu startende Anwendungen, die Hilfstechnologie bereitstellen.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="keyboard">
+						<entry name="stickykeys_modifier_beep">
+							<local_schema>
+								<longdesc>Signalton erzeugen, wenn ein Modifikator gedrückt wird</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="stickykeys_two_key_off">
+							<local_schema>
+								<longdesc>Deaktivieren, wenn zwei Tasten gleichzeitig gedrückt werden</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="slowkeys_delay">
+							<local_schema short_desc="Minimales Intervall in Millisekunden">
+								<longdesc>Eine Taste nicht als gedrückt werten, wenn sie nicht @delay Millisekunden heruntergedrückt wurde.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_init_delay">
+							<local_schema short_desc="Verzögerung in Millisekunden zu Beginn">
+								<longdesc>Die Anzahl der Millisekunden, die abgewartet wird, bevor Maus-Bewegungstasten zu funktionieren beginnen.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_accel_time">
+							<local_schema short_desc="Wie lang die Beschleunigung in Millisekunden dauern soll">
+								<longdesc>Die Anzahl der Millisekunden von 0 bis zur maximalen Beschleunigung.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_max_speed">
+							<local_schema short_desc="Pixel pro Sekunde">
+								<longdesc>Die Anzahl der Pixel pro Sekunde, mit denen die Mausbewegung bei maximaler Geschwindigkeit erfolgt.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bouncekeys_delay">
+							<local_schema short_desc="Minimales Intervall in Millisekunden">
+								<longdesc>Mehrmaliges Drücken _derselben_ Taste innerhalb von @delay Millisekunden ignorieren.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+			</dir>
+		</dir>
+	</dir>
+</gconf>

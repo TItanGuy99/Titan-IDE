@@ -1,0 +1,913 @@
+#! /bin/bash
+#
+# cygcheck-dep, GNU General Public License
+# Copyright (c) 2013-2015 Mikhail Usenko <mikeus@nm.ru>
+#
+# https://github.com/mmaxs/cygcheck-dep
+#
+
+
+name="cygcheck-dep"
+version="2.1"
+
+tag_cygwin="cygwin/"
+tag_cygwinports="cygwinports/"
+tag_extra="extra/"
+
+####### version(), help() /*
+#######
+version()
+{
+  echo "$name, version $version"
+}
+
+help()
+{
+  version
+  cat << $
+Show information on dependencies for installed Cygwin packages.
+
+Usage:
+  $name [-c] [-s FILE | -S] [-p] [-l] [-i | -I] [-o] [-b] [-f]
+  $name [-c] [-s FILE | -S] [-p] [[-r] [-R] [-n] [-N] [PACKAGE...]]
+  $name [-h | --help]
+  $name [-V | --version]
+
+Options:
+ (Setup diagnostic)
+  -l              Check for installed packages that are not required by any
+                   other installed packages (that are "leaves" in the package
+                   dependency tree).
+  -i              Check for package "islands". "An island" is a group of
+                   interdependent packages that require each other (with
+                   circular or all-to-all relationships) but being taken
+                   all together not needed by any other installed packages.
+  -I              Show all groups of interdependent packages with circular
+                   or all-to-all relationships (including groups that are
+                   not "islands"). Supersedes -i.
+  -b              Show a list of installed packages that have broken
+                   or unknown dependencies. Implies -q.
+  -f              Show a list of installed packages that have phantom
+                   dependencies (nonpresent packages likely renamed/retired
+                   /etc.) specified in the setup.ini file. Implies -q.
+ (Package information)
+  -r PACKAGE...   Show packages that required by the PACKAGE(s).
+                   (This is the same list that specified in "requires:" line
+                   in the setup.ini file for the PACKAGE except for broken
+                   and phantom dependencies.)
+  -R PACKAGE...   Recursively resolve a list of packages that required by the
+                   PACKAGE(s).
+  -n PACKAGE...   Show packages that need the PACKAGE(s).
+  -N PACKAGE...   Recursively resolve a list of packages that need the
+                   PACKAGE(s).
+ (Cygwin Ports setup support)
+  -p              Turn on the Cygwin Ports collection support.
+  -o              List installed packages that have overridden versions in
+                   the Cygwin Ports collection. Implies -p, -q.
+ (Modifiers)
+  -c              Normally every time $name runs it downloads
+                   latest Cygwin package database file (setup.ini) with
+                   information on package dependencies from Cygwin ftp site.
+                   This option prevents from unnecessary downloads and
+                   forces to use the file cached from the previous download.
+  -s FILE         Normally $name shows information on the installed
+                   packages for the Cygwin installation you are working in
+                   (the list of installed packages is /etc/setup/installed.db).
+                   With this option you may specify a different source for
+                   a database FILE of installed packages (e.g. the file
+                   from another Cygwin installation on your system).
+  -S              Instead of checking through only installed packages use
+                   the list of all available packages from the setup.ini file
+                   from the Cygwin standard distribution (and from the Cygwin
+                   Ports collection if its support has been turned on).
+                   In other words it will be treated as if all the available
+                   packages from the package database are installed.
+                   Supersedes -s. (Be aware it may take long time with other
+                   options: more than 50 sec.)
+ (Other)
+  -x              Print package names prefixed with the tag of their
+                   distribution: '$tag_cygwin', '$tag_cygwinports', or '$tag_extra'.
+  -v              Be more verbose: turn on Wget's output (to stderr) while
+                   downloading setup.ini file.
+  -q              Be more quiet: suppress the warnings on phantom dependencies
+                   (nonpresent packages likely renamed/retired/etc.) specified
+                   in the setup.ini file and on broken/unknown dependencies.
+  -h, --help      Print this help to stdout and exit.
+  -V, --version   Print the program version to stdout and exit.
+$
+}
+####### */
+
+####### processing of the command-line options /*
+#######
+opt_print_src_tag=""
+opt_quiet_wget="-q"
+opt_suppress_unneeded_warns=""
+opt_use_cached=""
+opt_installed_db=""
+opt_treat_all_packages=""
+opt_show_leaves=""
+opt_show_islands=""
+opt_show_interdependent=""
+opt_show_broken=""
+opt_show_phantom=""
+opt_show_required=""
+opt_resolve_required=""
+opt_show_dependent=""
+opt_resolve_dependent=""
+opt_with_ports=""
+opt_show_overridden=""
+f_dependencies_be_necessary=""
+f_nonleaves_be_necessary=""
+while getopts "xvqcs:SpoliIbfrRnN-:hV" OPT; do
+  case "$OPT" in
+    x)  opt_print_src_tag="yes"
+        ;;
+    v)  opt_quiet_wget=""
+        ;;
+    q)  opt_suppress_unneeded_warns="yes"
+        ;;
+    c)  opt_use_cached="yes"
+        ;;
+    s)  opt_installed_db="$OPTARG"
+        ;;
+    S)  opt_treat_all_packages="yes"
+        ;;
+    p)  opt_with_ports="yes"
+        ;;
+    o)  opt_show_overridden="yes"
+        opt_with_ports="yes"
+        opt_suppress_unneeded_warns="yes"
+        ;;
+    l)  opt_show_leaves="yes"
+        f_dependencies_be_necessary="yes"
+        f_nonleaves_be_necessary="yes"
+        ;;
+    i)  opt_show_islands="yes"
+        f_dependencies_be_necessary="yes"
+        f_nonleaves_be_necessary="yes"
+        ;;
+    I)  opt_show_interdependent="yes"
+        f_dependencies_be_necessary="yes"
+        f_nonleaves_be_necessary="yes"
+        ;;
+    b)  opt_show_broken=yes
+        opt_suppress_unneeded_warns="yes"
+        f_dependencies_be_necessary="yes"
+        ;;
+    f)  opt_show_phantom="yes"
+        opt_suppress_unneeded_warns="yes"
+        f_dependencies_be_necessary="yes"
+        ;;
+    r)  opt_show_required="yes"
+        f_dependencies_be_necessary="yes"
+        ;;
+    R)  opt_resolve_required="yes"
+        f_dependencies_be_necessary="yes"
+        ;;
+    n)  opt_show_dependent="yes"
+        f_dependencies_be_necessary="yes"
+        ;;
+    N)  opt_resolve_dependent="yes"
+        f_dependencies_be_necessary="yes"
+        ;;
+    -)  case "$OPTARG" in
+             help)  help
+                    exit 0
+                    ;;
+          version)  version
+                    exit 0
+                    ;;
+                *)  echo >&2 "$0: illegal option -- -$OPTARG"
+                    exit 1;
+                    ;;
+        esac
+        ;;
+    h)  help
+        exit 0
+        ;;
+    V)  version
+        exit 0;
+        ;;
+   \?)  exit 1
+        ;;
+  esac
+done
+####### */
+
+####### checking for the cache directory /*
+#######
+cache_dir="/var/cache/$name"
+[ -d "$cache_dir" ] ||
+if ! mkdir -p "$cache_dir"; then
+  echo >&2 "$0: unable to create cache directory"
+  echo >&2 "$0: ($cache_dir)"
+  exit 2
+fi
+####### */
+
+####### checking for the installed.db file /*
+#######
+installed_db="${opt_installed_db:-/etc/setup/installed.db}"
+if ! [ "$opt_treat_all_packages" ]; then
+  if ! [ -r "$installed_db" ]; then
+    echo >&2 "$0: installed.db file is not exist or is not readable"
+    echo >&2 "$0: ($installed_db)"
+    exit 3
+  fi
+fi
+####### */
+
+####### getting the target architecture /*
+#######
+  mach="${MACHTYPE%%-*}"
+# mach="$(uname -m)"
+[ "$mach" = "x86_64" ] || mach="x86"
+####### */
+
+####### downloading the setup.ini files /*
+# cygwin /*
+cw_setup_ini="$cache_dir/cygwin/$mach/setup.ini"
+if ! [ "$opt_use_cached" ]; then
+  cw_setup_bz2_url="ftp://sourceware.org/pub/cygwin/$mach/setup.bz2"
+  if ! wget >&2 $opt_quiet_wget -r -nH --cut-dirs 1 -P "$cache_dir" "$cw_setup_bz2_url"; then
+    echo >&2 "$0: Cygwin standard distribution:"
+    echo >&2 "$0: failed to download setup.ini"
+    echo >&2 "$0: check your internet connection"
+    echo >&2 "$0: or try -c option to use cached file from previous download"
+    exit 4
+  fi
+  cw_setup_bz2="$cache_dir/cygwin/$mach/setup.bz2"
+  if ! bzip2 -t "$cw_setup_bz2"; then
+    echo >&2 "$0: Cygwin standard distribution:"
+    echo >&2 "$0: failed to check integrity of downloaded setup.ini"
+    echo >&2 "$0: ($cw_setup_bz2)"
+    echo >&2 "$0: you may try -c option to use cached file from previous download"
+    exit 5
+  fi
+  if ! bzcat "$cw_setup_bz2" > "$cw_setup_ini"; then
+    echo >&2 "$0: Cygwin standard distribution:"
+    echo >&2 "$0: failed to decompress downloaded setup.ini"
+    echo >&2 "$0: ($cw_setup_bz2 -> $cw_setup_ini)"
+    exit 6
+  fi
+fi
+if ! [ -r "$cw_setup_ini" ]; then
+  echo >&2 "$0: Cygwin standard distribution:"
+  echo >&2 "$0: setup.ini file is not exist or is not readable"
+  echo >&2 "$0: ($cw_setup_ini)"
+  [ "$opt_use_cached" ] &&
+  echo >&2 "$0: try to run without -c option to download the file"
+  exit 7
+fi
+# */
+# cigwinports /*
+if [ "$opt_with_ports" ]; then
+  cwp_setup_ini="$cache_dir/cygwinports/$mach/setup.ini"
+  if ! [ "$opt_use_cached" ]; then
+    cwp_setup_bz2_url="ftp://sourceware.org/pub/cygwinports/$mach/setup.bz2"
+    if ! wget >&2 $opt_quiet_wget -r -nH --cut-dirs 1 -P "$cache_dir" "$cwp_setup_bz2_url"; then
+      echo >&2 "$0: Cygwin Ports collection:"
+      echo >&2 "$0: failed to download setup.ini"
+      echo >&2 "$0: check your internet connection"
+      echo >&2 "$0: or try -c option to use cached file from previous download"
+      exit 8
+    fi
+    cwp_setup_bz2="$cache_dir/cygwinports/$mach/setup.bz2"
+    if ! bzip2 -t "$cwp_setup_bz2"; then
+      echo >&2 "$0: Cygwin Ports collection:"
+      echo >&2 "$0: failed to check integrity of downloaded setup.ini"
+      echo >&2 "$0: ($cwp_setup_bz2)"
+      echo >&2 "$0: you may try -c option to use cached file from previous download"
+      exit 9
+    fi
+    if ! bzcat "$cwp_setup_bz2" > "$cwp_setup_ini"; then
+      echo >&2 "$0: Cygwin Ports collection:"
+      echo >&2 "$0: failed to decompress downloaded setup.ini"
+      echo >&2 "$0: ($cwp_setup_bz2 -> $cwp_setup_ini)"
+      exit 10
+    fi
+  fi
+  if ! [ -r "$cwp_setup_ini" ]; then
+    echo >&2 "$0: Cygwin Ports collection:"
+    echo >&2 "$0: setup.ini file is not exist or is not readable"
+    echo >&2 "$0: ($cwp_setup_ini)"
+    [ "$opt_use_cached" ] &&
+    echo >&2 "$0: try to run without -c option to download the file"
+    exit 11
+  fi
+fi
+# */
+####### */
+
+####### declaring global variables /*
+#######
+declare L P R V F k n kk nn pp
+declare -i i j ports0 extras0
+
+# ${pkg_name[]} - an array of the all available package names, consists of the following three intervals:
+#   [ 0 .. ports0 ) - cygwin distribution packages
+#   [ ports0 .. extras0 ) - cygwin ports collection packages
+#   [ extras0 ... ) - extra packages (installed packages not belonging to above distributions)
+#   the index of a package name in this array defines an ID of the package
+
+# ${pkg_index[]}, ${pkg_index_override[]} - associative arrays { name -> ID }, the inverse of the ${pkg_name[]}
+# to fast determine the package ID by its name
+# if there is another version of the package in the cygwin ports collection, the ${pkg_index_override[]} holds its second ID
+
+# ${pkg_version[]} - an array of the versions of the available packages, it has the same structure as ${pkg_name[]}
+# it is used in the case of opt_with_ports="yes" to determine which distribution the installed package is from
+
+declare -a pkg_name
+declare -A pkg_index pkg_index_override
+declare -a pkg_version
+
+
+# ${pkg_drequisites[]} - an array each element of which is a list of package IDs that are directly required by
+#                        the package with an ID = element index
+# ${pkg_ddependants[]} - an array each element of which is a list of package IDs that directly depend on
+#                        the package with an ID = element index
+# ${pkg_rrequisites[]} - an array each element of which is a full recursively resolved list of package IDs
+#                        that are directly and indirectly required by the package with an ID = element index
+# ${pkg_rdependants[]} - an array each element of which is a full recursively resolved list of package IDs
+#                        that directly depend on the package with an ID = element index
+
+declare -a pkg_drequisites pkg_ddependants
+declare -a pkg_rrequisites pkg_rdependants
+
+# pkg_installed[index] = index
+declare -a pkg_installed pkg_version_installed
+declare -a pkg_drequisites_discarded pkg_drequisites_phantom
+declare extra_pkgs nonleaf_pkgs
+
+declare chances_for_misleading warnings
+####### */
+
+####### reading off the setup.ini files; populating pkg_{name,index,version}, pkg_drequisites (preparatory) variables /*
+#######
+# $L - the input line
+# $i - the number of the packages having been processed
+# $j - the current package ID
+L=""; let i=0; let j=0
+while IFS='' read -r L || [ "$L" ]; do
+  case "$L" in
+            @\ *) j=$i; let ++i
+                  P="${L#@ }"
+                  pkg_name[$j]="$P"
+                  pkg_index["$P"]=$j
+                  [ "$opt_with_ports" ] && pkg_version[$j]=""
+                  pkg_drequisites[$j]=""
+                  ;;
+    requires:\ *) R="${L#requires: }"
+                  pkg_drequisites[$j]="$R"
+                  ;;
+     version:\ *) V="${L#version: }"
+                  pkg_version[$j]="$V"
+                  ;;
+  esac
+done < <(
+          if [ "$opt_with_ports" ]; then
+            sed -n '/^@ /p; /^requires: /p; /^version: /p' "$cw_setup_ini"
+          else
+            sed -n '/^@ /p; /^requires: /p' "$cw_setup_ini"
+          fi
+        )
+
+ports0=${#pkg_name[@]}
+
+if [ "$opt_with_ports" ]; then
+  L=""; let i=$ports0; let j=$ports0
+  while IFS='' read -r L || [ "$L" ]; do
+    case "$L" in
+              @\ *) j=$i; let ++i
+                    P="${L#@ }"
+                    pkg_name[$j]="$P"
+                    k="${pkg_index[$P]}"
+                    [ "$k" ] && pkg_index_override["$P"]=$j || pkg_index["$P"]=$j
+                    pkg_version[$j]=""
+                    pkg_drequisites[$j]=""
+                    ;;
+      requires:\ *) R="${L#requires: }"
+                    pkg_drequisites[$j]="$R"
+                    ;;
+       version:\ *) V="${L#version: }"
+                    pkg_version[$j]="$V"
+                    ;;
+    esac
+  done < <(sed -n '/^@ /p; /^requires: /p; /^version: /p' "$cwp_setup_ini")
+fi
+
+extras0=${#pkg_name[@]}
+####### */
+
+####### reading off the installed.db file; adding to pkg_{name,index,drequisites} for extra packages; populating {pkg,pkg_version}_installed variables /*
+#######
+if [ "$opt_treat_all_packages" ]; then
+  # treat all available packages being installed
+  pkg_installed=(${!pkg_name[@]})
+  
+  let j=${#pkg_installed[@]}-1
+  if [ $j -ne ${pkg_installed[$j]} ]; then
+    echo >&2 "$0: internal error (12)"
+    exit 12
+  fi
+
+  # if ports are used then prefer overridden versions of the packages
+  [ "$opt_with_ports" ] && for P in "${!pkg_index_override[@]}"; do unset -v pkg_installed\[${pkg_index["$P"]}\]; done
+else
+  P=""; F=""; L=""
+  i=$extras0
+  while read -r P F L || [ "$P" ]; do
+    if [ "$opt_with_ports" ]; then
+      psfx="${F#$P-}"; pver="${psfx%-[0-9]*}"; prel="${psfx#$pver-}"; prel="${prel%%.*}"
+      V="$pver-$prel"
+    fi
+
+    k="${pkg_index[$P]}"
+    if ! [ "$k" ]; then  # extra package
+      pkg_name[$i]="$P"
+      pkg_index["$P"]=$i
+      # [ "$opt_with_ports" ] && pkg_version[$i]="$V"
+      pkg_drequisites[$i]=""
+
+      pkg_installed[$i]=$i
+      # [ "$opt_with_ports" ] && pkg_version_installed[$i]="$V"
+      let ++i
+      continue
+    fi
+
+    [ "$opt_with_ports" ] && n="${pkg_index_override[$P]}" || n=""
+    if [ "$n" ]; then  # overridden package
+      if [ "$V" == "${pkg_version[$k]}" ] && [ "${pkg_version[$k]}" = "${pkg_version[$n]}" ]; then
+        pkg_drequisites[$k]="$(tr -s ' ' '\n' <<<"${pkg_drequisites[$k]}" | sort -u | tr '\n' ' ')"
+        pkg_drequisites[$n]="$(tr -s ' ' '\n' <<<"${pkg_drequisites[$n]}" | sort -u | tr '\n' ' ')"
+        if [ "${pkg_drequisites[$k]}" != "${pkg_drequisites[$n]}" ]; then
+          if [ "$f_dependencies_be_necessary" ]; then
+            echo "$0: WARNING: ambiguous installation source:"
+            echo "$0:   unable to determine the installation source for"
+            echo "$0:   the package '$P' which has the same versions"
+            echo "$0:   in the Cygwin standard distribution and in the"
+            echo "$0:   Cygwin Ports collection and the installed one;"
+            echo "$0: $P: version installed=${V:-?} cygwin=${pkg_version[$k]:-#N/A} cygwinports=${pkg_version[$n]:-#N/A}"
+            echo "$0:   lists of the package dependencies are different"
+            echo "$0:   in the both sources:"
+            echo "$0: $tag_cygwin$P: requires ( ${pkg_drequisites[$k]})"
+            echo "$0: $tag_cygwinports$P: requires ( ${pkg_drequisites[$n]})"
+            echo "$0:   the version from the Cygwin Ports collection"
+            echo "$0:   will be preferred"
+            chances_for_misleading="yes"
+          fi
+        fi
+        j=$n
+      else
+        L="$(sort -V <<<"$V a"$'\n'"${pkg_version[$k]} c"$'\n'"${pkg_version[$n]} p" | sed -n 's/^.* //; H; ${ g; s/\n//gp; }')"
+        let j=-1
+        case "$L" in
+          *ac*) j=$k;;
+          *ap*) j=$n;;
+            *a) L="${L: -2:1}"
+                case "$L" in
+                  c)  j=$k;;
+                  p)  j=$n;;
+                esac
+                if [ "$f_dependencies_be_necessary" ]; then
+                  echo       "$0: WARNING: unknown installed package version:"
+                  echo       "$0:   unable to determine the installation source"
+                  echo       "$0:   for the package '$P' which has overridden"
+                  echo       "$0:   versions in the Cygwin standard distribution"
+                  echo       "$0:   and in the Cygwin Ports collection and the"
+                  echo       "$0:   installed version greater than in the both"
+                  echo       "$0:   installation sources;"
+                  echo       "$0: $P: version installed=${V:-?} cygwin=${pkg_version[$k]:-#N/A} cygwinports=${pkg_version[$n]:-#N/A}"
+                  echo       "$0:   dependencies for this package will be taken"
+                  echo       "$0:   from the source with the nearest package version"
+                  echo -n    "$0:   number: "
+                  case "$L" in
+                    c)  echo "Cygwin standard distribution";;
+                    p)  echo "Cygwin Ports collection (preferred)";;
+                  esac
+                  chances_for_misleading="yes"
+                fi
+                ;;
+        esac
+      fi
+      pkg_installed[$j]=$j
+      pkg_version_installed[$j]="$V"
+    else
+      pkg_installed[$k]=$k
+      # [ "$opt_with_ports" ] && pkg_version_installed[$k]="$V"
+    fi
+  done < <(sed '1d' "$installed_db")
+fi
+####### */
+
+####### nout() /*
+#######
+nout()
+{ # function to print package name by its ID; the name is optionally prefixed by a distribution tag and markers
+  local pp
+
+  if [ $# -gt 1 ]; then
+    local k
+    local -a t
+
+    # fast sorting and deduplicating
+    for k; do [ "$k" ] && t["$k"]="$k"; done
+
+    for k in ${!t[@]}; do
+      if [ "$opt_print_src_tag" ]; then
+        [ $k -lt $ports0 ] && pp="$tag_cygwin" || { [ $k -lt $extras0 ] && pp="$tag_cygwinports" || pp="$tag_extra"; }
+      else
+        pp=""
+      fi
+      [ "$k" -ge $extras0 ] && pp="${pp}?"
+      [ "${pkg_drequisites_discarded[$k]}" ] && pp="${pp}*"
+      #[ "${pkg_drequisites_phantom[$k]}" ] && pp="${pp}!"
+      echo -n " ${pp}${pkg_name[$k]}"
+    done
+  else
+    [ "$1" ] || return
+
+    if [ "$opt_print_src_tag" ]; then
+      [ "$1" -lt $ports0 ] && pp="$tag_cygwin" || { [ "$1" -lt $extras0 ] && pp="$tag_cygwinports" || pp="$tag_extra"; }
+    else
+      pp=""
+    fi
+    [ "$1" -ge $extras0 ] && pp="${pp}?"
+    [ "${pkg_drequisites_discarded[$1]}" ] && pp="${pp}*"
+    #[ "${pkg_drequisites_phantom[$1]}" ] && pp="${pp}!"
+    echo -n " ${pp}${pkg_name[$1]}"
+  fi
+}
+####### */
+
+####### resolving necessary pkg_drequisites and nonleaf_pkgs /*
+if [ "$f_dependencies_be_necessary" ]; then
+  # for each installed package check and substitute
+  # package names with the appropriate package IDs in the list of the package direct dependencies
+  for i in ${!pkg_name[@]}; do
+    # skip the package if it is not installed; also clear its list of directly required packages
+    if ! [ "${pkg_installed[$i]}" ]; then
+      unset -v pkg_drequisites\[$i\]
+      continue
+    fi
+
+    R="${pkg_drequisites[$i]}"
+    pkg_drequisites[$i]=""
+
+    # $R - the list of names
+    # $L - the resulting list of IDs instead of names
+    # $F - phantom dependencies
+    # $V - broken dependencies
+    L=""; F=""; V=""
+    for P in $R; do
+      # get the package ID ($k) by its name ($P)
+      k="${pkg_index[$P]}"
+      # if failed then this is a phantom name
+      if ! [ "$k" ]; then
+        F="$F $P"
+        continue
+      fi
+
+      # $k must be a package ID that is installed; check for this;
+      kk=$k; nn=$k
+
+      [ "$opt_with_ports" ] && n="${pkg_index_override[$P]}" || n=""
+      # there may be an overridden package from the ports; check for this an for which of the IDs is installed
+      if [ "$n" ]; then
+        nn=$n
+        k=${pkg_installed[$k]}
+        n=${pkg_installed[$n]}
+        if [ "$k" ] && [ "$n" ]; then
+          echo >&2 "$0: internal error (13)"
+          exit 13
+        fi
+        if [ "$opt_treat_all_packages" ] && { [ ! "$k" ] && [ ! "$n" ]; }; then
+          echo >&2 "$0: internal error (14)"
+          exit 14
+        fi
+        # OK, there is either $k or $n; put the result into $k
+        [ "$n" ] && k=$n
+      else
+        k=${pkg_installed[$k]}
+      fi
+
+      # if the package is installed ($k is non empty) add it to the resulting list ($L)
+      # or else put it into broken dependency list ($V);
+      # in the latter case if an overridden package from the ports is also available use
+      # the ID from the same distribution as the package from which dependency list it is from
+      [ "$k" ] && L="$L"$'\n'$k || { [ $i -lt $ports0 ] && V="$V $kk" || V="$V $nn"; }
+    done
+
+    if [ "$F" ]; then
+      pkg_drequisites_phantom[$i]="$F"
+      if [ ! "$opt_suppress_unneeded_warns" ] && [ ! "$opt_show_phantom" ]; then
+        [ $i -lt $ports0 ] && pp="$tag_cygwin" || { [ $i -lt $extras0 ] && pp="$tag_cygwinports" || pp="$tag_extra"; }
+        echo "$0: WARNING: phantom dependencies:"
+        echo "$0:   installed package '${pp}${pkg_name[$i]}'"
+        echo "$0:   requires the following phantom dependencies"
+        echo "$0:   (nonpresent packages likely renamed/retired/etc.)"
+        echo "$0: ($F )"
+        warnings="yes"
+      fi
+    fi
+
+    pkg_drequisites[$i]="$L"
+
+    if [ "$V" ]; then
+      pkg_drequisites_discarded[$i]="$V"
+      if [ ! "$opt_suppress_unneeded_warns" ] && [ ! "$opt_show_broken" ]; then
+        [ $i -lt $ports0 ] && pp="$tag_cygwin" || { [ $i -lt $extras0 ] && pp="$tag_cygwinports" || pp="$tag_extra"; }
+        echo    "$0: WARNING: broken dependencies:"
+        echo    "$0:   installed package '${pp}${pkg_name[$i]}'"
+        echo    "$0:   depends on the following required packages that are"
+        echo    "$0:   not installed; these dependencies will be discarded"
+        echo -n "$0: ("; nout $V; echo " )"
+        chances_for_misleading="yes"
+      fi
+    fi
+  done
+fi
+
+if [ "$f_nonleaves_be_necessary" ]; then
+  # build the list of nonleaves packages sorted from more often required packages to less ones
+  nonleaf_pkgs="$(IFS=$'\n'; sort -n <<<"${pkg_drequisites[*]}" | sed '/^$/d' | uniq -c | sort -nr | sed 's/^\s\+[0-9]\+\s\+//')"
+fi
+####### */
+
+####### printing out the warning about extra packages /*
+#######
+if ! [ "$opt_treat_all_packages" ]; then
+  extra_pkgs="${pkg_installed[*]:$extras0}"
+  if [ "$extra_pkgs" ] && [ ! "$opt_suppress_unneeded_warns" ]; then
+    echo    "$0: WARNING: extra packages with unknown dependencies:"
+    echo    "$0:   the following installed packages are not"
+    if [ "$opt_with_ports" ]; then
+      echo  "$0:   present in the Cygwin standard distribution"
+      echo  "$0:   or in the Cygwin Ports collection;"
+    else
+      echo  "$0:   present in the Cygwin standard distribution;"
+    fi
+    echo    "$0:   these packages will be prefixed with a question mark (?)"
+    echo -n "$0: ("
+    for i in $extra_pkgs; do echo -n " ${pkg_name[$i]}"; done
+    echo " )"
+    [ "$f_dependencies_be_necessary" ] && chances_for_misleading="yes" || warnings="yes"
+  fi
+fi
+####### */
+
+####### printing out the warning about misleading results and/or '\n' if there are warnings printed out /*
+#######
+if [ "$chances_for_misleading" ]; then
+      echo    "$0: WARNING: possible misleading results:"
+      echo    "$0:   due to reasons of the above warning(s) the results"
+      echo -n "$0:   of dependency resolution may appear to be misleading"
+    if [ ${#pkg_drequisites_discarded[@]} -gt 0 ]; then
+      echo ";"
+      echo    "$0:   packages with discarded broken dependencies"
+      echo    "$0:   will be prefixed with an asterisk (*)"
+    else
+      echo
+    fi
+fi
+{ [ "$chances_for_misleading" ] || [ "$warnings" ]; } && echo
+####### */
+
+####### processing for opt_show_overridden /*
+#######
+if [ "$opt_show_overridden" ]; then
+  for P in "${!pkg_index_override[@]}"; do
+    k=${pkg_index["$P"]}
+    n=${pkg_index_override["$P"]}
+    [ "${pkg_installed[$k]}" ] && echo " $P: version installed=${pkg_version_installed[$k]:-?} cygwin=${pkg_version[$k]:-#N/A} cygwinports=${pkg_version[$n]:-#N/A}"
+    [ "${pkg_installed[$n]}" ] && echo " $P: version installed=${pkg_version_installed[$n]:-?} cygwin=${pkg_version[$k]:-#N/A} cygwinports=${pkg_version[$n]:-#N/A}"
+  done | sort
+fi
+####### */
+
+####### processing for opt_show_phantom /*
+if [ "$opt_show_phantom" ]; then
+  for i in ${!pkg_drequisites_phantom[@]}; do
+    nout $i; echo ": requires the phantom packages (${pkg_drequisites_phantom[$i]} )"
+  done
+fi
+####### */
+
+####### processing for opt_show_broken /*
+if [ "$opt_show_broken" ]; then
+  for i in ${!pkg_drequisites_discarded[@]}; do
+    nout $i; echo -n ": broken required dependencies ("; nout ${pkg_drequisites_discarded[$i]}; echo " )"
+  done
+  for i in $extra_pkgs; do
+    nout $i; echo ": extra package with unknown dependencies"
+  done
+fi
+####### */
+
+####### processing for opt_show_leaves /*
+#######
+if [ "$opt_show_leaves" ]; then
+  ( # this is a subshell
+    for i in $nonleaf_pkgs; do unset -v pkg_installed\[$i\]; done
+    for j in ${!pkg_installed[@]}; do nout $j; echo; done
+  )
+fi
+####### */
+
+####### rrequisites_add(), rrequisites_resolve() /*
+#######
+rrequisites_add()
+{
+  local -i t="$1"
+  local p k
+  local -a r
+
+  # fast sorting and deduplicating
+  for p in ${pkg_rrequisites[$1]}; do r["$p"]="$p"; done
+
+  #while shift; [ $# -gt 0 ]; do r["$1"]="$1"; done
+  shift; for k; do r["$k"]="$k"; done
+
+  pkg_rrequisites[$t]="${!r[*]}"
+}
+
+rrequisites_resolve()
+{
+  # using the array as an internal data structure helps to keep the list by itself sorted and w/o duplicated records
+  local -a pp
+
+  rr()
+  {
+    local p e
+
+    for p in ${pkg_drequisites["$1"]}; do
+      # if the ID ($p) is already in the list, skip it
+      if ! test "${pp[$p]}"; then
+        pp["$p"]="$p"
+        # if ${pkg_rrequisites[$p]} is set (i.e. already resolved, which also may be an empty value), take it
+        if [ "${pkg_rrequisites[$p]+set}" ]; then
+          for e in ${pkg_rrequisites[$p]}; do pp["$e"]="$e"; done
+        else
+          rr "$p"
+        fi
+      fi
+    done
+  }
+
+  if ! test "${pkg_rrequisites[$1]+set}"; then
+    rr "$1"
+    pkg_rrequisites["$1"]="${!pp[*]}"
+  fi
+}
+####### */
+
+####### processing for opt_show_islands, opt_show_interdependent /*
+#######
+if [ "$opt_show_islands" ] || [ "$opt_show_interdependent" ]; then
+  # $nonleaf packages are most frequently required packages,
+  # so at first resolve their $pkg_rrequisites to speed up resolving
+  # $pkg_rrequisites for the remain packages
+  for i in $nonleaf_pkgs; do
+    rrequisites_resolve $i
+  done
+  for i in ${!pkg_installed[@]}; do
+    rrequisites_resolve $i
+  done
+
+  L=""
+  while IFS='' read -r -d $'\x00' L || [ "$L" ]; do
+    if [ "$opt_show_islands" ]; then
+      # finding out if an interdependent group ($L) is an "island"
+      for P in $L; do
+        # skip the group ($L) if it has a package ($P) that required by the package ($i) not belonging to the group ($L)
+        # so the interdependent group ($L) is not a leaf (is not an "island")
+        for i in ${!pkg_installed[@]}; do
+          [[ "${pkg_drequisites[$i]}" =~ (^|$'\n')"$P"($'\n'|$) ]] && { [[ "$L" =~ (^|$'\n')$i($'\n'|$) ]] || continue 3; }
+        done
+      done
+    fi
+    echo -n "("; nout $L; echo " )"
+  done <\
+  <( # this is a subshell
+     # finding out groups of interdependent packages;
+     # packages building up an interdependent group have the same $pkg_rrequisites lists
+     # and themselves belongs to their own $pkg_rrequisites list;
+     # adding package ID to its $pkg_rrequisites list helps to filter out packages that have the same
+     # pkg_rrequisites list as packages in an interdependent group but that are not part of the group
+    for i in ${!pkg_installed[@]}; do
+      rrequisites_add $i $i
+      echo "$i ${pkg_rrequisites[$i]}"
+      # sort -k 2  # skip the leading package ID, sort by the $pkg_rrequisites list
+      # uniq -f 1 --all-repeated=separate  # skip the leading package ID, separate duplicates by a blank line
+      # sed 's/ .*$//; s/^$/\x00/'  # leave only the package IDs, treat blank lines as a group null-terminator
+    done | sort -k 2 | uniq -f 1 --all-repeated=separate | sed 's/ .*$//; s/^$/\x00/'
+   )
+fi
+####### */
+
+####### ddependants_prep(), rdependants_resolve() /*
+#######
+ddependants_prep()
+{ # function to build the '\n'-separated list of the packages (${pkg_ddependants[$1]})
+  # that directly require (i.e. directly depend on) the package ($1)
+  test "${pkg_ddependants[$1]+set}" && return
+
+  local d
+
+  pkg_ddependants["$1"]=""
+  for d in ${!pkg_installed[@]}; do
+    [[ "${pkg_drequisites[$d]}" =~ (^|$'\n')"$1"($'\n'|$) ]] && pkg_ddependants["$1"]="${pkg_ddependants[$1]}"$'\n'$d
+  done
+}
+
+rdependants_resolve()
+{
+  # using the array as an internal data structure helps to get the resulting list automatically sorted and deduplicated
+  local -a pp
+
+  rr()
+  {
+    local p e
+
+    ddependants_prep "$1"
+    for p in ${pkg_ddependants["$1"]}; do
+      # if the ID ($p) is already in the list, do not process it
+      if ! test "${pp[$p]}"; then
+        pp["$p"]="$p"
+        # if ${pkg_rdependants[$p]} is set (i.e. already resolved, which also may be an empty value), take it
+        if [ "${pkg_rdependants[$p]+set}" ]; then
+          for e in ${pkg_rdependants[$p]}; do pp["$e"]="$e"; done
+        else
+          rr "$p"
+        fi
+      fi
+    done
+  }
+
+  if ! test "${pkg_rdependants[$1]+set}"; then
+    rr "$1"
+    pkg_rdependants["$1"]="${!pp[*]}"
+  fi
+}
+####### */
+
+####### processing for opt_show_required, opt_resolve_required, opt_show_dependent, opt_resolve_dependent /*
+#######
+if [ "$opt_show_required" ] || [ "$opt_resolve_required" ] || [ "$opt_show_dependent" ] || [ "$opt_resolve_dependent" ]; then
+  for P in "${@:$OPTIND}"; do
+    # get the package ID ($k) by its name ($P)
+    k=${pkg_index["$P"]}
+    if [ "$k" ]; then
+      [ "$opt_with_ports" ] && n="${pkg_index_override[$P]}" || n=""
+      # it may be overridden by the package from the ports; which of the IDs is installed?
+      if [ "$n" ]; then
+        k=${pkg_installed[$k]}
+        n=${pkg_installed[$n]}
+        if [ "$k" ] && [ "$n" ]; then
+          echo >&2 "$0: internal error (13)"
+          exit 13
+        fi
+        if [ "$opt_treat_all_packages" ] && { [ ! "$k" ] && [ ! "$n" ]; }; then
+          echo >&2 "$0: internal error (14)"
+          exit 14
+        fi
+        # OK, there is either $k or $n; put the result into $k
+        [ "$n" ] && k=$n
+      else
+        k=${pkg_installed[$k]}
+      fi
+      if ! [ "$k" ]; then
+        echo " $P: package is not installed"
+        continue
+      fi
+    else
+      echo " $P: package does not exist"
+      continue
+    fi
+
+    if [ "$opt_show_required" ]; then
+      nout $k; echo -n ": requires ("; nout ${pkg_drequisites[$k]}; echo " )"
+    fi
+
+    if [ "$opt_resolve_required" ]; then
+      rrequisites_resolve $k
+      nout $k; echo -n ": recursively requires ("; nout ${pkg_rrequisites[$k]}; echo " )"
+    fi
+
+    if [ "$opt_show_dependent" ]; then
+      ddependants_prep $k
+      nout $k; echo -n ": is needed for ("; nout ${pkg_ddependants[$k]}; echo " )"
+    fi
+
+    if [ "$opt_resolve_dependent" ]; then
+      rdependants_resolve $k
+      nout $k; echo -n ": is recursively needed for ("; nout ${pkg_rdependants[$k]}; echo " )"
+    fi
+  done
+fi
+####### */
+
+
+# vim: et ts=2 sw=2 sts=0
+# vim: fdc=4 fdl=0 fdm=marker fmr=/*,*/

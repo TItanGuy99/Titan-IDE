@@ -1,0 +1,215 @@
+#! /usr/bin/env bash
+
+# this is a script around make which basicly checks
+# if it's in srcdir or in builddir and changes to 
+# the right directory for calling /usr/bin/make
+# (C) Stephan Kulow
+
+# Variable replacement code by Allen Winter <allen.winter@kdab.com>
+# Copyright (c) 2011,2013 Klarälvdalens Datakonsult AB, a KDAB Group company <info@kdab.net>
+
+# You may need to set OBJ_REPLACEMENT variable to get it to work.
+# In the variable use the sed syntax to switch directories, for example
+# export OBJ_REPLACEMENT="s:/home/zack/cvs/kde:/home/zack/build:"
+# will assure that the builds are performed under /home/zack/build
+# directory, when the cvs is held under /home/zack/cvs/kde.
+
+# Variables:
+#  %BRANCH% with the name of the Git or SVN branch you are in (as applicable)
+#  %GITBRANCH% with the name of the Git branch you are in (empty if not in a Git branch)
+#  %SVNBRANCH% with the name of the SVN branch you are in (empty if not in an SVN branch)
+#  %CC% with the basename of your C compiler set in $CC (gcc if empty)
+#  %CXX% with the basename of your C++ compiler set in $CXX (g++ if empty)
+#  %ARCH% with the machine architecture (i.e. 'uname -m')
+#  %OS% with the operating system name (i.e. 'uname -o'), in lower-case without "GNU"
+
+findup() {
+  parg="$1"
+  _hit=""
+  spwd="$PWD"
+  if test -z "$parg"; then return 1; fi
+
+  while ! test -e "$parg"; do
+   cd ..
+   if test "$PWD" = "/"; then
+     cd "$spwd"
+     return 1
+   fi
+  done
+  _hit="$PWD/$parg"
+  cd "$spwd"
+}
+
+gitbranch() {
+  findup .git
+  if test -n "$_hit"; then
+    _gitbranch=`sed -e 's,.*/,,' "$_hit/HEAD"`
+  fi
+}
+
+svnbranch() {
+  findup .svn
+  if test -n "$_hit"; then
+    _root=`svn info . | grep "Repository Root:" | awk '{print $3}'`
+    _baseurl=`svn info . | grep '^URL:' | awk '{print $2}' | sed -e s,$_root/,,`
+    _svnbranch=`echo "$_baseurl" | awk -F/ '{print $1}'`
+  fi
+}
+
+branch() {
+  gitbranch
+  if test -z "$_gitbranch"; then
+    svnbranch
+    if test -z "$_svnbranch"; then
+      _branch=""
+    else
+      _branch=$_svnbranch
+    fi
+  else
+    _branch=$_gitbranch
+  fi
+}
+
+file=Makefile
+dir=.
+args=()
+
+_branch=""
+_gitbranch=""
+_svnbranch=""
+
+# We don't support non-GNU Make.
+# Try the name that GNU Make has on non-GNU platforms first
+GMAKE="`command -v gmake`"
+GMAKE="${GMAKE:-`command -v make`}"
+
+while test $# -gt 0 ; do
+   case "${1}" in
+      -f)
+	shift
+	file="${1}" 
+	shift 
+	args=("${args[@]}" -f $file)
+	;;
+      -C)
+	shift
+	dir="${1}"
+	shift ;;
+      -v)
+        shift
+        exec $GMAKE "${args[@]}" -v $@
+        ;;
+      *)
+	args=("${args[@]}" "$1")
+	shift 
+	;;
+    esac
+done
+
+cd "$dir"
+dir=.
+cwd=$PWD
+
+# No CMakeList and no Makefile (and no .pro file either)? Maybe we need to go up then.
+while test ! -f CMakeLists.txt && test ! -f Makefile; do
+    if test "`ls -1 *.pro 2>/dev/null`" && test -n "`ls -1 ../*.pro 2>/dev/null`"; then
+        break;
+    fi
+    dir="$dir/`basename \"$PWD\"`"
+    cd ..
+    if test X"$PWD" = X"/"; then
+        cd -- "$cwd"
+        break
+    fi
+done
+
+if test ! -f "$file"; then
+  branch
+  if test -n "$CC"; then
+    tmp=`echo $CC | awk '{print $1}'`
+    _cc="`basename \"$tmp\"`"
+  else
+    _cc="gcc"
+  fi
+  if test -n "$CXX"; then
+    tmp="`echo \"$CXX\" | awk '{print $1}'`"
+    _cxx="`basename \"$tmp\"`"
+  else
+    _cxx="g++"
+  fi
+  _arch="`uname -m`"
+  _os="`(uname -o 2>/dev/null || uname -s) | tr '[A-Z]' '[a-z]' | sed -e s+gnu/++`"
+
+  if test -n "$OBJ_SUBDIR"; then
+    OBJ_SUBDIR="`echo \"$OBJ_SUBDIR\" | \
+                sed -e s+%BRANCH%+\"$_branch\"+g | \
+                sed -e s+%GITBRANCH%+\"$_gitbranch\"+g | \
+                sed -e s+%SVNBRANCH%+\"$_svnbranch\"+g | \
+                sed -e s,%CC%,\"$_cc\",g | \
+                sed -e s,%CXX%,\"$_cxx\",g | \
+                sed -e s,%ARCH%,\"$_arch\",g | \
+                sed -e s,%OS%,\"$_os\",g`"
+    dir=$PWD
+    subdir=.
+    while test ! -f "$dir/$OBJ_SUBDIR/$file"; do
+       subdir="`basename \"$dir\"`/$subdir"
+       dir="`dirname \"$dir\"`"
+       if test X"$dir" = X"/"; then
+         # the case that someone puts the compile dir in /
+         # is very unlikely, so we better skip here ;)
+         echo "can't find $OBJ_SUBDIR above current dir"
+         exit 1
+       fi
+    done
+    cd -- "$dir/$OBJ_SUBDIR/$subdir"
+  else
+    if test -n "$OBJ_REPLACEMENT"; then
+      OBJ_REPLACEMENT="`echo \"$OBJ_REPLACEMENT\" | \
+                sed -e s+%BRANCH%+\"$_branch\"+g | \
+                sed -e s+%GITBRANCH%+\"$_gitbranch\"+g | \
+                sed -e s+%SVNBRANCH%+\"$_svnbranch\"+g | \
+                sed -e s,%CC%,\"$_cc\",g | \
+                sed -e s,%CXX%,\"$_cxx\",g | \
+                sed -e s,%ARCH%,\"$_arch\",g | \
+                sed -e s,%OS%,\"$_os\",g`"
+      pwd="`echo $PWD | sed -e \"$OBJ_REPLACEMENT\"`"
+      if test ! -f "$pwd/$file"; then
+         # No objdir found. But if "make" will work in srcdir, then go ahead; might be a non-kde project.
+         test -f "$pwd/GNUmakefile" && file=GNUmakefile
+         test -f "$pwd/makefile" && file=makefile
+         if ! test -f "$pwd/$file"; then
+           echo "no objdir found. Tried $pwd"
+           exit 1
+         fi
+      fi
+      cd -- "$pwd"
+    fi
+  fi
+fi
+
+echo "makeobj[0]: Entering directory \`$PWD'"
+
+if test -z "$MAKE"; then
+    using_new_unsermake=0
+    if head -n 1 "$file" 2>/dev/null | grep unsermake >/dev/null; then
+        using_new_unsermake=1
+    fi
+    if head -n 1 "$file" 2>/dev/null | grep automake >/dev/null; then
+        using_new_unsermake=0
+    fi
+    if test $using_new_unsermake -eq 1; then
+        MAKE="`command -v unsermake`"
+	if test ! -x "$MAKE"; then
+		echo 'Makefile was created with unsermake, but there'
+		echo 'is no unsermake in $PATH'
+		exit 1
+	fi
+    else
+        MAKE="$GMAKE"
+    fi
+fi
+LANG=en_US.UTF-8 $MAKE "${args[@]}"
+retval=$?
+echo "makeobj[0]: Leaving directory \`$PWD'"
+exit $retval
+

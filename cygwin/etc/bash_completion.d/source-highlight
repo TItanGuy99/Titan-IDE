@@ -1,0 +1,52 @@
+# completion for source-highlight
+# by Tiziano Muller, dev-zero
+
+_source_highlight()
+{
+    local cur prev opts 
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+
+    opts="-h --help -V --version -i --input -o --output -s --src-lang \
+    --lang-list --outlang-list -f --out-format -d --doc --no-doc -c --css \
+    -T --title -t --tab -H --header -F --footer --style-file --outlang-def \
+    --outlang-map --data-dir --output-dir --lang-def --lang-map --show-lang-elements \
+    --infer-lang -n --line-number --line-number-ref --line-range --range-separator --range-context --regex-range --gen-references --ctags-file \
+    --ctags -v --verbose --statistics --gen-version --check-lang --check-outlang \
+    --failsafe -g --debug-langdef --show-regex"
+
+    if [[ "${cur}" == -* || ${COMP_CWORD} -eq 1 ]] ; then
+	COMPREPLY=($(compgen -W "${opts}" -- "${cur}"))
+	return 0
+    fi
+
+    case "${prev}" in
+	-T|--title|-t|--tab|--gen-references|--line-range|--range-separator|--range-context|--regex-range)
+	    COMPREPLY=()
+	    ;;
+	-i|--input|-o|--output|-c|--css|-H|--header|-F|--footer|--style-file|--outlang-def|--outlang-map|--lang-def|--lang-map|--show-lang-elements|--ctags-file|--check-lang|--check-outlang|--show-regex)
+	    COMPREPLY=($(compgen -A file -- "${cur}"))
+	    ;;
+	-s|--src-lang)
+	    COMPREPLY=($(compgen -W "C H ac ada am applescript asm autoconf awk bat bib bison c caml cc changelog clipper cls cobol conf cpp cs csh csharp css \
+		d diff docbook dtx el eps erlang fixed-fortran flex fortran free-fortran glsl h haskell haxe hh hpp htm html hx in ini islisp java javalog javascript js kcfg kdevelop kidl ksh l lang \
+		langdef latex ldap ldif lex lgt lilypond lisp ll log logtalk lsm lua m4 manifest ml mli moc opa outlang oz pas pascal patch pc perl php php3 php4 php5 \
+		pl pm po pot postscript prolog properties proto ps py python rb rc ruby scala scheme sh shell sig sl slang slsh sml spec sql sty style syslog tcl tcsh texinfo \
+		tex tk tml txt ui upc vala vbscript xhtml xml xorg y yacc yy" -- "${cur}"))
+	    ;;
+	-f|--out-format)
+	    COMPREPLY=($(compgen -W "docbook esc html html-css htmltable\
+	    javadoc latex latexcolor odf texinfo xhtml xhtml-css xhtmltable" -- "${cur}"))
+	    ;;
+	--data-dir|--output-dir)
+	    COMPREPLY=($(compgen -A directory -- "${cur}"))
+	    ;;
+	*)
+	    COMPREPLY=($(compgen -W "${opts/${preprev}}" -- "${cur}"))
+	    ;;
+    esac
+}
+complete -F _source_highlight source-highlight
+
+# vim: set ft=sh tw=80 sw=4 et :

@@ -1,0 +1,8 @@
+#!/bin/sh
+prefix=/usr
+bindir=${prefix}/bin
+wrapper=${prefix}/share/autotools/am-wrapper.sh
+
+ln -fs ${wrapper} ${bindir}/automake
+ln -fs ${wrapper} ${bindir}/aclocal
+

@@ -1,0 +1,10 @@
+#!/bin/sh
+sbindir=/usr/sbin
+e=1
+rbindir=/opt/gcc-tools/epoch${e}/bin
+lbindir=/opt/gcc-tools/bin
+
+${sbindir}/update-alternatives \
+	--install ${lbindir}/automake    gcc-tools-automake    ${rbindir}/automake-1.9 10 \
+	--slave   ${lbindir}/aclocal     gcc-tools-aclocal     ${rbindir}/aclocal-1.9
+

@@ -1,0 +1,545 @@
+<?xml version="1.0"?>
+<gconf>
+	<dir name="schemas">
+		<dir name="system">
+			<dir name="proxy">
+				<entry name="ftp_port">
+					<local_schema short_desc="FTP-prokura pordo">
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="http_proxy">
+				<entry name="authentication_password">
+					<local_schema short_desc="HTTP-prokura pasvorto">
+					</local_schema>
+				</entry>
+				<entry name="authentication_user">
+					<local_schema short_desc="HTTP-prokura uzantnomo">
+					</local_schema>
+				</entry>
+				<entry name="port">
+					<local_schema short_desc="HTTP-prokura pordo">
+					</local_schema>
+				</entry>
+				<entry name="use_http_proxy">
+					<local_schema short_desc="Uzi HTTP-prokurilon">
+					</local_schema>
+				</entry>
+			</dir>
+		</dir>
+		<dir name="desktop">
+			<dir name="gnome">
+				<dir name="typing_break">
+					<entry name="enabled">
+						<local_schema short_desc="Ĉu aŭ ĉu ne klavara ŝlosado estas enŝaltita">
+							<longdesc>Ĉu aŭ ĉu ne klavara ŝlosado estas enŝaltita.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="allow_postpone">
+						<local_schema short_desc="Permesi prokrastadon de paŭzoj">
+							<longdesc>Ĉu aŭ ĉu ne la ekrano de tajpa paŭzo estas prokrastebla.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="break_time">
+						<local_schema short_desc="Paŭza tempo">
+							<longdesc>Nombro de minutoj kiom longe la tajpa paŭzo daŭru.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="type_time">
+						<local_schema short_desc="Tajpa tempo">
+							<longdesc>Nombro de minutoj de tajpotempo antaŭ ol paŭza reĝimo komencas.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="thumbnailers">
+					<entry name="disable_all">
+						<local_schema short_desc="Elŝalti ĉiujn eksterajn miniaturigilojn">
+							<longdesc>Agordu al vera por elŝalti ĉiujn eksterajn miniaturigajn programojn, sendepende de tio ĉu ili estas unuope malŝaltitaj/ŝaltitaj.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="thumbnail_cache">
+					<entry name="maximum_size">
+						<local_schema>
+							<longdesc>Maksimuma grando de la miniatura kaŝmemoro, laŭ megabajtoj. Agordu al -1 por elŝalti viŝadon.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="maximum_age">
+						<local_schema>
+							<longdesc>Makisuma aĝo por miniaturoj en la kaŝmemoro, laŭ tagoj. Agordu al -1 por elŝalti viŝadon.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="sound">
+					<entry name="input_feedback_sounds">
+						<local_schema short_desc="Enigretrokuplaj sonoj">
+							<longdesc>Ĉu ludi sonojn je enigeventoj.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="theme_name">
+						<local_schema short_desc="Sonetosa nomo">
+							<longdesc>La sonetoso XDG uzata por eventsonoj.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="event_sounds">
+						<local_schema short_desc="Sonoj por eventoj">
+							<longdesc>Ĉu ludi sonojn je uzantoeventoj.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="enable_esd">
+						<local_schema short_desc="Enŝalti ESD">
+							<longdesc>Enŝalti sonservilan lanĉon.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="default_mixer_tracks">
+						<local_schema short_desc="Defaŭltaj miksilaj ŝpuroj">
+							<longdesc>La defaŭltaj miksilaj ŝpuroj uzataj de la aŭdvideaj klavdifinoj.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="default_mixer_device">
+						<local_schema short_desc="Defaŭlta miksila aparato">
+							<longdesc>La defaŭlta miksila aparato uzata de la aŭdvideaj klavdifinoj.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="peripherals">
+					<dir name="mouse">
+						<entry name="cursor_size">
+							<local_schema short_desc="Kursora grando">
+								<longdesc>Grando de la kursoro referencita de cursor_theme.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="cursor_theme">
+							<local_schema short_desc="Kursora etoso">
+								<longdesc>Nomo de kursora etoso. Nur uzata de X-serviloj kiuj subtenas Xcursor, kiel XFree86 4.3 kaj pli postaj.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="cursor_font">
+							<local_schema short_desc="Kursora tiparo">
+								<longdesc>Tipara nomo de la kursoro. Se malagordita, la implicita tiparo estas uzata. Ĉi tiu valoro nur estas transportata al la X-servila lanĉo de ĉiu seanco, do ŝanĝi ĝin ne efikos ĝis la sekva fojo kiam vi ensalutas.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="locate_pointer">
+							<local_schema short_desc="Lokiga indikilo">
+								<longdesc>Markas la nunan lokon de la musmontrilo kiam la stirklavo estas premita kaj maltenita.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="double_click">
+							<local_schema short_desc="Duobla alklaktempo">
+								<longdesc>Longo de duoble klaki.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="drag_threshold">
+							<local_schema short_desc="Ŝova sojlo">
+								<longdesc>Distanco antaŭ ŝovo startas.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="motion_threshold">
+							<local_schema short_desc="Mova sojlo">
+								<longdesc>Distanco en bilderoj kiun la indikilo movu antaŭ ol akcelita musmovo estas aktivigata. Valoro de -1 estas la sistema implicita valoro.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="motion_acceleration">
+							<local_schema short_desc="Sola alklako">
+								<longdesc>Akcela faktoro por musmovado. Valoro de -1 estas la sistema implicita valoro.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="single_click">
+							<local_schema short_desc="Sola alklako">
+								<longdesc>Sola klako por malfermi piktogramojn.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="left_handed">
+							<local_schema short_desc="Musbutona orientado">
+								<longdesc>Permuti dekstrajn kaj maldekstrajn musbutono en maldekstramanaj musoj.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="keyboard">
+						<entry name="remember_numlock_state">
+							<local_schema short_desc="Memorigu NumerBaskulan (NumLock) staton">
+								<longdesc>Kiam agordita al vera, GNOMO memorigos la staton de la NumerBaskula LED inter seancoj.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bell_custom_file">
+							<local_schema short_desc="Klavara sonorila propra dosiernomo">
+								<longdesc>Dosieronomo de la ludenda sonorila sono.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bell_mode">
+							<local_schema>
+								<longdesc>eblaj valoroj estas &quot;on&quot;, &quot;off&quot;, kaj &quot;custom&quot;.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+				<dir name="lockdown">
+					<entry name="disable_application_handlers">
+						<local_schema short_desc="Elŝalti traktilojn de URL- kaj MIME-tipoj.">
+							<longdesc>Preventas ruladon de iu ajn URL- aŭ MIME-tiptraktajn aplikaĵojn.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_lock_screen">
+						<local_schema short_desc="Elŝalti ŝlosan ekranon">
+							<longdesc>Preventu ke la uzanto ŝlosas sian ekranon.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_user_switching">
+						<local_schema short_desc="Elŝalti interŝanĝon de uzantoj">
+							<longdesc>Preventu ke la uzanto ŝanĝas al alia konto dum kiam ties seanco estas aktiva.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_print_setup">
+						<local_schema short_desc="Elŝalti presadan agordon">
+							<longdesc>Preventu ke la uzanto modifas presan agordaron. Ekzemple, ĉi tio elŝaltus atingon al la dialogo &quot;Presada agordo&quot; de ĉiuj aplikaĵoj.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_printing">
+						<local_schema short_desc="Elŝalti presadon">
+							<longdesc>Preventu ke la uzanto presas. Ekzemple, ĉi tio elŝaltus atingon al la dialogo &quot;Presi&quot; de ĉiuj aplikaĵoj.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_save_to_disk">
+						<local_schema short_desc="Elŝalti konservadon de dosieroj sur diskon">
+							<longdesc>Preventu ke la uzanto konservas dosierojn sur diskon. Ekzemple, ĉi tio elŝaltus atingon al la dialogo &quot;Konservi kiel&quot; de ĉiuj aplikaĵoj.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_command_line">
+						<local_schema short_desc="Elŝalti komandlinion">
+							<longdesc>Preventu ke la uzanto atingas la terminalon aŭ specifas komandlinion por ruliĝi. Ekzemple, ĉi tio elŝaltus atingon al la panela dialogo &quot;Ruli aplikaĵon&quot;.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="interface">
+					<entry name="show_unicode_menu">
+						<local_schema short_desc="Montri la menuon &apos;Unikoda stirsigno&apos;">
+							<longdesc>Ĉu la kuntekstaj menuoj de eroj kaj tekstaj vidoj ofertas enigi stirsignojn.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="show_input_method_menu">
+						<local_schema short_desc="Montri la menuon &apos;Enigaj metodoj&apos;">
+							<longdesc>Ĉu la kuntekstaj menuoj de eroj kaj tekstaj vidoj ofertas ŝanĝi la enigan metodon.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menubar_accel">
+						<local_schema short_desc="Menubreta akcelilo">
+							<longdesc>Fulmoklavo por malfermi la menuajn bretojn.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="file_chooser_backend">
+						<local_schema short_desc="Modulo por GtkFileChooser">
+							<longdesc>Modulo uzenda kiel dosiersistema modelo por la GtkFileChooser-a fenestraĵo. Eblaj valoroj estas &quot;gio&quot;, &quot;gnome-vfs&quot; kaj &quot;gtk+&quot;.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="status_bar_meter_on_right">
+						<local_schema short_desc="Statobreto dekstre">
+							<longdesc>Ĉu vidigi statobreton dekstre.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="use_custom_font">
+						<local_schema short_desc="Uzi propran tiparon">
+							<longdesc>Ĉu uzi propran tiparon en gtk+-aplikaĵoj.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="monospace_font_name">
+						<local_schema short_desc="Egallarĝa tiparo">
+							<longdesc>Nomo de egallarĝa (fikslarĝa) tiparo uzata en lokoj kiel terminaloj.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="document_font_name">
+						<local_schema short_desc="Dokumenta tiparo">
+							<longdesc>Nomo de la defaŭlta tiparo uzenda por legi dokumentojn.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-module">
+						<local_schema short_desc="GTK-a IM-modulo">
+							<longdesc>Nomo de la eniga metoda modulo uzenda de GTK+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-status-style">
+						<local_schema short_desc="GTK IM stata stilo">
+							<longdesc>Nomo de la GTK+-eniga metodo Stata stilo uzata de gtk+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-preedit-style">
+						<local_schema short_desc="GTK IM antaŭredakta stilo">
+							<longdesc>Nomo de la GTK+-eniga metodo Antaŭredakta stilo uzata de gtk+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="font_name">
+						<local_schema short_desc="Defaŭlta tiparo">
+							<longdesc>Nomo de la defaŭlta tiparo uzota de gtk+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_key_theme">
+						<local_schema short_desc="Temo de Gtk+">
+							<longdesc>Bazonomo de la implicita etoso uzata de gtk+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_theme">
+						<local_schema short_desc="Temo de Gtk+">
+							<longdesc>Bazonomo de la implicita etoso uzata de gtk+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="icon_theme">
+						<local_schema short_desc="Piktograma etoso">
+							<longdesc>Piktograma etoso uzota en panelo, nautilus, ktp.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink_time">
+						<local_schema short_desc="Tempo de kursora pulsado">
+							<longdesc>Longo de la kursorpulsado-ciklo, en milisekundoj.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink">
+						<local_schema short_desc="Kursora pulsado">
+							<longdesc>Ĉu la kursuro pulsas.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_icons_size">
+						<local_schema short_desc="Ilobreta piktograma grando">
+							<longdesc>Grando de piktogramoj en ilobretoj, aŭ &quot;small-toolbar&quot; (malgranda ilobreto) aŭ &quot;large-toolbar&quot; (granda ilobreto).</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_detachable">
+						<local_schema short_desc="Ilobreto malkonektebla">
+							<longdesc>Ĉu la uzanto povas makfiksi ilobretojn kaj movi ilin.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menubar_detachable">
+						<local_schema short_desc="Menubreto malkonektebla">
+							<longdesc>Ĉu la uzanto povas malfiksi menubretojn kaj movi ilin.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="buttons_have_icons">
+						<local_schema short_desc="Butonoj havas piktogramojn">
+							<longdesc>Ĉu butonoj povas vidigi piktogramon aldone al la butona teksto.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menus_have_icons">
+						<local_schema short_desc="Menuoj havas piktogramojn">
+							<longdesc>Ĉu menuoj vidigas piktogramon apud menuero.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_style">
+						<local_schema short_desc="Ilobreta stilo">
+							<longdesc>Ilobreta Stilo. Validaj valoroj estas &quot;both&quot; (ambaŭ), &quot;both-horiz&quot; (ambaŭ horizontale), &quot;icons&quot; (piktogramoj) kaj &quot;text&quot; (teksto).</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="can_change_accels">
+						<local_schema short_desc="Povas ŝanĝi akcelojn">
+							<longdesc>Ĉu la uzanto povas dinamike entajpi novan plirapidigilon kiam lokita sur aktiva menuero.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menus_have_tearoff">
+						<local_schema short_desc="Menuoj havas deŝiraĵojn">
+							<longdesc>Ĉu menuoj havas disŝuron.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="enable_animations">
+						<local_schema short_desc="Enŝalti animacioj">
+							<longdesc>Ĉu animacioj estu vidigataj. Notu: Ĉi tio estas globala ŝlosilo, ĝi ŝanĝas la konduton de la fenestra administrilo, la panelo k.t.p.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="accessibility">
+						<local_schema short_desc="Enŝalti akceseblo">
+							<longdesc>Ĉu aplikaĵoj devas havi atingeblecan subtenon.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="file-views">
+					<entry name="icon_theme">
+						<local_schema short_desc="Temo de dosiera ikono">
+							<longdesc>Etoso uzota por desegni dosierajn ikonojn.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="background">
+					<entry name="color_shading_type">
+						<local_schema short_desc="Kolora ombra tipo">
+							<longdesc>Kiel la fona koloro estas ombrumota. Permesitaj valoroj: &quot;horizontal-gradiant&quot; (horizantala kolortransiro), &quot;vertical-gradiant&quot; (vertikala kolortransiro), aŭ &quot;solid&quot; (unukolorita).</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="secondary_color">
+						<local_schema short_desc="Duaranga koloro">
+							<longdesc>Koloro de dekstro aŭ malsupro pentrante laŭgradan koloron, ne uzata por solida koloro.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="primary_color">
+						<local_schema short_desc="Ĉefa koloro">
+							<longdesc>Koloro de maldekstro aŭ supro pentrante laŭgradan, aŭ solidan koloron.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_opacity">
+						<local_schema short_desc="Bilda netravidebleco">
+							<longdesc>Opakeco kun kiu la fona bildo estas desegnota.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_filename">
+						<local_schema short_desc="Bilda dosiernomo">
+							<longdesc>Dosiero uzenda por la fona bildo.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_options">
+						<local_schema short_desc="Bildaj agordaĵoj">
+							<longdesc>Difinas kiel la bildo agordita de ekranfona _dosiernomo estas pentrata. Eblaj valoroj estas &quot;neniu&quot;, &quot;ekranfono&quot;, &quot;centrigita&quot;, &quot;skaligita&quot;, &quot;etendita&quot;, &quot;zomita&quot;, &quot;disigita&quot;.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="draw_background">
+						<local_schema short_desc="Desegni labortablan fonon">
+							<longdesc>Ĉu GNOME devas desegni la laborotabla fonon.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="applications">
+					<dir name="window_manager">
+						<entry name="workspace_names">
+							<local_schema short_desc="Nomoj de la laborspacoj (malrekomendite)">
+								<longdesc>Listo de nomoj de la laborspacoj de la unua fenestra administrilo. Ĉi tiu ŝlosilo estas malrekomendita ekde GNOMO 2.12.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="number_of_workspaces">
+							<local_schema short_desc="La nombro de laborspacoj (malrekomendite)">
+								<longdesc>La nombro de laborspacoj kiujn la fenestra administrilo uzu. Ĉi tiu ŝlosilo estas malrekomendita ekde GNOMO 2.12.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="current">
+							<local_schema short_desc="Uzanta fenestra administrilo (malrekomendita)">
+								<longdesc>Fenestra administrilo por provi unue. Ĉi tiu ŝlosilo estas malrekomendita ekde GNOMO 2.12.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="default">
+							<local_schema short_desc="Rezerva fenestra administrilo (malrekomendite)">
+								<longdesc>Rezerva fenestra administrilo se fenestra administrilo de uzanto ne troveblas. Ĉi tiu ŝlosilo estas malrekomendita ekde GNOMO 2.12.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="terminal">
+						<entry name="exec_arg">
+							<local_schema short_desc="Exec-argumentoj">
+								<longdesc>Argumento uzata por ruli programojn en la terminalo difinita per la ŝlosilo &apos;exec&apos;.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Defaŭlta terminal-aplikaĵo">
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="tasks">
+						<entry name="needs_term">
+							<local_schema short_desc="Taskoj bezonas terminalon">
+								<longdesc>Ĉu la defaŭlta taska aplikaĵo bezonas terminalon por ruliĝi.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Defaŭlta tasko-organizilo">
+								<longdesc>Defaŭlta aplikaĵo por taskoj</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="calendar">
+						<entry name="needs_term">
+							<local_schema short_desc="Kalendaro bezonas terminalon.">
+								<longdesc>Ĉu la defaŭlta kalendara aplikaĵo bezonas terminalon por ruliĝi.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Defaŭlta kalendaro">
+								<longdesc>Defaŭlta kalendara aplikaĵo</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="browser">
+						<entry name="nremote">
+							<local_schema short_desc="Foliumilo komprenas foran">
+								<longdesc>Ĉu la foliumilo komprenas &quot;netscape remote&quot;.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="needs_term">
+							<local_schema short_desc="Foliumilo bezonas terminalon">
+								<longdesc>Ĉu la defaŭlta foliumilo bezonas terminalon por ruliĝi.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Defaŭlta foliumilo">
+								<longdesc>Defaŭlta foliumilo por ĉiuj adresoj (URL-oj).</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="at">
+						<dir name="visual">
+							<entry name="startup">
+								<local_schema short_desc="Lanĉi preferitan vidasistan teknologian aplikaĵon">
+									<longdesc>Ĉu GNOME lanĉas preferitan Vidan asistan teknologian aplikaĵon dum ensaluto.</longdesc>
+								</local_schema>
+							</entry>
+							<entry name="exec">
+								<local_schema short_desc="Preferita vidasista teknologia aplikaĵo">
+									<longdesc>Preferita Vida asista teknologia aplikaĵo uzenda por ensaluto, menuo, aŭ komanda linio.</longdesc>
+								</local_schema>
+							</entry>
+						</dir>
+						<dir name="mobility">
+							<entry name="startup">
+								<local_schema short_desc="Lanĉu preferitan mobilasistan teknologian aplikaĵon">
+									<longdesc>Ĉu GNOME lanĉas preferitan Porteblecan asistan teknologian aplikaĵon dum ensaluto.</longdesc>
+								</local_schema>
+							</entry>
+							<entry name="exec">
+								<local_schema short_desc="Preferita mobilasista teknologia aplikaĵo">
+									<longdesc>Preferita Portebleca asista teknologia aplikaĵo uzenda por ensaluto, menuo, aŭ komanda linio.</longdesc>
+								</local_schema>
+							</entry>
+						</dir>
+					</dir>
+				</dir>
+				<dir name="accessibility">
+					<dir name="startup">
+						<entry name="exec_ats">
+							<local_schema short_desc="Lanĉu asistajn teknologiajn aplikaĵojn">
+								<longdesc>Listo de asistaj teknologiaj aplikaĵojn lanĉendaj dum ensaluto en la GNOME-an labortablon.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="keyboard">
+						<entry name="stickykeys_modifier_beep">
+							<local_schema>
+								<longdesc>Pepu kiam modifklavo estas premata.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="stickykeys_two_key_off">
+							<local_schema>
+								<longdesc>Elŝalti se du klavoj estas samtempe presataj.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="slowkeys_delay">
+							<local_schema short_desc="Minimuma intervalo en milisekundoj">
+								<longdesc>Akceptu klavopremon nur post premo dum almenaŭ @delay milisekundoj.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_init_delay">
+							<local_schema short_desc="Komenca prokrasto (milisekundoj)">
+								<longdesc>Kiom da milisekundoj atendi antaŭ ke mus-movaj klavoj efiku.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_accel_time">
+							<local_schema short_desc="Kiom longe akceli (en milisekundoj)">
+								<longdesc>Kiom da milisekundoj daŭras por iri de nulo al maksimuma rapido.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_max_speed">
+							<local_schema short_desc="Rastrumeroj po sekundo">
+								<longdesc>Kiom da rastrumeroj po sekundo movendaj dum maksimuma rapido.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bouncekeys_delay">
+							<local_schema short_desc="minimuma intervalo en milisekundoj">
+								<longdesc>Ignoru pluroblan premo de la _sama_ klavo ene de @delay milisekundoj.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+			</dir>
+		</dir>
+	</dir>
+</gconf>

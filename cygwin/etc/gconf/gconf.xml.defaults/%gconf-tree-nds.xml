@@ -1,0 +1,225 @@
+<?xml version="1.0"?>
+<gconf>
+	<dir name="schemas">
+		<dir name="desktop">
+			<dir name="gnome">
+				<dir name="typing_break">
+					<entry name="break_time">
+						<local_schema short_desc="Middag">
+						</local_schema>
+					</entry>
+					<entry name="type_time">
+						<local_schema short_desc="Typtied">
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="sound">
+					<entry name="theme_name">
+						<local_schema short_desc="Tonthemanaam">
+						</local_schema>
+					</entry>
+					<entry name="event_sounds">
+						<local_schema short_desc="Töne för Ereegnisse">
+						</local_schema>
+					</entry>
+					<entry name="enable_esd">
+						<local_schema short_desc="ESD aktiveren">
+						</local_schema>
+					</entry>
+					<entry name="default_mixer_device">
+						<local_schema short_desc="Standardmischerlööpwark">
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="peripherals">
+					<dir name="mouse">
+						<entry name="cursor_size">
+							<local_schema short_desc="Wiesergröte">
+							</local_schema>
+						</entry>
+						<entry name="cursor_theme">
+							<local_schema short_desc="Wieserthema">
+							</local_schema>
+						</entry>
+						<entry name="cursor_font">
+							<local_schema short_desc="Wieserschriftart">
+							</local_schema>
+						</entry>
+						<entry name="locate_pointer">
+							<local_schema short_desc="Wieser finnen">
+							</local_schema>
+						</entry>
+						<entry name="double_click">
+							<local_schema short_desc="Twejmol klicken">
+							</local_schema>
+						</entry>
+						<entry name="motion_acceleration">
+							<local_schema short_desc="Eenfacher Klick">
+							</local_schema>
+						</entry>
+						<entry name="single_click">
+							<local_schema short_desc="Eenfacher Klick">
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+				<dir name="lockdown">
+					<entry name="disable_lock_screen">
+						<local_schema short_desc="Billschirm avsluten deaktiveren">
+						</local_schema>
+					</entry>
+					<entry name="disable_user_switching">
+						<local_schema short_desc="Brukerwessel deaktiveren">
+						</local_schema>
+					</entry>
+					<entry name="disable_print_setup">
+						<local_schema short_desc="Druckinstellen deaktiveren">
+						</local_schema>
+					</entry>
+					<entry name="disable_printing">
+						<local_schema short_desc="Drucken deaktiveren">
+						</local_schema>
+					</entry>
+					<entry name="disable_save_to_disk">
+						<local_schema short_desc="Dateien op de Rekner spiekern deaktiveren">
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="interface">
+					<entry name="status_bar_meter_on_right">
+						<local_schema short_desc="Tostandsbalken rechts">
+						</local_schema>
+					</entry>
+					<entry name="monospace_font_name">
+						<local_schema short_desc="Monospace Schriftart">
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-module">
+						<local_schema short_desc="GTK IM Modul">
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-status-style">
+						<local_schema short_desc="GTK IM Tostand Utsehn">
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-preedit-style">
+						<local_schema short_desc="GTL IM Preedit Utsehn">
+						</local_schema>
+					</entry>
+					<entry name="font_name">
+						<local_schema short_desc="Standard Schriftart">
+						</local_schema>
+					</entry>
+					<entry name="gtk_key_theme">
+						<local_schema short_desc="Gtk+ Thema">
+						</local_schema>
+					</entry>
+					<entry name="gtk_theme">
+						<local_schema short_desc="Gtk+ Thema">
+						</local_schema>
+					</entry>
+					<entry name="icon_theme">
+						<local_schema short_desc="Billthema">
+							<longdesc>Billthema, dat för de Balken, Nautilus, etc. brukt werrn schall.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_icons_size">
+						<local_schema short_desc="Warktüügbalken Icongröte">
+						</local_schema>
+					</entry>
+					<entry name="buttons_have_icons">
+						<local_schema short_desc="Knöppe hebben Billers">
+						</local_schema>
+					</entry>
+					<entry name="toolbar_style">
+						<local_schema short_desc="Warktüügbalkenutsehn">
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="file-views">
+					<entry name="icon_theme">
+						<local_schema short_desc="Dateibillthema">
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="background">
+					<entry name="secondary_color">
+						<local_schema short_desc="Twejte Klöör">
+						</local_schema>
+					</entry>
+					<entry name="primary_color">
+						<local_schema short_desc="Erste Klöör">
+						</local_schema>
+					</entry>
+					<entry name="picture_opacity">
+						<local_schema short_desc="Billdöörschienen">
+						</local_schema>
+					</entry>
+					<entry name="picture_filename">
+						<local_schema short_desc="Billdateinaam">
+							<longdesc>Datei, de as Achtergrundbill brukt werrn schall.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_options">
+						<local_schema short_desc="Billoptschoonen">
+						</local_schema>
+					</entry>
+					<entry name="draw_background">
+						<local_schema short_desc="Schrievdiskachtergrund malen">
+							<longdesc>GNOME de Schrievdiskachtergrund malen laten.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="applications">
+					<dir name="terminal">
+						<entry name="exec_arg">
+							<local_schema short_desc="Exec Argumente">
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Terminal Programm">
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="tasks">
+						<entry name="needs_term">
+							<local_schema short_desc="Opgaven bruken dat Terminal">
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Stadardopgav">
+								<longdesc>Stadardopgavprogramm</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="calendar">
+						<entry name="needs_term">
+							<local_schema short_desc="kalenner brukt Terminal">
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Standardkalenner">
+								<longdesc>Standardkalennerprogramm</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="browser">
+						<entry name="nremote">
+							<local_schema short_desc="Kieker versteiht remote">
+							</local_schema>
+						</entry>
+						<entry name="needs_term">
+							<local_schema short_desc="Kieker brukt Terminal">
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Standardnetkieker">
+								<longdesc>Standardnetkieker för all URLs.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+			</dir>
+		</dir>
+	</dir>
+</gconf>

@@ -1,0 +1,576 @@
+#!/usr/bin/perl
+#
+# Copyright (C) 2006 Thiago Macieira <thiago@kde.org>
+#
+# This file is distributed under the Artistic License version 2.1
+#
+
+# Usage:
+#  svnintegrate [-n] [-v] [-q] [-b branchname] [filename]
+#
+#  Where:
+#   -n		dry run - do not actually run commands that modify sources
+#		can be used to determine the changeset that would be backported
+#   -v		verbose - show the commands being executed
+#   -q		quiet - do not output some unnecessary messages
+#   -b branch	the branch to merge into [default: trunk]
+#   filename	the file whose last change should be integrated
+#               if unspecified, the last change for the current directory will
+#               be used
+#
+#  Also note that svnintegrate will try to locate ALL files modified
+#  in the changeset being integrated. So you don't need to specify all
+#  of them in the command line. However, they must all be present in
+#  the current directory or a subdirectory.
+#  (If they cannot be found, svnintegrate will tell you)
+#
+#  About branch names:
+#  svnintegrate tries hard to understand the KDE branch-naming
+#  scheme. So, in many times, it is enough to simply tell it the
+#  version of the branch you're integrating into.
+#
+#  Examples:
+#    switch		integrating from	integrate to
+#   -b trunk		/branches/KDE/3.5	/trunk/KDE
+#   -b trunk/extragear/graphics
+#			/branches/amarok/1.3	/trunk/extragear/graphics/amarok
+#   -b 3.5		/trunk/KDE/kdelibs	/branches/KDE/3.5/kdelibs
+#   -b 3.5		/branches/KDE/3.4	/branches/KDE/3.5
+#   -b tags/3.5.0	/branches/KDE/3.5	/tags/KDE/3.5.0
+#   -b work/my-branch	/branches/KDE/3.4	/branches/work/my-branch
+#   -b work/my-branch	/branches/KDE/3.4/kdelibs  /branches/work/my-branch
+#   -b work/my-branch	/trunk/KDE/kdepim/kmail	/branches/work/my-branch
+#
+
+#
+# Wanted features:
+#   Better branch guessing:
+#   - support for integrating from trunk/{playground,kdereview,extragear}
+#   - support for integrating from branches/work
+#   Other features:
+#   - support for integrating to checked-out branch
+#   - support for integrating multiple revisions
+#  
+
+use XML::DOM;
+use strict;
+
+my $dirname;
+my $svnroot;
+my $lastDirCommitRevision;
+my $revision;
+my $lastCommitAuthor;
+my $lastCommitMsg;
+my $lastCommitDate;
+my @changedPaths;
+my @filenames;
+my @switchedFilenames;
+my @conflictedFilenames;
+my $dryRun;
+my $quiet;
+my $verbose;
+my $branch;
+my $from;
+my $to;
+my $EDITOR;
+my $PAGER;
+
+sub getSvnInfo()
+{
+  open(INFO, "-|", "svn", "info", "--xml") or die("Could not run svn");
+  my $info;
+  while (<INFO>)
+  {
+    $info .= $_;
+  }
+  close(INFO);
+  
+  # now parse
+  my $parser = new XML::DOM::Parser;
+  my $doc = $parser->parse($info);
+  
+  $dirname = $doc->getElementsByTagName("url")->item(0)->getFirstChild()->toString();
+  $svnroot = $doc->getElementsByTagName("root")->item(0)->getFirstChild()->toString();
+  $lastDirCommitRevision = $doc->getElementsByTagName("commit")->item(0)->getAttribute("revision");
+  
+  # trim the root
+  $dirname = substr $dirname, length($svnroot);
+  
+  $doc->dispose();
+}
+
+sub getLastCommitInfo($)
+{
+  my $target = @_[0];
+  my $rev = "-rCOMMITTED";
+  $rev = "-r$revision" if (defined($revision));
+  
+  open(LOG, "-|", "svn", "log", "--xml", "-v", $rev, $target)
+    or die("Could not run svn");
+    
+  my $log;
+  while (<LOG>)
+  {
+    $log .= $_;
+  }
+  close(LOG);
+  
+  # now parse it
+  my $parser = new XML::DOM::Parser;
+  my $doc = $parser->parse($log);
+
+  unless ($doc->getElementsByTagName("logentry")->getLength())
+  {
+    print STDERR "Cannot find revision $revision in the current directory.\n";
+    exit(1);
+  }
+  
+  $revision = $doc->getElementsByTagName("logentry")->item(0)->getAttribute("revision");
+  $lastCommitMsg = $doc->getElementsByTagName("msg")->item(0)->getFirstChild()->toString();
+  $lastCommitAuthor = $doc->getElementsByTagName("author")->item(0)->getFirstChild()->toString();
+  $lastCommitDate = $doc->getElementsByTagName("date")->item(0)->getFirstChild()->toString();
+  
+  my @changed = $doc->getElementsByTagName("path");
+  foreach my $path (@changed)
+  {
+    push(@changedPaths, $path->getFirstChild()->toString());
+  }
+  
+  $doc->dispose();
+}
+
+sub transformToBranch($)
+{
+  my $path = @_[0];
+
+  if ($path =~ m,^$from(/.*)?,)
+  {
+    $path = $to . $1;
+  }
+  else
+  {
+    print STDERR "Could not apply conversion \"$from\" -> \"$to\" in $dirname\n";
+    exit 1;
+  }
+}
+
+sub checkBranches()
+{
+  if (!$from || !$to)
+  {
+    $branch = "trunk" unless ($branch);
+    if ($branch eq "trunk")
+    {
+      $to = "/trunk/KDE";
+      if ($dirname =~ m,^(/branches/KDE/[^/]+)/,)
+      {
+        $from = $1;
+      }
+      else
+      {
+        print STDERR "Cannot apply automatic conversion to trunk on $dirname\n";
+        print STDERR "Please use the -f and -t options\n";
+        exit 1;
+      }
+    }
+    else
+    {
+      if ($dirname =~ m,^/trunk,)
+      {
+        $from = "/trunk";
+      }
+      elsif ($dirname =~ m,^/branches/KDE/([^/]+)/,)
+      {
+        $from = "/branches/KDE/$1";
+      }
+      else
+      {
+        print STDERR "Cannot apply automatic conversion to branch $branch on $dirname\n";
+        print STDERR "Please use the -f and -t options\n";
+        exit 1;
+      }
+      $to = "/branches/KDE/$branch";
+    }
+  }
+  my $target = transformToBranch($dirname);
+  print "Porting from $dirname to $target\n";
+
+  if ($target eq $dirname)
+  {
+    print STDERR "Source and target branches are the same.\n";
+    exit 1;
+  }
+}
+
+sub showLog()
+{
+  my $prettyDate = $lastCommitDate;
+  
+  $prettyDate =~ s/^(.*)T(.*)\..*Z$/\1 \2 +0000/;
+  # mimic svn log:
+  print "------------------------------------------------------------------------\n";
+  print "r$revision | $lastCommitAuthor | $prettyDate\n";
+  print "\n";
+  print $lastCommitMsg;
+  print "\n\nChanged files:\n";
+  
+  # file list shown by findAllFiles
+}
+
+sub findAllFiles()
+{
+  foreach my $path (@changedPaths)
+  {
+    my $entry = $path;
+    if (!($entry =~ s#^$dirname/##o))
+    {
+      print STDERR "Cannot find file \'$svnroot$entry\' in current directory.\n";
+      print STDERR "Maybe you need to go up?\n";
+      exit 1;
+    }
+    
+    print "  $entry\n";
+    push(@filenames, $entry);
+    
+    # check that it is clean
+    open(STATUS, "-|", "svn", "status", $entry);
+    my $status;
+    while (<STATUS>)
+    {
+      $status .= $_;
+    }
+    close(STATUS);
+    
+    if (length($status))
+    {
+      print STDERR "File \'$entry\' has local modifications or is not clean. Cannot continue.\n";
+      exit 1;
+    }
+  }
+
+  print "------------------------------------------------------------------------\n";
+}
+
+sub run(@)
+{
+  if ($dryRun || $verbose)
+  {
+    print join(" ", @_) . "\n";
+  }
+  if (!$dryRun)
+  {
+    if ((scalar @_) > 1)
+    {
+      open(PIPE, "-|", @_);
+    }
+    else
+    {
+      my $command = @_[0];
+      system($command);
+      return "";
+    }
+    my $output;
+    while (<PIPE>)
+    {
+      $output .= $_;
+    }
+    print $output unless ($quiet);
+    return $output;
+  }
+  return "";
+}
+
+sub rollback()
+{
+  print "\nRolling back changes\n";
+  for my $file (@switchedFilenames)
+  {
+    run("svn", "revert", $file);
+    run("svn", "switch", "-r", $revision, "$svnroot$dirname/$file", $file);
+  }
+  
+  run("rm", "svn-commit.tmp") if (-e "svn-commit.tmp");
+  run("rm", "svn-commit.tmp~") if (-e "svn-commit.tmp~");
+}
+
+sub switchAllFiles()
+{
+  my $target = transformToBranch($dirname);
+  print "Switching files to branch $target\n"
+    unless ($quiet);
+
+  foreach my $file (@filenames)
+  {
+    my $output = run("svn", "switch", $svnroot . $target . "/$file", $file);
+    push(@switchedFilenames, $file);
+  }
+}
+
+sub handleConflict($)
+{
+  my $file = @_[0];
+  my $target = transformToBranch($dirname);
+  my $leftname = "$file.merge-left.r" . ($revision - 1);
+  my $rightname = "$file.merge-right.r$revision";
+  my $workingname = "$file.working";
+
+  my $showmenu = 1;
+  while (1)
+  {
+    if ($showmenu)
+    {
+      print "\nFile \'$file\' has conflicts while merging.\n";
+      print "What do you want to do?\n";
+      print "\t1. Edit file with $EDITOR\n";
+      print "\t2. Show current diff to be committed\n";
+      print "\t3. Show the change between " . ($revision - 1) . " and $revision\n";
+      print "\t4. View original $dirname/$file (\"left\": before the change)\n";
+      print "\t5. View current $dirname/$file (\"right\": after the change)\n";
+      print "\t6. View current $target/$file (\"working\")\n";
+      print "\t7. Accept original $dirname/$file (\"left\")\n";
+      print "\t8. Accept current $dirname/$file (\"right\")\n";
+      print "\t9. Accept current $target/$file (\"working\": do not apply merge)\n";
+      print "\t0. Revert all and quit\n";
+    }
+    $showmenu = 0;
+
+    my $answer = <STDIN>;
+    $answer =~ s/\r?\n$//;
+    if ($answer eq "1")
+    {
+      run($EDITOR, $file);
+      print "Is it resolved? (Y/n)";
+      $answer = <STDIN>;
+      print "\n";
+      if ($answer =~ /y/i or length($answer) == 0)
+      {
+        run("svn", "resolved", $file);
+        return;
+      }
+    }
+    elsif ($answer eq "2")
+    {
+      run("svn diff $file | $PAGER");
+    }
+    elsif ($answer eq "3")
+    {
+      run("diff -u $leftname $rightname | $PAGER");
+    }
+    elsif ($answer eq "4")
+    {
+      run($PAGER, "$leftname");
+    }
+    elsif ($answer eq "5")
+    {
+      run($PAGER, "$rightname");
+    }
+    elsif ($answer eq "6")
+    {
+      run($PAGER, "$workingname");
+    }
+    elsif ($answer eq "7")
+    {
+      run("mv", "$leftname", $file);
+      run("svn", "resolved", $file);
+      return;
+    }
+    elsif ($answer eq "8")
+    {
+      run("mv", "$rightname", $file);
+      run("svn", "resolved", $file);
+      return;
+    }
+    elsif ($answer eq "9")
+    {
+      run("mv", "$workingname", $file);
+      run("svn", "resolved", $file);
+      return;
+    }
+    elsif ($answer eq "0")
+    {
+      rollback();
+      exit 0;
+    }
+    else
+    {
+      $showmenu = 1;
+    }
+  }
+}
+
+sub mergeRevision()
+{
+  print "Merging revision $revision\n" 
+    unless ($quiet);
+  my $output = run("svn", "merge", "-r", ($revision - 1) . ":" . $revision, $svnroot . $dirname);
+  my @lines = split(/\r?\n/, $output);
+
+  if (scalar @lines)
+  {
+    foreach my $line (@lines)
+    {
+      if ($line =~ /^C +(.+)$/)
+      {
+        push(@conflictedFilenames, $1)
+      }
+      if ($line =~ /^D +(.+)$/)
+      {
+        print STDERR "I cannot handle file deletions, sorry (\'$1\').\n";
+	print STDERR "You will probably have to run \'svn up\' to recover the file.\n";
+	rollback();
+	exit 1;
+      }
+    }
+  }
+  else
+  {
+    print "No files were changed: this changeset has already been integrated.\n";
+    rollback();
+    exit(0);
+  }
+
+  foreach my $conflict (@conflictedFilenames)
+  {
+    handleConflict($conflict);
+  }
+}
+
+sub createLogMessage()
+{
+  open(LOG, ">svn-commit.tmp");
+  print LOG "INTEGRATION:$dirname $revision\n";
+  
+  my @lines = split(/\r?\n/, $lastCommitMsg);
+  foreach my $line (@lines)
+  {
+    next if ($line =~ /^CC.?MAIL:.*/);    # don't resend emails
+    next if ($line =~ /^GUI:/);
+    
+    $line =~ s/^(BUG|FEATURE):/CCBUG:/;     # change bug closing to comment
+    print LOG "$line\n";
+  }
+  close(LOG);
+}
+
+sub editLogMessage()
+{
+  print "\nMerging successful\n";
+  while (1)
+  {
+    print "Press (C) to commit, (D) to see the diff, (Q) to quit or (E) to edit the log\n";
+    
+    my $answer = <STDIN>;
+    $answer =~ s/\r?\n$//;
+    $answer =~ tr/A-Z/a-z/;
+    if ($answer eq "q")
+    {
+      rollback();
+      exit(0);
+    }  
+    elsif ($answer eq "e")
+    {
+      run($EDITOR, "svn-commit.tmp");
+    }
+    elsif ($answer eq "d")
+    {
+      run("svn diff ". join(" ", @filenames) . " | $PAGER");
+    }
+    elsif ($answer eq "c")
+    {
+      return;
+    }
+  }
+}
+
+sub commit()
+{
+  print "Committing changes\n";
+  run("svn commit -F svn-commit.tmp " . join(" ", @filenames));
+  
+  print "Restoring old state\n";
+  rollback();
+}
+
+$EDITOR = $ENV{"EDITOR"};
+$PAGER = $ENV{"PAGER"};
+$EDITOR = "vi" unless ($EDITOR);
+$PAGER = "less" unless ($PAGER);
+
+$dryRun = 0;
+$quiet = 0;
+$verbose = 0;
+while (@ARGV)
+  {
+    my $arg = shift @ARGV;
+    if ($arg eq "-n")
+    {
+      $dryRun = 1;
+    }
+    elsif ($arg eq "-v")
+    {
+      $verbose = 1;
+    }
+    elsif ($arg eq "-q")
+    {
+      $quiet = 1;
+    }
+    elsif ($arg eq "-b")
+    {
+      unless (@ARGV)
+      {
+        print STDERR "Option -b requires an argument\n";
+        exit 1;
+      }
+ 
+      $branch = shift @ARGV;
+    }
+    elsif ($arg eq "-r")
+    {
+      unless (@ARGV)
+      {
+        print STDERR "Option -r requires an argument\n";
+        exit 1;
+      }
+
+      $revision = shift @ARGV;
+    }
+    elsif ($arg eq "-f")
+    {
+      unless (@ARGV)
+      {
+        print STDERR "Option -f requires an argument\n";
+        exit 1;
+      }
+
+      $from = shift @ARGV;
+    }
+    elsif ($arg eq "-t")
+    {
+      unless (@ARGV)
+      {
+        print STDERR "Option -t requires an argument\n";
+        exit 1;
+      }
+
+      $to = shift @ARGV;
+    }
+    else
+    {
+      unshift @ARGV, $arg;
+      last;
+    }
+  }
+
+getSvnInfo();
+getLastCommitInfo($ARGV[0]);
+checkBranches();
+showLog();
+findAllFiles();
+switchAllFiles();
+
+exit(0) if ($dryRun);
+
+mergeRevision();
+createLogMessage();
+editLogMessage();
+commit();

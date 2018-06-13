@@ -1,0 +1,121 @@
+#!/bin/sh
+
+# Copyright (C) 2004, 2008, 2009, 2010 Simon Josefsson.
+#
+# This file is part of Autobuild.
+#
+# Autobuild is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Autobuild is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Autobuild.  If not, see <http://www.gnu.org/licenses/>.
+
+prog="`basename \"$0\"`"
+program=`echo $0 | sed -e 's!.*/!!'`
+version="htmlize (autobuild) 5.3
+Copyright (C) 2004, 2008, 2009, 2010 Simon Josefsson.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Written by Simon Josefsson."
+usage="Usage: $prog [OPTION]... INFILE [OUTFILE [EMACS-MODE]]
+
+Launch Emacs and load INFILE into a buffer, then invoke a major mode
+for font locking, and render the fontified buffer as HTML, saving the
+result into OUTFILE.
+
+Emacs must have htmlfontify.el installed in its load-path.
+
+If OUTFILE is not specified, it will use INFILE appended with .html.
+
+If EMACS-MODE is not specified, compilation-mode will be used.
+
+Options:
+      --emacs COMMAND  Use specified command to invoke emacs, e.g. \"emacs21\".
+      --mode MODE      Fontify file using specified Emacs mode, defaults to
+                       \"compilation-mode\".  E.g., \"sh-mode\".
+      --debug          Enable Emacs Lisp debugging (debug-on-error)
+  -f, --force          Overwrite OUTFILE if it exists, instead of
+                       exiting unsuccessfully with an error message.
+  -u, --update         Only write to OUTFILE when OUTFILE does not exist,
+                       or when INFILE is more recent than OUTFILE.
+  -h, --help           Display this help and exit successfully.
+      --version        Display version information and exit successfully. 
+
+Environment variables:
+  EMACS                The Emacs editor command.
+
+Simple example:
+  $prog mybuildlog.txt mybuildlog.html
+
+Report bugs to <bug-autobuild@josefsson.org>."
+
+while test $# -gt 0; do
+    case $1 in
+	-h) echo "$usage"; exit 0;;
+	--help) echo "$usage"; exit 0;;
+	--version) echo "$version"; exit 0;;
+	--debug) EMACSDEBUG="(debug-on-error t)";;
+	-f) force=t;;
+	--force) force=t;;
+	-u) update=t;;
+	--update) update=t;;
+	--emacs) shift; EMACS=$1;;
+	-*)
+	    echo "$0: Unknown or ambiguous option \`$1'." >&2
+	    echo "$0: Try \`--help' for more information." >&2
+	    exit 1;;
+	*)
+	    if test -z "$INFILE"; then
+		INFILE=$1
+	    elif test -z "$OUTFILE"; then
+		OUTFILE=$1
+	    elif test -z "$EMACSMODE"; then
+		EMACSMODE=$1
+	    else
+		echo "$0: Extra non-option argument \`$1'." >&2
+		exit 1
+	    fi;;
+    esac
+    shift
+done
+
+if test -z "$INFILE"; then
+    echo "$usage"
+    exit 0
+fi
+
+OUTFILE=${OUTFILE:-$INFILE.html}
+EMACSMODE=${EMACSMODE:-compilation-mode}
+EMACS=${EMACS:-emacs}
+
+if test ! -f $INFILE; then
+    echo "$0: No such file \`$INFILE'." >&2
+    exit 1
+fi
+
+if test -f $OUTFILE; then
+    if test -n "$force"; then
+	rm -f $OUTFILE || exit 1
+    elif test -n "$update"; then
+	if test $INFILE -nt $OUTFILE; then
+	    rm -f $OUTFILE || exit 1
+	else
+	    echo "$0: Nothing to be done for \`$OUTFILE'." >&2
+	    exit 0
+	fi
+    else
+	echo "$0: File already exists: \`$OUTFILE'." >&2
+	exit 1
+    fi
+fi
+
+$EMACS --batch --eval "(let ($EMACSDEBUG (font-lock-verbose nil) (hfy-display-class '((class . color))) (coding-system-for-write 'binary)) (autoload 'htmlfontify-buffer \"htmlfontify\") (find-file \"$INFILE\") ($EMACSMODE) (font-lock-fontify-buffer) (htmlfontify-buffer) (setq buffer-file-name \"$OUTFILE\") (save-buffer) (kill-emacs))"

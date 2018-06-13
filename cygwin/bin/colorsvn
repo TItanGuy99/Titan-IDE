@@ -1,0 +1,221 @@
+#! /usr/bin/env perl
+
+# colorsvn
+#
+# based on colorgcc
+#
+# Requires the ANSIColor module from CPAN.
+#
+# Usage:
+#
+# In a directory that occurs in your PATH _before_ the directory
+# where svn lives, create a softlink to colorsvn:
+#
+#    svn -> colorsvn
+#
+# That's it. When "svn" is invoked, colorsvn is run instead.
+#
+# The default settings can be overridden with ~/.colorcvsrc.
+# See the colorcvsrc-sample for more information.
+#
+# Note:
+#
+# colorsvn will only emit color codes if:
+# 
+#    (1) tts STDOUT is a tty.
+#    (2) the value of $TERM is not listed in the "nocolor" option.
+#    (3) the svn command is not a commit or import (as the text editor
+#    opened by svn will often be hampered by colorsvn).
+#
+# If colorsvn colorizes the output, svn's STDERR will be
+# combined with STDOUT. Otherwise, colorsvn just passes the output from
+# svn through without modification.
+#
+# Copyright 2002 Neil Stevens <neil@qualityassistant.com>
+#
+# Copyright 1999 Jamie Moyers <jmoyers@geeks.com>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; version 2 of the License as published
+# by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+
+use Term::ANSIColor;
+use IPC::Open3;
+use File::Spec::Functions qw/catfile file_name_is_absolute path/;
+
+sub initDefaults
+{
+	$svnCmd = "svn";
+
+	$nocolor{"dumb"} = "true";
+
+	$colors{"P"} = color("reset");
+	$colors{"U"} = color("reset");
+	$colors{" "} = color("reset");
+	$colors{"C"} = color("bold red");
+	$colors{"M"} = color("bold yellow");
+	$colors{'G'} = color("bold yellow");
+	$colors{"A"} = color("cyan");
+	$colors{"R"} = color("cyan");
+	$colors{"D"} = color("red");
+	$colors{"I"} = color("bold");
+	$colors{"?"} = color("bold");
+	$colors{"!"} = color("bold");
+	$colors{"~"} = color("bold red");
+	$colors{"server"} = color("bold green");
+	$colors{"warning"} = color("bold cyan");
+
+	# Applies when only the properties changed
+	$propcolors{"C"} = color("bold red");
+	$propcolors{"M"} = color("yellow");
+}
+
+sub loadPreferences
+{
+# Usage: loadPreferences("filename");
+
+	my($filename) = @_;
+
+	open(PREFS, "<$filename") || return;
+
+	while(<PREFS>)
+	{
+		next if (m/^\#.*/);          # It's a comment.
+		next if (!m/(.*):\s*(.*)/);  # It's not of the form "foo: bar".
+
+		$option = $1;
+		$value = $2;
+
+		if ($option =~ /svn/)
+		{
+			$svnCmd = $value;
+		}
+		elsif ($option eq "nocolor")
+		{
+			# The nocolor option lists terminal types, separated by
+			# spaces, not to do color on.
+			foreach $termtype (split(/\s+/, $value))
+			{
+				$nocolor{$termtype} = "true";
+			}
+		}
+		elsif ($option =~ /prop (.)/)
+		{
+		        # Property color
+		        $propcolors{$1} = color($value);
+		}
+		else
+		{
+			$colors{$option} = color($value);
+		}
+	}
+	close(PREFS);
+}
+
+#
+# Main program
+#
+
+# Set up default values for colors and svn path.
+initDefaults();
+
+# Read the configuration file, if there is one.
+$configFile = $ENV{"HOME"} . "/.colorcvsrc";
+if (-f $configFile)
+{
+	loadPreferences($configFile);
+}
+
+# Get the terminal type. 
+$terminal = $ENV{"TERM"} || "dumb";
+
+$commit = 0;
+foreach (@ARGV)
+{
+	if(/^ci$/ || /^commit$/ || /^import$/ || /^prop/ || /^p[delsg]$/)
+	{
+		$commit = 1;
+		break;
+	}
+	elsif (! /^-/)
+	{
+		break;
+	}
+}
+
+# If it's in the list of terminal types not to color, or if
+# we're writing to something that's not a tty, don't do color.
+if (! -t STDOUT || $commit == 1 || $nocolor{$terminal})
+{
+	exec $svnCmd, @ARGV;
+	die("Couldn't exec");
+}
+
+sub svn_not_found() {
+	die ("$svnCmd not found, add svn=/full/path/to/svn to ~/.colorcvsrc");
+}
+
+# Check if we have SVN binary accessible. Of course, there could
+# be a race, but we don't care - all we want is to print out
+# nice error if executable SVN binary could not be found.
+if (file_name_is_absolute($svnCmd)) {
+	svn_not_found unless -f $svnCmd and -x $svnCmd;
+} else {
+	my $found = 0;
+	foreach (path()) {
+		my $path = catfile($_, $svnCmd);
+		if (-f $path and -x $path) {
+			$found = 1;
+			last;
+		}
+	}
+	svn_not_found unless $found;
+}
+
+# Keep the pid of the svn process so we can get its return
+# code and use that as our return code.
+$svn_pid = open3('<&STDIN', \*SVNOUT, \*SVNOUT, $svnCmd, @ARGV);
+$svnName = $svnCmd;
+$svnName =~ s,.*/(.*)$,\1,;
+
+# Colorize the output from the svn program.
+while(<SVNOUT>)
+{
+	chomp;
+	if (m/^ (.).+/) # Property changed only
+	{
+	        print($propcolors{$1}, $_, color("reset"));
+	}
+	elsif (m/^(.).+/) # S filename
+	{
+		print($colors{$1}, $_, color("reset"));
+	}
+	elsif (m/warning:/) # warning
+	{
+		print($colors{"warning"}, $_, color("reset"));
+	}
+	elsif (m/^$svnName[^:]*: / || m/^svn server: /) # server message
+	{
+		print($colors{"server"}, $_, color("reset"));
+	}
+	else # Anything else
+	{
+		# Print normally.
+		print(color("reset"), $_);
+	}
+	print "\n";
+}
+
+# Get the return code of the svn program and exit with that.
+waitpid($svn_pid, 0);
+exit ($? >> 8);

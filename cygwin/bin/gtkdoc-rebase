@@ -1,0 +1,307 @@
+#!/usr/bin/perl -w
+# -*- cperl -*-
+#
+# gtk-doc - GTK DocBook documentation generator.
+# Copyright (C) 1998  Damon Chaplin
+# Copyright (C) 2007  David Necas (Yeti)
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+#
+
+#############################################################################
+# Script      : gtkdoc-rebase
+# Description : Rebases URI references in installed HTML documentation.
+#############################################################################
+
+use strict;
+use bytes;
+use Getopt::Long qw(:config gnu_getopt);
+use Cwd qw(realpath);
+
+# Options
+
+my $HTML_DIR;
+my @OTHER_DIRS;
+my $DEST_DIR;
+my $PRINT_VERSION;
+my $PRINT_HELP;
+my $AGGRESSIVE;
+my $ONLINE;
+my $RELATIVE;
+my $VERBOSE;
+
+my %optctl = ('html-dir' => \$HTML_DIR,
+	      'other-dir' => \@OTHER_DIRS,
+	      'dest-dir' => \$DEST_DIR,
+	      'online' => \$ONLINE,
+	      'relative' => \$RELATIVE,
+	      'aggressive' => \$AGGRESSIVE,
+	      'verbose' => \$VERBOSE,
+	      'version' => \$PRINT_VERSION,
+	      'help' => \$PRINT_HELP);
+GetOptions(\%optctl, 'html-dir=s', 'other-dir=s@', 'dest-dir:s',
+		     'online', 'relative', 'aggressive', 'verbose',
+		     'version', 'help');
+
+if ($PRINT_VERSION) {
+    print "1.24\n";
+    exit 0;
+}
+
+if ($PRINT_HELP) {
+    print <<EOF;
+gtkdoc-rebase version 1.24 - rewrite the base url of html files
+
+--html-dir=HTML_DIR     The directory which contains the installed HTML
+--other-dir=OTHER_DIR   Directories to recursively scan for indices (index.sgml)
+                        May be used more than once for multiple directories
+--online                Prefer cross-references to online documents
+--relative              Prefer relative cross-references
+--aggressive            Rebase links to all files that are under a directory
+                        matching a package name.
+--dest-dir=ROOT_DIR     Staging area virtual root, this prefix will be removed
+                        from HTML_DIR fore relative link calculation.
+--verbose               Be verbose
+--version               Print the version of this program
+--help                  Print this help
+EOF
+    exit 0;
+}
+
+if (!$HTML_DIR) {
+    die "No HTML directory (--html-dir) given.\n";
+}
+
+# Maps.
+# These two point to the last seen URI of given type for a package:
+# OnlineMap: package => on-line URI
+# LocalMap: package => local URI
+# This maps all seen URIs of a package to fix broken links in the process:
+# RevMap: URI => package
+my (%OnlineMap, %LocalMap, %RevMap);
+# Remember what mangling we did.
+my %Mapped;
+
+my $dir;
+
+# We scan the directory containing GLib and any directories in GNOME2_PATH
+# first, but these will be overriden by any later scans.
+if (defined ($ENV{"GNOME2_PATH"})) {
+    foreach $dir (split(/:/, $ENV{"GNOME2_PATH"})) {
+        $dir = $dir . "/share/gtk-doc/html";
+	if ($dir && -d $dir) {
+	    print "Prepending GNOME2_PATH directory: $dir\n" if $VERBOSE;
+	    unshift @OTHER_DIRS, $dir;
+	}
+    }
+}
+
+$dir = `pkg-config --variable=prefix glib-2.0`;
+$dir =~ s/^\s*(\S*)\s*$/$1/;
+$dir = $dir . "/share/gtk-doc/html";
+print "Prepending GLib directory $dir\n" if $VERBOSE;
+unshift @OTHER_DIRS, $dir;
+
+# Check all other dirs, but skip already scanned dirs ord subdirs of those
+if ($DEST_DIR) {
+    $DEST_DIR =~ s#/?$#/#;
+}
+$HTML_DIR =~ s#/?$#/#;
+
+foreach $dir (@OTHER_DIRS) {
+    &ScanDirectory($dir, $HTML_DIR);
+}
+
+if ($RELATIVE) {
+    &RelativizeLocalMap($HTML_DIR);
+}
+
+&RebaseReferences($HTML_DIR);
+&PrintWhatWeHaveDone();
+
+
+sub ScanDirectory {
+    my ($dir, $self) = @_;
+    # This array holds any subdirectories found.
+    my (@subdirs) = ();
+
+    print "Scanning documentation directory $dir\n" if $VERBOSE;
+
+    if ("$dir/" eq $self) {
+	print "Excluding self\n" if $VERBOSE;
+	return;
+    }
+    if (not opendir(HTMLDIR, $dir)) {
+	print "Cannot open $dir: $!\n";
+	return;
+    }
+
+    my $file;
+    foreach $file (readdir(HTMLDIR)) {
+	if ($file eq '.' or $file eq '..') {
+	    next;
+	}
+	elsif (-d "$dir/$file") {
+	    push @subdirs, $file;
+	}
+	elsif ($file eq "index.sgml") {
+	    &AddMap($dir);
+	}
+	elsif ($file eq "index.sgml.gz") {
+	    print "Please fix https://bugs.launchpad.net/ubuntu/+source/gtk-doc/+bug/77138\n";
+	}
+    }
+    closedir (HTMLDIR);
+
+    # Now recursively scan the subdirectories.
+    my $d;
+    foreach my $subdir (@subdirs) {
+	&ScanDirectory("$dir/$subdir", $self);
+    }
+}
+
+
+sub AddMap {
+    my ($dir) = @_;
+    my $file = "$dir/index.sgml";
+    my ($onlinedir, $package);
+
+    open(INDEXFILE, $file) || die "Can't open $file: $!";
+    while (<INDEXFILE>) {
+	# ONLINE must come before any ANCHORs
+	last if m/^<ANCHOR/;
+	if (m/^<ONLINE\s+href\s*=\s*"([^"]+)"\s*>/) {
+	    $onlinedir = $1;
+	    # Remove trailing non-directory component.
+	    $onlinedir =~ s#(.*/).*#$1#;
+	}
+    }
+    close (INDEXFILE);
+
+    $dir =~ s#/?$#/#;
+    ($package = $dir) =~ s#.*/([^/]+)/#$1#;
+    if ($DEST_DIR and substr($dir, 0, length $DEST_DIR) eq $DEST_DIR) {
+	$dir = substr($dir, -1 + length $DEST_DIR);
+    }
+    if ($onlinedir) {
+	print "On-line location of $package: $onlinedir\n" if $VERBOSE;
+	$OnlineMap{ $package } = $onlinedir;
+	$RevMap{ $onlinedir } = $package;
+    }
+    print "Local location of $package: $dir\n" if $VERBOSE;
+    $LocalMap{ $package } = $dir;
+    $RevMap{ $dir } = $package;
+}
+
+
+sub RelativizeLocalMap {
+    my ($self) = @_;
+    my $prefix;
+
+    $self = realpath $self;
+    $self =~ s#/?$#/#;
+    ($prefix = $self) =~ s#[^/]+/$##;
+    foreach my $package (keys %LocalMap) {
+	$dir = $LocalMap{ $package };
+	if (substr($dir, 0, length $prefix) eq $prefix) {
+	    $dir = "../" . substr($dir, length $prefix);
+	    $LocalMap{ $package } = $dir;
+	    print "Relativizing local location of $package to $dir\n" if $VERBOSE;
+	}
+    }
+}
+
+
+sub RebaseReferences {
+    my ($dir) = @_;
+
+    opendir(HTMLDIR, $dir) || die "Can't open HTML directory $dir: $!";
+    foreach my $file (readdir(HTMLDIR)) {
+	if ($file =~ m/\.html?$/) {
+	    &RebaseFile("$dir$file");
+	}
+    }
+    closedir (HTMLDIR);
+}
+
+
+sub RebaseFile {
+    my ($file) = @_;
+    print "Fixing file: $file\n" if $VERBOSE;
+
+    open(HTMLFILE, $file) || die "Can't open $file: $!";
+    local $/;
+    undef $/;
+    my $text = <HTMLFILE>;
+    close(HTMLFILE);
+
+    $text =~ s#(<a(?:\s+\w+=(?:"[^"]*"|'[^']*'))*\s+href=")([^"]*)(")#$1 . &RebaseLink($2) .$3#gse;
+
+    open(NEWFILE, ">$file.new") || die "Can't open $file: $!";
+    print NEWFILE $text;
+    close(NEWFILE);
+
+    unlink($file) || die "Can't delete $file: $!";
+    rename("$file.new", $file) || die "Can't rename $file.new: $!";
+}
+
+
+sub RebaseLink {
+    my ($href) = @_;
+    my ($dir, $origdir, $file, $package);
+
+    if ($href =~ m#^(.*/)([^/]*)$#) {
+	$dir = $origdir = $1;
+	$file = $2;
+	if ($RevMap{ $dir }) {
+	    $package = $RevMap{ $dir };
+	}
+	elsif ($dir =~ m#^\.\./([^/]+)/#) {
+	    $package = $1
+	}
+	elsif ($AGGRESSIVE) {
+	    $dir =~ m#([^/]+)/$#;
+	    $package = $1;
+	}
+
+	if ($package) {
+	    if ($ONLINE && $OnlineMap{ $package }) {
+		$dir = $OnlineMap{ $package };
+	    }
+	    elsif ($LocalMap{ $package }) {
+		$dir = $LocalMap{ $package };
+	    }
+	    $href = $dir . $file;
+	}
+	if ($dir ne $origdir) {
+	    if ($Mapped{ $origdir }) {
+		$Mapped{ $origdir }->[1]++;
+	    }
+	    else {
+		$Mapped{ $origdir } = [ $dir, 1 ];
+	    }
+	}
+    }
+    return $href;
+}
+
+
+sub PrintWhatWeHaveDone {
+    my ($origdir, $info);
+    foreach $origdir (sort keys %Mapped) {
+	$info = $Mapped{$origdir};
+	print "$origdir -> ", $info->[0], " (", $info->[1], ")\n";
+    }
+}

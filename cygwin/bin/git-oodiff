@@ -1,0 +1,110 @@
+#! /bin/sh
+#
+#   Copyright
+#
+#	Copyright (C) 2009-2010 Jari Aalto <jari.aalto@cante.net>
+#	Copyright (C) 2008 Matthieu Moy <Matthieu.Moy@imag.fr>
+#
+#   License
+#
+#       This program is free software; you can redistribute it and/or modify
+#       it under the terms of the GNU General Public License as published by
+#       the Free Software Foundation; either version 2 of the License, or
+#       (at your option) any later version.
+#
+#       This program is distributed in the hope that it will be useful,
+#       but WITHOUT ANY WARRANTY; without even the implied warranty of
+#       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#       GNU General Public License for more details
+#       at <http://www.gnu.org/licenses/>.
+#
+#    Description
+#
+#	Script acceptable as a value for GIT_EXTERNAL_DIFF.
+#	For example, you can see the changes in your working tree with
+#
+#	    [debug=1] GIT_EXTERNAL_DIFF=git-oodiff git diff <file.odt>
+#
+#    Technical
+#
+#	Call arguments as from "git diff", see git(1) manual page:
+#
+#	    path old-file old-hex old-mode new-file new-hex new-mode
+#	    FILE /tmp/.diff_1vvsDQ <SHA1> 10064 FILE  000... 100644
+
+[ "$debug" ] && set -x
+
+tmpbase=/tmp/oodiff.$$
+
+convert_to_txt ()
+{
+    if [ "$1" = "/dev/null" ]; then
+        : > /tmp/oodiff.$$."$2"
+        eval "label$2=/dev/null/"
+    else
+        odt2txt "$1" > $tmpbase."$2"
+    fi
+}
+
+Main ()
+{
+    dummy_arg_list="$*"		# For debugging
+
+    label1="a/$1"
+    label2="b/$1"
+
+    if [ "$#" = "1" ]; then
+	echo "Unmerged path $1"
+	exit 0
+    fi
+
+    msg=""
+
+    if   [ "$4" = "." ]; then
+	msg="new file mode $7
+"
+    elif [ "$7" = "." ]; then
+	msg="deleted file mode $4
+"
+    elif [ ! "$4" = "$7" ]; then
+	msg="\
+old mode $4
+new mode $7
+"
+    fi
+
+    status=0
+    fhead="$2"
+    fdisk="$5"
+
+    if convert_to_txt "$fhead" "1" &&
+	convert_to_txt "$fdisk" "2"
+    then
+	echo `basename $0` "$label1" "$label2"
+
+	[ "$msg" ] && echo -e "$msg"
+
+	if diff -L "$label1" -L "$label2" -u "$tmpbase.1" "$tmpbase.2"
+	then
+	    echo "No content difference HEAD and $fdisk"
+	fi
+    else
+	# conversion failed. Fall back to plain diff.
+
+	echo diff -u "$label1" "$label2"
+	echo -e "$msg"
+
+	diff -L "$label1" -L "$label2" -u "$fhead" "$fdisk"
+	status=$?
+    fi
+
+    if [ ! "$debug" ]; then
+       rm -f "$tmpbase.1" "$tmpbase.2"
+    fi
+
+    exit $status
+}
+
+Main "$@"
+
+# End of file

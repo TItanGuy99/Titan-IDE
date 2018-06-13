@@ -1,0 +1,1291 @@
+<?xml version="1.0"?>
+<gconfschemafile>
+  <schemalist>
+    <schema>
+      <key>/schemas/desktop/gnome/peripherals/keyboard/repeat</key>
+      <applyto>/desktop/gnome/peripherals/keyboard/repeat</applyto>
+      <owner>gnome</owner>
+      <type>bool</type>
+      <default>true</default>
+      <locale name="C">
+        <short></short>
+        <long></long>
+      </locale>
+    </schema>
+    <schema>
+      <key>/schemas/desktop/gnome/peripherals/keyboard/click</key>
+      <applyto>/desktop/gnome/peripherals/keyboard/click</applyto>
+      <owner>gnome</owner>
+      <type>bool</type>
+      <default>true</default>
+      <locale name="C">
+        <short></short>
+        <long></long>
+      </locale>
+    </schema>
+    <schema>
+      <key>/schemas/desktop/gnome/peripherals/keyboard/rate</key>
+      <applyto>/desktop/gnome/peripherals/keyboard/rate</applyto>
+      <owner>gnome</owner>
+      <type>int</type>
+      <default>30</default>
+      <locale name="C">
+        <short></short>
+        <long></long>
+      </locale>
+    </schema>
+    <schema>
+      <key>/schemas/desktop/gnome/peripherals/keyboard/delay</key>
+      <applyto>/desktop/gnome/peripherals/keyboard/delay</applyto>
+      <owner>gnome</owner>
+      <type>int</type>
+      <default>500</default>
+      <locale name="C">
+        <short></short>
+        <long></long>
+      </locale>
+    </schema>
+    <schema>
+      <key>/schemas/desktop/gnome/peripherals/keyboard/click_volume</key>
+      <applyto>/desktop/gnome/peripherals/keyboard/click_volume</applyto>
+      <owner>gnome</owner>
+      <type>int</type>
+      <default>0</default>
+      <locale name="C">
+        <short></short>
+        <long></long>
+      </locale>
+    </schema>
+    <!-- Keyboard bell -->
+    <schema>
+      <key>/schemas/desktop/gnome/peripherals/keyboard/bell_mode</key>
+      <applyto>/desktop/gnome/peripherals/keyboard/bell_mode</applyto>
+      <owner>gnome</owner>
+      <type>string</type>
+      <default>on</default>
+      <locale name="C">
+        <short></short>
+        <long>possible values are "on", "off", and "custom".</long>
+      </locale>
+
+      <locale name="ar">
+        
+        <long>القيم الممكنة هي &quot;on&quot;، &quot;off&quot;، و &quot;custom&quot;.</long>
+      </locale>
+
+      <locale name="as">
+        
+        <long>সম্ভাব্য মান হল &quot;on &quot;, &quot;off&quot; আৰু &quot;custom &quot; ।</long>
+      </locale>
+
+      <locale name="ast">
+        
+        <long>los valores posibles con &quot;on&quot;, &quot;off&quot; y &quot;custom&quot;</long>
+      </locale>
+
+      <locale name="az">
+        
+        <long>mümkün qiymətlər &quot;fəal&quot;, &quot;qeyri-fəal&quot; və &quot;xüsusi&quot;.</long>
+      </locale>
+
+      <locale name="be">
+        
+        <long>магчымыя значэньні: &quot;on&quot;, &quot;off&quot; ці &quot;custom&quot;.</long>
+      </locale>
+
+      <locale name="bg">
+        
+        <long>възможни стойности са „on“ (включено), „off“ (изключено), и „custom“ (друго).</long>
+      </locale>
+
+      <locale name="bn">
+        
+        <long>সম্ভাব্য মান হল &quot;on (চালু)&quot;, &quot;off (বন্ধ)&quot; ও &quot;custom (স্বনির্বাচিত)&quot;।</long>
+      </locale>
+
+      <locale name="bn_IN">
+        
+        <long>সম্ভাব্য মান হল &quot;on (চালু)&quot;, &quot;off (বন্ধ)&quot; ও &quot;custom (স্বনির্বাচিত)&quot;।</long>
+      </locale>
+
+      <locale name="bs">
+        
+        <long>moguće vrijednosti su &quot;on&quot;, &quot;off&quot; i &quot;custom&quot;.</long>
+      </locale>
+
+      <locale name="ca">
+        
+        <long>els valors possibles són «on» (actiu), «off» (apagat) i «custom» (personalitzat).</long>
+      </locale>
+
+      <locale name="ca@valencia">
+        
+        <long>els valors possibles són «on» (actiu), «off» (apagat) i «custom» (personalitzat).</long>
+      </locale>
+
+      <locale name="crh">
+        
+        <long>maqbul qıymetler: &quot;on&quot;, &quot;off&quot;, ve &quot;custom&quot;</long>
+      </locale>
+
+      <locale name="cs">
+        
+        <long>možné hodnoty jsou &quot;on&quot;, &quot;off&quot; a &quot;custom&quot;.</long>
+      </locale>
+
+      <locale name="cy">
+        
+        <long>gwerthoedd caniataol: &quot;on&quot;, &quot;off&quot;, &quot;custom&quot;.</long>
+      </locale>
+
+      <locale name="da">
+        
+        <long>mulige værdier er &quot;on&quot;, &quot;off&quot; og &quot;custom&quot;.</long>
+      </locale>
+
+      <locale name="de">
+        
+        <long>Zulässige Werte: »on« (aktivieren), »off« (deaktivieren) sowie »custom« (benutzerdefiniert).</long>
+      </locale>
+
+      <locale name="dz">
+        
+        <long>སྲིད་པའི་་བེ་ལུསི་ &quot;on&quot;, &quot;off&quot; དང་ &quot;custom&quot; ཚུ་ཨིན།</long>
+      </locale>
+
+      <locale name="el">
+        
+        <long>πιθανές τιμές είναι &quot;ενεργό&quot;, &quot;ανενεργό&quot; και &quot;προσαρμοσμένο&quot;.</long>
+      </locale>
+
+      <locale name="en@shaw">
+        
+        <long>𐑐𐑪𐑕𐑩𐑚𐑩𐑤 𐑝𐑨𐑤𐑿𐑟 𐑸 &quot;on&quot;, &quot;off&quot;, 𐑯 &quot;custom&quot;.</long>
+      </locale>
+
+      <locale name="en_CA">
+        
+        <long>possible values are &quot;on&quot;, &quot;off&quot;, and &quot;custom&quot;.</long>
+      </locale>
+
+      <locale name="en_GB">
+        
+        <long>possible values are &quot;on&quot;, &quot;off&quot;, and &quot;custom&quot;.</long>
+      </locale>
+
+      <locale name="eo">
+        
+        <long>eblaj valoroj estas &quot;on&quot;, &quot;off&quot;, kaj &quot;custom&quot;.</long>
+      </locale>
+
+      <locale name="es">
+        
+        <long>los valores posibles son «on», «off» y «custom».</long>
+      </locale>
+
+      <locale name="et">
+        
+        <long>võimalikud väärtused on &quot;on&quot; (sees), &quot;off&quot; (väljas) ja &quot;custom&quot; (kohandatud).</long>
+      </locale>
+
+      <locale name="eu">
+        
+        <long>hauek dira balio posibleak: &quot;on&quot;, &quot;off&quot;, eta &quot;custom&quot;.</long>
+      </locale>
+
+      <locale name="fa">
+        
+        <long>مقادیر ممکن عبارتند از «روشن»، «خاموش» و «سفارشی».</long>
+      </locale>
+
+      <locale name="fi">
+        
+        <long>mahdollisia arvoja ovat ”on” (päällä), ”off” (pois) ja ”custom” (muu).</long>
+      </locale>
+
+      <locale name="fr">
+        
+        <long>les valeurs possibles sont « on » (activé), « off » (désactivé), et « custom » (personnalisé).</long>
+      </locale>
+
+      <locale name="gl">
+        
+        <long>os valores posíbeis son &quot;on&quot;, &quot;off&quot; e &quot;custom&quot;.</long>
+      </locale>
+
+      <locale name="gu">
+        
+        <long>શક્ય કિંમતો છે &quot;ચાલુ&quot;, &quot;બંધ&quot;, અને &quot;કસ્ટમ&quot;.</long>
+      </locale>
+
+      <locale name="he">
+        
+        <long>possible values are &quot;on&quot;, &quot;off&quot;, and &quot;custom&quot;.</long>
+      </locale>
+
+      <locale name="hi">
+        
+        <long>संभावित मूल्य हैं &quot;चालू&quot;, &quot;बन्द&quot;, तथा &quot;अनुकूलित&quot;.</long>
+      </locale>
+
+      <locale name="hr">
+        
+        <long>moguće vrijednosti su &quot;uključeno&quot;, &quot;isključeno&quot;, i &quot;vlastito&quot;.</long>
+      </locale>
+
+      <locale name="hu">
+        
+        <long>lehetséges értékek: „on” (be), „off” (ki), és „custom” (egyéni).</long>
+      </locale>
+
+      <locale name="id">
+        
+        <long>pilihannya adalah: &quot;on&quot;, &quot;off&quot;, dan &quot;custom&quot;.</long>
+      </locale>
+
+      <locale name="is">
+        
+        <long>möguleg gildi eru &quot;á&quot;, &quot;af&quot; og &quot;sérsniðið&quot;.</long>
+      </locale>
+
+      <locale name="it">
+        
+        <long>Valori ammessi sono &quot;on&quot; &quot;off&quot; e &quot;custom&quot;.</long>
+      </locale>
+
+      <locale name="ja">
+        
+        <long>ベル音のモードです。設定可能な値: &quot;on&quot;、&quot;off&quot;、&quot;custom&quot;</long>
+      </locale>
+
+      <locale name="ka">
+        
+        <long>შესაძლო მნიშვნელობებია &quot;ჩართვა&quot;, &quot;ამორთვა&quot;, და &quot;საკუთარი&quot;.</long>
+      </locale>
+
+      <locale name="kn">
+        
+        <long>ಸಾಧ್ಯವಿರುವ ಮೌಲ್ಯಗಳೆಂದರೆ &quot;on&quot;, &quot;off&quot;, ಹಾಗು &quot;custom&quot;.</long>
+      </locale>
+
+      <locale name="ko">
+        
+        <long>가능할 값들은 &quot;on&quot;, &quot;off&quot;, &quot;custom&quot;입니다.</long>
+      </locale>
+
+      <locale name="ku">
+        
+        <long>nirxên derbasdar &quot;on&quot;, &quot;off&quot;, û &quot;custom&quot; e.</long>
+      </locale>
+
+      <locale name="lt">
+        
+        <long>galimos reikšmės yra „on“, „off“ ir „custom“.</long>
+      </locale>
+
+      <locale name="lv">
+        
+        <long>iespējamās vērtības ir &quot;on&quot;, &quot;off&quot;, un &quot;custom&quot;.</long>
+      </locale>
+
+      <locale name="mai">
+        
+        <long>संभावित मूल्य अछि &quot;चालू&quot;, &quot;बन्द&quot;, आओर &quot;अनुकूलित&quot;.</long>
+      </locale>
+
+      <locale name="mg">
+        
+        <long>&quot;on&quot;, &quot;off&quot;, ary &quot;custom&quot; no sanda mety ampiasaina.</long>
+      </locale>
+
+      <locale name="mk">
+        
+        <long>можни вредности се &quot;вклучи&quot;, &quot;исклучи&quot; и &quot;сопствено&quot;.</long>
+      </locale>
+
+      <locale name="ml">
+        
+        <long>സാധ്യമുളള മൂല്ല്യങ്ങള്‍ ആണ് -  &quot;on&quot;, &quot;off&quot;, &quot;custom&quot;.</long>
+      </locale>
+
+      <locale name="mn">
+        
+        <long>Боломжит утгууд нь »on« (асаах), »off« (салгах) мөн»custom« (хэрэглэгчийн тохиргоогоор)</long>
+      </locale>
+
+      <locale name="mr">
+        
+        <long>संभाव्य मूल्य &quot;चालू&quot;, &quot;बंद&quot;, आणि &quot;इच्छित&quot;.</long>
+      </locale>
+
+      <locale name="ms">
+        
+        <long>nilai yang boleh adalah &quot;on&quot;, &quot;off&quot; dan &quot;custom&quot;.</long>
+      </locale>
+
+      <locale name="nb">
+        
+        <long>mulige verdier er «on», «off» og «custom».</long>
+      </locale>
+
+      <locale name="ne">
+        
+        <long>सम्भावित मान &quot;खुला&quot;, &quot;बन्द&quot;, र &quot;अनुकूल&quot; हुन् ।</long>
+      </locale>
+
+      <locale name="nl">
+        
+        <long>mogelijke waarden zijn ‘on’, ‘off’, en ‘custom’ (aangepast).</long>
+      </locale>
+
+      <locale name="nn">
+        
+        <long>moglege verdiar er «on», «off» og «custom».</long>
+      </locale>
+
+      <locale name="or">
+        
+        <long>ସମ୍ଭାବ୍ଯ ମୂଲ୍ଯଗୁଡ଼ିକ ହେଲା &quot;on&quot;, &quot;off&quot;, and &quot;custom&quot;</long>
+      </locale>
+
+      <locale name="pa">
+        
+        <long>ਸੰਭਵ ਮੁੱਲ ਹਨ &quot;ਚਾਲੂ&quot;, &quot;ਬੰਦ&quot; ਅਤੇ &quot;ਪਸੰਦੀਦਾ&quot;।</long>
+      </locale>
+
+      <locale name="pl">
+        
+        <long>dopuszczalnymi wartościami są &quot;on&quot;, &quot;off&quot; oraz &quot;custom&quot;.</long>
+      </locale>
+
+      <locale name="pt">
+        
+        <long>valores possíveis são &quot;on&quot;, &quot;off&quot;, and &quot;custom&quot;.</long>
+      </locale>
+
+      <locale name="pt_BR">
+        
+        <long>valores possíveis são &quot;on&quot; (ligado), &quot;off&quot; (desligado), e &quot;custom&quot; (personalizado).</long>
+      </locale>
+
+      <locale name="ro">
+        
+        <long>valorile posibile sunt „on”, „off”, și „custom”.</long>
+      </locale>
+
+      <locale name="ru">
+        
+        <long>возможные значения: «on», «off» и «custom».</long>
+      </locale>
+
+      <locale name="sk">
+        
+        <long>možné hodnoty sú: &quot;on&quot;, &quot;off&quot; a &quot;custom&quot;.</long>
+      </locale>
+
+      <locale name="sl">
+        
+        <long>mogoče vrednosti so &quot;on&quot;, &quot;off&quot; in &quot;custom&quot;</long>
+      </locale>
+
+      <locale name="sq">
+        
+        <long>Vlerat e mundëshme janë &quot;on&quot;, &quot;off&quot;, dhe &quot;custom&quot;.</long>
+      </locale>
+
+      <locale name="sr">
+        
+        <long>дозвољене вредности су „on“, „off“ и „custom“.</long>
+      </locale>
+
+      <locale name="sr@ije">
+        
+        <long>дозвољене вриједности су „on“, „off“ и „custom“.</long>
+      </locale>
+
+      <locale name="sr@latin">
+        
+        <long>dozvoljene vrednosti su „on“, „off“ i „custom“.</long>
+      </locale>
+
+      <locale name="sv">
+        
+        <long>möjliga värden är &quot;on&quot;, &quot;off&quot; och &quot;custom&quot;.</long>
+      </locale>
+
+      <locale name="ta">
+        
+        <long>செயல்படக்கூடிய மதிப்புகள் &quot;இயக்கு&quot;,&quot;நீக்கு&quot;, மற்றும் &quot;தனிப்பயன்&quot;</long>
+      </locale>
+
+      <locale name="te">
+        
+        <long>సాధ్యమగు విలువలు &quot;on&quot;, &quot;off&quot;, మరియు &quot;custom&quot;.</long>
+      </locale>
+
+      <locale name="th">
+        
+        <long>สามารถตั้งเป็น &quot;on&quot;, &quot;off&quot; หรือ &quot;custom&quot;</long>
+      </locale>
+
+      <locale name="tr">
+        
+        <long>geçerli değerler &quot;on&quot;, &quot;off&quot;, ve &quot;custom&quot;dır.</long>
+      </locale>
+
+      <locale name="ug">
+        
+        <long>تاللىغىلى بولىدىغان قىممىتى &quot;on&quot;(ئوچۇق)، &quot;off&quot;(تاقاق) ۋە &quot;custom&quot;(ئىختىيارى)</long>
+      </locale>
+
+      <locale name="uk">
+        
+        <long>можливими значеннями є &quot;on&quot;, &quot;off&quot; та &quot;custom&quot;</long>
+      </locale>
+
+      <locale name="vi">
+        
+        <long>giá trị hợp lệ là:
+ • on — bật,
+ • off — tắt,
+ • custom — tự chọn.</long>
+      </locale>
+
+      <locale name="xh">
+        
+        <long>uncedo olunokubakho &quot;on&quot;, &quot;off&quot;, and &quot;custom&quot;.</long>
+      </locale>
+
+      <locale name="zh_CN">
+        
+        <long>可用的值是“on”，“off”和“custom”。</long>
+      </locale>
+
+      <locale name="zh_HK">
+        
+        <long>可使用的值為“on”、“off”及“custom”。</long>
+      </locale>
+
+      <locale name="zh_TW">
+        
+        <long>可使用的值為“on”、“off”及“custom”。</long>
+      </locale>
+    </schema>
+<!--
+    <schema>
+      <key>/schemas/desktop/gnome/peripherals/keyboard/bell_percent</key>
+      <applyto>/desktop/gnome/peripherals/keyboard/bell_percent</applyto>
+      <owner>gnome</owner>
+      <type>int</type>
+      <default>50</default>
+      <locale name="C">
+        <short></short>
+        <long></long>
+      </locale>
+    </schema>
+-->
+    <schema>
+      <key>/schemas/desktop/gnome/peripherals/keyboard/bell_pitch</key>
+      <applyto>/desktop/gnome/peripherals/keyboard/bell_pitch</applyto>
+      <owner>gnome</owner>
+      <type>int</type>
+      <default>400</default>
+      <locale name="C">
+        <short></short>
+        <long></long>
+      </locale>
+    </schema>
+    <schema>
+      <key>/schemas/desktop/gnome/peripherals/keyboard/bell_duration</key>
+      <applyto>/desktop/gnome/peripherals/keyboard/bell_duration</applyto>
+      <owner>gnome</owner>
+      <type>int</type>
+      <default>100</default>
+      <locale name="C">
+        <short></short>
+        <long></long>
+      </locale>
+    </schema>
+    <schema>
+      <key>/schemas/desktop/gnome/peripherals/keyboard/bell_custom_file</key>
+      <applyto>/desktop/gnome/peripherals/keyboard/bell_custom_file</applyto>
+      <owner>gnome</owner>
+      <type>string</type>
+      <locale name="C">
+        <short>Keyboard Bell Custom Filename</short>
+        <long>File name of the bell sound to be played.</long>
+      </locale>
+
+      <locale name="ar">
+        <short>اسم ملف جرس لوحة المفاتيح المخصّص</short>
+        <long>اسم ملف صوت الجرس الذي سيُعزف.</long>
+      </locale>
+
+      <locale name="as">
+        <short>চাবিৰ ফলকৰ বেল ৰূপে ব্যৱহৃত স্বনিৰ্বাচিত নথিপত্ৰৰ নাম</short>
+        <long>ঘন্টাধ্বনিৰ বাবে ব্যৱহৃত নথিপত্ৰৰ নাম</long>
+      </locale>
+
+      <locale name="ast">
+        <short>Nome del ficheru personalizáu pa la campana del tecláu</short>
+        <long>Nome del ficheru de soníu de campana a reproducir.</long>
+      </locale>
+
+      <locale name="az">
+        <short>Klaviatura Zınqırovu Özəl Fayl adı</short>
+        
+      </locale>
+
+      <locale name="be">
+        <short>Назва файлу сыгналу клявіятуры</short>
+        
+      </locale>
+
+      <locale name="bg">
+        <short>Име на файла за специален клавиатурен звънец</short>
+        <long>Име на файла, който да замени звънеца.</long>
+      </locale>
+
+      <locale name="bn">
+        <short>কীবোর্ড বেল রূপে ব্যবহৃত স্বনির্ধারিত ফাইলের নাম</short>
+        <long>ঘন্টাধ্বনির জন্য ব্যবহৃত ফাইলের নাম।</long>
+      </locale>
+
+      <locale name="bn_IN">
+        <short>কি-বোর্ড বেল রূপে ব্যবহৃত স্বনির্বাচিত ফাইলের নাম</short>
+        <long>ঘন্টাধ্বনির জন্য ব্যবহৃত ফাইলের নাম।</long>
+      </locale>
+
+      <locale name="bs">
+        <short>Ime datoteke vlastitog zvona tastature</short>
+        
+      </locale>
+
+      <locale name="ca">
+        <short>Fitxer personalitzat de la campana del teclat</short>
+        <long>El nom del fitxer del so de la campana a reproduir.</long>
+      </locale>
+
+      <locale name="ca@valencia">
+        <short>Fitxer personalitzat de la campana del teclat</short>
+        <long>El nom del fitxer del so de la campana a reproduir.</long>
+      </locale>
+
+      <locale name="crh">
+        <short>Klavye Zili Şahsiyleştirilgen Dosye Adı</short>
+        <long>Çalınacaq zil sesiniñ dosye adı.</long>
+      </locale>
+
+      <locale name="cs">
+        <short>Vlastní jméno souboru klávesového zvonku</short>
+        <long>Název souboru se zvukem zvonku, který chcete přehrávat.</long>
+      </locale>
+
+      <locale name="cy">
+        <short>Enw Ffeil Sain Cloch Addasedig</short>
+        <long>Enw ffeil y sain gloch i&apos;w chwarae.</long>
+      </locale>
+
+      <locale name="da">
+        <short>Brugerdefineret filnavn til tastaturklokke</short>
+        <long>Filnavn for den klokkelyd der skal afspilles.</long>
+      </locale>
+
+      <locale name="de">
+        <short>Benutzerdefinierter Dateiname für Tastaturglocke</short>
+        <long>Dateiname des wiederzugebenden Glockenklangs.</long>
+      </locale>
+
+      <locale name="dz">
+        <short>ལྡེ་སྒྲོམ་དྲིལ་བུའི་ སྲོལ་སྒྲིག་ཡིག་སྣོད་མིང༌།</short>
+        
+      </locale>
+
+      <locale name="el">
+        <short>Όνομα αρχείου προσαρμοσμένου ήχου πληκτρολογίου</short>
+        <long>Όνομα αρχείου του ήχου καμπάνας που θα αναπαράγεται.</long>
+      </locale>
+
+      <locale name="en@shaw">
+        <short>𐑒𐑰𐑚𐑪𐑮𐑛 𐑚𐑧𐑤 𐑒𐑳𐑕𐑑𐑩𐑥 𐑓𐑲𐑤𐑯𐑱𐑥</short>
+        <long>𐑓𐑲𐑤 𐑯𐑱𐑥 𐑝 𐑞 𐑚𐑧𐑤 𐑕𐑬𐑯𐑛 𐑑 𐑚𐑰 𐑐𐑤𐑱𐑛.</long>
+      </locale>
+
+      <locale name="en_CA">
+        <short>Keyboard Bell Custom Filename</short>
+        
+      </locale>
+
+      <locale name="en_GB">
+        <short>Keyboard Bell Custom Filename</short>
+        <long>File name of the bell sound to be played.</long>
+      </locale>
+
+      <locale name="eo">
+        <short>Klavara sonorila propra dosiernomo</short>
+        <long>Dosieronomo de la ludenda sonorila sono.</long>
+      </locale>
+
+      <locale name="es">
+        <short>Archivo personalizado de la campana del teclado</short>
+        <long>Nombre del archivo de sonido de la campana para reproducir.</long>
+      </locale>
+
+      <locale name="et">
+        <short>Klaviatuurikõlli kohandatud failinimi</short>
+        <long>Kellahelina helifaili nimi.</long>
+      </locale>
+
+      <locale name="eu">
+        <short>Teklatuaren kanpaiaren fitxategi-izen pertsonalizatua</short>
+        <long>Erreproduzitu beharreko kanpai-hotsaren fitxategi-izena.</long>
+      </locale>
+
+      <locale name="fa">
+        <short>نام پرونده‌ی ‌زنگ سفارشی صفحه‌کلید</short>
+        
+      </locale>
+
+      <locale name="fi">
+        <short>Näppäimistöpiippauksen tiedostonimi</short>
+        <long>Piippauksena soitettavan äänen tiedostonimi.</long>
+      </locale>
+
+      <locale name="fr">
+        <short>Nom du fichier du bip de clavier personnalisé</short>
+        <long>Nom du fichier du son de cloche à jouer.</long>
+      </locale>
+
+      <locale name="gl">
+        <short>Nome de ficheiro personalizado da campá do teclado</short>
+        <long>Nome do ficheiro de son da campá para reproducir.</long>
+      </locale>
+
+      <locale name="gu">
+        <short>કીબોર્ડ ઘંટડી કસ્ટમ ફાઈલ નામ</short>
+        <long>વગાડવા માટેના ઘંટડી ધ્વનિની ફાઈલનું નામ.</long>
+      </locale>
+
+      <locale name="he">
+        <short>Keyboard Bell Custom Filename</short>
+        <long>File name of the bell sound to be played.</long>
+      </locale>
+
+      <locale name="hi">
+        <short>कुंजीपटल घंटी अनुकूलित फ़ाइलनाम</short>
+        <long>बजाई जाने वाली घंटी की ध्वनि का फ़ाइल नाम.</long>
+      </locale>
+
+      <locale name="hr">
+        <short>Prilagođena datoteka zvukova tipkovnice</short>
+        
+      </locale>
+
+      <locale name="hu">
+        <short>Billentyűzetcsengő egyéni fájlneve</short>
+        <long>A lejátszandó hangjelzés fájlneve.</long>
+      </locale>
+
+      <locale name="id">
+        <short>Nama Berkas Gubahan Bel Papan Tik</short>
+        <long>Nama berkas yang digunakan untuk suara bel.</long>
+      </locale>
+
+      <locale name="is">
+        <short>Skráarnafn fyrir sérvalda lyklaborðsbjöllu</short>
+        
+      </locale>
+
+      <locale name="it">
+        <short>Nome del file personalizzato della campanella da tastiera</short>
+        <long>Nome del file del suono della campanella da riprodurre.</long>
+      </locale>
+
+      <locale name="ja">
+        <short>キーボード・ベルのファイル名</short>
+        <long>キーボード・ベルの音として利用するファイル名です。</long>
+      </locale>
+
+      <locale name="ka">
+        <short>ხმოვანი ზარის საკუთარი ფაილის სახელი</short>
+        
+      </locale>
+
+      <locale name="kn">
+        <short>ಕೀಲಿಮಣೆ ಬೆಲ್ ಕಸ್ಟಮ್ ಕಡತದ ಹೆಸರು</short>
+        <long>ಚಲಾಯಿಸಬೇಕಿರುವ ಬೆಲ್ ಶಬ್ಧದ ಕಡತ.</long>
+      </locale>
+
+      <locale name="ko">
+        <short>사용자 키보드 벨 파일 이름</short>
+        <long>플레이할 벨소리의 파일 이름.</long>
+      </locale>
+
+      <locale name="ku">
+        <short>Navê Dosyeya Taybet ya Zengilê Klavyeyê</short>
+        
+      </locale>
+
+      <locale name="lt">
+        <short>Klaviatūros varpelio failas</short>
+        <long>Skambučio garso signalo failo vardas.</long>
+      </locale>
+
+      <locale name="lv">
+        <short>Faila nosaukums pielāgotajam tastatūras zvanam</short>
+        <long>Atskaņojamā zvana skaņas faila nosaukums.</long>
+      </locale>
+
+      <locale name="mai">
+        <short>कुंजीपटल घंटी अनुकूलित फाइलनाम</short>
+        
+      </locale>
+
+      <locale name="mg">
+        <short>Anarana safidy omena ny feon&apos;ny fafana</short>
+        
+      </locale>
+
+      <locale name="mk">
+        <short>Име на датотеката со сопствено ѕвонче за тастатурата</short>
+        <long>Име на датотеката со звук на ѕвонче за свирење.</long>
+      </locale>
+
+      <locale name="ml">
+        <short>കീബോര്‍ഡ് ബെല്‍ കസ്റ്റം ഫയല്‍നെയിം</short>
+        <long>കേള്‍പ്പിയ്ക്കാന്‍ പോകുന്ന മണിനാദമുള്ള ഫയലിന്റെ പേരു്.</long>
+      </locale>
+
+      <locale name="mn">
+        <short>Гарны товчлуурын хонхны дууны файлын нэр</short>
+        <long>Тоглуулах дууны файлын нэр.</long>
+      </locale>
+
+      <locale name="mr">
+        <short>कळफलक घंटा इच्छिक फाइलनाव</short>
+        <long>घंट्याचे आवाज चालवायची त्या फाइलचे नाव.</long>
+      </locale>
+
+      <locale name="ms">
+        <short>Namafail Loceng tersendiri Papankekunci</short>
+        
+      </locale>
+
+      <locale name="nb">
+        <short>Filnavn for egendefinert tastaturpip</short>
+        <long>Filnavn for lyd for tastaturpip som skal spilles.</long>
+      </locale>
+
+      <locale name="ne">
+        <short>कुञ्जीपाटी घन्टी अनुकूल फाइल नाम</short>
+        
+      </locale>
+
+      <locale name="nl">
+        <short>Aangepaste bestandsnaam toetsenbordbeltoon</short>
+        <long>Bestandsnaam van af te spelen geluid als beltoon.</long>
+      </locale>
+
+      <locale name="nn">
+        <short>Lydfil med eigendefinert signallyd</short>
+        <long>Filnamn på signallyden som skal spelast.</long>
+      </locale>
+
+      <locale name="or">
+        <short>କି ବୋର୍ଡ ଘଣ୍ଟିର ଇଚ୍ଛାରୂପ ଫାଇଲର ନାମ</short>
+        <long>ଚଲାଇବାକୁ ଥିବା ଘଣ୍ଟି ଶବ୍ଦର ଫାଇଲର ନାମ</long>
+      </locale>
+
+      <locale name="pa">
+        <short>ਕੀ-ਬੋਰਡ ਘੰਟੀ ਲਈ ਪਸੰਦੀਦਾ ਫਾਇਲ-ਨਾਂ</short>
+        <long>ਘੰਟੀ ਦੀ ਅਵਾਜ਼ ਚਲਾਉਣ ਲਈ ਫਾਇਲ</long>
+      </locale>
+
+      <locale name="pl">
+        <short>Nazwa pliku z dźwiękiem dzwonka klawiatury</short>
+        <long>Nazwa pliku z dźwiękiem odtwarzanego dzwonka.</long>
+      </locale>
+
+      <locale name="pt">
+        <short>Nome de Ficheiro de Campainha de Teclado Personalizada</short>
+        <long>Nome do ficheiro do som de campainha a ser reproduzido.</long>
+      </locale>
+
+      <locale name="pt_BR">
+        <short>Nome do arquivo personalizado da campainha do teclado</short>
+        <long>Nome do arquivo do som de campainha que será reproduzida.</long>
+      </locale>
+
+      <locale name="ro">
+        <short>Fișier personalizat pentru clopoțelul tastaturii</short>
+        <long>Numele fișierului cu sunetul clopoțelului.</long>
+      </locale>
+
+      <locale name="ru">
+        <short>Имя файла клавиатурного гудка</short>
+        <long>Имя файла для звука гудка.</long>
+      </locale>
+
+      <locale name="sk">
+        <short>Názov súboru používateľského zvukového návestia klávesnice</short>
+        <long>Názov súboru zvukového návestia, ktorý má byť prehratý.</long>
+      </locale>
+
+      <locale name="sl">
+        <short>Ime datoteke prikrojenega zvonca tipkovnice</short>
+        <long>Ime datoteke zvonca za predvajanje.</long>
+      </locale>
+
+      <locale name="sq">
+        <short>Emri i file të personalizuar të ziles së tastierës</short>
+        <long>Emri file i tingullit akustik që duhet riprodhuar.</long>
+      </locale>
+
+      <locale name="sr">
+        <short>Избор датотеке за звук звона тастатуре</short>
+        <long>Име датотеке у којој се налази звук звона који треба пустити.</long>
+      </locale>
+
+      <locale name="sr@ije">
+        <short>Избор датотеке за звук звона тастатуре</short>
+        
+      </locale>
+
+      <locale name="sr@latin">
+        <short>Izbor datoteke za zvuk zvona tastature</short>
+        <long>Ime datoteke u kojoj se nalazi zvuk zvona koji treba pustiti.</long>
+      </locale>
+
+      <locale name="sv">
+        <short>Anpassat filnamn för tangentbordssignal</short>
+        <long>Filnamn på signalen som ska spelas upp.</long>
+      </locale>
+
+      <locale name="ta">
+        <short>விசைப்பலகை மணி இயல்பான கோப்பு பெயர்</short>
+        <long>விளையாட வேண்டிய மணி ஓசையின் கோப்புப் பெயர்</long>
+      </locale>
+
+      <locale name="te">
+        <short>కీబోర్డు గంట మలచిన దస్త్రనామము</short>
+        <long>మోగించవలిసిన గంట శబ్ధముయొక్క దస్త్రనామము.</long>
+      </locale>
+
+      <locale name="th">
+        <short>ชื่อแฟ้มเสียงระฆังแป้มพิมพ์ที่กำหนด</short>
+        <long>ชื่อแฟ้มเสียงระฆังที่จะเล่น</long>
+      </locale>
+
+      <locale name="tr">
+        <short>Klavye Zili Özel Dosya adı</short>
+        <long>Çalınacak zil sesinin dosya adı.</long>
+      </locale>
+
+      <locale name="ug">
+        <short>ھەرپتاختا ئاۋازىنىڭ ئىختىيارى ھۆججەت ئاتى</short>
+        <long>قويىدىغان قوڭغۇراق ئاۋازىنىڭ ھۆججەت ئاتى.</long>
+      </locale>
+
+      <locale name="uk">
+        <short>Назва файлу звукового сигналу клавіатури</short>
+        <long>Назва файлу звуку динаміку.</long>
+      </locale>
+
+      <locale name="vi">
+        <short>Tên tập tin chuông tự chọn của bàn phím</short>
+        <long>Tên tập tin của tiếng bíp cần phát.</long>
+      </locale>
+
+      <locale name="xh">
+        <short>Igama leFayili iKeyboard Bell Custom</short>
+        
+      </locale>
+
+      <locale name="zh_CN">
+        <short>自定义键盘铃声文件名</short>
+        <long>要播放的响铃声音的文件名。</long>
+      </locale>
+
+      <locale name="zh_HK">
+        <short>鍵盤響聲音效檔</short>
+        <long>應播放的響聲音效檔名稱。</long>
+      </locale>
+
+      <locale name="zh_TW">
+        <short>鍵盤響聲音效檔</short>
+        <long>應播放的響聲音效檔名稱。</long>
+      </locale>
+    </schema>
+    <schema>
+      <key>/schemas/desktop/gnome/peripherals/keyboard/remember_numlock_state</key>
+      <applyto>/desktop/gnome/peripherals/keyboard/remember_numlock_state</applyto>
+      <owner>gnome</owner>
+      <type>bool</type>
+      <default>true</default>
+      <locale name="C">
+        <short>Remember NumLock state</short>
+        <long>When set to true, GNOME will remember the state of the NumLock LED between sessions.</long>
+      </locale>
+
+      <locale name="ar">
+        <short>تذكّر حالة NumLock</short>
+        <long>عند ضبطه لصحيح، ستتذكّر جنوم حالة NumLock LED بين الجلسات.</long>
+      </locale>
+
+      <locale name="as">
+        <short>NumLock ৰ সৰ্বশেষ অৱস্থা মনত ৰখা হ&apos;ব</short>
+        <long>মান true (সত্য) হ&apos;লে, GNOME&apos;ৰ দ্বাৰা বিভিন্ন অধিবেশনত NumLock LED&apos;ৰ সৰ্বশেষ অৱস্থা সংৰক্ষিত হ&apos;ব ।</long>
+      </locale>
+
+      <locale name="ast">
+        <short>Recordar l&apos;estáu de BloqNum</short>
+        <long>Si se conseña braero, GNOME recordará l&apos;estáu del LED de bloquéu numbéricu ente sesiones.</long>
+      </locale>
+
+      <locale name="be">
+        <short>Помніць стан NumLock</short>
+        <long>Калі &quot;ІСЬЦІНА&quot;, GNOME запамінае стан NumLock паміж сэансамі.</long>
+      </locale>
+
+      <locale name="bg">
+        <short>Запомняне на състоянието на NumLock</short>
+        <long>Когато тази настройка е зададена, GNOME ще запомня състоянието на NumLock в края на една сесия и ще го възстановява в началото на следващата.</long>
+      </locale>
+
+      <locale name="bn">
+        <short>NumLock-এর সর্বশেষ অবস্থা মনে রাখা হবে</short>
+        <long>মান true (সত্য) হলে, GNOME-এর দ্বারা বিভিন্ন সেশানে NumLock LED-এর সর্বশেষ অবস্থা সংরক্ষিত হবে।</long>
+      </locale>
+
+      <locale name="bn_IN">
+        <short>নাম-লক কি&apos;র সর্বশেষ অবস্থা মনে রাখা হবে</short>
+        <long>মান true (সত্য) হলে, GNOME&apos;র দ্বারা বিভিন্ন সেশানে NumLock LED&apos;র সর্বশেষ অবস্থা সংরক্ষিত হবে।</long>
+      </locale>
+
+      <locale name="ca">
+        <short>Recorda l&apos;estat de la tecla de fixació de teclat numèric</short>
+        <long>Quan s&apos;estableix a cert, el GNOME recordarà l&apos;estat del LED de la tecla de fixació de teclat numèric entre sessions.</long>
+      </locale>
+
+      <locale name="ca@valencia">
+        <short>Recorda l&apos;estat de la tecla de fixació de teclat numèric</short>
+        <long>Quan s&apos;estableix a cert, el GNOME recordarà l&apos;estat del LED de la tecla de fixació de teclat numèric entre sessions.</long>
+      </locale>
+
+      <locale name="crh">
+        <short>NumLock durumını hatırla</short>
+        <long>Saylansa, GNOME, oturımlar arasında NumLock ISD (Işıq-Saçqan Diod; LED) durumını hatırlaycaq.</long>
+      </locale>
+
+      <locale name="cs">
+        <short>Pamatovat si stav NumLock</short>
+        <long>Je-li nastaveno na true, GNOME si bude mezi sezeními pamatovat stav LED NumLock.</long>
+      </locale>
+
+      <locale name="cy">
+        <short>Cofio cyflwr NumLock</short>
+        <long>Os wedi&apos;i osod yn wir, bydd GNOME yn cofio cyflwr yr LED NumLock o un sesiwn i&apos;r llall.</long>
+      </locale>
+
+      <locale name="da">
+        <short>Husk NumLock-tilstand</short>
+        <long>Hvis sand vil Gnome huske tilstanden af NumLock-lyset mellem sessioner.</long>
+      </locale>
+
+      <locale name="de">
+        <short>Status von NumLock speichern</short>
+        <long>Falls auf TRUE (wahr) gesetzt, speichert GNOME den Status der NumLock-LED zwischen zwei Sitzungen.</long>
+      </locale>
+
+      <locale name="dz">
+        <short>ཨང་ལྡེའི་གནས་ལུགས་ སེམས་ཁར་བཞག</short>
+        <long>བདེན་པ་གུ་གཞི་སྒྲིག་འབདཝ་ད་ཇི་ནོམ་གྱིས་ ལཱ་ཡུན་ཚུ་གི་བར་ན་ ཨང་ལྡེའི་ ཨེལ་ཨི་ཌི་གི་གནས་ལུགས་ སེམས་ཁར་བཞགཔ་ཨིན།</long>
+      </locale>
+
+      <locale name="el">
+        <short>Απομνημόνευση κατάστασης NumLock</short>
+        <long>Αν ορισθεί σε true, το GNOME θα απομνημονεύει την κατάσταση του NumLock ανάμεσα σε συνεδρίες.</long>
+      </locale>
+
+      <locale name="en_CA">
+        <short>Remember NumLock state</short>
+        <long>When set to true, GNOME will remember the state of the NumLock LED between sessions.</long>
+      </locale>
+
+      <locale name="en_GB">
+        <short>Remember NumLock state</short>
+        <long>When set to true, GNOME will remember the state of the NumLock LED between sessions.</long>
+      </locale>
+
+      <locale name="eo">
+        <short>Memorigu NumerBaskulan (NumLock) staton</short>
+        <long>Kiam agordita al vera, GNOMO memorigos la staton de la NumerBaskula LED inter seancoj.</long>
+      </locale>
+
+      <locale name="es">
+        <short>Recordar el estado de BloqNum</short>
+        <long>Cuando está establecido a verdadero, GNOME recordará el estado del LED de bloque numérico entre las sesiones.</long>
+      </locale>
+
+      <locale name="et">
+        <short>NumLock oleku meelespidamine</short>
+        <long>Kui märgitud, siis GNOME jätab seansside vahel NumLock klahvi oleku meelde.</long>
+      </locale>
+
+      <locale name="eu">
+        <short>Gogoratu blok.zenb.-ren egoera</short>
+        <long>Egia balioarekin ezartzean GNOMEk blokeo numerikoaren LED argiaren egoera saioen artean gogoratuko du.</long>
+      </locale>
+
+      <locale name="fi">
+        <short>Muista NumLock-näppäimen tila</short>
+        <long>Jos arvo on tosi, Gnome muistaa NumLock-näppäimen ja valon tilan istuntojen välillä.</long>
+      </locale>
+
+      <locale name="fr">
+        <short>Se souvenir de l&apos;état du verrou numérique</short>
+        <long>Si vrai, GNOME se souviendra de l&apos;état de la DEL verrou numérique d&apos;une session à l&apos;autre.</long>
+      </locale>
+
+      <locale name="gl">
+        <short>Recordar o estado de Bloq Num</short>
+        <long>Cando está definido como verdadeiro, GNOME recordará o estado do LED de Bloq Num entre as sesións.</long>
+      </locale>
+
+      <locale name="gu">
+        <short>NumLock સ્થિતિ યાદ રાખો</short>
+        <long>જ્યારે સાચું સુયોજિત હોય, ત્યારે જીનોમ સત્રો વચ્ચે NumLock LED ની સ્થિતિ યાદ રાખશે.</long>
+      </locale>
+
+      <locale name="he">
+        <short>Remember NumLock state</short>
+        <long>When set to true, GNOME will remember the state of the NumLock LED between sessions.</long>
+      </locale>
+
+      <locale name="hi">
+        <short>NumLock स्थिति याद रखें</short>
+        <long>जब सही पर सेट किया जाये, GNOME NumLock LED की स्थिति को सत्रों के बीच याद रखेगा.</long>
+      </locale>
+
+      <locale name="hr">
+        <short>Zapamti NumLock stanje</short>
+        <long>Kada se namjesti na &quot;istinito&quot;, GNOME će zapamtiti stanje NumLock LED između prijava.</long>
+      </locale>
+
+      <locale name="hu">
+        <short>A NumLock állapotának megjegyzése</short>
+        <long>Ha be van állítva, a GNOME megjegyzi a NumLock LED állapotát a munkamenetek között.</long>
+      </locale>
+
+      <locale name="id">
+        <short>Ingat keadaan NumLock</short>
+        <long>Ketika ditetapkan sebagai benar, GNOME akan mengingat keadaan LED NumLock diantara setiap sesi.</long>
+      </locale>
+
+      <locale name="it">
+        <short>Ricorda lo stato di BlocNum</short>
+        <long>Quando impostato a &quot;true&quot;, GNOME ricorderà lo stato del LED BlocNum da una sessione all&apos;altra.</long>
+      </locale>
+
+      <locale name="ja">
+        <short>NumLock キーの状態を保存する</short>
+        <long>TRUE にすると、GNOME ライブラリで NumLock キーの LED の状態をセッション毎に記憶します。</long>
+      </locale>
+
+      <locale name="ka">
+        <short>NumLock სტატუსის დამახსოვრება</short>
+        <long>თუ მითითებული &apos;ჭეშმარიტი&apos;, GNOME დაიმახსოვრებს NumLock სტატუსს სეანსებს შორის.</long>
+      </locale>
+
+      <locale name="kn">
+        <short>NumLock ಸ್ಥಿತಿಯನ್ನು ನೆನಪಿಟ್ಟುಕೊ</short>
+        <long>true ಗೆ ಹೊಂದಿಸಿದಲ್ಲಿ, ಅಧಿವೇಶನದ ನಡುವೆ umLock LED ಯ ಸ್ಥಿತಿಯನ್ನು GNOME ನೆನಪಿಟ್ಟುಕೊಳ್ಳುತ್ತದೆ.</long>
+      </locale>
+
+      <locale name="ko">
+        <short>NumLock 상태 기억</short>
+        <long>참이면, 그놈에서 세션의 NumLock LED 상태를 기억합니다.</long>
+      </locale>
+
+      <locale name="ku">
+        <short>Rewşa NumLock bi bîr bîne</short>
+        <long>Heke hatibe hilbijartin, wê GNOME di nava danişînan de rewşa NumLock LED bîne bîra xwe.</long>
+      </locale>
+
+      <locale name="lt">
+        <short>Atsiminti NumLock būseną</short>
+        <long>Kai reikšmė teigiama, GNOME atsimins tarp sesijų NumLock LED būseną.</long>
+      </locale>
+
+      <locale name="lv">
+        <short>Atcerēties NumLock stāvokli</short>
+        <long>Ja iestatīts kā patiess, GNOME atcerēsies NumLock taustiņa stāvokli, mainot sesijas.</long>
+      </locale>
+
+      <locale name="mai">
+        <short>NumLock स्थिति इयाद राखू</short>
+        <long>जखन सही पर सेट कएल जाए, GNOME NumLock LED क स्थितिकेँ सत्रसभक बीच इयाद राखत.</long>
+      </locale>
+
+      <locale name="mg">
+        <short>Tadidio ny toetran&apos;ny Verr Num</short>
+        <long>Raha atao marina, dia hotadidian&apos;ny GNOME ny toetran&apos;ny jirokelin&apos;ny Verr Num antenantenan&apos;ny session.</long>
+      </locale>
+
+      <locale name="mk">
+        <short>Запамти состојба на NumLock</short>
+        <long>Кога е штиклирано, GNOME ќе ја памти состојбата на NumLock диодата помеѓу сесии.</long>
+      </locale>
+
+      <locale name="ml">
+        <short>NumLock-ന്റെ അവസ്ഥ ഓര്‍മ്മിക്കുക</short>
+        <long>ശരിയെന്നു് സജ്ജീകരിച്ചാല്‍ ഗ്നോം നംലോക്ക് എന്ന എല്‍ഇഡിയുടെ അവസ്ഥ സെഷനുകള്‍ക്കിടയില്‍ ഓര്‍ത്തുവയ്ക്കും.</long>
+      </locale>
+
+      <locale name="mn">
+        <short>NumLock-н төлөвийг хадгалах</short>
+        <long>Хэрэв TRUE (үнэн) бол GNOME суулт хооронд umLock LED-н төлөвийг хадгалах эсэх.</long>
+      </locale>
+
+      <locale name="mr">
+        <short>NumLock स्थिती लक्षात ठेवा</short>
+        <long>खरे निश्चित असल्यास, GNOME सत्रांमधील NumLock LED स्थिती लक्षात ठेवा.</long>
+      </locale>
+
+      <locale name="nb">
+        <short>Husk tilstand for NumLock</short>
+        <long>GNOME vil huske tilstand for NumLock mellom økter hvis denne settes til «true».</long>
+      </locale>
+
+      <locale name="ne">
+        <short>NumLock अवास्थालाई सम्झनुहोस्</short>
+        <long>ठीकमा सेट गर्दा, जिनोमले सत्रहरू बीचको NumLock LED को अवास्थालाई सम्झन्छ ।</long>
+      </locale>
+
+      <locale name="nl">
+        <short>NumLock-status onthouden</short>
+        <long>Als ingesteld op waar, dan zal Gnome de status van de NumLock LED onthouden van de ene sessie op de andere.</long>
+      </locale>
+
+      <locale name="nn">
+        <short>Hugs NumLock-tilstand</short>
+        <long>Når sann, vil GNOME hugsa tilstanden til NumLock mellom økter.</long>
+      </locale>
+
+      <locale name="or">
+        <short>ନ୍ଯୁମଲକ ଚାବିର ଅବସ୍ଥା ମନେ ରଖମ୍ତୁ</short>
+        <long>ସତ ବିନ୍ଯାସ କରାଯାଇଥିଲେ, ନୋମ ବିଭିନ୍ନ ଅଧିବେଶନ ମଧ୍ଯରେ ନ୍ଯୁମଲକ ଚାବିର ଅବସ୍ଥା ମନେ ରଖିବ</long>
+      </locale>
+
+      <locale name="pa">
+        <short>ਨਮ-ਲਾਕ (NumLock) ਹਾਲਤ ਯਾਦ ਰੱਖੋ</short>
+        <long>ਜਦੋਂ ਸਹੀਂ ਦਿੱਤਾ ਗਿਆ ਤਾਂ ਗਨੋਮ ਨਮ-ਲਾਕ LED ਦੀ ਹਾਲਤ ਸ਼ੈਸ਼ਨ ਦੌਰਾਨ ਯਾਦ ਰੱਖੇਗਾ।</long>
+      </locale>
+
+      <locale name="pl">
+        <short>Zapamiętanie stanu NumLock</short>
+        <long>Jeżeli ustawione, GNOME zapamięta stan NumLock pomiędzy sesjami.</long>
+      </locale>
+
+      <locale name="pt">
+        <short>Recordar o estado d NumLock</short>
+        <long>Quando definido como verdadeiro, o GNOME irá recordar o estado da luz de NumLock entre as sessões.</long>
+      </locale>
+
+      <locale name="pt_BR">
+        <short>Lembrar estado NumLock</short>
+        <long>Se verdadeiro, o GNOME irá lembrar o estado do LED NumLock entre sessões.</long>
+      </locale>
+
+      <locale name="ro">
+        <short>Reține starea tastei „NumLock”</short>
+        <long>La activare, GNOME va reține de la o sesiune la alta starea tastei „NumLock”.</long>
+      </locale>
+
+      <locale name="ru">
+        <short>Запоминать состояние NumLock</short>
+        <long>Если этот ключ установлен, GNOME будет сохранять состояние переключателя NumLock между сеансами.</long>
+      </locale>
+
+      <locale name="sk">
+        <short>Zapamätať stav Numlock</short>
+        <long>Ak je nastavené na true, GNOME si zapamätá stav NumLock LED medzi sedeniami.</long>
+      </locale>
+
+      <locale name="sl">
+        <short>Zapomni si stanje NumLock</short>
+        <long>Izbrana možnost omogoča, da si bo GNOME zapomni stanje NumLock med sejami.</long>
+      </locale>
+
+      <locale name="sq">
+        <short>Kujto gjëndjen e NumLock</short>
+        <long>Nëse vendoset në &apos;true&apos;, GNOME do të memorizojë gjëndjen e LED të NumLock midis seancave.</long>
+      </locale>
+
+      <locale name="sr">
+        <short>Запамти стање нумеричке тастатуре</short>
+        <long>Када је укључено, Гном ће запамтити стање лампице нумеричке тастатуре између сесија.</long>
+      </locale>
+
+      <locale name="sr@latin">
+        <short>Zapamti stanje numeričke tastature</short>
+        <long>Kada je uključeno, Gnom će zapamtiti stanje lampice numeričke tastature između sesija.</long>
+      </locale>
+
+      <locale name="sv">
+        <short>Kom ihåg NumLock-status</short>
+        <long>När inställd till true kommer GNOME att komma ihåg status för NumLock-lampan mellan sessioner.</long>
+      </locale>
+
+      <locale name="ta">
+        <short>எழுத்து பூட்டு நிலையை நினைவு கொள்</short>
+        <long>உண்மை என்று அமைக்கப்பட்டால், GNOME அமர்வுகளுக்கிடையே எண் பூட்டின் LED நிலையை அறியும்.</long>
+      </locale>
+
+      <locale name="te">
+        <short>NumLock స్థితిని గుర్తుంచుకొనుము</short>
+        <long>సత్యముకు అమర్చితే, GNOME సెషన్ల మద్య NumLock LED స్థితిని గుర్తుంచుకొంటుంది.</long>
+      </locale>
+
+      <locale name="th">
+        <short>จำสถานะ NumLock</short>
+        <long>ถ้าเป็นจริง GNOME จะจำสถานะของไฟ NumLock ขณะจบวาระเพื่อใช้ในวาระถัดไป</long>
+      </locale>
+
+      <locale name="tr">
+        <short>NumLock durumunu hatırla</short>
+        <long>Eğer seçiliyse, GNOME oturumlar arasında, NumLock LED durumunu hatırlayacak.</long>
+      </locale>
+
+      <locale name="ug">
+        <short>NumLock ھالىتىنى ئەستە تۇت</short>
+        <long>ئەگەر true تەڭشەلسە، GNOME ئوخشاش بولمىغان ئەڭگىمەلەر ئارىسىدا NumLock چىرىغىنىڭ ھالىتىنى ئەستە تۇتىدۇ.</long>
+      </locale>
+
+      <locale name="uk">
+        <short>Запам&apos;ятовувати статус NumLock</short>
+        <long>Якщо має значення true, GNOME буде зберігати стан NumLock між сеансами.</long>
+      </locale>
+
+      <locale name="vi">
+        <short>Nhớ tính trạng NumLock</short>
+        <long>Khi đặt là « true » (đúng), Gnome sẽ nhớ tính trạng của LED NumLock (Khóa Số) giữa hai phiên chạy.</long>
+      </locale>
+
+      <locale name="zh_CN">
+        <short>记住 NumLock 状态</short>
+        <long>设定为 true 时，GNOME 将在不同会话间记住 NumLock 灯的状态。</long>
+      </locale>
+
+      <locale name="zh_HK">
+        <short>記憶 NumLock 狀態</short>
+        <long>如設定為“true”，GNOME 會在下次進入桌面時回復上次的 NumLock 鍵狀態。</long>
+      </locale>
+
+      <locale name="zh_TW">
+        <short>記憶 NumLock 狀態</short>
+        <long>如設定為“true”，GNOME 會在下次進入桌面時回復上次的 NumLock 鍵狀態。</long>
+      </locale>
+    </schema>
+  </schemalist>
+</gconfschemafile>

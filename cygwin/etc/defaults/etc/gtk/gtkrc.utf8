@@ -1,0 +1,7 @@
+style "default-text" {
+       fontset = "-*-helvetica-medium-r-normal--*-120-*-*-p-*-*-*"
+
+}
+
+class "GtkWidget" style "default-text"
+

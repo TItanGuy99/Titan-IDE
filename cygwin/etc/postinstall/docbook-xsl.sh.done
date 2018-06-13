@@ -1,0 +1,3 @@
+/usr/bin/rm -f /etc/xml/docbook
+/usr/bin/build-docbook-catalog
+

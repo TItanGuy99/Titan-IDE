@@ -1,0 +1,627 @@
+<?xml version="1.0"?>
+<gconf>
+	<dir name="schemas">
+		<dir name="system">
+			<dir name="smb">
+				<entry name="workgroup">
+					<local_schema short_desc="مجموعة عمل SMB">
+						<longdesc>مجموعة العمل أو نطاق شبكة ويندوز التى يتبعها هذا المستخدم. لكي تؤثّر مجموعة العمل الجديدة تأثيرا كاملا قد تحتاج للخروج ثم الولوج مرّة أخرى.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="proxy">
+				<entry name="autoconfig_url">
+					<local_schema short_desc="عنوان الإعداد الآلي للوسيط">
+						<longdesc>العنوان المزود لقيم إعدادات الوسيط.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="socks_port">
+					<local_schema short_desc="منفذ وسيط SOCKS">
+						<longdesc>منفذ الجهاز المحدد في &quot;/system/proxy/socks_host&quot; المستعمل كوكيل.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="socks_host">
+					<local_schema short_desc="اسم مضيف وسيط SOCKS">
+						<longdesc>اسم الجهاز الذي سيقع بركسية socks·عبره.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="ftp_port">
+					<local_schema short_desc="منفذ وسيط الـ FTP">
+						<longdesc>منفذ الجهاز المحدد في &quot;/system/proxy/ftp_host&quot; المستعمل كوكيل.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="ftp_host">
+					<local_schema short_desc="اسم مضيف وسيط الـ FTP">
+						<longdesc>اسم الجهاز الذي سيقع وسيطة الـ FTP عبره.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="secure_port">
+					<local_schema short_desc="منفذ وسيط HTTP آمن">
+						<longdesc>منفذ الجهاز المحدد في &quot;/system/proxy/secure_host&quot; المستعمل كوكيل.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="secure_host">
+					<local_schema short_desc="اسم مضيف وسيط HTTP آمن">
+						<longdesc>اسم الجهاز الذي سيقع عبره وسيطة آمنة للـ HTTP.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="mode">
+					<local_schema short_desc="نمط إعداد الوسيط">
+						<longdesc>اختر نسق إعداد الوسيط. القيم المدعومة هي  &quot;none&quot;، &quot;manual&quot;و &quot;auto&quot;.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="http_proxy">
+				<entry name="ignore_hosts">
+					<local_schema short_desc="مضيفين ليسو مضيفي وسيط">
+						<longdesc>يحوي هذا المفتاح قائمة من المضيفين المتصلين مباشرة، عوضا عن المتصلين عبر وسيط ما (هذا إذا كان نشطا). يمكن أن تكون القيم أسماء مضيفين أونطاق (باستخدام رمز تعميم أولي مثل *.foo.com)، عناوين مضيفي الـ IP(IPv4 و IPv6) أو عناوين شبكة (مثل 192.168.0.0/24).</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="authentication_password">
+					<local_schema short_desc="كلمة سر وسيط الـ HTTP">
+						<longdesc>كلمة السر التي  ستمرر للتوثق عند القيام بوسيطة الـ http.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="authentication_user">
+					<local_schema short_desc="اسم مستخدم وسيط الـ HTTP">
+						<longdesc>اسم المستخدم الذي سيمرر عند القيام بوسيطة الـ HTTP.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="use_authentication">
+					<local_schema short_desc="توثق من الاتصالات لخادوم الوسيط">
+						<longdesc>إذا كانت صحيح، سيحتاج الاتصال بخادوم الوسيط إلى توثيق. اجتماع اسم المستخدم/كلمة السر معرّف بواسطة &quot;/system/http_proxy/authentication_user&quot; و &quot;/system/http_proxy/authentication_password&quot;.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="port">
+					<local_schema short_desc="منفذ وسيط الـ HTTP">
+						<longdesc>منفذ الجهاز المحدد في &quot;/system/http_proxy/host&quot; المستعمل كوكيل.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="host">
+					<local_schema short_desc="اسم مضيف وسيط الـ HTTP">
+						<longdesc>اسم الجهاز الذي سيقع وسيطة الـ HTTP عبره.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="use_http_proxy">
+					<local_schema short_desc="استخدم وسيط HTTP">
+						<longdesc>تفعيل إعدادات الوسيط عند النفاذ لـ http عبر الانترنت.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="dns_sd">
+				<entry name="extra_domains">
+					<local_schema short_desc="نطاقات زيادة للبحث في داخلها عن خدمات  DNS-SD">
+						<longdesc>قائمة -مفصولة بفاصلة- بنطاقات DNS-SD التي ستكون مرئيّة في موقع &quot;network:///&quot;.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="display_local">
+					<local_schema short_desc="كيفية عرض خدمة DNS-SD المحلية">
+						<longdesc>القيم الممكنة هي &quot;merged&quot;، &quot;separate&quot;، و &quot;disabled&quot;.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+		</dir>
+		<dir name="desktop">
+			<dir name="gnome">
+				<dir name="typing_break">
+					<entry name="enabled">
+						<local_schema short_desc="فيما إذا كان قفل لوحة المفاتيح مفعّلا أم لا">
+							<longdesc>فيما إذا كان قفل لوحة المفاتيح مفعّلا أم لا.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="allow_postpone">
+						<local_schema short_desc="اسمح بإرجاء فترات الراحة">
+							<longdesc>ما إذا يمكن تأجيل شاشة إستراحة الكتابة.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="break_time">
+						<local_schema short_desc="وقت الراحة">
+							<longdesc>عدد الدقائق التي يجب أن تمتد فيها فترة الراحة.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="type_time">
+						<local_schema short_desc="وقت الكتابة">
+							<longdesc>عدد دقائق وقت الكتابة قبل أن يبدأ نمط فترة الراحة.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="thumbnailers">
+					<entry name="disable_all">
+						<local_schema short_desc="عطّل كل المُضغّرات الخارجية">
+							<longdesc>اضبط لصحيح لتعطيل كل البرامج الخارجية لانشاء مصغرات،يتوقف استقلال الفعل عما إذا ستعطل/تفعل مفردة.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="thumbnail_cache">
+					<entry name="maximum_size">
+						<local_schema>
+							<longdesc>العمر الأقصى للمصغرات في ذاكرة التخزين المؤقت، بالميغا بايت. ضع -1 لتعطيل التنظيف.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="maximum_age">
+						<local_schema>
+							<longdesc>العمر الأقصى للمصغرات في ذاكرة التخزين الموقت، بالأيام. ضع -1 لتعطيل التنظيف.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="sound">
+					<entry name="input_feedback_sounds">
+						<local_schema short_desc="أصوات رد فعل مدخلة">
+							<longdesc>فيما أذا وجب عزف أصوات عند أحداث الإدخال.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="theme_name">
+						<local_schema short_desc="اسم سمة الصوت">
+							<longdesc>سمة الصوت XDF للاستخدام مع أصوات الأحداث.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="event_sounds">
+						<local_schema short_desc="أصوات للأحداث">
+							<longdesc>فيما أذا وجب عزف أصوات عند أحداث المستخدم.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="enable_esd">
+						<local_schema short_desc="فعّل ESD">
+							<longdesc>فعّل تشغيل خادوم الصوت عند البدء.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="default_mixer_tracks">
+						<local_schema short_desc="مقطوعات هندسة الصوت المبدئية">
+							<longdesc>مقطوعات هندسة الصوت المبدئية المستخدمة بواسطة ارتباطات مفتاح الوسائط المتعددة.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="default_mixer_device">
+						<local_schema short_desc="جهاز هندسة الصوت المبدئي">
+							<longdesc>جهاز هندسة الصوت المبدئي المستخدم بواسطة ارتباطات مفتاح الوسائط المتعددة.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="peripherals">
+					<dir name="mouse">
+						<entry name="cursor_size">
+							<local_schema short_desc="حجم المؤشر">
+								<longdesc>حجم المؤشر المشار إليه في cursor_theme.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="cursor_theme">
+							<local_schema short_desc="سِمة المؤشر">
+								<longdesc>اسم سِمة المؤشّر. تستخدمها فقط خواديم س التي تدعم Xcursor، مثل XFree86 4.3 أو ما بعده.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="cursor_font">
+							<local_schema short_desc="خط المؤشر">
+								<longdesc>اسم خط المؤشر. إذا لم يضبط، فسيستخدم الخط المبدئي. لا تمرر هذه القيمة لخادوم س إلا عند بداية كل جلسة، فتغييرها وسط الجلسة لن يكون له أي تأثير إلا بعد إعادة الولوج في المرة القادمة.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="locate_pointer">
+							<local_schema short_desc="موقع المؤشر">
+								<longdesc>يبرز الموقع الحالي للمؤشر عند ضغط و ترك مفتاح التحكم.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="double_click">
+							<local_schema short_desc="وقت النقر المزدوج">
+								<longdesc>مدة النقر المزدوج.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="drag_threshold">
+							<local_schema short_desc="حدود السحب">
+								<longdesc>المسافة قبل بدأ النقل.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="motion_threshold">
+							<local_schema short_desc="حدود الحركة">
+								<longdesc>المسافة بالبكسلات التي يجب أن تتحركها الفأرة قبل تنشيط تسريع حركة الفأرة.القيمة -1 هي مبدئي النظام.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="motion_acceleration">
+							<local_schema short_desc="نقرة واحدة">
+								<longdesc>مصعد التعجيل لحركة الفأرة. قيمة -1 هي مبدئي النظام.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="single_click">
+							<local_schema short_desc="نقرة واحدة">
+								<longdesc>نقرة واحدة لفتح الأيقونات.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="left_handed">
+							<local_schema short_desc="اتجاه أزرار الفأرة">
+								<longdesc>اقلب زرا الفأرة الأيمن و الأيسر لفأرة لليد اليسرى.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="keyboard">
+						<entry name="remember_numlock_state">
+							<local_schema short_desc="تذكّر حالة NumLock">
+								<longdesc>عند ضبطه لصحيح، ستتذكّر جنوم حالة NumLock LED بين الجلسات.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bell_custom_file">
+							<local_schema short_desc="اسم ملف جرس لوحة المفاتيح المخصّص">
+								<longdesc>اسم ملف صوت الجرس الذي سيُعزف.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bell_mode">
+							<local_schema>
+								<longdesc>القيم الممكنة هي &quot;on&quot;، &quot;off&quot;، و &quot;custom&quot;.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+				<dir name="lockdown">
+					<entry name="disable_application_handlers">
+						<local_schema short_desc="عطّل مداولي النوعين URL و MIME">
+							<longdesc>يمنع تشغيل أي تطبيق مداول النوعين URL أو MIME.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_lock_screen">
+						<local_schema short_desc="عطّل قفل الشاشة">
+							<longdesc>امنع المستخدم من قفل هذه الشاشة.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_user_switching">
+						<local_schema short_desc="عطّل تبديل المستخدم">
+							<longdesc>امنع المستخدم من التحوّل لحساب آخر حال نشاط هذه الجلسة.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_print_setup">
+						<local_schema short_desc="عطّل تهيئة الطّباعة">
+							<longdesc>يمنع المستخدم من تعديل إعدادات الطّباعة. يمنع هذا مثلًا المستخدم من النّفاذ لحوارات &quot;إعداد الطّباعة&quot; في جميع التّطبيقات.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_printing">
+						<local_schema short_desc="عطّل الطّباعة">
+							<longdesc>يمنع المستخدم من الطّباعة. يمنع هذا مثلًا المستخدم من النّفاذ إلى حوارات &quot;اطبع&quot; في جميع التّطبيقات.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_save_to_disk">
+						<local_schema short_desc="عطّل حفظ الملفّات على القرص">
+							<longdesc>لمنع المستخدم من حفط الملفّات على القرص. يمنع هذا مثلًا المستخدم من النّفاذ إلى حوارات &quot;احفظ ك‍&quot; في جميع التّطبيقات.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_command_line">
+						<local_schema short_desc="عطّل سطر الأوامر">
+							<longdesc>يمنع المستخدم من النّفاذ إلى الطّرفيّة أو تحديد سطر أوامر لتنفيذه. يمنع هذا مثلًا المستخدم من النّفاذ إلى حوار الشّريط &quot;شغّل تطبيق&quot;.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="interface">
+					<entry name="show_unicode_menu">
+						<local_schema short_desc="اعرض قائمة &apos;محارف تحكّم يونيكود&apos;">
+							<longdesc>إذا ما كانت قوائم سياق المدخلات وعرض النص ستعرض إدراج محرَف تحكّم.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="show_input_method_menu">
+						<local_schema short_desc="اعرض قائمة &apos;طرق الإدخال&apos;">
+							<longdesc>إذا ما كانت قوائم سياق المدخلات وعرض النص ستعرض تغيير طريقة الإدخال.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menubar_accel">
+						<local_schema short_desc="اختصار شريط القوائم">
+							<longdesc>اختصار لوحة المفاتيح لفتح شريط القوائم.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="file_chooser_backend">
+						<local_schema short_desc="وحدة GtkFileChooser">
+							<longdesc>الوحدة التي ستستخدم كنموذج نظام الملفّات لقطعة GtkFileChooser. القيم الممكنة هي &quot;gnome-vfs&quot; و &quot;gtk+&quot; و &quot;gio&quot;.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="status_bar_meter_on_right">
+						<local_schema short_desc="شريط الحالة على اليمين">
+							<longdesc>ما إذا سيعرض مقياس شريط الحالة على اليمين.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="use_custom_font">
+						<local_schema short_desc="استخدم خط مخصّص">
+							<longdesc>فيما إذا وجب استخدام خط خاص لتطبيقات ج‌ت‌ك+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="monospace_font_name">
+						<local_schema short_desc="خط ثابت العرض">
+							<longdesc>اسم الخط ذي العرض الثابت للاستخدام في مواقع مثل الطرفيات.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="document_font_name">
+						<local_schema short_desc="خط المستند">
+							<longdesc>اسم الخط المبدئي المستعمل لقراءة المستندات.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-module">
+						<local_schema short_desc="وحدة IM Module">
+							<longdesc>اسم وحدة طريقة الإدخال التي تستخدمها ج‌ت‌ك+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-status-style">
+						<local_schema short_desc="أسلوب حالة طرق إدخال جتك">
+							<longdesc>اسم أسلوب حالة طرق إدخال ج‌ت‌ك+ المستخدم من طرف ج‌ت‌ك+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-preedit-style">
+						<local_schema short_desc="أسلوب تحرير طرق إدخال جتك المسبق">
+							<longdesc>اسم أسلوب التحرير المسبق لطرق إدخال ج‌ت‌ك+ المستخدم من قبل ج‌ت‌ك+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="font_name">
+						<local_schema short_desc="الخط المبدئي">
+							<longdesc>اسم الخط المبدئي المستعمل من طرف ج‌ت‌ك+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_key_theme">
+						<local_schema short_desc="سِمة ج‌ت‌ك+">
+							<longdesc>الاسم الأساسي للسِمة المبدئية المستعملة من طرف ج‌ت‌ك+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_theme">
+						<local_schema short_desc="سِمة ج‌ت‌ك+">
+							<longdesc>الاسم الأساسي للسِمة المبدئية المستعملة من طرف ج‌ت‌ك+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="icon_theme">
+						<local_schema short_desc="سِمة الأيقونات">
+							<longdesc>سِمة الأيقونات للاستعمال في الشريط، نوتلس الخ.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink_time">
+						<local_schema short_desc="وقت وميض المؤشر">
+							<longdesc>مدة دورة وميض المؤشر، بالملي ثانية.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink">
+						<local_schema short_desc="وميض المؤشر">
+							<longdesc>فيما إذا وجب للمؤشر الوميض.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_icons_size">
+						<local_schema short_desc="حجم أيقونة شريط الأدوات">
+							<longdesc>حجم الأيقونات في أشرطة الأدوات، إما  &quot;small-toolbar&quot; (صغير) أو &quot;large-toolbar&quot; (كبير).</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_detachable">
+						<local_schema short_desc="شريط الأدوات قابل للفصل">
+							<longdesc>فيما إذا يمكن للمستخدم فصل أشرطة الأدوات و نقلها.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menubar_detachable">
+						<local_schema short_desc="شريط القوائم قابل للفصل">
+							<longdesc>فيما إذا يمكن للمستخدم فصل أشرطة القوائم و نقلها.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="buttons_have_icons">
+						<local_schema short_desc="للأزرار أيقونات">
+							<longdesc>فيما إذا كانت الأزرار تعرض أيقونة بجانب نص الزر.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menus_have_icons">
+						<local_schema short_desc="للقوائم أيقونات">
+							<longdesc>فيما إذا وجب للقوائم عرض أيقونة بجانب خانة القائمة.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_style">
+						<local_schema short_desc="أسلوب شريط الأدوات">
+							<longdesc>أسلوب شريط الأدوات. القيم الممكنة هي  &quot;both&quot; (كلاهما)، و &quot;both-horiz&quot; (كلاهما، أفقي)، و &quot;icons&quot; (أيقونات)، و &quot;text&quot; (نص).</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="can_change_accels">
+						<local_schema short_desc="يمكنه تغيير مفاتيح الاختصار">
+							<longdesc>إذا كان يمكن للمستخدم كتابة اختصار جديد ديناميكيا أثناء الوضع فوق عنصر قائمة.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menus_have_tearoff">
+						<local_schema short_desc="للقوائم رؤوس قلع">
+							<longdesc>فيما إذا وجب أن يكون للقوائم شارات.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="enable_animations">
+						<local_schema short_desc="فعّل الرسوم المتحركة">
+							<longdesc>فيما إذا وجب عرض الرسوم المتحركة. لاحظ: هذا مفتاح عام يغير تصرف مدير النوافذ أو الشريط الخ.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="accessibility">
+						<local_schema short_desc="فعّل الإعانة">
+							<longdesc>فيما إذا وجب أن تدعم التطبيقات الإعانة.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="file-views">
+					<entry name="icon_theme">
+						<local_schema short_desc="سِمة  أيقونة الملفات">
+							<longdesc>السِمة المستخدمة لعرض أيقونات الملفات.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="background">
+					<entry name="color_shading_type">
+						<local_schema short_desc="نوع لون الإخفاء">
+							<longdesc>كيفية تظليل لون الخلفية. القيم الممكنة هي &quot;horizontal-gradient&quot;، و &quot;vertical-gradient&quot;، و &quot;solid&quot;.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="secondary_color">
+						<local_schema short_desc="اللون الثانوي">
+							<longdesc>اللون الأيمن أو الأسفل عند رسم التدرّجات، غير مستعمل للون الصلب</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="primary_color">
+						<local_schema short_desc="اللون الأساسي">
+							<longdesc>اللون الأيسر أو الأعلى عند رسم التدرّج، أو اللون الصلب.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_opacity">
+						<local_schema short_desc="عتامة الصورة">
+							<longdesc>العتامة التي سترسم بها صورة الخلفية.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_filename">
+						<local_schema short_desc="اسم ملف الصورة">
+							<longdesc>الملف الذي سيستعمل لصورة الخلفية.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_options">
+						<local_schema short_desc="خيارات الصورة">
+							<longdesc>ضبط كيفية رسم الصورة الموضوعة من قبل wallpaper_filename. القيم الممكنة هي &quot;none&quot;، &quot;wallpaper&quot;، &quot;centered&quot;، &quot;scaled&quot;، &quot;stretched&quot;، &quot;zoom&quot;، &quot;spanned&quot;.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="draw_background">
+						<local_schema short_desc="ارسم خلفية سطح المكتب">
+							<longdesc>اترك جنوم يرسم خلفية سطح المكتب.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="applications">
+					<dir name="component_viewer">
+						<entry name="exec">
+							<local_schema short_desc="تطبيق عرض المكونات الإفتراضي">
+								<longdesc>التطبيق المستعمل لعرض الملفات التي تستحق مكونا لعرضها. سيعوض المتغير %s بـ URI الملف، كما سيعوض المتغير %c بـ IID المكون.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="window_manager">
+						<entry name="workspace_names">
+							<local_schema short_desc="أسماء مساحات العمل (لاغِ)">
+								<longdesc>قائمة بأسماء مساحات عمل مدير النوافذ الأول. ألغي هذا المفتاح منذ جنوم 2.12.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="number_of_workspaces">
+							<local_schema short_desc="عدد مساحات العمل (لاغِ)">
+								<longdesc>عدد مساحات العمل الذي من المفروض أن يستخدمها مدير النوافذ. ألغي هذا المفتاح منذ جنوم 2.12.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="current">
+							<local_schema short_desc="مدير نوافذ المستخدم (لاغِ)">
+								<longdesc>مدير النوافذ الذي سيجرب أولا. ألغي هذا المفتاح منذ جنوم 2.12.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="default">
+							<local_schema short_desc="مدير النوافذ البديل (لاغِ)">
+								<longdesc>مدير النوافذ البديل إذا لم يوجد مدير نوافذ للمستخدم. ألغي هذا المفتاح منذ جنوم 2.12.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="terminal">
+						<entry name="exec_arg">
+							<local_schema short_desc="معامل التنفيذ للطرفية الافتراضية">
+								<longdesc>معامل التنفيذ الذي سيستعمل للطرفية الافتراضية.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="تطبيق الطرفية الافتراضي">
+								<longdesc>الطرفية الافتراضية التي ستستعمل للتطبيقات التي تتطلب طرفية.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="tasks">
+						<entry name="needs_term">
+							<local_schema short_desc="تحتاج المهام لطرفية">
+								<longdesc>ما إذا كان تطبيق المهام الإفتراضي يحتاج طرفية للعمل</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="المهام الإفتراضي">
+								<longdesc>تطبيق المهام الإفتراضي</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="calendar">
+						<entry name="needs_term">
+							<local_schema short_desc="يحتاج تطبيق التقويم الإفتراضي لطرفية">
+								<longdesc>ما إذا كان تطبيق التقويم الإفتراضي يحتاج طرفية للعمل</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="التقويم الإفتراضي">
+								<longdesc>تطبيق التقويم الإفتراضي</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="browser">
+						<entry name="nremote">
+							<local_schema short_desc="يفهم المتصفح التحكم عن بعد">
+								<longdesc>ما إذا كان المتصفح يفهم التحكم عن بعد لنتسكيب.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="needs_term">
+							<local_schema short_desc="يحتاج المتصفح لطرفية">
+								<longdesc>ما إذا كان المتصفح المبدئي يحتاج طرفية للعمل.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="المتصفح المبدئي">
+								<longdesc>المتصفح المبدئي لجميع العناوين.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="at">
+						<dir name="visual">
+							<entry name="startup">
+								<local_schema short_desc="ابدأ تطبيق تقانة إعانة الرؤية المفضّل">
+									<longdesc>ستبدأ جنوم تطبيق تقانة إعانة الرؤية المفضّل أثناء الولوج.</longdesc>
+								</local_schema>
+							</entry>
+							<entry name="exec">
+								<local_schema short_desc="تطبيق تقانة إعانة الرؤية المفضّل">
+									<longdesc>تطبيق تقانة إعانة الرؤية المفضّل ليستخدم في الولوج، أو القائمة، أو سطر الأوامر.</longdesc>
+								</local_schema>
+							</entry>
+						</dir>
+						<dir name="mobility">
+							<entry name="startup">
+								<local_schema short_desc="ابدأ تطبيق تقانة إعانة الحركة المفضّل">
+									<longdesc>ستبدأ جنوم تطبيق تقانة إعانة الحركة المفضّل أثناء الولوج.</longdesc>
+								</local_schema>
+							</entry>
+							<entry name="exec">
+								<local_schema short_desc="تطبيق تقانة إعانة الحركة المفضّل">
+									<longdesc>تطبيق تقانة إعانة الحركة المفضّل ليستخدم للولوج، أو القائمة، أو سطر الأوامر.</longdesc>
+								</local_schema>
+							</entry>
+						</dir>
+					</dir>
+				</dir>
+				<dir name="accessibility">
+					<dir name="startup">
+						<entry name="exec_ats">
+							<local_schema short_desc="تطبيقات التقانة المعينة عند بدأ التشغيل">
+								<longdesc>قائمة تطبيقات التقانة المعينة التي ستبدأ عند الولوج في مكتب جنوم.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="keyboard">
+						<entry name="stickykeys_modifier_beep">
+							<local_schema>
+								<longdesc>صفّر عند نقر مُغيِّر</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="stickykeys_two_key_off">
+							<local_schema>
+								<longdesc>عطّل إذا نقر زران في آن واحد.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="slowkeys_delay">
+							<local_schema short_desc="الفترة الدنيا بالملي ثانية">
+								<longdesc>لا تقبل زرا كمضغوط إلا عند ضغطه لـ @delay ملي ثانية.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_init_delay">
+							<local_schema short_desc="التأخير الأول بالملي ثانية">
+								<longdesc>كم ملي ثانية يجب الانتظار حتى تبدأ أزرار تحريك الفأرة العمل.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_accel_time">
+							<local_schema short_desc="الوقت الذي يستغرقه التسريع بالملي ثانية">
+								<longdesc>كم يستغرق الانتقال من 0 حتى السرعة القصوى بالملي ثانية.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_max_speed">
+							<local_schema short_desc="بكسلات في الثانية">
+								<longdesc>عدد البكسلات التي ستحرك بالثانية في السرعة القصوى.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bouncekeys_delay">
+							<local_schema short_desc="الفترة الدنيا بالملي ثانية">
+								<longdesc>تجاهل النقرات المتكررة لنفس المفتاح خلال @delay ملي ثانية.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+			</dir>
+		</dir>
+	</dir>
+</gconf>

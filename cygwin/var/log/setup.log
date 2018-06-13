@@ -1,0 +1,932 @@
+2017/05/15 02:59:25 Starting cygwin install, version 2.878
+2017/05/15 02:59:25 User has backup/restore rights
+2017/05/15 02:59:25 io_stream_cygfile: fopen(/etc/setup/setup.rc) failed 2 No such file or directory
+2017/05/15 02:59:25 Current Directory: C:\Users\luiz_\Downloads
+2017/05/15 02:59:25 Could not open service McShield for query, start and stop. McAfee may not be installed, or we don't have access.
+2017/05/15 02:59:27 source: network install
+2017/05/15 02:59:28 root: C:\cygwin system
+2017/05/15 02:59:29 Selected local directory: C:\Users\luiz_\Downloads
+2017/05/15 02:59:30 net: Direct
+2017/05/15 02:59:34 site: http://cygwin.mirror.constant.com/
+2017/05/15 02:59:34 io_stream_cygfile: fopen(/etc/setup/installed.db) failed 2 No such file or directory
+2017/05/15 02:59:35 io_stream_cygfile: fopen(/etc/setup/timestamp) failed 2 No such file or directory
+2017/05/15 03:03:35 Adding required dependency binutils: Selecting version 2.25-4 for installation.
+2017/05/15 03:03:35 Adding required dependency bzip2: Selecting version 1.0.6-3 for installation.
+2017/05/15 03:03:35 Adding required dependency ca-certificates: Selecting version 2.14-1 for installation.
+2017/05/15 03:03:35 Adding required dependency cygwin-debuginfo: Selecting version 2.8.0-1 for installation.
+2017/05/15 03:03:35 Adding required dependency cygwin-devel: Selecting version 2.8.0-1 for installation.
+2017/05/15 03:03:35 Adding required dependency cygwin64: Selecting version 2.6.0-1 for installation.
+2017/05/15 03:03:35 Adding required dependency cygwin64-binutils: Selecting version 2.25-1 for installation.
+2017/05/15 03:03:35 Adding required dependency cygwin64-default-manifest: Selecting version 6.4-1 for installation.
+2017/05/15 03:03:35 Adding required dependency cygwin64-w32api-headers: Selecting version 4.0.4-1 for installation.
+2017/05/15 03:03:35 Adding required dependency cygwin64-w32api-runtime: Selecting version 4.0.4-1 for installation.
+2017/05/15 03:03:35 Adding required dependency damageproto: Selecting version 1.2.1-1 for installation.
+2017/05/15 03:03:35 Adding required dependency dejavu-fonts: Selecting version 2.37-1 for installation.
+2017/05/15 03:03:35 Adding required dependency desktop-file-utils: Selecting version 0.23-1 for installation.
+2017/05/15 03:03:35 Adding required dependency djgpp-binutils: Selecting version 2.25-2 for installation.
+2017/05/15 03:03:35 Adding required dependency djgpp-runtime: Selecting version 2.05-1 for installation.
+2017/05/15 03:03:35 Adding required dependency dri-drivers: Selecting version 17.0.5-1 for installation.
+2017/05/15 03:03:35 Adding required dependency fixesproto: Selecting version 5.0-1 for installation.
+2017/05/15 03:03:35 Adding required dependency gamin: Selecting version 0.1.10-15 for installation.
+2017/05/15 03:03:35 Adding required dependency girepository-cairo1.0: Selecting version 1.50.0-1 for installation.
+2017/05/15 03:03:35 Adding required dependency girepository-GLib2.0: Selecting version 1.50.0-1 for installation.
+2017/05/15 03:03:35 Adding required dependency girepository-HarfBuzz0.0: Selecting version 1.3.4-1 for installation.
+2017/05/15 03:03:35 Adding required dependency girepository-Pango1.0: Selecting version 1.40.5-1 for installation.
+2017/05/15 03:03:35 Adding required dependency girepository-x11: Selecting version 1.50.0-1 for installation.
+2017/05/15 03:03:35 Adding required dependency groff: Selecting version 1.22.3-1 for installation.
+2017/05/15 03:03:35 Adding required dependency gsettings-desktop-schemas: Selecting version 3.22.0-1 for installation.
+2017/05/15 03:03:35 Adding required dependency kbproto: Selecting version 1.0.7-1 for installation.
+2017/05/15 03:03:35 Adding required dependency less: Selecting version 487-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libargp: Selecting version 20110921-3 for installation.
+2017/05/15 03:03:35 Adding required dependency libasyncns0: Selecting version 0.8-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libatomic1: Selecting version 5.4.0-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libattr1: Selecting version 2.4.46-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libblkid1: Selecting version 2.25.2-2 for installation.
+2017/05/15 03:03:35 Adding required dependency libbz2-devel: Selecting version 1.0.6-3 for installation.
+2017/05/15 03:03:35 Adding required dependency libbz2_1: Selecting version 1.0.6-3 for installation.
+2017/05/15 03:03:35 Adding required dependency libcairo-devel: Selecting version 1.14.8-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libcairo2: Selecting version 1.14.8-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libcharset1: Selecting version 1.14-3 for installation.
+2017/05/15 03:03:35 Adding required dependency libcilkrts5: Selecting version 5.4.0-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libcrypt0: Selecting version 1.4-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libdatrie1: Selecting version 0.2.8-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libdb4.8: Selecting version 4.8.30-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libdb5.3: Selecting version 5.3.28-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libdbus1_3: Selecting version 1.10.18-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libedit0: Selecting version 20130712-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libEGL-devel: Selecting version 17.0.5-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libEGL1: Selecting version 17.0.5-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libexpat-devel: Selecting version 2.2.0-0 for installation.
+2017/05/15 03:03:35 Adding required dependency libexpat1: Selecting version 2.2.0-0 for installation.
+2017/05/15 03:03:35 Adding required dependency libfam0: Selecting version 0.1.10-15 for installation.
+2017/05/15 03:03:35 Adding required dependency libffi6: Selecting version 3.2.1-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libFLAC8: Selecting version 1.3.2-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libfluidsynth1: Selecting version 1.1.6-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libfontconfig-common: Selecting version 2.12.1-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libfontconfig-devel: Selecting version 2.12.1-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libfontconfig1: Selecting version 2.12.1-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libfreetype-devel: Selecting version 2.6.5-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libfreetype6: Selecting version 2.6.5-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libgcj-common: Selecting version 5.4.0-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libgcj16: Selecting version 5.4.0-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libgdbm4: Selecting version 1.12-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libgfortran3: Selecting version 5.4.0-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libGL-devel: Selecting version 17.0.5-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libGL1: Selecting version 17.0.5-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libglapi0: Selecting version 17.0.5-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libglib2.0-devel: Selecting version 2.50.3-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libglib2.0_0: Selecting version 2.50.3-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libgmp10: Selecting version 6.1.2-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libgomp1: Selecting version 5.4.0-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libgraphite2-devel: Selecting version 1.3.8-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libgraphite2_3: Selecting version 1.3.8-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libgsm1: Selecting version 1.0.13-3 for installation.
+2017/05/15 03:03:35 Adding required dependency libharfbuzz-devel: Selecting version 1.3.4-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libharfbuzz-gobject0: Selecting version 1.3.4-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libharfbuzz0: Selecting version 1.3.4-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libiconv: Selecting version 1.14-3 for installation.
+2017/05/15 03:03:35 Adding required dependency libiconv-devel: Selecting version 1.14-3 for installation.
+2017/05/15 03:03:35 Adding required dependency libiconv2: Selecting version 1.14-3 for installation.
+2017/05/15 03:03:35 Adding required dependency libintl-devel: Selecting version 0.19.8.1-2 for installation.
+2017/05/15 03:03:35 Adding required dependency libintl8: Selecting version 0.19.8.1-2 for installation.
+2017/05/15 03:03:35 Adding required dependency libisl13: Selecting version 0.14.1-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libjbig2: Selecting version 2.0-14 for installation.
+2017/05/15 03:03:35 Adding required dependency libjpeg8: Selecting version 1.5.0-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libjson-c-common: Selecting version 0.12-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libjson-c2: Selecting version 0.12-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libllvm3.9: Selecting version 3.9.1-1 for installation.
+2017/05/15 03:03:35 Adding required dependency liblzma5: Selecting version 5.2.3-1 for installation.
+2017/05/15 03:03:35 Adding required dependency liblzo2_2: Selecting version 2.08-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libmikmod3: Selecting version 3.3.7-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libmodplug1: Selecting version 0.8.8.5-2 for installation.
+2017/05/15 03:03:35 Adding required dependency libmpc3: Selecting version 1.0.3-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libmpfr4: Selecting version 3.1.5-1p2 for installation.
+2017/05/15 03:03:35 Adding required dependency libncursesw10: Selecting version 6.0-10.20170325 for installation.
+2017/05/15 03:03:35 Adding required dependency libobjc4: Selecting version 5.4.0-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libogg0: Selecting version 1.3.1-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libp11-kit0: Selecting version 0.23.5-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libpango1.0-devel: Selecting version 1.40.5-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libpango1.0_0: Selecting version 1.40.5-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libpcre-devel: Selecting version 8.40-3 for installation.
+2017/05/15 03:03:35 Adding required dependency libpcre1: Selecting version 8.40-3 for installation.
+2017/05/15 03:03:35 Adding required dependency libpcre16_0: Selecting version 8.40-3 for installation.
+2017/05/15 03:03:35 Adding required dependency libpcre32_0: Selecting version 8.40-3 for installation.
+2017/05/15 03:03:35 Adding required dependency libpcrecpp0: Selecting version 8.40-3 for installation.
+2017/05/15 03:03:35 Adding required dependency libpcreposix0: Selecting version 8.40-3 for installation.
+2017/05/15 03:03:35 Adding required dependency libpipeline1: Selecting version 1.4.0-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libpixman1-devel: Selecting version 0.34.0-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libpixman1_0: Selecting version 0.34.0-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libpng-devel: Selecting version 1.6.28-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libpng16: Selecting version 1.6.28-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libpng16-devel: Selecting version 1.6.28-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libpopt-common: Selecting version 1.16-2 for installation.
+2017/05/15 03:03:35 Adding required dependency libpopt0: Selecting version 1.16-2 for installation.
+2017/05/15 03:03:35 Adding required dependency libportaudio2: Selecting version 19.20140130-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libpulse-simple0: Selecting version 9.0-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libpulse0: Selecting version 9.0-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libquadmath0: Selecting version 5.4.0-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libsigsegv2: Selecting version 2.10-2 for installation.
+2017/05/15 03:03:35 Adding required dependency libsmartcols1: Selecting version 2.25.2-2 for installation.
+2017/05/15 03:03:35 Adding required dependency libsndfile1: Selecting version 1.0.25-4 for installation.
+2017/05/15 03:03:35 Adding required dependency libspeex1: Selecting version 1.2.0-2 for installation.
+2017/05/15 03:03:35 Adding required dependency libsqlite3_0: Selecting version 3.18.0-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libssp0: Selecting version 5.4.0-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libstdc++6: Selecting version 5.4.0-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libtasn1_6: Selecting version 4.10-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libthai0: Selecting version 0.1.26-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libtiff6: Selecting version 4.0.6-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libtxc_dxtn: Selecting version 1.0-1.20151227gitf6ec862 for installation.
+2017/05/15 03:03:35 Adding required dependency libuuid-devel: Selecting version 2.25.2-2 for installation.
+2017/05/15 03:03:35 Adding required dependency libuuid1: Selecting version 2.25.2-2 for installation.
+2017/05/15 03:03:35 Adding required dependency libvorbis: Selecting version 1.3.5-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libvorbis0: Selecting version 1.3.5-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libvorbisenc2: Selecting version 1.3.5-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libvorbisfile3: Selecting version 1.3.5-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libvtv0: Selecting version 5.4.0-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libwebp5: Selecting version 0.4.4-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libwrap0: Selecting version 7.6-22 for installation.
+2017/05/15 03:03:35 Adding required dependency libX11-devel: Selecting version 1.6.4-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libX11-xcb-devel: Selecting version 1.6.4-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libX11-xcb1: Selecting version 1.6.4-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libX11_6: Selecting version 1.6.4-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libXau-devel: Selecting version 1.0.8-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libXau6: Selecting version 1.0.8-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libxcb-devel: Selecting version 1.12-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libxcb-glx-devel: Selecting version 1.12-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libxcb-glx0: Selecting version 1.12-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libxcb-render-devel: Selecting version 1.12-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libxcb-render0: Selecting version 1.12-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libxcb-shm-devel: Selecting version 1.12-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libxcb-shm0: Selecting version 1.12-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libxcb1: Selecting version 1.12-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libXdamage-devel: Selecting version 1.1.4-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libXdamage1: Selecting version 1.1.4-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libXdmcp-devel: Selecting version 1.1.2-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libXdmcp6: Selecting version 1.1.2-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libXext-devel: Selecting version 1.3.3-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libXext6: Selecting version 1.3.3-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libXfixes-devel: Selecting version 5.0.3-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libXfixes3: Selecting version 5.0.3-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libXft-devel: Selecting version 2.3.2-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libXft2: Selecting version 2.3.2-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libxml2: Selecting version 2.9.4-2 for installation.
+2017/05/15 03:03:35 Adding required dependency libXrandr2: Selecting version 1.5.1-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libXrender-devel: Selecting version 0.9.9-1 for installation.
+2017/05/15 03:03:35 Adding required dependency libXrender1: Selecting version 0.9.9-1 for installation.
+2017/05/15 03:03:35 Adding required dependency m4: Selecting version 1.4.18-1 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-i686-binutils: Selecting version 2.25.0.1.23f238d-1 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-i686-flac: Selecting version 1.3.2-1 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-i686-headers: Selecting version 5.0.2-1 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-i686-jbigkit: Selecting version 2.1-1 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-i686-libjpeg-turbo: Selecting version 1.5.0-1 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-i686-libmikmod: Selecting version 3.3.3-1 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-i686-libmodplug: Selecting version 0.8.8.5-1 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-i686-libogg: Selecting version 1.3.2-1 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-i686-libpng: Selecting version 1.6.28-1 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-i686-libvorbis: Selecting version 1.3.5-1 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-i686-libwebp: Selecting version 0.4.4-1 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-i686-pkg-config: Selecting version 0.29.1-1 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-i686-runtime: Selecting version 5.0.2-1 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-i686-speex: Selecting version 1.2.0-1 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-i686-speexdsp: Selecting version 1.2-0.1.rc3 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-i686-tiff: Selecting version 4.0.6-1 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-i686-win-iconv: Selecting version 0.0.6-2 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-i686-windows-default-manifest: Selecting version 6.4-1 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-i686-winpthreads: Selecting version 5.0.2-1 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-i686-xz: Selecting version 5.2.3-1 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-i686-zlib: Selecting version 1.2.11-1 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-x86_64-binutils: Selecting version 2.25.0.1.23f238d-1 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-x86_64-flac: Selecting version 1.3.2-1 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-x86_64-headers: Selecting version 5.0.2-1 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-x86_64-jbigkit: Selecting version 2.1-1 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-x86_64-libjpeg-turbo: Selecting version 1.5.0-1 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-x86_64-libmodplug: Selecting version 0.8.8.5-1 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-x86_64-libogg: Selecting version 1.3.2-1 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-x86_64-libpng: Selecting version 1.6.28-1 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-x86_64-libvorbis: Selecting version 1.3.5-1 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-x86_64-libwebp: Selecting version 0.4.4-1 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-x86_64-pkg-config: Selecting version 0.29.1-1 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-x86_64-runtime: Selecting version 5.0.2-1 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-x86_64-speex: Selecting version 1.2.0-1 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-x86_64-speexdsp: Selecting version 1.2-0.1.rc3 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-x86_64-tiff: Selecting version 4.0.6-1 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-x86_64-win-iconv: Selecting version 0.0.6-2 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-x86_64-windows-default-manifest: Selecting version 6.4-1 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-x86_64-winpthreads: Selecting version 5.0.2-1 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-x86_64-xz: Selecting version 5.2.3-1 for installation.
+2017/05/15 03:03:35 Adding required dependency mingw64-x86_64-zlib: Selecting version 1.2.11-1 for installation.
+2017/05/15 03:03:35 Adding required dependency p11-kit: Selecting version 0.23.5-1 for installation.
+2017/05/15 03:03:35 Adding required dependency p11-kit-trust: Selecting version 0.23.5-1 for installation.
+2017/05/15 03:03:35 Adding required dependency perl: Selecting version 5.22.3-1 for installation.
+2017/05/15 03:03:35 Adding required dependency perl-Pod-Simple: Selecting version 3.35-1 for installation.
+2017/05/15 03:03:35 Adding required dependency perl-Unicode-Normalize: Selecting version 1.25-1 for installation.
+2017/05/15 03:03:35 Adding required dependency perl_autorebase: Selecting version 5.22.3-1 for installation.
+2017/05/15 03:03:35 Adding required dependency perl_base: Selecting version 5.22.3-1 for installation.
+2017/05/15 03:03:35 Adding required dependency pkg-config: Selecting version 0.29.1-1 for installation.
+2017/05/15 03:03:35 Adding required dependency python: Selecting version 2.7.13-1 for installation.
+2017/05/15 03:03:35 Adding required dependency python2: Selecting version 2.7.13-1 for installation.
+2017/05/15 03:03:35 Adding required dependency renderproto: Selecting version 0.11.1-1 for installation.
+2017/05/15 03:03:35 Adding required dependency shared-mime-info: Selecting version 1.7-1 for installation.
+2017/05/15 03:03:35 Adding required dependency texinfo: Selecting version 6.3-1 for installation.
+2017/05/15 03:03:35 Adding required dependency tzcode: Selecting version 2017a-1 for installation.
+2017/05/15 03:03:35 Adding required dependency w32api-headers: Selecting version 5.0.2-1 for installation.
+2017/05/15 03:03:35 Adding required dependency w32api-runtime: Selecting version 5.0.2-1 for installation.
+2017/05/15 03:03:35 Adding required dependency windows-default-manifest: Selecting version 6.4-1 for installation.
+2017/05/15 03:03:35 Adding required dependency xextproto: Selecting version 7.3.0-1 for installation.
+2017/05/15 03:03:35 Adding required dependency xproto: Selecting version 7.0.31-1 for installation.
+2017/05/15 03:03:35 Adding required dependency xz: Selecting version 5.2.3-1 for installation.
+2017/05/15 03:03:35 Adding required dependency zlib-devel: Selecting version 1.2.11-1 for installation.
+2017/05/15 03:03:35 Adding required dependency zlib0: Selecting version 1.2.11-1 for installation.
+2017/05/15 03:03:38 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/SDL/SDL-debuginfo/SDL-debuginfo-1.2.15-3.tar.xz
+2017/05/15 03:03:38 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/SDL_image/SDL_image-debuginfo/SDL_image-debuginfo-1.2.12-5.tar.xz
+2017/05/15 03:03:39 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/SDL_mixer/SDL_mixer-debuginfo/SDL_mixer-debuginfo-1.2.12-4.tar.xz
+2017/05/15 03:03:39 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/SDL_sound/SDL_sound-debuginfo/SDL_sound-debuginfo-1.0.3-13.tar.xz
+2017/05/15 03:03:40 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/_autorebase/_autorebase-001005-1.tar.xz
+2017/05/15 03:03:40 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/alternatives/alternatives-1.3.30c-10.tar.bz2
+2017/05/15 03:03:40 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/base-cygwin/base-cygwin-3.8-1.tar.xz
+2017/05/15 03:03:40 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/base-files/base-files-4.2-4.tar.xz
+2017/05/15 03:03:43 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/bash/bash-4.4.12-3.tar.xz
+2017/05/15 03:03:50 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/binutils/binutils-2.25-4.tar.xz
+2017/05/15 03:03:50 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/bzip2/bzip2-1.0.6-3.tar.xz
+2017/05/15 03:03:52 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/ca-certificates/ca-certificates-2.14-1.tar.xz
+2017/05/15 03:03:52 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/colorgcc/colorgcc-1.3.2-2.tar.bz2
+2017/05/15 03:04:36 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/coreutils/coreutils-8.26-2.tar.xz
+2017/05/15 03:04:37 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygutils/cygutils-1.4.15-2.tar.xz
+2017/05/15 03:04:46 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygwin/cygwin-2.8.0-1.tar.xz
+2017/05/15 03:04:57 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygwin/cygwin-debuginfo/cygwin-debuginfo-2.8.0-1.tar.xz
+2017/05/15 03:04:58 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygwin/cygwin-devel/cygwin-devel-2.8.0-1.tar.xz
+2017/05/15 03:05:04 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygwin64/cygwin64-2.6.0-1.tar.xz
+2017/05/15 03:05:13 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygwin64-binutils/cygwin64-binutils-2.25-1.tar.xz
+2017/05/15 03:05:13 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygwin64-default-manifest/cygwin64-default-manifest-6.4-1.tar.xz
+2017/05/15 03:05:42 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygwin64-gcc/cygwin64-gcc-ada/cygwin64-gcc-ada-5.4.0-1.tar.xz
+2017/05/15 03:05:43 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygwin64-gcc/cygwin64-gcc-cilkplus/cygwin64-gcc-cilkplus-5.4.0-1.tar.xz
+2017/05/15 03:06:12 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygwin64-gcc/cygwin64-gcc-core/cygwin64-gcc-core-5.4.0-1.tar.xz
+2017/05/15 03:12:31 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygwin64-gcc/cygwin64-gcc-debuginfo/cygwin64-gcc-debuginfo-5.4.0-1.tar.xz
+2017/05/15 03:12:42 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygwin64-gcc/cygwin64-gcc-fortran/cygwin64-gcc-fortran-5.4.0-1.tar.xz
+2017/05/15 03:13:03 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygwin64-gcc/cygwin64-gcc-g++/cygwin64-gcc-g++-5.3.0-3.tar.xz
+2017/05/15 03:13:11 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygwin64-gcc/cygwin64-gcc-objc/cygwin64-gcc-objc-5.4.0-1.tar.xz
+2017/05/15 03:13:18 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygwin64-gcc/cygwin64-gcc-objc++/cygwin64-gcc-objc++-5.4.0-1.tar.xz
+2017/05/15 03:13:23 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygwin64-w32api-headers/cygwin64-w32api-headers-4.0.4-1.tar.xz
+2017/05/15 03:13:26 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygwin64-w32api-runtime/cygwin64-w32api-runtime-4.0.4-1.tar.xz
+2017/05/15 03:13:26 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/damageproto/damageproto-1.2.1-1.tar.bz2
+2017/05/15 03:13:27 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/dash/dash-0.5.9.1-1.tar.xz
+2017/05/15 03:13:30 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/dejavu-fonts/dejavu-fonts-2.37-1.tar.xz
+2017/05/15 03:13:30 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/desktop-file-utils/desktop-file-utils-0.23-1.tar.xz
+2017/05/15 03:13:31 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/diffutils/diffutils-3.5-2.tar.xz
+2017/05/15 03:13:33 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/djgpp-binutils/djgpp-binutils-2.25-2.tar.xz
+2017/05/15 03:13:56 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/djgpp-gcc/djgpp-gcc-ada/djgpp-gcc-ada-5.4.0-1.tar.xz
+2017/05/15 03:14:08 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/djgpp-gcc/djgpp-gcc-core/djgpp-gcc-core-5.4.0-1.tar.xz
+2017/05/15 03:19:00 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/djgpp-gcc/djgpp-gcc-debuginfo/djgpp-gcc-debuginfo-5.4.0-1.tar.xz
+2017/05/15 03:19:09 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/djgpp-gcc/djgpp-gcc-fortran/djgpp-gcc-fortran-5.4.0-1.tar.xz
+2017/05/15 03:19:21 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/djgpp-gcc/djgpp-gcc-g++/djgpp-gcc-g++-5.4.0-1.tar.xz
+2017/05/15 03:19:31 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/djgpp-gcc/djgpp-gcc-objc/djgpp-gcc-objc-5.4.0-1.tar.xz
+2017/05/15 03:19:41 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/djgpp-gcc/djgpp-gcc-objc++/djgpp-gcc-objc++-5.4.0-1.tar.xz
+2017/05/15 03:19:42 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/djgpp-runtime/djgpp-runtime-2.05-1.tar.xz
+2017/05/15 03:19:45 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mesa/dri-drivers/dri-drivers-17.0.5-1.tar.xz
+2017/05/15 03:19:46 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/editrights/editrights-1.03-1.tar.xz
+2017/05/15 03:19:46 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/file/file-5.30-1.tar.xz
+2017/05/15 03:19:48 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/findutils/findutils-4.6.0-1.tar.xz
+2017/05/15 03:19:48 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/fixesproto/fixesproto-5.0-1.tar.bz2
+2017/05/15 03:19:49 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gamin/gamin-0.1.10-15.tar.xz
+2017/05/15 03:19:57 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gawk/gawk-4.1.4-3.tar.xz
+2017/05/15 03:20:20 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/gcc-ada/gcc-ada-5.4.0-1.tar.xz
+2017/05/15 03:20:21 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/gcc-cilkplus/gcc-cilkplus-5.4.0-1.tar.xz
+2017/05/15 03:20:45 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/gcc-core/gcc-core-5.4.0-1.tar.xz
+2017/05/15 03:27:12 Download C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/gcc-debuginfo/gcc-debuginfo-5.4.0-1.tar.xz wrong size (197140480 actual vs 233099012 expected)
+2017/05/15 03:28:39 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/gcc-java/gcc-java-5.4.0-1.tar.xz
+2017/05/15 03:28:52 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/gcc-objc/gcc-objc-5.4.0-1.tar.xz
+2017/05/15 03:29:07 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/gcc-objc++/gcc-objc++-5.4.0-1.tar.xz
+2017/05/15 03:29:08 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc-tools-epoch1-autoconf/gcc-tools-epoch1-autoconf-2.59-2.tar.bz2
+2017/05/15 03:29:09 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc-tools-epoch1-automake/gcc-tools-epoch1-automake-1.9.6-2.tar.bz2
+2017/05/15 03:29:10 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc-tools-epoch2-autoconf/gcc-tools-epoch2-autoconf-2.64-2.tar.bz2
+2017/05/15 03:29:12 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc-tools-epoch2-automake/gcc-tools-epoch2-automake-1.11.6-1.tar.bz2
+2017/05/15 03:29:12 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/gccmakedep/gccmakedep-1.0.3-1.tar.xz
+2017/05/15 03:29:12 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/getent/getent-2.18.90-4.tar.xz
+2017/05/15 03:29:13 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gobject-introspection/girepository-GLib2.0/girepository-GLib2.0-1.50.0-1.tar.xz
+2017/05/15 03:29:14 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/harfbuzz/girepository-HarfBuzz0.0/girepository-HarfBuzz0.0-1.3.4-1.tar.xz
+2017/05/15 03:29:14 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/pango1.0/girepository-Pango1.0/girepository-Pango1.0-1.40.5-1.tar.xz
+2017/05/15 03:29:14 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gobject-introspection/girepository-cairo1.0/girepository-cairo1.0-1.50.0-1.tar.xz
+2017/05/15 03:29:14 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gobject-introspection/girepository-x11/girepository-x11-1.50.0-1.tar.xz
+2017/05/15 03:29:16 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/grep/grep-3.0-2.tar.xz
+2017/05/15 03:29:23 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/groff/groff-1.22.3-1.tar.xz
+2017/05/15 03:29:25 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/gsettings-desktop-schemas/gsettings-desktop-schemas-3.22.0-1.tar.xz
+2017/05/15 03:29:26 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gzip/gzip-1.8-1.tar.xz
+2017/05/15 03:29:26 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/hostname/hostname-3.13-1.tar.bz2
+2017/05/15 03:29:27 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/texinfo/info/info-6.1-2.tar.xz
+2017/05/15 03:29:28 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/ipc-utils/ipc-utils-1.0-1.tar.bz2
+2017/05/15 03:29:28 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/kbproto/kbproto-1.0.7-1.tar.xz
+2017/05/15 03:29:29 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/less/less-487-1.tar.xz
+2017/05/15 03:29:29 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mesa/libEGL-devel/libEGL-devel-17.0.5-1.tar.xz
+2017/05/15 03:29:29 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mesa/libEGL1/libEGL1-17.0.5-1.tar.xz
+2017/05/15 03:29:30 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/flac/libFLAC8/libFLAC8-1.3.2-1.tar.xz
+2017/05/15 03:29:30 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mesa/libGL-devel/libGL-devel-17.0.5-1.tar.xz
+2017/05/15 03:29:31 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mesa/libGL1/libGL1-17.0.5-1.tar.xz
+2017/05/15 03:29:31 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/SDL/libSDL-devel/libSDL-devel-1.2.15-3.tar.xz
+2017/05/15 03:29:32 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/SDL/libSDL1.2_0/libSDL1.2_0-1.2.15-3.tar.xz
+2017/05/15 03:29:32 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/SDL_Pango/libSDL_Pango-devel/libSDL_Pango-devel-0.1.2-10.tar.bz2
+2017/05/15 03:29:32 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/SDL_Pango/libSDL_Pango1/libSDL_Pango1-0.1.2-10.tar.bz2
+2017/05/15 03:29:32 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/SDL_image/libSDL_image-devel/libSDL_image-devel-1.2.12-5.tar.xz
+2017/05/15 03:29:33 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/SDL_image/libSDL_image1.2_0/libSDL_image1.2_0-1.2.12-5.tar.xz
+2017/05/15 03:29:33 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/SDL_mixer/libSDL_mixer-devel/libSDL_mixer-devel-1.2.12-4.tar.xz
+2017/05/15 03:29:33 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/SDL_mixer/libSDL_mixer1.2_0/libSDL_mixer1.2_0-1.2.12-4.tar.xz
+2017/05/15 03:29:33 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/SDL_net/libSDL_net-devel/libSDL_net-devel-1.2.8-1.tar.bz2
+2017/05/15 03:29:33 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/SDL_net/libSDL_net1.2_0/libSDL_net1.2_0-1.2.8-1.tar.bz2
+2017/05/15 03:29:34 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/SDL_sound/libSDL_sound-devel/libSDL_sound-devel-1.0.3-13.tar.xz
+2017/05/15 03:29:34 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/SDL_sound/libSDL_sound1.0_1/libSDL_sound1.0_1-1.0.3-13.tar.xz
+2017/05/15 03:29:34 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libX11/libX11-devel/libX11-devel-1.6.4-1.tar.xz
+2017/05/15 03:29:34 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libX11/libX11-xcb-devel/libX11-xcb-devel-1.6.4-1.tar.xz
+2017/05/15 03:29:35 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libX11/libX11-xcb1/libX11-xcb1-1.6.4-1.tar.xz
+2017/05/15 03:29:36 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libX11/libX11_6/libX11_6-1.6.4-1.tar.xz
+2017/05/15 03:29:37 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libXau/libXau-devel/libXau-devel-1.0.8-1.tar.bz2
+2017/05/15 03:29:37 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libXau/libXau6/libXau6-1.0.8-1.tar.bz2
+2017/05/15 03:29:37 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libXdamage/libXdamage-devel/libXdamage-devel-1.1.4-1.tar.bz2
+2017/05/15 03:29:37 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libXdamage/libXdamage1/libXdamage1-1.1.4-1.tar.bz2
+2017/05/15 03:29:37 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libXdmcp/libXdmcp-devel/libXdmcp-devel-1.1.2-1.tar.xz
+2017/05/15 03:29:38 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libXdmcp/libXdmcp6/libXdmcp6-1.1.2-1.tar.xz
+2017/05/15 03:29:38 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libXext/libXext-devel/libXext-devel-1.3.3-1.tar.xz
+2017/05/15 03:29:39 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libXext/libXext6/libXext6-1.3.3-1.tar.xz
+2017/05/15 03:29:39 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libXfixes/libXfixes-devel/libXfixes-devel-5.0.3-1.tar.xz
+2017/05/15 03:29:39 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libXfixes/libXfixes3/libXfixes3-5.0.3-1.tar.xz
+2017/05/15 03:29:39 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libXft/libXft-devel/libXft-devel-2.3.2-1.tar.xz
+2017/05/15 03:29:39 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libXft/libXft2/libXft2-2.3.2-1.tar.xz
+2017/05/15 03:29:40 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libXrandr/libXrandr2/libXrandr2-1.5.1-1.tar.xz
+2017/05/15 03:29:40 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libXrender/libXrender-devel/libXrender-devel-0.9.9-1.tar.xz
+2017/05/15 03:29:40 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libXrender/libXrender1/libXrender1-0.9.9-1.tar.xz
+2017/05/15 03:29:40 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libargp/libargp-20110921-3.tar.xz
+2017/05/15 03:29:40 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libasyncns/libasyncns0/libasyncns0-0.8-1.tar.bz2
+2017/05/15 03:29:41 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/libatomic1/libatomic1-5.4.0-1.tar.xz
+2017/05/15 03:29:41 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/attr/libattr1/libattr1-2.4.46-1.tar.bz2
+2017/05/15 03:29:41 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/util-linux/libblkid1/libblkid1-2.25.2-2.tar.xz
+2017/05/15 03:29:41 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/bzip2/libbz2-devel/libbz2-devel-1.0.6-3.tar.xz
+2017/05/15 03:29:42 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/bzip2/libbz2_1/libbz2_1-1.0.6-3.tar.xz
+2017/05/15 03:29:42 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cairo/libcairo-devel/libcairo-devel-1.14.8-1.tar.xz
+2017/05/15 03:29:43 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cairo/libcairo2/libcairo2-1.14.8-1.tar.xz
+2017/05/15 03:29:43 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libiconv/libcharset1/libcharset1-1.14-3.tar.xz
+2017/05/15 03:29:44 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/libcilkrts5/libcilkrts5-5.4.0-1.tar.xz
+2017/05/15 03:29:44 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/crypt/libcrypt0/libcrypt0-1.4-1.tar.xz
+2017/05/15 03:29:44 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libdatrie/libdatrie1/libdatrie1-0.2.8-1.tar.xz
+2017/05/15 03:29:45 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/db4.8/libdb4.8/libdb4.8-4.8.30-1.tar.bz2
+2017/05/15 03:29:47 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/db/libdb5.3/libdb5.3-5.3.28-1.tar.xz
+2017/05/15 03:29:48 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/dbus/libdbus1_3/libdbus1_3-1.10.18-1.tar.xz
+2017/05/15 03:29:48 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libedit/libedit0/libedit0-20130712-1.tar.xz
+2017/05/15 03:29:48 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/expat/libexpat-devel/libexpat-devel-2.2.0-0.tar.xz
+2017/05/15 03:29:48 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/expat/libexpat1/libexpat1-2.2.0-0.tar.xz
+2017/05/15 03:29:49 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gamin/libfam0/libfam0-0.1.10-15.tar.xz
+2017/05/15 03:29:49 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libffi/libffi6/libffi6-3.2.1-1.tar.xz
+2017/05/15 03:29:49 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/fluidsynth/libfluidsynth1/libfluidsynth1-1.1.6-1.tar.bz2
+2017/05/15 03:29:50 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/fontconfig/libfontconfig-common/libfontconfig-common-2.12.1-1.tar.xz
+2017/05/15 03:29:50 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/fontconfig/libfontconfig-devel/libfontconfig-devel-2.12.1-1.tar.xz
+2017/05/15 03:29:51 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/fontconfig/libfontconfig1/libfontconfig1-2.12.1-1.tar.xz
+2017/05/15 03:29:51 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/freetype2/libfreetype-devel/libfreetype-devel-2.6.5-1.tar.xz
+2017/05/15 03:29:53 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/freetype2/libfreetype6/libfreetype6-2.6.5-1.tar.xz
+2017/05/15 03:29:53 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/libgcc1/libgcc1-5.4.0-1.tar.xz
+2017/05/15 03:29:53 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/libgcj-common/libgcj-common-5.4.0-1.tar.xz
+2017/05/15 03:30:15 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/libgcj16/libgcj16-5.4.0-1.tar.xz
+2017/05/15 03:30:15 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gdbm/libgdbm4/libgdbm4-1.12-1.tar.xz
+2017/05/15 03:30:16 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/libgfortran3/libgfortran3-5.4.0-1.tar.xz
+2017/05/15 03:30:16 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mesa/libglapi0/libglapi0-17.0.5-1.tar.xz
+2017/05/15 03:30:18 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/glib2.0/libglib2.0-devel/libglib2.0-devel-2.50.3-1.tar.xz
+2017/05/15 03:30:25 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/glib2.0/libglib2.0_0/libglib2.0_0-2.50.3-1.tar.xz
+2017/05/15 03:30:26 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gmp/libgmp10/libgmp10-6.1.2-1.tar.xz
+2017/05/15 03:30:26 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/libgomp1/libgomp1-5.4.0-1.tar.xz
+2017/05/15 03:30:26 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/graphite2/libgraphite2-devel/libgraphite2-devel-1.3.8-1.tar.xz
+2017/05/15 03:30:27 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/graphite2/libgraphite2_3/libgraphite2_3-1.3.8-1.tar.xz
+2017/05/15 03:30:27 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gsm/libgsm1/libgsm1-1.0.13-3.tar.xz
+2017/05/15 03:30:27 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/harfbuzz/libharfbuzz-devel/libharfbuzz-devel-1.3.4-1.tar.xz
+2017/05/15 03:30:27 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/harfbuzz/libharfbuzz-gobject0/libharfbuzz-gobject0-1.3.4-1.tar.xz
+2017/05/15 03:30:28 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/harfbuzz/libharfbuzz0/libharfbuzz0-1.3.4-1.tar.xz
+2017/05/15 03:30:29 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libiconv/libiconv-1.14-3.tar.xz
+2017/05/15 03:30:31 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libiconv/libiconv-devel/libiconv-devel-1.14-3.tar.xz
+2017/05/15 03:30:33 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libiconv/libiconv2/libiconv2-1.14-3.tar.xz
+2017/05/15 03:30:33 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gettext/libintl-devel/libintl-devel-0.19.8.1-2.tar.xz
+2017/05/15 03:30:33 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gettext/libintl8/libintl8-0.19.8.1-2.tar.xz
+2017/05/15 03:30:34 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/isl/libisl13/libisl13-0.14.1-1.tar.xz
+2017/05/15 03:30:34 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/jbigkit/libjbig2/libjbig2-2.0-14.tar.xz
+2017/05/15 03:30:35 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libjpeg-turbo/libjpeg8/libjpeg8-1.5.0-1.tar.xz
+2017/05/15 03:30:35 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/json-c/libjson-c-common/libjson-c-common-0.12-1.tar.xz
+2017/05/15 03:30:35 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/json-c/libjson-c2/libjson-c2-0.12-1.tar.xz
+2017/05/15 03:30:44 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/llvm/libllvm3.9/libllvm3.9-3.9.1-1.tar.xz
+2017/05/15 03:30:44 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/xz/liblzma5/liblzma5-5.2.3-1.tar.xz
+2017/05/15 03:30:44 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/liblzo2/liblzo2_2/liblzo2_2-2.08-1.tar.xz
+2017/05/15 03:30:45 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libmikmod/libmikmod3/libmikmod3-3.3.7-1.tar.xz
+2017/05/15 03:30:45 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libmodplug/libmodplug1/libmodplug1-0.8.8.5-2.tar.xz
+2017/05/15 03:30:45 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mpclib/libmpc3/libmpc3-1.0.3-1.tar.xz
+2017/05/15 03:30:46 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mpfr/libmpfr4/libmpfr4-3.1.5-1p2.tar.xz
+2017/05/15 03:30:46 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/ncurses/libncursesw10/libncursesw10-6.0-10.20170325.tar.xz
+2017/05/15 03:30:46 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/libobjc4/libobjc4-5.4.0-1.tar.xz
+2017/05/15 03:30:46 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libogg/libogg0/libogg0-1.3.1-1.tar.bz2
+2017/05/15 03:30:47 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/openssl/libopenssl100/libopenssl100-1.0.2k-1.tar.xz
+2017/05/15 03:30:48 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/p11-kit/libp11-kit0/libp11-kit0-0.23.5-1.tar.xz
+2017/05/15 03:30:48 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/pango1.0/libpango1.0-devel/libpango1.0-devel-1.40.5-1.tar.xz
+2017/05/15 03:30:48 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/pango1.0/libpango1.0_0/libpango1.0_0-1.40.5-1.tar.xz
+2017/05/15 03:30:49 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/pcre/libpcre-devel/libpcre-devel-8.40-3.tar.xz
+2017/05/15 03:30:49 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/pcre/libpcre1/libpcre1-8.40-3.tar.xz
+2017/05/15 03:30:49 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/pcre/libpcre16_0/libpcre16_0-8.40-3.tar.xz
+2017/05/15 03:30:49 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/pcre/libpcre32_0/libpcre32_0-8.40-3.tar.xz
+2017/05/15 03:30:50 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/pcre/libpcrecpp0/libpcrecpp0-8.40-3.tar.xz
+2017/05/15 03:30:50 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/pcre/libpcreposix0/libpcreposix0-8.40-3.tar.xz
+2017/05/15 03:30:50 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libpipeline/libpipeline1/libpipeline1-1.4.0-1.tar.xz
+2017/05/15 03:30:50 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/pixman/libpixman1-devel/libpixman1-devel-0.34.0-1.tar.xz
+2017/05/15 03:30:51 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/pixman/libpixman1_0/libpixman1_0-0.34.0-1.tar.xz
+2017/05/15 03:30:51 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libpng/libpng-devel/libpng-devel-1.6.28-1.tar.xz
+2017/05/15 03:30:51 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libpng/libpng16/libpng16-1.6.28-1.tar.xz
+2017/05/15 03:30:51 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libpng/libpng16-devel/libpng16-devel-1.6.28-1.tar.xz
+2017/05/15 03:30:52 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/popt/libpopt-common/libpopt-common-1.16-2.tar.xz
+2017/05/15 03:30:52 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/popt/libpopt0/libpopt0-1.16-2.tar.xz
+2017/05/15 03:30:52 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/portaudio/libportaudio2/libportaudio2-19.20140130-1.tar.xz
+2017/05/15 03:30:52 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/pulseaudio/libpulse-simple0/libpulse-simple0-9.0-1.tar.xz
+2017/05/15 03:30:53 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/pulseaudio/libpulse0/libpulse0-9.0-1.tar.xz
+2017/05/15 03:30:53 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/libquadmath0/libquadmath0-5.4.0-1.tar.xz
+2017/05/15 03:30:53 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/readline/libreadline7/libreadline7-7.0.3-3.tar.xz
+2017/05/15 03:30:53 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libsigsegv/libsigsegv2/libsigsegv2-2.10-2.tar.xz
+2017/05/15 03:30:54 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/util-linux/libsmartcols1/libsmartcols1-2.25.2-2.tar.xz
+2017/05/15 03:30:54 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libsndfile/libsndfile1/libsndfile1-1.0.25-4.tar.xz
+2017/05/15 03:30:54 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/speex/libspeex1/libspeex1-1.2.0-2.tar.xz
+2017/05/15 03:30:55 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/sqlite3/libsqlite3_0/libsqlite3_0-3.18.0-1.tar.xz
+2017/05/15 03:30:55 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/libssp0/libssp0-5.4.0-1.tar.xz
+2017/05/15 03:30:55 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/libstdc++6/libstdc++6-5.4.0-1.tar.xz
+2017/05/15 03:30:56 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libtasn1/libtasn1_6/libtasn1_6-4.10-1.tar.xz
+2017/05/15 03:30:56 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libthai/libthai0/libthai0-0.1.26-1.tar.xz
+2017/05/15 03:30:56 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/tiff/libtiff6/libtiff6-4.0.6-1.tar.xz
+2017/05/15 03:30:56 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/s2tc/libtxc_dxtn/libtxc_dxtn-1.0-1.20151227gitf6ec862.tar.xz
+2017/05/15 03:30:57 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/util-linux/libuuid-devel/libuuid-devel-2.25.2-2.tar.xz
+2017/05/15 03:30:57 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/util-linux/libuuid1/libuuid1-2.25.2-2.tar.xz
+2017/05/15 03:30:57 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libvorbis/libvorbis-1.3.5-1.tar.xz
+2017/05/15 03:30:58 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libvorbis/libvorbis0/libvorbis0-1.3.5-1.tar.xz
+2017/05/15 03:30:58 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libvorbis/libvorbisenc2/libvorbisenc2-1.3.5-1.tar.xz
+2017/05/15 03:30:58 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libvorbis/libvorbisfile3/libvorbisfile3-1.3.5-1.tar.xz
+2017/05/15 03:30:58 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/libvtv0/libvtv0-5.4.0-1.tar.xz
+2017/05/15 03:30:59 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libwebp/libwebp5/libwebp5-0.4.4-1.tar.xz
+2017/05/15 03:30:59 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/tcp_wrappers/libwrap0/libwrap0-7.6-22.tar.xz
+2017/05/15 03:30:59 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libxcb/libxcb-devel/libxcb-devel-1.12-1.tar.xz
+2017/05/15 03:30:59 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libxcb/libxcb-glx-devel/libxcb-glx-devel-1.12-1.tar.xz
+2017/05/15 03:30:59 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libxcb/libxcb-glx0/libxcb-glx0-1.12-1.tar.xz
+2017/05/15 03:31:00 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libxcb/libxcb-render-devel/libxcb-render-devel-1.12-1.tar.xz
+2017/05/15 03:31:00 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libxcb/libxcb-render0/libxcb-render0-1.12-1.tar.xz
+2017/05/15 03:31:00 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libxcb/libxcb-shm-devel/libxcb-shm-devel-1.12-1.tar.xz
+2017/05/15 03:31:00 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libxcb/libxcb-shm0/libxcb-shm0-1.12-1.tar.xz
+2017/05/15 03:31:00 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libxcb/libxcb1/libxcb1-1.12-1.tar.xz
+2017/05/15 03:31:01 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libxml2/libxml2-2.9.4-2.tar.xz
+2017/05/15 03:31:02 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/login/login-1.11-1.tar.xz
+2017/05/15 03:31:02 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/m4/m4-1.4.18-1.tar.xz
+2017/05/15 03:31:03 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/man-db/man-db-2.7.5-2.tar.xz
+2017/05/15 03:31:04 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-SDL/mingw64-i686-SDL-1.2.15-1.tar.xz
+2017/05/15 03:31:04 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-SDL_image/mingw64-i686-SDL_image-1.2.12-4.tar.xz
+2017/05/15 03:31:04 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-SDL_mixer/mingw64-i686-SDL_mixer-1.2.12-1.tar.xz
+2017/05/15 03:31:04 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-SDL_net/mingw64-i686-SDL_net-1.2.8-1.tar.xz
+2017/05/15 03:31:05 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-SDL_sound/mingw64-i686-SDL_sound-1.0.3-1.tar.xz
+2017/05/15 03:31:06 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mingw64-i686-binutils/mingw64-i686-binutils-2.25.0.1.23f238d-1.tar.xz
+2017/05/15 03:31:07 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-flac/mingw64-i686-flac-1.3.2-1.tar.xz
+2017/05/15 03:31:21 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mingw64-i686-gcc/mingw64-i686-gcc-ada/mingw64-i686-gcc-ada-5.4.0-4.tar.xz
+2017/05/15 03:31:44 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mingw64-i686-gcc/mingw64-i686-gcc-core/mingw64-i686-gcc-core-5.4.0-4.tar.xz
+2017/05/15 03:35:06 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mingw64-i686-gcc/mingw64-i686-gcc-debuginfo/mingw64-i686-gcc-debuginfo-5.4.0-4.tar.xz
+2017/05/15 03:35:12 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mingw64-i686-gcc/mingw64-i686-gcc-fortran/mingw64-i686-gcc-fortran-5.4.0-4.tar.xz
+2017/05/15 03:35:22 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mingw64-i686-gcc/mingw64-i686-gcc-g++/mingw64-i686-gcc-g++-5.4.0-4.tar.xz
+2017/05/15 03:35:36 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mingw64-i686-gcc/mingw64-i686-gcc-objc/mingw64-i686-gcc-objc-5.4.0-4.tar.xz
+2017/05/15 03:35:45 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-headers/mingw64-i686-headers-5.0.2-1.tar.xz
+2017/05/15 03:35:45 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-jbigkit/mingw64-i686-jbigkit-2.1-1.tar.xz
+2017/05/15 03:35:46 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-libjpeg-turbo/mingw64-i686-libjpeg-turbo-1.5.0-1.tar.xz
+2017/05/15 03:35:47 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-libmikmod/mingw64-i686-libmikmod-3.3.3-1.tar.xz
+2017/05/15 03:35:47 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-libmodplug/mingw64-i686-libmodplug-0.8.8.5-1.tar.xz
+2017/05/15 03:35:47 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-libogg/mingw64-i686-libogg-1.3.2-1.tar.xz
+2017/05/15 03:35:48 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-libpng/mingw64-i686-libpng-1.6.28-1.tar.xz
+2017/05/15 03:35:48 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-libvorbis/mingw64-i686-libvorbis-1.3.5-1.tar.xz
+2017/05/15 03:35:49 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-libwebp/mingw64-i686-libwebp-0.4.4-1.tar.xz
+2017/05/15 03:35:49 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mingw64-i686-pkg-config/mingw64-i686-pkg-config-0.29.1-1.tar.xz
+2017/05/15 03:35:53 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-runtime/mingw64-i686-runtime-5.0.2-1.tar.xz
+2017/05/15 03:35:54 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-speex/mingw64-i686-speex-1.2.0-1.tar.xz
+2017/05/15 03:35:54 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-speexdsp/mingw64-i686-speexdsp-1.2-0.1.rc3.tar.xz
+2017/05/15 03:35:55 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-tiff/mingw64-i686-tiff-4.0.6-1.tar.xz
+2017/05/15 03:35:55 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-win-iconv/mingw64-i686-win-iconv-0.0.6-2.tar.xz
+2017/05/15 03:35:56 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-windows-default-manifest/mingw64-i686-windows-default-manifest-6.4-1.tar.xz
+2017/05/15 03:35:56 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-winpthreads/mingw64-i686-winpthreads-5.0.2-1.tar.xz
+2017/05/15 03:35:57 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-xz/mingw64-i686-xz-5.2.3-1.tar.xz
+2017/05/15 03:35:57 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-zlib/mingw64-i686-zlib-1.2.11-1.tar.xz
+2017/05/15 03:35:58 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-SDL/mingw64-x86_64-SDL-1.2.15-1.tar.xz
+2017/05/15 03:35:58 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-SDL_image/mingw64-x86_64-SDL_image-1.2.12-4.tar.xz
+2017/05/15 03:35:58 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-SDL_mixer/mingw64-x86_64-SDL_mixer-1.2.12-1.tar.xz
+2017/05/15 03:35:59 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-SDL_net/mingw64-x86_64-SDL_net-1.2.8-1.tar.xz
+2017/05/15 03:35:59 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-SDL_sound/mingw64-x86_64-SDL_sound-1.0.3-1.tar.xz
+2017/05/15 03:36:02 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mingw64-x86_64-binutils/mingw64-x86_64-binutils-2.25.0.1.23f238d-1.tar.xz
+2017/05/15 03:36:03 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-flac/mingw64-x86_64-flac-1.3.2-1.tar.xz
+2017/05/15 03:36:17 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mingw64-x86_64-gcc/mingw64-x86_64-gcc-ada/mingw64-x86_64-gcc-ada-5.4.0-3.tar.xz
+2017/05/15 03:36:30 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mingw64-x86_64-gcc/mingw64-x86_64-gcc-core/mingw64-x86_64-gcc-core-5.4.0-3.tar.xz
+2017/05/15 03:40:06 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mingw64-x86_64-gcc/mingw64-x86_64-gcc-debuginfo/mingw64-x86_64-gcc-debuginfo-5.4.0-3.tar.xz
+2017/05/15 03:40:12 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mingw64-x86_64-gcc/mingw64-x86_64-gcc-fortran/mingw64-x86_64-gcc-fortran-5.4.0-3.tar.xz
+2017/05/15 03:40:22 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mingw64-x86_64-gcc/mingw64-x86_64-gcc-g++/mingw64-x86_64-gcc-g++-5.4.0-3.tar.xz
+2017/05/15 03:40:38 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mingw64-x86_64-gcc/mingw64-x86_64-gcc-objc/mingw64-x86_64-gcc-objc-5.4.0-3.tar.xz
+2017/05/15 03:40:45 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-headers/mingw64-x86_64-headers-5.0.2-1.tar.xz
+2017/05/15 03:40:45 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-jbigkit/mingw64-x86_64-jbigkit-2.1-1.tar.xz
+2017/05/15 03:40:46 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-libjpeg-turbo/mingw64-x86_64-libjpeg-turbo-1.5.0-1.tar.xz
+2017/05/15 03:40:46 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-libmodplug/mingw64-x86_64-libmodplug-0.8.8.5-1.tar.xz
+2017/05/15 03:40:46 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-libogg/mingw64-x86_64-libogg-1.3.2-1.tar.xz
+2017/05/15 03:40:47 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-libpng/mingw64-x86_64-libpng-1.6.28-1.tar.xz
+2017/05/15 03:40:47 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-libvorbis/mingw64-x86_64-libvorbis-1.3.5-1.tar.xz
+2017/05/15 03:40:47 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-libwebp/mingw64-x86_64-libwebp-0.4.4-1.tar.xz
+2017/05/15 03:40:48 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mingw64-x86_64-pkg-config/mingw64-x86_64-pkg-config-0.29.1-1.tar.xz
+2017/05/15 03:40:50 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-runtime/mingw64-x86_64-runtime-5.0.2-1.tar.xz
+2017/05/15 03:40:51 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-speex/mingw64-x86_64-speex-1.2.0-1.tar.xz
+2017/05/15 03:40:51 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-speexdsp/mingw64-x86_64-speexdsp-1.2-0.1.rc3.tar.xz
+2017/05/15 03:40:52 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-tiff/mingw64-x86_64-tiff-4.0.6-1.tar.xz
+2017/05/15 03:40:52 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-win-iconv/mingw64-x86_64-win-iconv-0.0.6-2.tar.xz
+2017/05/15 03:40:52 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-windows-default-manifest/mingw64-x86_64-windows-default-manifest-6.4-1.tar.xz
+2017/05/15 03:40:52 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-winpthreads/mingw64-x86_64-winpthreads-5.0.2-1.tar.xz
+2017/05/15 03:40:53 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-xz/mingw64-x86_64-xz-5.2.3-1.tar.xz
+2017/05/15 03:40:53 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-zlib/mingw64-x86_64-zlib-1.2.11-1.tar.xz
+2017/05/15 03:40:53 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mintty/mintty-2.7.6-0.tar.xz
+2017/05/15 03:40:54 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/ncurses/ncurses-6.0-10.20170325.tar.xz
+2017/05/15 03:40:54 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/openssl/openssl-1.0.2k-1.tar.xz
+2017/05/15 03:40:55 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/p11-kit/p11-kit-0.23.5-1.tar.xz
+2017/05/15 03:40:55 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/p11-kit/p11-kit-trust/p11-kit-trust-0.23.5-1.tar.xz
+2017/05/15 03:40:58 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/perl/perl-5.22.3-1.tar.xz
+2017/05/15 03:40:59 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/perl-Pod-Simple/perl-Pod-Simple-3.35-1.tar.xz
+2017/05/15 03:40:59 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/perl-Unicode-Normalize/perl-Unicode-Normalize-1.25-1.tar.xz
+2017/05/15 03:40:59 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/perl/perl_autorebase/perl_autorebase-5.22.3-1.tar.xz
+2017/05/15 03:41:02 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/perl/perl_base/perl_base-5.22.3-1.tar.xz
+2017/05/15 03:41:02 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/pkg-config/pkg-config-0.29.1-1.tar.xz
+2017/05/15 03:41:02 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/python2/python/python-2.7.13-1.tar.xz
+2017/05/15 03:41:07 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/python2/python2-2.7.13-1.tar.xz
+2017/05/15 03:41:07 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/rebase/rebase-4.4.2-1.tar.xz
+2017/05/15 03:41:07 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/renderproto/renderproto-0.11.1-1.tar.bz2
+2017/05/15 03:41:08 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/run/run-1.3.4-2.tar.xz
+2017/05/15 03:41:08 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/sed/sed-4.4-1.tar.xz
+2017/05/15 03:41:09 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/shared-mime-info/shared-mime-info-1.7-1.tar.xz
+2017/05/15 03:41:10 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/tar/tar-1.29-1.tar.xz
+2017/05/15 03:41:10 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/ncurses/terminfo/terminfo-6.0-10.20170325.tar.xz
+2017/05/15 03:41:11 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/texinfo/texinfo-6.3-1.tar.xz
+2017/05/15 03:41:11 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/tzcode/tzcode-2017a-1.tar.xz
+2017/05/15 03:41:11 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/tzdata/tzdata-2017b-1.tar.xz
+2017/05/15 03:41:13 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/util-linux/util-linux-2.25.2-2.tar.xz
+2017/05/15 03:41:13 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/vim/vim-minimal/vim-minimal-8.0.0596-1.tar.xz
+2017/05/15 03:41:17 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/w32api-headers/w32api-headers-5.0.2-1.tar.xz
+2017/05/15 03:41:18 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/w32api-runtime/w32api-runtime-5.0.2-1.tar.xz
+2017/05/15 03:41:18 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/which/which-2.20-2.tar.bz2
+2017/05/15 03:41:18 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/windows-default-manifest/windows-default-manifest-6.4-1.tar.xz
+2017/05/15 03:41:19 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/xextproto/xextproto-7.3.0-1.tar.xz
+2017/05/15 03:41:20 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/xproto/xproto-7.0.31-1.tar.xz
+2017/05/15 03:41:20 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/xz/xz-5.2.3-1.tar.xz
+2017/05/15 03:41:20 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/zlib/zlib-devel/zlib-devel-1.2.11-1.tar.xz
+2017/05/15 03:41:20 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/zlib/zlib0/zlib0-1.2.11-1.tar.xz
+2017/05/15 03:41:20 mbox yesno: Download Incomplete.  Try again?
+2017/05/15 07:29:58 site: http://cygwin.mirror.constant.com/
+2017/05/15 08:26:16 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/gcc-debuginfo/gcc-debuginfo-5.4.0-1.tar.xz
+2017/05/15 08:27:50 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/gcc-fortran/gcc-fortran-5.4.0-1.tar.xz
+2017/05/15 08:30:10 Downloaded C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/gcc-g++/gcc-g++-5.4.0-1.tar.xz
+2017/05/15 08:31:26 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/SDL/SDL-debuginfo/SDL-debuginfo-1.2.15-3.tar.xz
+2017/05/15 08:31:28 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/SDL_image/SDL_image-debuginfo/SDL_image-debuginfo-1.2.12-5.tar.xz
+2017/05/15 08:31:28 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/SDL_mixer/SDL_mixer-debuginfo/SDL_mixer-debuginfo-1.2.12-4.tar.xz
+2017/05/15 08:31:29 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/SDL_sound/SDL_sound-debuginfo/SDL_sound-debuginfo-1.0.3-13.tar.xz
+2017/05/15 08:31:30 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/_autorebase/_autorebase-001005-1.tar.xz
+2017/05/15 08:31:30 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/alternatives/alternatives-1.3.30c-10.tar.bz2
+2017/05/15 08:31:31 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/base-cygwin/base-cygwin-3.8-1.tar.xz
+2017/05/15 08:31:31 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/base-files/base-files-4.2-4.tar.xz
+2017/05/15 08:31:32 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/bash/bash-4.4.12-3.tar.xz
+2017/05/15 08:31:35 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/binutils/binutils-2.25-4.tar.xz
+2017/05/15 08:31:40 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/bzip2/bzip2-1.0.6-3.tar.xz
+2017/05/15 08:31:41 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/ca-certificates/ca-certificates-2.14-1.tar.xz
+2017/05/15 08:31:41 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/colorgcc/colorgcc-1.3.2-2.tar.bz2
+2017/05/15 08:31:41 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/coreutils/coreutils-8.26-2.tar.xz
+2017/05/15 08:31:49 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygutils/cygutils-1.4.15-2.tar.xz
+2017/05/15 08:31:49 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygwin/cygwin-2.8.0-1.tar.xz
+2017/05/15 08:31:52 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygwin/cygwin-debuginfo/cygwin-debuginfo-2.8.0-1.tar.xz
+2017/05/15 08:32:14 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygwin/cygwin-devel/cygwin-devel-2.8.0-1.tar.xz
+2017/05/15 08:32:18 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygwin64/cygwin64-2.6.0-1.tar.xz
+2017/05/15 08:32:21 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygwin64-binutils/cygwin64-binutils-2.25-1.tar.xz
+2017/05/15 08:32:24 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygwin64-default-manifest/cygwin64-default-manifest-6.4-1.tar.xz
+2017/05/15 08:32:24 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygwin64-gcc/cygwin64-gcc-ada/cygwin64-gcc-ada-5.4.0-1.tar.xz
+2017/05/15 08:33:02 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygwin64-gcc/cygwin64-gcc-cilkplus/cygwin64-gcc-cilkplus-5.4.0-1.tar.xz
+2017/05/15 08:33:03 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygwin64-gcc/cygwin64-gcc-core/cygwin64-gcc-core-5.4.0-1.tar.xz
+2017/05/15 08:33:09 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygwin64-gcc/cygwin64-gcc-debuginfo/cygwin64-gcc-debuginfo-5.4.0-1.tar.xz
+2017/05/15 08:34:27 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygwin64-gcc/cygwin64-gcc-fortran/cygwin64-gcc-fortran-5.4.0-1.tar.xz
+2017/05/15 08:34:29 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygwin64-gcc/cygwin64-gcc-g++/cygwin64-gcc-g++-5.3.0-3.tar.xz
+2017/05/15 08:34:47 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygwin64-gcc/cygwin64-gcc-objc/cygwin64-gcc-objc-5.4.0-1.tar.xz
+2017/05/15 08:34:50 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygwin64-gcc/cygwin64-gcc-objc++/cygwin64-gcc-objc++-5.4.0-1.tar.xz
+2017/05/15 08:34:51 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygwin64-w32api-headers/cygwin64-w32api-headers-4.0.4-1.tar.xz
+2017/05/15 08:35:16 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygwin64-w32api-runtime/cygwin64-w32api-runtime-4.0.4-1.tar.xz
+2017/05/15 08:35:35 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/damageproto/damageproto-1.2.1-1.tar.bz2
+2017/05/15 08:35:35 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/dash/dash-0.5.9.1-1.tar.xz
+2017/05/15 08:35:36 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/dejavu-fonts/dejavu-fonts-2.37-1.tar.xz
+2017/05/15 08:35:38 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/desktop-file-utils/desktop-file-utils-0.23-1.tar.xz
+2017/05/15 08:35:38 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/diffutils/diffutils-3.5-2.tar.xz
+2017/05/15 08:35:39 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/djgpp-binutils/djgpp-binutils-2.25-2.tar.xz
+2017/05/15 08:35:42 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/djgpp-gcc/djgpp-gcc-ada/djgpp-gcc-ada-5.4.0-1.tar.xz
+2017/05/15 08:36:15 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/djgpp-gcc/djgpp-gcc-core/djgpp-gcc-core-5.4.0-1.tar.xz
+2017/05/15 08:36:19 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/djgpp-gcc/djgpp-gcc-debuginfo/djgpp-gcc-debuginfo-5.4.0-1.tar.xz
+2017/05/15 08:37:27 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/djgpp-gcc/djgpp-gcc-fortran/djgpp-gcc-fortran-5.4.0-1.tar.xz
+2017/05/15 08:37:29 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/djgpp-gcc/djgpp-gcc-g++/djgpp-gcc-g++-5.4.0-1.tar.xz
+2017/05/15 08:37:43 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/djgpp-gcc/djgpp-gcc-objc/djgpp-gcc-objc-5.4.0-1.tar.xz
+2017/05/15 08:37:45 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/djgpp-gcc/djgpp-gcc-objc++/djgpp-gcc-objc++-5.4.0-1.tar.xz
+2017/05/15 08:37:46 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/djgpp-runtime/djgpp-runtime-2.05-1.tar.xz
+2017/05/15 08:37:50 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mesa/dri-drivers/dri-drivers-17.0.5-1.tar.xz
+2017/05/15 08:37:50 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/editrights/editrights-1.03-1.tar.xz
+2017/05/15 08:37:51 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/file/file-5.30-1.tar.xz
+2017/05/15 08:37:51 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/findutils/findutils-4.6.0-1.tar.xz
+2017/05/15 08:37:52 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/fixesproto/fixesproto-5.0-1.tar.bz2
+2017/05/15 08:37:53 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gamin/gamin-0.1.10-15.tar.xz
+2017/05/15 08:37:53 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gawk/gawk-4.1.4-3.tar.xz
+2017/05/15 08:37:55 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/gcc-ada/gcc-ada-5.4.0-1.tar.xz
+2017/05/15 08:38:27 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/gcc-cilkplus/gcc-cilkplus-5.4.0-1.tar.xz
+2017/05/15 08:38:28 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/gcc-core/gcc-core-5.4.0-1.tar.xz
+2017/05/15 08:38:34 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/gcc-debuginfo/gcc-debuginfo-5.4.0-1.tar.xz
+2017/05/15 08:42:30 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/gcc-fortran/gcc-fortran-5.4.0-1.tar.xz
+2017/05/15 08:42:32 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/gcc-g++/gcc-g++-5.4.0-1.tar.xz
+2017/05/15 08:42:45 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/gcc-java/gcc-java-5.4.0-1.tar.xz
+2017/05/15 08:43:40 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/gcc-objc/gcc-objc-5.4.0-1.tar.xz
+2017/05/15 08:43:42 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/gcc-objc++/gcc-objc++-5.4.0-1.tar.xz
+2017/05/15 08:43:43 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc-tools-epoch1-autoconf/gcc-tools-epoch1-autoconf-2.59-2.tar.bz2
+2017/05/15 08:43:44 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc-tools-epoch1-automake/gcc-tools-epoch1-automake-1.9.6-2.tar.bz2
+2017/05/15 08:43:47 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc-tools-epoch2-autoconf/gcc-tools-epoch2-autoconf-2.64-2.tar.bz2
+2017/05/15 08:43:49 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc-tools-epoch2-automake/gcc-tools-epoch2-automake-1.11.6-1.tar.bz2
+2017/05/15 08:43:52 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/gccmakedep/gccmakedep-1.0.3-1.tar.xz
+2017/05/15 08:43:52 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/getent/getent-2.18.90-4.tar.xz
+2017/05/15 08:43:52 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gobject-introspection/girepository-GLib2.0/girepository-GLib2.0-1.50.0-1.tar.xz
+2017/05/15 08:43:52 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/harfbuzz/girepository-HarfBuzz0.0/girepository-HarfBuzz0.0-1.3.4-1.tar.xz
+2017/05/15 08:43:53 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/pango1.0/girepository-Pango1.0/girepository-Pango1.0-1.40.5-1.tar.xz
+2017/05/15 08:43:53 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gobject-introspection/girepository-cairo1.0/girepository-cairo1.0-1.50.0-1.tar.xz
+2017/05/15 08:43:53 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gobject-introspection/girepository-x11/girepository-x11-1.50.0-1.tar.xz
+2017/05/15 08:43:53 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/grep/grep-3.0-2.tar.xz
+2017/05/15 08:43:54 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/groff/groff-1.22.3-1.tar.xz
+2017/05/15 08:44:06 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/gsettings-desktop-schemas/gsettings-desktop-schemas-3.22.0-1.tar.xz
+2017/05/15 08:44:07 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gzip/gzip-1.8-1.tar.xz
+2017/05/15 08:44:08 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/hostname/hostname-3.13-1.tar.bz2
+2017/05/15 08:44:08 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/texinfo/info/info-6.1-2.tar.xz
+2017/05/15 08:44:09 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/ipc-utils/ipc-utils-1.0-1.tar.bz2
+2017/05/15 08:44:09 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/kbproto/kbproto-1.0.7-1.tar.xz
+2017/05/15 08:44:10 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/less/less-487-1.tar.xz
+2017/05/15 08:44:10 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mesa/libEGL-devel/libEGL-devel-17.0.5-1.tar.xz
+2017/05/15 08:44:10 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mesa/libEGL1/libEGL1-17.0.5-1.tar.xz
+2017/05/15 08:44:10 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/flac/libFLAC8/libFLAC8-1.3.2-1.tar.xz
+2017/05/15 08:44:11 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mesa/libGL-devel/libGL-devel-17.0.5-1.tar.xz
+2017/05/15 08:44:11 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mesa/libGL1/libGL1-17.0.5-1.tar.xz
+2017/05/15 08:44:11 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/SDL/libSDL-devel/libSDL-devel-1.2.15-3.tar.xz
+2017/05/15 08:44:14 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/SDL/libSDL1.2_0/libSDL1.2_0-1.2.15-3.tar.xz
+2017/05/15 08:44:14 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/SDL_Pango/libSDL_Pango-devel/libSDL_Pango-devel-0.1.2-10.tar.bz2
+2017/05/15 08:44:14 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/SDL_Pango/libSDL_Pango1/libSDL_Pango1-0.1.2-10.tar.bz2
+2017/05/15 08:44:14 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/SDL_image/libSDL_image-devel/libSDL_image-devel-1.2.12-5.tar.xz
+2017/05/15 08:44:14 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/SDL_image/libSDL_image1.2_0/libSDL_image1.2_0-1.2.12-5.tar.xz
+2017/05/15 08:44:15 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/SDL_mixer/libSDL_mixer-devel/libSDL_mixer-devel-1.2.12-4.tar.xz
+2017/05/15 08:44:15 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/SDL_mixer/libSDL_mixer1.2_0/libSDL_mixer1.2_0-1.2.12-4.tar.xz
+2017/05/15 08:44:15 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/SDL_net/libSDL_net-devel/libSDL_net-devel-1.2.8-1.tar.bz2
+2017/05/15 08:44:15 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/SDL_net/libSDL_net1.2_0/libSDL_net1.2_0-1.2.8-1.tar.bz2
+2017/05/15 08:44:15 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/SDL_sound/libSDL_sound-devel/libSDL_sound-devel-1.0.3-13.tar.xz
+2017/05/15 08:44:15 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/SDL_sound/libSDL_sound1.0_1/libSDL_sound1.0_1-1.0.3-13.tar.xz
+2017/05/15 08:44:15 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libX11/libX11-devel/libX11-devel-1.6.4-1.tar.xz
+2017/05/15 08:44:16 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libX11/libX11-xcb-devel/libX11-xcb-devel-1.6.4-1.tar.xz
+2017/05/15 08:44:16 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libX11/libX11-xcb1/libX11-xcb1-1.6.4-1.tar.xz
+2017/05/15 08:44:16 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libX11/libX11_6/libX11_6-1.6.4-1.tar.xz
+2017/05/15 08:44:18 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libXau/libXau-devel/libXau-devel-1.0.8-1.tar.bz2
+2017/05/15 08:44:19 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libXau/libXau6/libXau6-1.0.8-1.tar.bz2
+2017/05/15 08:44:19 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libXdamage/libXdamage-devel/libXdamage-devel-1.1.4-1.tar.bz2
+2017/05/15 08:44:19 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libXdamage/libXdamage1/libXdamage1-1.1.4-1.tar.bz2
+2017/05/15 08:44:19 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libXdmcp/libXdmcp-devel/libXdmcp-devel-1.1.2-1.tar.xz
+2017/05/15 08:44:19 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libXdmcp/libXdmcp6/libXdmcp6-1.1.2-1.tar.xz
+2017/05/15 08:44:20 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libXext/libXext-devel/libXext-devel-1.3.3-1.tar.xz
+2017/05/15 08:44:21 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libXext/libXext6/libXext6-1.3.3-1.tar.xz
+2017/05/15 08:44:21 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libXfixes/libXfixes-devel/libXfixes-devel-5.0.3-1.tar.xz
+2017/05/15 08:44:21 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libXfixes/libXfixes3/libXfixes3-5.0.3-1.tar.xz
+2017/05/15 08:44:22 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libXft/libXft-devel/libXft-devel-2.3.2-1.tar.xz
+2017/05/15 08:44:22 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libXft/libXft2/libXft2-2.3.2-1.tar.xz
+2017/05/15 08:44:22 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libXrandr/libXrandr2/libXrandr2-1.5.1-1.tar.xz
+2017/05/15 08:44:22 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libXrender/libXrender-devel/libXrender-devel-0.9.9-1.tar.xz
+2017/05/15 08:44:22 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libXrender/libXrender1/libXrender1-0.9.9-1.tar.xz
+2017/05/15 08:44:22 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libargp/libargp-20110921-3.tar.xz
+2017/05/15 08:44:22 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libasyncns/libasyncns0/libasyncns0-0.8-1.tar.bz2
+2017/05/15 08:44:23 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/libatomic1/libatomic1-5.4.0-1.tar.xz
+2017/05/15 08:44:23 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/attr/libattr1/libattr1-2.4.46-1.tar.bz2
+2017/05/15 08:44:23 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/util-linux/libblkid1/libblkid1-2.25.2-2.tar.xz
+2017/05/15 08:44:23 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/bzip2/libbz2-devel/libbz2-devel-1.0.6-3.tar.xz
+2017/05/15 08:44:23 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/bzip2/libbz2_1/libbz2_1-1.0.6-3.tar.xz
+2017/05/15 08:44:23 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cairo/libcairo-devel/libcairo-devel-1.14.8-1.tar.xz
+2017/05/15 08:44:24 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cairo/libcairo2/libcairo2-1.14.8-1.tar.xz
+2017/05/15 08:44:24 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libiconv/libcharset1/libcharset1-1.14-3.tar.xz
+2017/05/15 08:44:24 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/libcilkrts5/libcilkrts5-5.4.0-1.tar.xz
+2017/05/15 08:44:24 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/crypt/libcrypt0/libcrypt0-1.4-1.tar.xz
+2017/05/15 08:44:24 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libdatrie/libdatrie1/libdatrie1-0.2.8-1.tar.xz
+2017/05/15 08:44:24 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/db4.8/libdb4.8/libdb4.8-4.8.30-1.tar.bz2
+2017/05/15 08:44:25 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/db/libdb5.3/libdb5.3-5.3.28-1.tar.xz
+2017/05/15 08:44:25 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/dbus/libdbus1_3/libdbus1_3-1.10.18-1.tar.xz
+2017/05/15 08:44:25 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libedit/libedit0/libedit0-20130712-1.tar.xz
+2017/05/15 08:44:25 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/expat/libexpat-devel/libexpat-devel-2.2.0-0.tar.xz
+2017/05/15 08:44:25 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/expat/libexpat1/libexpat1-2.2.0-0.tar.xz
+2017/05/15 08:44:26 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gamin/libfam0/libfam0-0.1.10-15.tar.xz
+2017/05/15 08:44:26 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libffi/libffi6/libffi6-3.2.1-1.tar.xz
+2017/05/15 08:44:26 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/fluidsynth/libfluidsynth1/libfluidsynth1-1.1.6-1.tar.bz2
+2017/05/15 08:44:26 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/fontconfig/libfontconfig-common/libfontconfig-common-2.12.1-1.tar.xz
+2017/05/15 08:44:27 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/fontconfig/libfontconfig-devel/libfontconfig-devel-2.12.1-1.tar.xz
+2017/05/15 08:44:27 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/fontconfig/libfontconfig1/libfontconfig1-2.12.1-1.tar.xz
+2017/05/15 08:44:27 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/freetype2/libfreetype-devel/libfreetype-devel-2.6.5-1.tar.xz
+2017/05/15 08:44:28 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/freetype2/libfreetype6/libfreetype6-2.6.5-1.tar.xz
+2017/05/15 08:44:29 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/libgcc1/libgcc1-5.4.0-1.tar.xz
+2017/05/15 08:44:29 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/libgcj-common/libgcj-common-5.4.0-1.tar.xz
+2017/05/15 08:44:29 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/libgcj16/libgcj16-5.4.0-1.tar.xz
+2017/05/15 08:44:31 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gdbm/libgdbm4/libgdbm4-1.12-1.tar.xz
+2017/05/15 08:44:31 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/libgfortran3/libgfortran3-5.4.0-1.tar.xz
+2017/05/15 08:44:31 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mesa/libglapi0/libglapi0-17.0.5-1.tar.xz
+2017/05/15 08:44:31 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/glib2.0/libglib2.0-devel/libglib2.0-devel-2.50.3-1.tar.xz
+2017/05/15 08:44:36 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/glib2.0/libglib2.0_0/libglib2.0_0-2.50.3-1.tar.xz
+2017/05/15 08:44:41 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gmp/libgmp10/libgmp10-6.1.2-1.tar.xz
+2017/05/15 08:44:41 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/libgomp1/libgomp1-5.4.0-1.tar.xz
+2017/05/15 08:44:41 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/graphite2/libgraphite2-devel/libgraphite2-devel-1.3.8-1.tar.xz
+2017/05/15 08:44:41 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/graphite2/libgraphite2_3/libgraphite2_3-1.3.8-1.tar.xz
+2017/05/15 08:44:41 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gsm/libgsm1/libgsm1-1.0.13-3.tar.xz
+2017/05/15 08:44:41 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/harfbuzz/libharfbuzz-devel/libharfbuzz-devel-1.3.4-1.tar.xz
+2017/05/15 08:44:42 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/harfbuzz/libharfbuzz-gobject0/libharfbuzz-gobject0-1.3.4-1.tar.xz
+2017/05/15 08:44:42 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/harfbuzz/libharfbuzz0/libharfbuzz0-1.3.4-1.tar.xz
+2017/05/15 08:44:42 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libiconv/libiconv-1.14-3.tar.xz
+2017/05/15 08:44:43 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libiconv/libiconv-devel/libiconv-devel-1.14-3.tar.xz
+2017/05/15 08:44:44 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libiconv/libiconv2/libiconv2-1.14-3.tar.xz
+2017/05/15 08:44:44 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gettext/libintl-devel/libintl-devel-0.19.8.1-2.tar.xz
+2017/05/15 08:44:44 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gettext/libintl8/libintl8-0.19.8.1-2.tar.xz
+2017/05/15 08:44:44 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/isl/libisl13/libisl13-0.14.1-1.tar.xz
+2017/05/15 08:44:44 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/jbigkit/libjbig2/libjbig2-2.0-14.tar.xz
+2017/05/15 08:44:44 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libjpeg-turbo/libjpeg8/libjpeg8-1.5.0-1.tar.xz
+2017/05/15 08:44:44 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/json-c/libjson-c-common/libjson-c-common-0.12-1.tar.xz
+2017/05/15 08:44:45 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/json-c/libjson-c2/libjson-c2-0.12-1.tar.xz
+2017/05/15 08:44:45 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/llvm/libllvm3.9/libllvm3.9-3.9.1-1.tar.xz
+2017/05/15 08:44:46 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/xz/liblzma5/liblzma5-5.2.3-1.tar.xz
+2017/05/15 08:44:46 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/liblzo2/liblzo2_2/liblzo2_2-2.08-1.tar.xz
+2017/05/15 08:44:47 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libmikmod/libmikmod3/libmikmod3-3.3.7-1.tar.xz
+2017/05/15 08:44:47 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libmodplug/libmodplug1/libmodplug1-0.8.8.5-2.tar.xz
+2017/05/15 08:44:48 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mpclib/libmpc3/libmpc3-1.0.3-1.tar.xz
+2017/05/15 08:44:48 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mpfr/libmpfr4/libmpfr4-3.1.5-1p2.tar.xz
+2017/05/15 08:44:48 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/ncurses/libncursesw10/libncursesw10-6.0-10.20170325.tar.xz
+2017/05/15 08:44:48 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/libobjc4/libobjc4-5.4.0-1.tar.xz
+2017/05/15 08:44:48 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libogg/libogg0/libogg0-1.3.1-1.tar.bz2
+2017/05/15 08:44:48 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/openssl/libopenssl100/libopenssl100-1.0.2k-1.tar.xz
+2017/05/15 08:44:49 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/p11-kit/libp11-kit0/libp11-kit0-0.23.5-1.tar.xz
+2017/05/15 08:44:49 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/pango1.0/libpango1.0-devel/libpango1.0-devel-1.40.5-1.tar.xz
+2017/05/15 08:44:50 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/pango1.0/libpango1.0_0/libpango1.0_0-1.40.5-1.tar.xz
+2017/05/15 08:44:51 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/pcre/libpcre-devel/libpcre-devel-8.40-3.tar.xz
+2017/05/15 08:44:51 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/pcre/libpcre1/libpcre1-8.40-3.tar.xz
+2017/05/15 08:44:51 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/pcre/libpcre16_0/libpcre16_0-8.40-3.tar.xz
+2017/05/15 08:44:51 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/pcre/libpcre32_0/libpcre32_0-8.40-3.tar.xz
+2017/05/15 08:44:51 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/pcre/libpcrecpp0/libpcrecpp0-8.40-3.tar.xz
+2017/05/15 08:44:51 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/pcre/libpcreposix0/libpcreposix0-8.40-3.tar.xz
+2017/05/15 08:44:52 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libpipeline/libpipeline1/libpipeline1-1.4.0-1.tar.xz
+2017/05/15 08:44:52 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/pixman/libpixman1-devel/libpixman1-devel-0.34.0-1.tar.xz
+2017/05/15 08:44:52 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/pixman/libpixman1_0/libpixman1_0-0.34.0-1.tar.xz
+2017/05/15 08:44:52 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libpng/libpng-devel/libpng-devel-1.6.28-1.tar.xz
+2017/05/15 08:44:52 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libpng/libpng16/libpng16-1.6.28-1.tar.xz
+2017/05/15 08:44:52 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libpng/libpng16-devel/libpng16-devel-1.6.28-1.tar.xz
+2017/05/15 08:44:52 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/popt/libpopt-common/libpopt-common-1.16-2.tar.xz
+2017/05/15 08:44:53 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/popt/libpopt0/libpopt0-1.16-2.tar.xz
+2017/05/15 08:44:53 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/portaudio/libportaudio2/libportaudio2-19.20140130-1.tar.xz
+2017/05/15 08:44:53 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/pulseaudio/libpulse-simple0/libpulse-simple0-9.0-1.tar.xz
+2017/05/15 08:44:53 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/pulseaudio/libpulse0/libpulse0-9.0-1.tar.xz
+2017/05/15 08:44:53 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/libquadmath0/libquadmath0-5.4.0-1.tar.xz
+2017/05/15 08:44:53 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/readline/libreadline7/libreadline7-7.0.3-3.tar.xz
+2017/05/15 08:44:54 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libsigsegv/libsigsegv2/libsigsegv2-2.10-2.tar.xz
+2017/05/15 08:44:54 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/util-linux/libsmartcols1/libsmartcols1-2.25.2-2.tar.xz
+2017/05/15 08:44:54 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libsndfile/libsndfile1/libsndfile1-1.0.25-4.tar.xz
+2017/05/15 08:44:54 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/speex/libspeex1/libspeex1-1.2.0-2.tar.xz
+2017/05/15 08:44:54 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/sqlite3/libsqlite3_0/libsqlite3_0-3.18.0-1.tar.xz
+2017/05/15 08:44:55 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/libssp0/libssp0-5.4.0-1.tar.xz
+2017/05/15 08:44:55 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/libstdc++6/libstdc++6-5.4.0-1.tar.xz
+2017/05/15 08:44:55 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libtasn1/libtasn1_6/libtasn1_6-4.10-1.tar.xz
+2017/05/15 08:44:55 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libthai/libthai0/libthai0-0.1.26-1.tar.xz
+2017/05/15 08:44:55 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/tiff/libtiff6/libtiff6-4.0.6-1.tar.xz
+2017/05/15 08:44:55 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/s2tc/libtxc_dxtn/libtxc_dxtn-1.0-1.20151227gitf6ec862.tar.xz
+2017/05/15 08:44:55 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/util-linux/libuuid-devel/libuuid-devel-2.25.2-2.tar.xz
+2017/05/15 08:44:55 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/util-linux/libuuid1/libuuid1-2.25.2-2.tar.xz
+2017/05/15 08:44:56 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libvorbis/libvorbis-1.3.5-1.tar.xz
+2017/05/15 08:44:57 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libvorbis/libvorbis0/libvorbis0-1.3.5-1.tar.xz
+2017/05/15 08:44:57 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libvorbis/libvorbisenc2/libvorbisenc2-1.3.5-1.tar.xz
+2017/05/15 08:44:57 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libvorbis/libvorbisfile3/libvorbisfile3-1.3.5-1.tar.xz
+2017/05/15 08:44:59 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/libvtv0/libvtv0-5.4.0-1.tar.xz
+2017/05/15 08:44:59 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libwebp/libwebp5/libwebp5-0.4.4-1.tar.xz
+2017/05/15 08:44:59 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/tcp_wrappers/libwrap0/libwrap0-7.6-22.tar.xz
+2017/05/15 08:44:59 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libxcb/libxcb-devel/libxcb-devel-1.12-1.tar.xz
+2017/05/15 08:44:59 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libxcb/libxcb-glx-devel/libxcb-glx-devel-1.12-1.tar.xz
+2017/05/15 08:44:59 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libxcb/libxcb-glx0/libxcb-glx0-1.12-1.tar.xz
+2017/05/15 08:44:59 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libxcb/libxcb-render-devel/libxcb-render-devel-1.12-1.tar.xz
+2017/05/15 08:44:59 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libxcb/libxcb-render0/libxcb-render0-1.12-1.tar.xz
+2017/05/15 08:44:59 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libxcb/libxcb-shm-devel/libxcb-shm-devel-1.12-1.tar.xz
+2017/05/15 08:44:59 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libxcb/libxcb-shm0/libxcb-shm0-1.12-1.tar.xz
+2017/05/15 08:44:59 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libxcb/libxcb1/libxcb1-1.12-1.tar.xz
+2017/05/15 08:45:00 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libxml2/libxml2-2.9.4-2.tar.xz
+2017/05/15 08:45:00 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/login/login-1.11-1.tar.xz
+2017/05/15 08:45:00 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/m4/m4-1.4.18-1.tar.xz
+2017/05/15 08:45:01 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/man-db/man-db-2.7.5-2.tar.xz
+2017/05/15 08:45:05 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-SDL/mingw64-i686-SDL-1.2.15-1.tar.xz
+2017/05/15 08:45:05 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-SDL_image/mingw64-i686-SDL_image-1.2.12-4.tar.xz
+2017/05/15 08:45:05 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-SDL_mixer/mingw64-i686-SDL_mixer-1.2.12-1.tar.xz
+2017/05/15 08:45:06 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-SDL_net/mingw64-i686-SDL_net-1.2.8-1.tar.xz
+2017/05/15 08:45:06 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-SDL_sound/mingw64-i686-SDL_sound-1.0.3-1.tar.xz
+2017/05/15 08:45:06 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mingw64-i686-binutils/mingw64-i686-binutils-2.25.0.1.23f238d-1.tar.xz
+2017/05/15 08:45:08 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-flac/mingw64-i686-flac-1.3.2-1.tar.xz
+2017/05/15 08:45:08 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mingw64-i686-gcc/mingw64-i686-gcc-ada/mingw64-i686-gcc-ada-5.4.0-4.tar.xz
+2017/05/15 08:45:40 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mingw64-i686-gcc/mingw64-i686-gcc-core/mingw64-i686-gcc-core-5.4.0-4.tar.xz
+2017/05/15 08:45:45 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mingw64-i686-gcc/mingw64-i686-gcc-debuginfo/mingw64-i686-gcc-debuginfo-5.4.0-4.tar.xz
+2017/05/15 08:47:00 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mingw64-i686-gcc/mingw64-i686-gcc-fortran/mingw64-i686-gcc-fortran-5.4.0-4.tar.xz
+2017/05/15 08:47:02 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mingw64-i686-gcc/mingw64-i686-gcc-g++/mingw64-i686-gcc-g++-5.4.0-4.tar.xz
+2017/05/15 08:47:16 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mingw64-i686-gcc/mingw64-i686-gcc-objc/mingw64-i686-gcc-objc-5.4.0-4.tar.xz
+2017/05/15 08:47:19 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-headers/mingw64-i686-headers-5.0.2-1.tar.xz
+2017/05/15 08:47:41 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-jbigkit/mingw64-i686-jbigkit-2.1-1.tar.xz
+2017/05/15 08:47:42 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-libjpeg-turbo/mingw64-i686-libjpeg-turbo-1.5.0-1.tar.xz
+2017/05/15 08:47:42 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-libmikmod/mingw64-i686-libmikmod-3.3.3-1.tar.xz
+2017/05/15 08:47:42 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-libmodplug/mingw64-i686-libmodplug-0.8.8.5-1.tar.xz
+2017/05/15 08:47:43 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-libogg/mingw64-i686-libogg-1.3.2-1.tar.xz
+2017/05/15 08:47:43 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-libpng/mingw64-i686-libpng-1.6.28-1.tar.xz
+2017/05/15 08:47:44 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-libvorbis/mingw64-i686-libvorbis-1.3.5-1.tar.xz
+2017/05/15 08:47:44 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-libwebp/mingw64-i686-libwebp-0.4.4-1.tar.xz
+2017/05/15 08:47:45 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mingw64-i686-pkg-config/mingw64-i686-pkg-config-0.29.1-1.tar.xz
+2017/05/15 08:47:45 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-runtime/mingw64-i686-runtime-5.0.2-1.tar.xz
+2017/05/15 08:47:52 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-speex/mingw64-i686-speex-1.2.0-1.tar.xz
+2017/05/15 08:47:52 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-speexdsp/mingw64-i686-speexdsp-1.2-0.1.rc3.tar.xz
+2017/05/15 08:47:53 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-tiff/mingw64-i686-tiff-4.0.6-1.tar.xz
+2017/05/15 08:47:53 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-win-iconv/mingw64-i686-win-iconv-0.0.6-2.tar.xz
+2017/05/15 08:47:53 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-windows-default-manifest/mingw64-i686-windows-default-manifest-6.4-1.tar.xz
+2017/05/15 08:47:53 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-winpthreads/mingw64-i686-winpthreads-5.0.2-1.tar.xz
+2017/05/15 08:47:54 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-xz/mingw64-i686-xz-5.2.3-1.tar.xz
+2017/05/15 08:47:55 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-i686-zlib/mingw64-i686-zlib-1.2.11-1.tar.xz
+2017/05/15 08:47:55 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-SDL/mingw64-x86_64-SDL-1.2.15-1.tar.xz
+2017/05/15 08:47:56 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-SDL_image/mingw64-x86_64-SDL_image-1.2.12-4.tar.xz
+2017/05/15 08:47:56 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-SDL_mixer/mingw64-x86_64-SDL_mixer-1.2.12-1.tar.xz
+2017/05/15 08:47:56 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-SDL_net/mingw64-x86_64-SDL_net-1.2.8-1.tar.xz
+2017/05/15 08:47:56 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-SDL_sound/mingw64-x86_64-SDL_sound-1.0.3-1.tar.xz
+2017/05/15 08:47:57 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mingw64-x86_64-binutils/mingw64-x86_64-binutils-2.25.0.1.23f238d-1.tar.xz
+2017/05/15 08:47:59 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-flac/mingw64-x86_64-flac-1.3.2-1.tar.xz
+2017/05/15 08:47:59 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mingw64-x86_64-gcc/mingw64-x86_64-gcc-ada/mingw64-x86_64-gcc-ada-5.4.0-3.tar.xz
+2017/05/15 08:48:32 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mingw64-x86_64-gcc/mingw64-x86_64-gcc-core/mingw64-x86_64-gcc-core-5.4.0-3.tar.xz
+2017/05/15 08:48:37 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mingw64-x86_64-gcc/mingw64-x86_64-gcc-debuginfo/mingw64-x86_64-gcc-debuginfo-5.4.0-3.tar.xz
+2017/05/15 08:49:48 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mingw64-x86_64-gcc/mingw64-x86_64-gcc-fortran/mingw64-x86_64-gcc-fortran-5.4.0-3.tar.xz
+2017/05/15 08:49:50 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mingw64-x86_64-gcc/mingw64-x86_64-gcc-g++/mingw64-x86_64-gcc-g++-5.4.0-3.tar.xz
+2017/05/15 08:50:04 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mingw64-x86_64-gcc/mingw64-x86_64-gcc-objc/mingw64-x86_64-gcc-objc-5.4.0-3.tar.xz
+2017/05/15 08:50:06 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-headers/mingw64-x86_64-headers-5.0.2-1.tar.xz
+2017/05/15 08:50:27 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-jbigkit/mingw64-x86_64-jbigkit-2.1-1.tar.xz
+2017/05/15 08:50:28 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-libjpeg-turbo/mingw64-x86_64-libjpeg-turbo-1.5.0-1.tar.xz
+2017/05/15 08:50:28 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-libmodplug/mingw64-x86_64-libmodplug-0.8.8.5-1.tar.xz
+2017/05/15 08:50:29 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-libogg/mingw64-x86_64-libogg-1.3.2-1.tar.xz
+2017/05/15 08:50:29 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-libpng/mingw64-x86_64-libpng-1.6.28-1.tar.xz
+2017/05/15 08:50:29 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-libvorbis/mingw64-x86_64-libvorbis-1.3.5-1.tar.xz
+2017/05/15 08:50:30 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-libwebp/mingw64-x86_64-libwebp-0.4.4-1.tar.xz
+2017/05/15 08:50:30 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mingw64-x86_64-pkg-config/mingw64-x86_64-pkg-config-0.29.1-1.tar.xz
+2017/05/15 08:50:30 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-runtime/mingw64-x86_64-runtime-5.0.2-1.tar.xz
+2017/05/15 08:50:48 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-speex/mingw64-x86_64-speex-1.2.0-1.tar.xz
+2017/05/15 08:50:49 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-speexdsp/mingw64-x86_64-speexdsp-1.2-0.1.rc3.tar.xz
+2017/05/15 08:50:49 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-tiff/mingw64-x86_64-tiff-4.0.6-1.tar.xz
+2017/05/15 08:50:49 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-win-iconv/mingw64-x86_64-win-iconv-0.0.6-2.tar.xz
+2017/05/15 08:50:49 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-windows-default-manifest/mingw64-x86_64-windows-default-manifest-6.4-1.tar.xz
+2017/05/15 08:50:50 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-winpthreads/mingw64-x86_64-winpthreads-5.0.2-1.tar.xz
+2017/05/15 08:50:50 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-xz/mingw64-x86_64-xz-5.2.3-1.tar.xz
+2017/05/15 08:50:50 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/mingw64-x86_64-zlib/mingw64-x86_64-zlib-1.2.11-1.tar.xz
+2017/05/15 08:50:51 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mintty/mintty-2.7.6-0.tar.xz
+2017/05/15 08:50:51 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/ncurses/ncurses-6.0-10.20170325.tar.xz
+2017/05/15 08:50:52 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/openssl/openssl-1.0.2k-1.tar.xz
+2017/05/15 08:50:53 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/p11-kit/p11-kit-0.23.5-1.tar.xz
+2017/05/15 08:50:53 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/p11-kit/p11-kit-trust/p11-kit-trust-0.23.5-1.tar.xz
+2017/05/15 08:50:54 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/perl/perl-5.22.3-1.tar.xz
+2017/05/15 08:51:12 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/perl-Pod-Simple/perl-Pod-Simple-3.35-1.tar.xz
+2017/05/15 08:51:13 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/perl-Unicode-Normalize/perl-Unicode-Normalize-1.25-1.tar.xz
+2017/05/15 08:51:13 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/perl/perl_autorebase/perl_autorebase-5.22.3-1.tar.xz
+2017/05/15 08:51:13 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/perl/perl_base/perl_base-5.22.3-1.tar.xz
+2017/05/15 08:51:20 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/pkg-config/pkg-config-0.29.1-1.tar.xz
+2017/05/15 08:51:20 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/python2/python2-2.7.13-1.tar.xz
+2017/05/15 08:51:48 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/rebase/rebase-4.4.2-1.tar.xz
+2017/05/15 08:51:48 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/renderproto/renderproto-0.11.1-1.tar.bz2
+2017/05/15 08:51:49 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/run/run-1.3.4-2.tar.xz
+2017/05/15 08:51:49 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/sed/sed-4.4-1.tar.xz
+2017/05/15 08:51:51 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/shared-mime-info/shared-mime-info-1.7-1.tar.xz
+2017/05/15 08:51:51 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/tar/tar-1.29-1.tar.xz
+2017/05/15 08:51:52 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/ncurses/terminfo/terminfo-6.0-10.20170325.tar.xz
+2017/05/15 08:51:54 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/texinfo/texinfo-6.3-1.tar.xz
+2017/05/15 08:52:00 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/tzcode/tzcode-2017a-1.tar.xz
+2017/05/15 08:52:00 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/tzdata/tzdata-2017b-1.tar.xz
+2017/05/15 08:52:17 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/util-linux/util-linux-2.25.2-2.tar.xz
+2017/05/15 08:52:20 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/vim/vim-minimal/vim-minimal-8.0.0596-1.tar.xz
+2017/05/15 08:52:21 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/w32api-headers/w32api-headers-5.0.2-1.tar.xz
+2017/05/15 08:52:41 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/w32api-runtime/w32api-runtime-5.0.2-1.tar.xz
+2017/05/15 08:52:46 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/which/which-2.20-2.tar.bz2
+2017/05/15 08:52:46 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/windows-default-manifest/windows-default-manifest-6.4-1.tar.xz
+2017/05/15 08:52:46 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/xextproto/xextproto-7.3.0-1.tar.xz
+2017/05/15 08:52:49 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/noarch/release/xproto/xproto-7.0.31-1.tar.xz
+2017/05/15 08:52:50 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/xz/xz-5.2.3-1.tar.xz
+2017/05/15 08:52:51 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/zlib/zlib-devel/zlib-devel-1.2.11-1.tar.xz
+2017/05/15 08:52:51 Extracting from file://C:\Users\luiz_\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/zlib/zlib0/zlib0-1.2.11-1.tar.xz
+2017/05/15 08:52:51 Changing gid back to original
+2017/05/15 08:52:51 running: C:\cygwin\bin\dash.exe "/etc/postinstall/0p_000_autorebase.dash"
+2017/05/15 08:53:45 running: C:\cygwin\bin\dash.exe "/etc/postinstall/0p_update-info-dir.dash"
+2017/05/15 08:53:51 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/000-cygwin-post-install.sh"
+2017/05/15 08:53:52 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/coreutils.sh"
+2017/05/15 08:53:52 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/bash.sh"
+2017/05/15 08:53:53 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/base-files-mketc.sh"
+2017/05/15 08:53:53 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/base-files-profile.sh"
+2017/05/15 08:53:55 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/libxml2.sh"
+2017/05/15 08:53:56 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/ca-certificates.sh"
+2017/05/15 08:53:58 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/colorgcc.sh"
+2017/05/15 08:53:59 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/gcc.sh"
+2017/05/15 08:53:59 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/gcc-tools-epoch1-autoconf.sh"
+2017/05/15 08:53:59 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/gcc-tools-epoch1-automake.sh"
+2017/05/15 08:53:59 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/gcc-tools-epoch2-autoconf.sh"
+2017/05/15 08:54:00 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/gcc-tools-epoch2-automake.sh"
+2017/05/15 08:54:00 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/fontconfig_dtd.sh"
+2017/05/15 08:54:00 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/man-db.sh"
+2017/05/15 08:54:00 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/mintty.sh"
+2017/05/15 08:54:00 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/zp_desktop-file-utils.sh"
+2017/05/15 08:54:01 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/zp_fontconfig_cache_1.sh"
+2017/05/15 08:54:18 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/zp_glib2.0.sh"
+2017/05/15 08:54:19 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/zp_man-db.sh"
+2017/05/15 08:54:19 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/zp_shared-mime-info.sh"
+2017/05/15 08:54:29 Changing gid to Administrators
+2017/05/15 20:35:42 note: Installation Complete
+2017/05/15 20:35:42 Ending cygwin install

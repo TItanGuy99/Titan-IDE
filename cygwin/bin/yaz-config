@@ -1,0 +1,200 @@
+#!/bin/sh
+# This file is part of the YAZ toolkit.
+# Copyright (C) Index Data
+# See the file LICENSE for details.
+
+prefix="/usr"
+exec_prefix="/usr"
+libdir="${exec_prefix}/lib"
+includedir="${prefix}/include"
+echo_cflags=no
+echo_libs=no
+echo_help=no
+echo_include=no
+echo_source=no
+echo_lalibs=no
+echo_comp=no
+src_root="/usr/src/ports/yaz/yaz-5.18.0-1.i686/src/yaz-5.18.0"
+build_root="/usr/src/ports/yaz/yaz-5.18.0-1.i686/build"
+ICU_LIBS="-licui18n -licuuc -licudata "
+ICU_CPPFLAGS=" -D YAZ_HAVE_ICU=1"
+SSL_LIBS="-lgnutls"
+MEMCACHED_LIBS=""
+HIREDIS_LIBS=""
+LIBS="-lexslt -lxslt -lxml2 -lz -llzma -liconv -lm -lgcrypt -lgpg-error -lxml2  -L/usr/lib -liconv -lpthread"
+VERSION=5.18.0
+YAZVERSION=$VERSION
+VERSION_SHA1=7dbefe59539947975961773f13a8cdd128dea6e7
+
+usage()
+{
+    cat <<EOF
+Usage: yaz-config [OPTIONS] [LIBRARIES]
+Options:
+	[--prefix[=DIR]]
+	[--version]
+	[--libs]
+	[--lalibs]
+	[--cflags]
+	[--include]
+	[--comp]
+        [-V]
+Libraries:
+	threads icu server static
+EOF
+	exit $1
+}
+
+while test $# -gt 0; do
+    case "$1" in
+	-*=*) optarg=`echo "$1" | sed 's/[-_a-zA-Z0-9]*=//'` ;;
+	*) optarg= ;;
+    esac
+    
+    case $1 in
+	--prefix=*)
+	    prefix=$optarg
+	    ;;
+	--prefix)
+	    echo $prefix
+	    exit 0
+	    ;;
+        -V)
+	    echo "$VERSION $VERSION_SHA1"
+	    exit 0
+            ;;
+	--version)
+	    echo $VERSION
+	    exit 0
+	    ;;
+	--cflags)
+	    echo_cflags=yes
+	    ;;
+	--include)
+	    echo_include=yes
+	    ;;
+	--libs)
+	    echo_libs=yes
+	    ;;
+	--lalibs)
+	    echo_lalibs=yes
+	    ;;
+	--comp)
+	    echo_comp=yes
+	    ;;
+	threads)
+	    lib_thread=yes
+	    ;;
+	icu)
+	    if test "$ICU_CPPFLAGS"; then
+		lib_icu=yes
+	    fi
+	    ;;
+	ssl)
+	    lib_ssl=yes
+	    ;;
+	server)
+	    lib_thread=yes
+	    lib_server=yes
+	    ;;
+	static)
+	    lib_static=yes
+	    ;;
+	-*)
+	    echo_help=yes
+	    ;;
+    esac
+    shift
+done
+
+YAZLIB="-lyaz"
+if test "$lib_server" = "yes"; then
+    YAZLIB="-lyaz_server $YAZLIB"
+fi
+
+if test "$lib_icu" = "yes"; then
+    YAZLIB="-lyaz_icu $YAZLIB"
+fi
+
+YAZINC=" -DYAZ_POSIX_THREADS=1 -DYAZ_HAVE_XML2=1 -DYAZ_HAVE_XSLT=1 -DYAZ_HAVE_EXSLT=1 -I/usr/include/libxml2"
+
+if test "$echo_source" = "yes"; then
+    YAZBIN=${build_root}/bin
+
+    if test "$lib_static" = "yes"; then
+        YAZLIB="${build_root}/src/.libs/libyaz.a"
+        if test "$lib_server" = "yes"; then
+    	    YAZLIB="${build_root}/src/.libs/libyaz_server.a $YAZLIB"
+        fi
+        if test "$lib_icu" = "yes"; then
+    	    YAZLIB="${build_root}/src/.libs/libyaz_icu.a $YAZLIB"
+        fi
+    else
+        YAZLIB="-L${build_root}/src/.libs $YAZLIB"
+    fi
+    LIBS="${SSL_LIBS} ${MEMCACHED_LIBS} ${HIREDIS_LIBS} $LIBS"
+    YAZLIB="$YAZLIB $LIBS"
+
+    YAZLALIB="${build_root}/src/libyaz.la"
+    if test "$lib_server" = "yes"; then
+	YAZLALIB="${build_root}/src/libyaz_server.la $YAZLALIB"
+    fi
+    if test "$lib_icu" = "yes"; then
+	YAZLALIB="${build_root}/src/libyaz_icu.la $YAZLALIB"
+    fi
+    YAZLALIB="$YAZLALIB $LIBS"
+
+    YAZBINC="-I${src_root}/include"
+    YAZINC="$YAZBINC $YAZINC"
+    YAZCOMP="${src_root}/util/yaz-asncomp"
+else
+    YAZBIN="${prefix}/bin"
+    YAZCOMP=${prefix}/bin/yaz-asncomp
+
+    if test "$prefix" != "/usr"; then
+	YAZLIB="-L$libdir $YAZLIB"
+    fi
+    if test "$lib_ssl" = "yes"; then
+        LIBS="${SSL_LIBS} $LIBS"
+    fi
+    YAZLIB="$YAZLIB $LIBS"
+    YAZLALIB=$YAZLIB
+    if test "$prefix" != "/usr"; then
+	YAZBINC="-I${includedir}"
+	YAZINC="$YAZBINC $YAZINC"
+    fi
+fi
+
+if test "$lib_thread" = "yes"; then
+    :
+fi
+
+if test "$lib_icu" = "yes"; then
+    YAZINC="$YAZINC $ICU_CPPFLAGS"
+    YAZLIB="$YAZLIB $ICU_LIBS"
+    YAZLALIB="$YAZLALIB $ICU_LIBS"
+fi
+
+if test "$echo_help" = "yes"; then
+    usage 1 1>&2
+fi
+if test "$echo_include" = "yes"; then
+    echo $YAZBINC
+fi
+if test "$echo_cflags" = "yes"; then
+    echo $YAZINC
+fi
+if test "$echo_libs" = "yes"; then
+    echo $YAZLIB
+fi
+if test "$echo_lalibs" = "yes"; then
+    echo $YAZLALIB
+fi
+if test "$echo_comp" = "yes"; then
+    echo $YAZCOMP
+fi
+# Local Variables:
+# mode:shell-script
+# sh-indentation: 2
+# sh-basic-offset: 4
+# End:

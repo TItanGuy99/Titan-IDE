@@ -1,0 +1,34 @@
+#!/bin/sh
+# Usage : create_makefiles dir
+# (to be run from toplevel directory)
+# Will re-create all Makefiles in dir and its subdirs
+# Needs create_makefile in the path.
+#
+# David Faure <faure@kde.org>
+
+if test ! -f Makefile && test -n "$OBJ_REPLACEMENT"; then
+   objdir=`pwd | sed -e "$OBJ_REPLACEMENT"`
+   cd $objdir
+fi
+ 
+if test ! -f Makefile && test -n "$OBJ_SUBDIR"; then
+   cd $OBJ_SUBDIR
+fi
+
+if test ! -f Makefile; then
+   echo "$0: in the current directory there is no Makefile"
+   echo "you will have to run it from the top build dir."
+   echo "if you do not have a Makefile there - rerun configure"
+   exit
+fi
+
+srcdir=`egrep '^srcdir *=' Makefile | sed -e "s#srcdir *= *##"`
+ 
+( cd $srcdir ; find $1 -type d | sed -e 's,/$,,' ) | \
+  while read a; do 
+      if test -f "$srcdir/$a/Makefile.am"; then
+      	 test -d "$a" || mkdir -p "$a"
+         create_makefile "$a/Makefile"
+      fi
+  done
+

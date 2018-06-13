@@ -1,0 +1,1274 @@
+#!/usr/bin/perl -w
+# -*- cperl -*-
+#
+# gtk-doc - GTK DocBook documentation generator.
+# Copyright (C) 1998  Damon Chaplin
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+#
+
+#############################################################################
+# Script      : gtkdoc-mktmpl
+# Description : This creates or updates the template files which contain the
+#                manually-edited documentation. (A 'template' is a simple text
+#                form which is filled in with the description of a function,
+#                macro, enum, or struct. For functions and macros it also
+#                contains fields for describing the parameters.)
+#
+#                This script reads in the existing templates, found in
+#                tmpl/*.sgml, moves these files to tmpl/*.sgml.bak, and then
+#                recreates the .sgml files according to the structure given in
+#                the file $MODULE-sections.txt.
+#
+#                Any new templates added, or new function parameters, are
+#                marked with 'FIXME' so you can do a grep to see which parts
+#                need updating.
+#
+#                Any templates which are no longer used (i.e. they are remove
+#                from $MODULE-sections.txt) are placed in the file
+#                tmpl/$MODULE-unused.sgml. If they are included again later
+#                they are automatically copied back into position.
+#                If you are certain that these templates will never be used
+#                again you can delete them from tmpl/$MODULE-unused.sgml.
+#
+#                Any parameters to functions which are no longer used are
+#                separated from the rest of the parameters with the line
+#                '<!-- # Unused Parameters # -->'. It may be that the parameter
+#                name has just been changed, in which case you can copy the
+#                description to the parameter with the new name. You can delete
+#                the unused parameter descriptions when no longer needed.
+#############################################################################
+
+use strict;
+use Getopt::Long;
+
+push @INC, '/usr/share/gtk-doc/data';
+require "gtkdoc-common.pl";
+
+# Options
+
+# name of documentation module
+my $MODULE;
+my $TMPL_DIR;
+my $FLAG_CHANGES;
+my $PRINT_VERSION;
+my $PRINT_HELP;
+my $ONLY_SECTION_TMPL;
+
+my %optctl = ('module' => \$MODULE,
+              'flag-changes' => \$FLAG_CHANGES,
+              'output-dir' => \$TMPL_DIR,
+              'only-section-tmpl' => \$ONLY_SECTION_TMPL,
+              'version' => \$PRINT_VERSION,
+              'help' => \$PRINT_HELP);
+GetOptions(\%optctl, "module=s", "flag-changes!", "output-dir:s", "only-section-tmpl!", "version", "help");
+
+if ($PRINT_VERSION) {
+    print "1.24\n";
+    exit 0;
+}
+
+if (!$MODULE) {
+    $PRINT_HELP = 1;
+}
+
+if ($PRINT_HELP) {
+    print <<EOF;
+gtkdoc-mktmpl version 1.24 - generate documentation templates
+
+--module=MODULE_NAME Name of the doc module being parsed
+--flag-changes       If specified, changes in templates are flagged
+--output-dir=DIRNAME The directory where the results are stored
+--only-section-tmpl  Only include section information in templates
+--version            Print the version of this program
+--help               Print this help
+EOF
+    exit 0;
+}
+
+print <<EOF;
+###############################################################################
+gtkdoc-mktmpl is deprecated and will be removed from one of the next gtk-doc 
+release.
+Please refer to the documentation "Modernizing the documentation"/"GTK-Doc 1.9".
+###############################################################################
+EOF
+
+my $ROOT_DIR = ".";
+
+# The directory containing the template files.
+$TMPL_DIR = $TMPL_DIR ? $TMPL_DIR : "$ROOT_DIR/tmpl";
+
+# This file contains the object hierarchy.
+my $OBJECT_TREE_FILE = "$ROOT_DIR/$MODULE.hierarchy";
+
+# The file containing signal handler prototype information.
+my $SIGNALS_FILE = "$ROOT_DIR/$MODULE.signals";
+
+# The file containing Arg information.
+my $ARGS_FILE = "$ROOT_DIR/$MODULE.args";
+
+# Set the flag to indicate changes, if requested.
+my $CHANGES_FLAG = $FLAG_CHANGES ? "FIXME" : "";
+
+# These global arrays store information on signals. Each signal has an entry
+# in each of these arrays at the same index, like a multi-dimensional array.
+my @SignalObjects;        # The GtkObject which emits the signal.
+my @SignalNames;        # The signal name.
+my @SignalReturns;        # The return type.
+my @SignalFlags;        # Flags for the signal
+my @SignalPrototypes;        # The rest of the prototype of the signal handler.
+
+# These global arrays store information on Args. Each Arg has an entry
+# in each of these arrays at the same index, like a multi-dimensional array.
+my @ArgObjects;                # The GtkObject which has the Arg.
+my @ArgNames;                # The Arg name.
+my @ArgTypes;                # The Arg type - gint, GtkArrowType etc.
+my @ArgFlags;                # How the Arg can be used - readable/writable etc.
+
+# These global hashes store declaration info keyed on a symbol name.
+my %Declarations;
+my %DeclarationTypes;
+my %DeclarationConditional;
+my %DeclarationOutput;
+
+# These global hashes store the existing documentation.
+my %SymbolDocs;
+my %SymbolTypes;
+my %SymbolParams;
+my %SymbolSourceFile;
+my %SymbolSourceLine;
+
+# These global arrays store GObject and subclasses and the hierarchy.
+my @Objects;
+my @ObjectLevels;
+
+&ReadSignalsFile ($SIGNALS_FILE);
+&ReadArgsFile ($ARGS_FILE);
+&ReadObjectHierarchy;
+
+&ReadDeclarationsFile ("$ROOT_DIR/$MODULE-decl.txt", 0);
+if (-f "$ROOT_DIR/$MODULE-overrides.txt") {
+    &ReadDeclarationsFile ("$ROOT_DIR/$MODULE-overrides.txt", 1);
+}
+&ReadExistingTemplates;
+
+my $changed = 0;
+
+if (&UpdateTemplates ("$ROOT_DIR/$MODULE-sections.txt")) {
+  $changed = 1;
+}
+&OutputUnusedTemplates;
+if (&CheckAllDeclarationsOutput) {
+  $changed = 1;
+}
+
+if ($changed || ! -e "$ROOT_DIR/tmpl.stamp") {
+    open (TIMESTAMP, ">$ROOT_DIR/tmpl.stamp")
+        || die "Can't create $ROOT_DIR/tmpl.stamp";
+    print (TIMESTAMP "timestamp");
+    close (TIMESTAMP);
+}
+
+#############################################################################
+# Function    : ReadExistingTemplates
+# Description : This reads in all the existing documentation, into the global
+#                variables %SymbolDocs, %SymbolTypes, and %SymbolParams (a
+#                hash of arrays).
+# Arguments   : none
+#############################################################################
+
+sub ReadExistingTemplates {
+    %SymbolDocs = ();
+    %SymbolTypes = ();
+    %SymbolParams = ();
+
+    # Read the unused docs first, so they get overridden by any real docs.
+    # (though this shouldn't happen often).
+    my $unused_doc = "$TMPL_DIR/$MODULE-unused.sgml";
+    if (-e $unused_doc) {
+        &ReadTemplateFile ($unused_doc, 0);
+    }
+
+    while (<$TMPL_DIR/*.sgml>) {
+#        print "Reading $_\n";
+        if ($_ eq $unused_doc) {
+#            print "skipping $unused_doc\n";
+        } else {
+            &ReadTemplateFile ($_, 0);
+        }
+    }
+}
+
+
+#############################################################################
+# Function    : UpdateTemplates
+# Description : This collects the output for each section of the docs, and
+#                outputs each file when the end of the section is found.
+# Arguments   : $file - the file containing the sections of the docs.
+#############################################################################
+
+sub UpdateTemplates {
+    my ($file) = @_;
+#    print "Reading: $file\n";
+
+    open (INPUT, $file)
+        || die "Can't open $file";
+
+    # Create the top output directory if it doesn't exist.
+    if (! -e $TMPL_DIR) {
+        mkdir ("$TMPL_DIR", 0777)
+            || die "Can't create directory: $TMPL_DIR";
+    }
+
+    my $filename = "";
+    my $title = "";
+    my $subsection = "";
+    my $output;
+    my $changed = 0;
+    while (<INPUT>) {
+        if (m/^#/) {
+            next;
+
+        } elsif (m/^<SECTION>/) {
+            $output = "";
+
+        } elsif (m/^<SUBSECTION\s*(.*)>/i) {
+            $subsection = $1;
+            next;
+
+        } elsif (m/^<TITLE>(.*)<\/TITLE>/) {
+            $title = $1;
+#            print "Section: $title\n";
+
+        } elsif (m/^<FILE>(.*)<\/FILE>/) {
+            $filename = $1;
+
+        } elsif (m/^<INCLUDE>(.*)<\/INCLUDE>/) {
+            next;
+
+        } elsif (m/^<\/SECTION>/) {
+            if ($title eq "") {
+                $title = $filename;
+            }
+#            print "End of section: $title\n";
+
+            $filename =~ s/\s/_/g;
+            $filename .= ".sgml";
+
+            if (&OutputTemplateFile ($filename, $title, \$output)) {
+              $changed = 1;
+            }
+
+            $title = "";
+            $subsection = "";
+
+        } elsif (m/^(\S+)/) {
+            my $symbol = $1;
+#            print "  Symbol: $symbol\n";
+
+            my $declaration = $Declarations{$1};
+            if (defined ($declaration)) {
+                # We don't want templates for standard macros/functions of
+                # GObjects or private declarations.
+                if ($subsection ne "Standard" && $subsection ne "Private") {
+                    $output .= &OutputDeclaration ($DeclarationTypes {$symbol},
+                                                   $symbol, $declaration);
+
+                    $output .= &OutputSignalTemplates ($symbol);
+                    $output .= &OutputArgTemplates ($symbol);
+                }
+
+                # Note that the declaration has been output.
+                $DeclarationOutput{$symbol} = 1;
+
+                if ($declaration eq '##conditional##') {
+#                    print "Conditional $DeclarationTypes{$symbol}\n";
+                }
+
+            } else {
+                &LogWarning ($file, $., "No declaration found for: $1");
+            }
+        }
+    }
+    close (INPUT);
+
+    return $changed;
+}
+
+
+#############################################################################
+# Function    : CheckAllDeclarationsOutput
+# Description : This steps through all the declarations that were loaded, and
+#                makes sure that each one has been output, by checking the
+#                corresponding flag in the %DeclarationOutput hash. It is
+#                intended to check that any new declarations in new versions
+#                of the module get added to the $MODULE-sections.txt file.
+# Arguments   : none
+#############################################################################
+
+sub CheckAllDeclarationsOutput {
+    my $num_unused = 0;
+
+    my $old_unused_file = "$ROOT_DIR/$MODULE-unused.txt";
+    my $new_unused_file = "$ROOT_DIR/$MODULE-unused.new";
+
+    open (UNUSED, ">$new_unused_file")
+        || die "Can't open $new_unused_file";
+    my ($symbol);
+    foreach $symbol (sort keys (%Declarations)) {
+        if (!defined ($DeclarationOutput{$symbol})) {
+            print (UNUSED "$symbol\n");
+            $num_unused++;
+        }
+    }
+    close (UNUSED);
+    if ($num_unused != 0) {
+        &LogWarning ($old_unused_file, 1, "$num_unused unused declarations.".
+            "They should be added to $MODULE-sections.txt in the appropriate place.");
+    }
+
+    return &UpdateFileIfChanged ($old_unused_file, $new_unused_file, 0);
+}
+
+
+#############################################################################
+# Function    : OutputDeclaration
+# Description : This returns the template for one symbol & declaration.
+#                Note that it uses the global %SymbolDocs and %SymbolParams to
+#                lookup any existing documentation.
+# Arguments   : $type - the type of the symbol ('FUNCTION'/'MACRO' etc.)
+#                $symbol - the symbol name.
+#                $declaration - the declaration of the symbol.
+#############################################################################
+
+sub OutputDeclaration {
+    my ($type, $symbol, $declaration) = @_;
+    my ($output) = "";
+
+    #print "Outputting $type: $symbol\n";
+
+    # See if symbol already has a description.
+    my ($symbol_desc) = $SymbolDocs{$symbol};
+    my ($template_exists);
+    if (defined ($symbol_desc)) {
+        $template_exists = 1;
+        $symbol_desc =~ s/\s+$//;
+    } else {
+        $template_exists = 0;
+        $symbol_desc = "<para>\n$CHANGES_FLAG\n</para>";
+    }
+
+    $output .= <<EOF;
+<!-- ##### $type $symbol ##### -->
+$symbol_desc
+
+EOF
+
+    # For functions, function typedefs and macros, we output the arguments.
+    # For functions and function typedefs we also output the return value.
+    if ($type eq "FUNCTION" || $type eq "USER_FUNCTION") {
+        # Take out the return type
+        $declaration =~ s/<RETURNS>\s*(.*?)<\/RETURNS>\n//;
+        my $ret_type_decl = $1;
+        my $ret_type_modifier;
+        my $ret_type;
+        my $ret_type_pointer;
+
+        if ($ret_type_decl =~ m/((const\s+|G_CONST_RETURN\s+|unsigned\s+|signed\s+|long\s+|short\s+|struct\s+|enum\s+)*)(\w+)\s*(\**\s*(const|G_CONST_RETURN)?\s*\**\s*(restrict)?\s*)/) {
+            $ret_type_modifier = defined($1) ? $1 : "";
+            $ret_type = $3;
+            $ret_type_pointer = $4;
+        } else {
+            $ret_type = "void";
+        }
+
+        my @fields = ParseFunctionDeclaration($declaration);
+
+        for (my $i = 0; $i <= $#fields; $i += 2) {
+            my $field_name = $fields[$i];
+            $output .= &OutputParam ($symbol, $field_name, $template_exists, 1, "");
+        }
+
+        if ($ret_type ne "void" || $ret_type_modifier || $ret_type_pointer) {
+            $output .= &OutputParam ($symbol, "Returns", $template_exists, 1, "");
+        }
+
+        $output .= &OutputParam ($symbol, "Deprecated", $template_exists, 0, "");
+        $output .= &OutputParam ($symbol, "Since", $template_exists, 0, "");
+        $output .= &OutputParam ($symbol, "Stability", $template_exists, 0, "");
+        $output .= &OutputOldParams ($symbol);
+        $output .= "\n";
+    }
+
+    if ($type eq "MACRO") {
+        my @fields = ParseMacroDeclaration($declaration);
+
+        for (my $i = 0; $i <= $#fields; $i +=2) {
+            my $field_name = $fields[$i];
+
+            $output .= &OutputParam ($symbol, $field_name, $template_exists,
+                                     1, "");
+        }
+        $output .= &OutputParam ($symbol, "Returns", $template_exists, 0, "");
+        $output .= &OutputParam ($symbol, "Deprecated", $template_exists, 0, "");
+        $output .= &OutputParam ($symbol, "Since", $template_exists, 0, "");
+        $output .= &OutputParam ($symbol, "Stability", $template_exists, 0, "");
+        $output .= &OutputOldParams ($symbol);
+        $output .= "\n";
+    }
+
+    if ($type eq "STRUCT") {
+        my $is_object_struct = CheckIsObject ($symbol);
+        my @fields = ParseStructDeclaration($declaration, $is_object_struct, 1);
+
+        for (my $i = 0; $i <= $#fields; $i += 2) {
+            my $field_name = $fields[$i];
+            $output .= &OutputParam ($symbol, $field_name, $template_exists, 1, "");
+        }
+        $output .= &OutputParam ($symbol, "Deprecated", $template_exists, 0, "");
+        $output .= &OutputParam ($symbol, "Since", $template_exists, 0, "");
+        $output .= &OutputParam ($symbol, "Stability", $template_exists, 0, "");
+    }
+
+    if ($type eq "ENUM") {
+        my @members = ParseEnumDeclaration($declaration);
+
+        for my $member (@members) {
+            $output .= &OutputParam ($symbol, $member, $template_exists, 1, "");
+        }
+        $output .= &OutputParam ($symbol, "Deprecated", $template_exists, 0, "");
+        $output .= &OutputParam ($symbol, "Since", $template_exists, 0, "");
+        $output .= &OutputParam ($symbol, "Stability", $template_exists, 0, "");
+    }
+
+    $output .= "\n";
+
+    # Remove the used docs from the hashes.
+    if ($template_exists) {
+        delete $SymbolDocs{$symbol};
+        delete $SymbolParams{$symbol};
+    }
+
+    return $output;
+}
+
+
+#############################################################################
+# Function    : OutputParam
+# Description : This outputs the part of a template for one parameter.
+#                It first checks if the parameter is already described, and if
+#                so it uses that description, and clears it so it isn't output
+#                as an old param.
+# Arguments   : $symbol - the symbol (function or macro) name.
+#                $param_to_output - the parameter to add.
+#                $template_exists - TRUE if the template already existed in
+#                  template files. If it did, then we will flag any changes
+#                  with 'FIXME'.
+#                $force_output - TRUE if the parameter should be output even
+#                  if it didn't already exist in the template. (The return
+#                  values of macros are added manually if required, and so we
+#                  never add it here - we only copy it if it already exists.)
+#                $default_description - the default description of the
+#                  parameter to be used if it doesn't already exist. (Signal
+#                  handlers have a few common parameters.)
+#############################################################################
+
+sub OutputParam {
+    my ($symbol, $param_to_output, $template_exists,
+        $force_output, $default_description) = @_;
+    my ($j);
+
+    my ($params) = $SymbolParams{$symbol};
+    if (defined ($params)) {
+        for ($j = 0; $j <= $#$params; $j += 2) {
+            my $param_name = $$params[$j];
+            my $param_desc = $$params[$j + 1];
+
+            if ($param_name eq $param_to_output) {
+                $param_desc =~ s/\s+$//;
+                $$params[$j] = "";
+                $$params[$j + 1] = "";
+                return "\@$param_name: $param_desc\n";
+            }
+        }
+    }
+
+    # If the template was already in a file, flag the new parameter.
+    # If not, the template itself will be flagged, so we don't need to flag
+    # all the new parameters as well.
+    if ($force_output) {
+        if ($default_description ne "") {
+            $default_description =~ s/\s+$//;
+            return "\@$param_to_output: $default_description\n";
+        } else {
+            if ($template_exists) {
+                return "\@$param_to_output: $CHANGES_FLAG\n";
+            } else {
+                return "\@$param_to_output: \n";
+            }
+        }
+    }
+    return "";
+}
+
+
+#############################################################################
+# Function    : OutputOldParams
+# Description : This returns all the existing documentation for parameters of
+#                the given function/macro/signal symbol which are unused, with
+#                a comment before them.
+# Arguments   : $symbol - the symbol (function/macro/signal) name.
+#############################################################################
+
+sub OutputOldParams {
+    my ($symbol) = @_;
+    my $output = "";
+
+    my ($params) = $SymbolParams{$symbol};
+    if (defined ($params)) {
+        my $j;
+        for ($j = 0; $j <= $#$params; $j += 2) {
+            my $param_name = $$params[$j];
+            my $param_desc = $$params[$j + 1];
+
+            if ($param_name ne "") {
+                $param_desc =~ s/\s+$//;
+
+                # There's no point keeping it if it has no docs.
+                if ($param_desc ne "") {
+                  $output .= "\@$param_name: $param_desc\n";
+                }
+            }
+        }
+    }
+    if ($output) {
+        $output = "<!-- # Unused Parameters # -->\n" . $output;
+    }
+    return $output;
+}
+
+
+#############################################################################
+# Function    : OutputTemplateFile
+# Description : This outputs one template file.
+# Arguments   : $file - the basename of the file to output.
+#                $title - the title from the $MODULE-sections.txt file. This
+#                  will be overridden by any title given in the template file.
+#                $output - reference to the templates to output.
+#############################################################################
+
+sub OutputTemplateFile {
+    my ($file, $title, $output) = @_;
+
+    my ($short_desc, $long_desc, $see_also, $stability, $image);
+
+    if (defined ($SymbolDocs{"$TMPL_DIR/$file:Title"})) {
+        $title = $SymbolDocs{"$TMPL_DIR/$file:Title"};
+        delete $SymbolDocs{"$TMPL_DIR/$file:Title"};
+    }
+    if (defined ($SymbolDocs{"$TMPL_DIR/$file:Short_Description"})) {
+        $short_desc = $SymbolDocs{"$TMPL_DIR/$file:Short_Description"};
+        delete $SymbolDocs{"$TMPL_DIR/$file:Short_Description"};
+    } else {
+        $short_desc = "";
+    }
+    if (defined ($SymbolDocs{"$TMPL_DIR/$file:Long_Description"})) {
+        $long_desc = $SymbolDocs{"$TMPL_DIR/$file:Long_Description"};
+        delete $SymbolDocs{"$TMPL_DIR/$file:Long_Description"};
+    } else {
+        $long_desc = "<para>\n\n</para>\n";
+    }
+    if (defined ($SymbolDocs{"$TMPL_DIR/$file:See_Also"})) {
+        $see_also = $SymbolDocs{"$TMPL_DIR/$file:See_Also"};
+        delete $SymbolDocs{"$TMPL_DIR/$file:See_Also"};
+    } else {
+        $see_also = "<para>\n\n</para>\n";
+    }
+    if (defined ($SymbolDocs{"$TMPL_DIR/$file:Stability_Level"})) {
+        $stability = $SymbolDocs{"$TMPL_DIR/$file:Stability_Level"};
+        delete $SymbolDocs{"$TMPL_DIR/$file:Stability_Level"};
+    } else {
+        $stability = "";
+    }
+    if (defined ($SymbolDocs{"$TMPL_DIR/$file:Image"})) {
+        $image = $SymbolDocs{"$TMPL_DIR/$file:Image"};
+        delete $SymbolDocs{"$TMPL_DIR/$file:Image"};
+    } else {
+        $image = "";
+    }
+
+
+    my $old_tmpl_file = "$TMPL_DIR/$file";
+    my $new_tmpl_file = "$TMPL_DIR/$file.new";
+
+    open (OUTPUT, ">$new_tmpl_file")
+        || die "Can't create $new_tmpl_file";
+
+    print (OUTPUT <<EOF);
+<!-- ##### SECTION Title ##### -->
+$title
+
+<!-- ##### SECTION Short_Description ##### -->
+$short_desc
+
+<!-- ##### SECTION Long_Description ##### -->
+$long_desc
+
+<!-- ##### SECTION See_Also ##### -->
+$see_also
+
+<!-- ##### SECTION Stability_Level ##### -->
+$stability
+
+<!-- ##### SECTION Image ##### -->
+$image
+
+EOF
+
+    print (OUTPUT $$output) unless $ONLY_SECTION_TMPL;
+    close (OUTPUT);
+
+    return &UpdateFileIfChanged ($old_tmpl_file, $new_tmpl_file, 1);
+}
+
+
+#############################################################################
+# Function    : OutputSignalTemplates
+# Description : Outputs templates for signal handlers.
+# Arguments   : $title - the title from the $MODULE-sections.txt file. If the
+#                  file is describing a GtkObject subclass, the title should
+#                  be the name of the class, e.g. 'GtkButton'.
+#############################################################################
+
+sub OutputSignalTemplates {
+    my ($title) = @_;
+
+    my $output = "";
+    my ($i, $template_exists);
+    for ($i = 0; $i <= $#SignalObjects; $i++) {
+        if ($SignalObjects[$i] eq $title) {
+#            print "Found signal: $SignalObjects[$i]\n";
+            my ($symbol) = "$SignalObjects[$i]::$SignalNames[$i]";
+
+            # See if symbol already has a description.
+            my ($symbol_desc) = $SymbolDocs{$symbol};
+            if (defined ($symbol_desc)) {
+                $template_exists = 1;
+                $symbol_desc =~ s/\s+$//;
+                delete $SymbolDocs{$symbol};
+            } else {
+                $template_exists = 0;
+                $symbol_desc = "<para>\n$CHANGES_FLAG\n</para>";
+            }
+
+            $output .= <<EOF;
+<!-- ##### SIGNAL $symbol ##### -->
+$symbol_desc
+
+EOF
+            my $sourceparams = $SymbolParams{$symbol};
+            my @params = split ("[,\n]", $SignalPrototypes[$i]);
+            my ($j, $name);
+            for ($j = 0; $j <= $#params; $j++) {
+                my $param = $params[$j];
+                $param =~ s/^\s+//;
+                $param =~ s/\s*$//;
+                if ($param =~ m/^\s*$/) { next; }
+                if ($param =~ m/^void$/) { next; }
+
+                if ($param =~ m/^\s*(\w+)\s*(\**)\s*([\w\[\]]+)?\s*$/) {
+                    if (defined ($sourceparams)) {
+                        $name = $$sourceparams[2 * $j];
+                    } else {
+                        $name = $3;
+                    }
+
+                    if (!defined ($name)) {
+                        $name = "Param" . ($j + 1);
+                    }
+
+                    if ($j == 0) {
+                        $output .= &OutputParam ($symbol, $name,
+                                                 $template_exists, 1,
+                                                 "the object which received the signal.");
+                    } else {
+                        $output .= &OutputParam ($symbol, $name,
+                                                 $template_exists, 1, "");
+                    }
+                }
+            }
+
+            if ($SignalReturns[$i] ne "void") {
+                $output .= &OutputParam ($symbol, "Returns", $template_exists,
+                                         1, "");
+            }
+            $output .= &OutputOldParams ($symbol);
+            $output .= "\n";
+        }
+    }
+    return $output;
+}
+
+
+#############################################################################
+# Function    : OutputArgTemplates
+# Description : Outputs templates for Args.
+# Arguments   : $title - the title from the $MODULE-sections.txt file. If the
+#                  file is describing a GtkObject subclass, the title should
+#                  be the name of the class, e.g. 'GtkButton'.
+#############################################################################
+
+sub OutputArgTemplates {
+    my ($title) = @_;
+
+    my $output = "";
+    my $i;
+    for ($i = 0; $i <= $#ArgObjects; $i++) {
+        if ($ArgObjects[$i] eq $title) {
+#            print "Found arg: $ArgObjects[$i]\n";
+            # I've only used one colon so we don't clash with signals.
+            my ($symbol) = "$ArgObjects[$i]:$ArgNames[$i]";
+
+            # See if symbol already has a description.
+            my ($symbol_desc) = $SymbolDocs{$symbol};
+            if (defined ($symbol_desc)) {
+                delete $SymbolDocs{$symbol};
+                $symbol_desc =~ s/\s+$//;
+            } else {
+                $symbol_desc = "<para>\n$CHANGES_FLAG\n</para>";
+            }
+
+            $output .= <<EOF;
+<!-- ##### ARG $symbol ##### -->
+$symbol_desc
+
+EOF
+        }
+    }
+    return $output;
+}
+
+
+#############################################################################
+# Function    : OutputUnusedTemplates
+# Description : This saves any unused documentation into $MODULE-unused.sgml.
+# Arguments   : none
+#############################################################################
+
+sub OutputUnusedTemplates {
+    my ($old_unused_file) = "$TMPL_DIR/$MODULE-unused.sgml";
+    my ($new_unused_file) = "$TMPL_DIR/$MODULE-unused.new";
+
+    open (UNUSED, ">$new_unused_file")
+        || die "Can't open file: $new_unused_file";
+
+    my $output = "";
+    my ($symbol, $symbol_desc);
+    for $symbol (sort keys %SymbolDocs) {
+        $symbol_desc = $SymbolDocs{$symbol};
+
+#        print "Unused: $symbol\n";
+
+        my $type = $SymbolTypes{$symbol};
+        if (!defined ($type)) {
+            $type = "UNKNOWN";
+            &LogWarning ($SymbolSourceFile{$symbol},$SymbolSourceLine{$symbol}, "Unused symbol $symbol has unknown type.");
+        }
+
+    $output .= <<EOF;
+<!-- ##### $type $symbol ##### -->
+$symbol_desc
+
+EOF
+
+        my ($params) = $SymbolParams{$symbol};
+        if (defined ($params)) {
+            my $j;
+            for ($j = 0; $j <= $#$params; $j += 2) {
+                my $param_name = $$params[$j];
+                my $param_desc = $$params[$j + 1];
+                $param_desc =~ s/\s+$//;
+                $output .= "\@$param_name: $param_desc\n";
+            }
+        }
+        $output .= "\n";
+    }
+
+    print UNUSED $output;
+    close (UNUSED);
+
+    &UpdateFileIfChanged ($old_unused_file, $new_unused_file, 1);
+}
+
+
+#############################################################################
+# LIBRARY FUNCTIONS -        These functions are used in both gtkdoc-mkdb and
+#                        gtkdoc-mktmpl and should eventually be moved to a
+#                        separate library.
+#############################################################################
+
+#############################################################################
+# Function    : ReadDeclarationsFile
+# Description : This reads in a file containing the function/macro/enum etc.
+#                declarations.
+#
+#                Note that in some cases there are several declarations with
+#                the same name, e.g. for conditional macros. In this case we
+#                set a flag in the %DeclarationConditional hash so the
+#                declaration is not shown in the docs.
+#
+#                If a macro and a function have the same name, e.g. for
+#                gtk_object_ref, the function declaration takes precedence.
+#
+#                Some opaque structs are just declared with 'typedef struct
+#                _name name;' in which case the declaration may be empty.
+#                The structure may have been found later in the header, so
+#                that overrides the empty declaration.
+#
+# Arguments   : $file - the declarations file to read
+#                $override - if declarations in this file should override
+#                        any current declaration.
+#############################################################################
+
+sub ReadDeclarationsFile {
+    my ($file, $override) = @_;
+
+    if ($override == 0) {
+        %Declarations = ();
+        %DeclarationTypes = ();
+        %DeclarationConditional = ();
+        %DeclarationOutput = ();
+    }
+
+    open (INPUT, $file)
+        || die "Can't open $file";
+    my $declaration_type = "";
+    my $declaration_name;
+    my $declaration;
+    while (<INPUT>) {
+        if (!$declaration_type) {
+            if (m/^<([^>]+)>/) {
+                $declaration_type = $1;
+                $declaration_name = "";
+#                print "Found declaration: $declaration_type\n";
+                $declaration = "";
+            }
+        } else {
+            if (m%^<NAME>(.*)</NAME>%) {
+                $declaration_name = $1;
+            } elsif (m%<DEPRECATED/>%) {
+                # do nothing, just skip the line; we handle this
+                # in mkdb
+            } elsif (m%^</$declaration_type>%) {
+#                print "Found end of declaration: $declaration_name\n";
+                # Check that the declaration has a name
+                if ($declaration_name eq "") {
+                    print "ERROR: $declaration_type has no name $file:$.\n";
+                }
+
+                # Check if the symbol is already defined.
+                if (defined ($Declarations{$declaration_name})
+                    && $override == 0) {
+                    # Function declarations take precedence.
+                    if ($DeclarationTypes{$declaration_name} eq 'FUNCTION') {
+                        # Ignore it.
+                    } elsif ($declaration_type eq 'FUNCTION') {
+                        $Declarations{$declaration_name} = $declaration;
+                        $DeclarationTypes{$declaration_name} = $declaration_type;
+                    } elsif ($DeclarationTypes{$declaration_name}
+                              eq $declaration_type) {
+                        # If the existing declaration is empty, or is just a
+                        # forward declaration of a struct, override it.
+                        if ($declaration_type eq 'STRUCT') {
+                            if ($Declarations{$declaration_name} =~ m/^\s*(struct\s+\w+\s*;)?\s*$/) {
+                                $Declarations{$declaration_name} = $declaration;
+                            } elsif ($declaration =~ m/^\s*(struct\s+\w+\s*;)?\s*$/) {
+                                # Ignore an empty or forward declaration.
+                            } else {
+                                &LogWarning ($file, $., "Structure $declaration_name has multiple definitions.");
+                            }
+
+                        } else {
+                            # set flag in %DeclarationConditional hash for
+                            # multiply defined macros/typedefs.
+                            $DeclarationConditional{$declaration_name} = 1;
+                        }
+                    } else {
+                        &LogWarning ($file, $., "$declaration_name has multiple definitions.");
+                    }
+                } else {
+                    $Declarations{$declaration_name} = $declaration;
+                    $DeclarationTypes{$declaration_name} = $declaration_type;
+                }
+                $declaration_type = "";
+            } else {
+                $declaration .= $_;
+            }
+        }
+    }
+    close (INPUT);
+}
+
+
+#############################################################################
+# Function    : ReadSignalsFile
+# Description : This reads in an existing file which contains information on
+#                all GObject signals. It creates the arrays @SignalNames and
+#                @SignalPrototypes containing info on the signals. The first
+#                line of the SignalPrototype is the return type of the signal
+#                handler. The remaining lines are the parameters passed to it.
+#                The last parameter, "gpointer user_data" is always the same
+#                so is not included.
+# Arguments   : $file - the file containing the signal handler prototype
+#                        information.
+#############################################################################
+
+sub ReadSignalsFile {
+    my ($file) = @_;
+
+    my $in_signal = 0;
+    my $signal_object;
+    my $signal_name;
+    my $signal_returns;
+    my $signal_flags;
+    my $signal_prototype;
+
+    # Reset the signal info.
+    @SignalObjects = ();
+    @SignalNames = ();
+    @SignalReturns = ();
+    @SignalFlags = ();
+    @SignalPrototypes = ();
+
+    if (! -f $file) {
+        return;
+    }
+    if (!open (INPUT, $file)) {
+        warn "Can't open $file - skipping signals\n";
+        return;
+    }
+    while (<INPUT>) {
+        if (!$in_signal) {
+            if (m/^<SIGNAL>/) {
+                $in_signal = 1;
+                $signal_object = "";
+                $signal_name = "";
+                $signal_returns = "";
+                $signal_prototype = "";
+            }
+        } else {
+            if (m/^<NAME>(.*)<\/NAME>/) {
+                $signal_name = $1;
+                if ($signal_name =~ m/^(.*)::(.*)$/) {
+                    $signal_object = $1;
+                    ($signal_name = $2) =~ s/_/-/g;
+#                    print "Found signal: $signal_name\n";
+                } else {
+                    print "Invalid signal name: $signal_name\n";
+                }
+            } elsif (m/^<RETURNS>(.*)<\/RETURNS>/) {
+                $signal_returns = $1;
+            } elsif (m/^<FLAGS>(.*)<\/FLAGS>/) {
+                $signal_flags = $1;
+            } elsif (m%^</SIGNAL>%) {
+#                print "Found end of signal: ${signal_object}::${signal_name}\nReturns: ${signal_returns}\n${signal_prototype}";
+                push (@SignalObjects, $signal_object);
+                push (@SignalNames, $signal_name);
+                push (@SignalReturns, $signal_returns);
+                push (@SignalFlags, $signal_flags);
+                push (@SignalPrototypes, $signal_prototype);
+                $in_signal = 0;
+            } else {
+                $signal_prototype .= $_;
+            }
+        }
+    }
+    close (INPUT);
+}
+
+
+#############################################################################
+# Function    : ReadTemplateFile
+# Description : This reads in the manually-edited documentation file
+#                corresponding to the file currently being created, so we can
+#                insert the documentation at the appropriate places.
+#                It outputs %SymbolTypes, %SymbolDocs and %SymbolParams, which
+#                is a hash of arrays.
+#                NOTE: This function is duplicated in gtkdoc-mkdb (but
+#                slightly different).
+# Arguments   : $docsfile - the template file to read in.
+#                $skip_unused_params - 1 if the unused parameters should be
+#                        skipped.
+#############################################################################
+
+sub ReadTemplateFile {
+    my ($docsfile, $skip_unused_params) = @_;
+
+#    print "Reading $docsfile\n";
+    if (! -f $docsfile) {
+        print "File doesn't exist: $docsfile\n";
+        return 0;
+    }
+
+    my $CurrentType = "";         # Type of symbol being read.
+    my $CurrentSymbol = "";        # Name of symbol being read.
+    my $SymbolDoc = "";                # Description of symbol being read.
+    my @Params;                        # Parameter names and descriptions of current
+                                #   function/macro/function typedef.
+    my $CurrentParam = -1;        # Index of parameter currently being read.
+                                #   Note that the param array contains pairs
+                                #   of param name & description.
+    my $InUnusedParameters = 0;        # True if we are reading in the unused params.
+
+    open (DOCS, $docsfile)
+        || die "Can't open file $docsfile: $!";
+    while (<DOCS>) {
+        if (m/^<!-- ##### ([A-Z_]+) (\S+) ##### -->/) {
+            my $type = $1;
+            my $symbol = $2;
+            if ($symbol eq "Title"
+                || $symbol eq "Short_Description"
+                || $symbol eq "Long_Description"
+                || $symbol eq "See_Also"
+                || $symbol eq "Stability_Level"
+                || $symbol eq "Image") {
+                $symbol = $docsfile . ":" . $symbol;
+            }
+
+            #print "Found symbol: $symbol\n";
+            # Remember file and line for the symbol
+            $SymbolSourceFile{$symbol} = $docsfile;
+            $SymbolSourceLine{$symbol} = $.;
+
+            # Canonicalize signal and argument names to have -, not _
+            if ($type eq "ARG" || $type eq "SIGNAL") {
+              $symbol =~ s/_/-/g;
+            }
+
+            # Store previous symbol, but remove any trailing blank lines.
+            if ($CurrentSymbol ne "") {
+                $SymbolDoc =~ s/\s+$//;
+                $SymbolTypes{$CurrentSymbol} = $CurrentType;
+                $SymbolDocs{$CurrentSymbol} = $SymbolDoc;
+
+                if ($CurrentParam >= 0) {
+                    $SymbolParams{$CurrentSymbol} = [ @Params ];
+                } else {
+                    # Delete any existing params in case we are overriding a
+                    # previously read template.
+                    delete $SymbolParams{$CurrentSymbol};
+                }
+            }
+            $CurrentType = $type;
+            $CurrentSymbol = $symbol;
+            $CurrentParam = -1;
+            $InUnusedParameters = 0;
+            $SymbolDoc = "";
+            @Params = ();
+
+        } elsif (m/^<!-- # Unused Parameters # -->/) {
+            $InUnusedParameters = 1;
+            next;
+
+        } else {
+            # Workaround for an old bug that left a mess in the templates.
+            # This happened with macros with args spread over several lines.
+            if (m/^\@\\$/) {
+              # Skip the next line.
+              $_ = <DOCS>;
+              next;
+            }
+
+            # Workaround for an old bug that left '@:' at start of lines.
+            if (m/^\@:$/) {
+              next;
+            }
+
+
+            # Check if param found. Need to handle "..." and "format...".
+            if (s/^\@([\w\.]+):\040?//) {
+                my $param_name = $1;
+                # Allow variations of 'Returns'
+                if ($param_name =~ m/^[Rr]eturns?$/) {
+                    $param_name = "Returns";
+                }
+#                print "Found param: $param_name\n";
+                push (@Params, $param_name);
+                push (@Params, $_);
+                $CurrentParam += 2;
+                next;
+            }
+
+            # When outputting the DocBook we skip unused parameters.
+            if (!$InUnusedParameters || !$skip_unused_params) {
+                if ($CurrentParam >= 0) {
+                    $Params[$CurrentParam] .= $_;
+                } else {
+                    $SymbolDoc .= $_;
+                }
+            }
+        }
+    }
+
+    # Remember to finish the current symbol doccs.
+    if ($CurrentSymbol ne "") {
+
+        $SymbolDoc =~ s/\s+$//;
+        $SymbolTypes{$CurrentSymbol} = $CurrentType;
+        $SymbolDocs{$CurrentSymbol} = $SymbolDoc;
+
+        if ($CurrentParam >= 0) {
+            $SymbolParams{$CurrentSymbol} = [ @Params ];
+        } else {
+            delete $SymbolParams{$CurrentSymbol};
+        }
+    }
+
+    close (DOCS);
+    return 1;
+}
+
+
+#############################################################################
+# Function    : ReadObjectHierarchy
+# Description : This reads in the $MODULE-hierarchy.txt file containing all
+#                the GtkObject subclasses described in this module (and their
+#                ancestors).
+#                It places them in the @Objects array, and places their level
+#                in the widget hierarchy in the @ObjectLevels array, at the
+#                same index. GtkObject, the root object, has a level of 1.
+#
+#               FIXME: the version in gtkdoc-mkdb also generates tree_index.sgml
+#               as it goes along, this should be split out into a separate
+#               function.
+#
+# Arguments   : none
+#############################################################################
+
+sub ReadObjectHierarchy {
+    @Objects = ();
+    @ObjectLevels = ();
+
+    if (! -f $OBJECT_TREE_FILE) {
+        return;
+    }
+    if (!open (INPUT, $OBJECT_TREE_FILE)) {
+        warn "Can't open $OBJECT_TREE_FILE - skipping object tree\n";
+        return;
+    }
+    while (<INPUT>) {
+        if (m/\S+/) {
+            my $object = $&;
+            my $level = (length($`)) / 2 + 1;
+#            print ("Level: $level  Object: $object\n");
+
+            push (@Objects, $object);
+            push (@ObjectLevels, $level);
+        }
+    }
+
+    close (INPUT);
+}
+
+
+#############################################################################
+# Function    : ReadArgsFile
+# Description : This reads in an existing file which contains information on
+#                all GObject args. It creates the arrays @ArgObjects, @ArgNames,
+#                @ArgTypes and @ArgFlags containing info on the args.
+# Arguments   : $file - the file containing the arg information.
+#############################################################################
+
+sub ReadArgsFile {
+    my ($file) = @_;
+
+    my $in_arg = 0;
+    my $arg_object;
+    my $arg_name;
+    my $arg_type;
+    my $arg_flags;
+
+    # Reset the signal info.
+    @ArgObjects = ();
+    @ArgNames = ();
+    @ArgTypes = ();
+    @ArgFlags = ();
+
+    if (! -f $file) {
+        return;
+    }
+    if (!open (INPUT, $file)) {
+        warn "Can't open $file - skipping args\n";
+        return;
+    }
+    while (<INPUT>) {
+        if (!$in_arg) {
+            if (m/^<ARG>/) {
+                $in_arg = 1;
+                $arg_object = "";
+                $arg_name = "";
+                $arg_type = "";
+                $arg_flags = "";
+            }
+        } else {
+            if (m/^<NAME>(.*)<\/NAME>/) {
+                $arg_name = $1;
+                if ($arg_name =~ m/^(.*)::(.*)$/) {
+                    $arg_object = $1;
+                    ($arg_name = $2) =~ s/_/-/g;
+#                    print "Found arg: $arg_name\n";
+                } else {
+                    print "Invalid arg name: $arg_name\n";
+                }
+            } elsif (m/^<TYPE>(.*)<\/TYPE>/) {
+                $arg_type = $1;
+            } elsif (m/^<FLAGS>(.*)<\/FLAGS>/) {
+                $arg_flags = $1;
+            } elsif (m%^</ARG>%) {
+#                print "Found end of arg: ${arg_object}::${arg_name}\n${arg_type} : ${arg_flags}\n";
+                push (@ArgObjects, $arg_object);
+                push (@ArgNames, $arg_name);
+                push (@ArgTypes, $arg_type);
+                push (@ArgFlags, $arg_flags);
+                $in_arg = 0;
+            }
+        }
+    }
+    close (INPUT);
+}
+
+
+#############################################################################
+# Function    : CheckIsObject
+# Description : Returns 1 if the given name is a GObject or a subclass.
+#                It uses the global @Objects array.
+#                Note that the @Objects array only contains classes in the
+#                current module and their ancestors - not all GObject classes.
+# Arguments   : $name - the name to check.
+#############################################################################
+
+sub CheckIsObject {
+    my ($name) = @_;
+
+    my $object;
+    foreach $object (@Objects) {
+        if ($object eq $name) {
+            return 1;
+        }
+    }
+    return 0;
+}
+

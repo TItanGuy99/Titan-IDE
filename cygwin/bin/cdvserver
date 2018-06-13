@@ -1,0 +1,282 @@
+#!/bin/python
+
+# Written by Ross Cohen
+# See LICENSE.TXT for license information.
+
+try:
+    import Codeville.db
+except ImportError:
+    import sys, os.path
+    from os.path import dirname, abspath, join
+    pypath = "lib/python%d.%d/site-packages" % \
+                (sys.version_info[0], sys.version_info[1])
+    base   = dirname(dirname(abspath(sys.argv[0])))
+    sys.path[0:0] = [ join(base, pypath) ]  # first place to look
+
+from Codeville.db import VersionMismatchException
+from Codeville.db import check_format_version, check_rebuild_version
+from Codeville.db import write_rebuild_version
+from Codeville.server import ServerHandler, ServerError
+from Codeville.history import rebuild_from_points, rootnode
+from ConfigParser import ConfigParser
+from getopt import getopt, GetoptError
+import os
+from os import path
+from random import seed
+import signal
+from sys import argv, exit
+import sys
+from time import time
+from traceback import print_exc
+
+sh = None
+keyboard_interrupt = None
+
+def signal_handler(signum, frame):
+    print 'Shutting down...'
+    sh.rs.doneflag.set()
+
+def run(args):
+    seed(time() + os.getpid())
+
+    if sys.platform == 'win32':
+        daemonize = False
+        noconfig = True
+    else:
+        daemonize = True
+        noconfig = False
+        configfile = '/etc/cdvserver.conf'
+
+    # parse command line arguments
+    initialize = False
+    rebuild    = False
+    try:
+        optlist, args = getopt(args, 'bc:df:il:no:p:ru:')
+    except GetoptError:
+        print """Valid options are:
+	-b
+	-c <configfile>
+	-d
+	-f <datadir>
+	-i
+	-l <logfile>
+	-n
+	-o <port>
+	-p <pidfile>
+	-r
+	-u <user>"""
+        return 1
+
+    # do a first pass of the command line to pick up an alternate config
+    for (opt, arg) in optlist:
+        if opt == '-c':
+            configfile = arg
+        elif opt == '-n':
+            noconfig = True
+
+    config = ConfigParser()
+
+    # set the defaults
+    config.add_section('control')
+    config.set('control',    'pidfile',    '/var/run/cdvserver.pid')
+    config.set('control',    'backup',     'False')
+    config.set('control',    'port',       '6601')
+    if sys.platform == 'win32':
+        config.set('control', 'datadir',    os.getcwd())
+    else:
+        config.set('control', 'datadir', '/var/lib/cdvserver')
+        config.set('control', 'logfile', '/var/log/cdvserver.log')
+    config.add_section('post-commit')
+
+    # next read the config file
+    if not noconfig:
+        try:
+            confighandle = open(configfile, 'r')
+        except IOError, msg:
+            print 'Could not open config file: ' + str(msg)
+            return 1
+
+        config.readfp(confighandle)
+        confighandle.close()
+
+    # finally, override everything else with command line options
+    for (opt, arg) in optlist:
+        if opt == '-b':
+            config.set('control', 'backup', 'True')
+        elif opt == '-d':
+            daemonize = False
+        elif opt == '-f':
+            config.set('control', 'datadir', arg)
+        elif opt == '-i':
+            initialize = True
+        elif opt == '-l':
+            config.set('control', 'logfile', arg)
+        elif opt == '-o':
+            config.set('control', 'port', arg)
+        elif opt == '-p':
+            config.set('control', 'pidfile', arg)
+        elif opt == '-r':
+            rebuild = True
+        elif opt == '-u':
+            config.set('control', 'user', arg)
+
+    if len(args) != 0:
+        print 'Command takes no arguments'
+        return 1
+
+    metadata_dir = path.join(config.get('control', 'datadir'), '.cdv')
+
+    # create the handler object
+    global sh
+    try:
+        sh = ServerHandler(config)
+    except ServerError, msg:
+        print 'Error - %s' % (msg,)
+        return 1
+
+    # make sure we can read the repository format
+    repo_marker = path.join(config.get('control', 'datadir'),
+                            'codeville_repository')
+    if initialize:
+        if path.exists(repo_marker):
+            print config.get('control', 'datadir') + " is already initialized as a repository"
+            return 1
+        crp = open(repo_marker, 'w')
+        crp.close()
+
+        sh.db_init(init=initialize)
+        return 0
+
+    else:
+        if not path.exists(repo_marker):
+            print config.get('control', 'datadir') + " is not a repository, start with -i to initalize one"
+            return 1
+
+        try:
+            check_format_version(metadata_dir)
+        except VersionMismatchException, versions:
+            print "error - expected version %d does not match repository version %d, you probably need to run cdvupgrade." % versions.args
+            return 1
+
+    # sanity checks
+    try:
+        int(config.get('control', 'port'))
+    except ValueError:
+        print 'Invalid port %s' % config.get('control', 'port')
+        return 1
+
+    # bind the port before forking so that we can report errors
+    try:
+        sh.bind(int(config.get('control', 'port')))
+    except Exception, msg:
+        print 'Error - ' + str(msg)
+        print 'Exiting...'
+        sh.close()
+        return 1
+
+    if daemonize == True:
+        try:
+            loghandle = open(config.get('control', 'logfile'), 'a')
+        except IOError:
+            print 'Could not open log file, exiting...'
+            sh.close()
+            return 1
+
+        # send all our output to the log
+        sys.stdout.close()
+        sys.stderr.close()
+        sys.stdout = loghandle
+        sys.stderr = loghandle
+
+        # open the pid file before forking so we can report errors
+        try:
+            pidhandle = open(config.get('control', 'pidfile'), 'w')
+        except IOError:
+            print 'Could not write pid file, exiting...'
+            sh.close()
+            return 1
+
+        # switch to the specified user
+        if config.has_option('control', 'user'):
+            import pwd
+            try:
+                pwe = pwd.getpwnam(config.get('control', 'user'))
+            except KeyError:
+                print 'No such user ' + config.get('control', 'user') + ', exiting...'
+                os.remove(config.get('control', 'pidfile'))
+                sh.close()
+                return 1
+
+            os.chown(config.get('control', 'pidfile'), pwe.pw_uid, pwe.pw_gid)
+            os.chown(config.get('control', 'logfile'), pwe.pw_uid, pwe.pw_gid)
+
+            try:
+                os.setegid(pwe.pw_gid)
+                os.seteuid(pwe.pw_uid)
+            except OSError, msg:
+                print 'Could not switch to user ' + pwe.pw_name + ', exiting...'
+                os.remove(config.get('control', 'pidfile'))
+                sh.close()
+                return 1
+
+        sh.db_init()
+
+        pid = os.fork()
+        if pid:
+            pidhandle.write(str(pid))
+            pidhandle.close()
+            return 0
+
+        pidhandle.close()
+
+    else:
+        sh.db_init()
+
+    if rebuild:
+        print 'Rebuilding...'
+
+        # Don't sync the same point twice, this includes the root node
+        points = sh.repolistdb.values()
+        unique_points = dict.fromkeys(points)
+        if unique_points.has_key(rootnode):
+            del unique_points[rootnode]
+        points = unique_points.keys()
+        points[:0] = [rootnode]
+
+        txn = sh.txn_begin()
+        rebuild_from_points(sh, points, txn)
+        sh.txn_commit(txn)
+        write_rebuild_version(metadata_dir)
+    else:
+        try:
+            check_rebuild_version(metadata_dir)
+        except VersionMismatchException, versions:
+            print "error - auxiliary format %d does not match repository format %d, you need to start the server with -r to rebuild" % versions.args
+            return 1
+
+    retval = 0
+
+    print 'Listening for clients...'
+    signal.signal(signal.SIGHUP, signal_handler)
+    signal.signal(signal.SIGPIPE, signal.SIG_IGN)
+    signal.signal(signal.SIGINT, signal_handler)
+    signal.signal(signal.SIGTERM, signal_handler)
+    try:
+        sh.listen_forever()
+    except:
+        print_exc()
+        retval = 1
+    sh.close()
+
+    if daemonize == True:
+        if config.has_option('control', 'user'):
+            os.seteuid(os.getuid())
+        os.remove(config.get('control', 'pidfile'))
+
+    return retval
+
+if __name__ == '__main__':
+    #import profile
+    #retval = profile.run('run(argv[1:])')
+    retval = run(argv[1:])
+    exit(retval)

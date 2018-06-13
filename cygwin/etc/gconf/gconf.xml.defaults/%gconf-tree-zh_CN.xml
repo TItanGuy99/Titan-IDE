@@ -1,0 +1,627 @@
+<?xml version="1.0"?>
+<gconf>
+	<dir name="schemas">
+		<dir name="system">
+			<dir name="smb">
+				<entry name="workgroup">
+					<local_schema short_desc="SMB 工作组">
+						<longdesc>用户所属的 Windows 网络工作组或域。为了让新工作组完全生效，用户可能需要注销并再次登录。</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="proxy">
+				<entry name="autoconfig_url">
+					<local_schema short_desc="自动代理配置 URL">
+						<longdesc>提供代理配置值的 URL。</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="socks_port">
+					<local_schema short_desc="SOCKS 代理端口">
+						<longdesc>您使用的代理服务器的端口号定义在“/system/proxy/socks_host”中。</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="socks_host">
+					<local_schema short_desc="SOCKS 代理主机名">
+						<longdesc>代理套接字的机器名。</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="ftp_port">
+					<local_schema short_desc="FTP 代理端口">
+						<longdesc>您使用的代理服务器的端口号定义在“/system/proxy/ftp_host”中。</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="ftp_host">
+					<local_schema short_desc="FTP 代理主机名">
+						<longdesc>代理 FTP 的机器名。</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="secure_port">
+					<local_schema short_desc="安全 HTTP 代理端口">
+						<longdesc>您使用的代理服务器的端口号定义在“/system/proxy/secure_host”中。</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="secure_host">
+					<local_schema short_desc="安全 HTTP 代理主机名">
+						<longdesc>代理安全 HTTP 的机器名。</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="mode">
+					<local_schema short_desc="代理配置模式">
+						<longdesc>选择代理配置模式。支持的值为“无”、“手动”、“自动”。</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="http_proxy">
+				<entry name="ignore_hosts">
+					<local_schema short_desc="非代理服务器">
+						<longdesc>此键中定义的主机列表将不通过代理(如果有设定)而直接联接。其值可以是主机名、域名(支持通配符开头的形式如 *.foo.com)、IP 主机地址(既可 IPv4 亦可 IPv6)以及跟随网络掩码的网络地址(例如 192.168.0.0/24)。</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="authentication_password">
+					<local_schema short_desc="HTTP 代理密码">
+						<longdesc>用于 HTTP 代理认证的密码。</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="authentication_user">
+					<local_schema short_desc="HTTP 代理用户名">
+						<longdesc>用于 HTTP 代理认证的用户名。</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="use_authentication">
+					<local_schema short_desc="认证代理服务器连接">
+						<longdesc>若为真，则对代理服务器的连接需要身份验证。用户名/密码组合由“/system/http_proxy/authentication_user”和“/system/http_proxy/authentication_password”定义。</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="port">
+					<local_schema short_desc="HTTP 代理端口">
+						<longdesc>您使用的代理服务器的端口号定义在“/system/http_proxy/host”中。</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="host">
+					<local_schema short_desc="HTTP 代理主机名">
+						<longdesc>代理 HTTP 的机器名。</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="use_http_proxy">
+					<local_schema short_desc="使用 HTTP 代理">
+						<longdesc>访问 Internet 上的 HTTP 时启用代理服务器设置。</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="dns_sd">
+				<entry name="extra_domains">
+					<local_schema short_desc="DNS-SD 服务应查阅的额外域">
+						<longdesc>以逗号分隔的 DNS-SD 域列表，这些域将出现在“network:///”位置中。</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="display_local">
+					<local_schema short_desc="如何显示本地 DNS-SD 服务">
+						<longdesc>可供选择的值有“merged”、“separate”和“disabled”。</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+		</dir>
+		<dir name="desktop">
+			<dir name="gnome">
+				<dir name="typing_break">
+					<entry name="enabled">
+						<local_schema short_desc="是否允许键盘锁定">
+							<longdesc>是否允许键盘锁定。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="allow_postpone">
+						<local_schema short_desc="允许推迟间断">
+							<longdesc>是否可推迟打字间断屏幕。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="break_time">
+						<local_schema short_desc="间断时间">
+							<longdesc>打字间断应该持续的分钟数。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="type_time">
+						<local_schema short_desc="打字时间">
+							<longdesc>间断模式开始前的最少打字时间。</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="thumbnailers">
+					<entry name="disable_all">
+						<local_schema short_desc="禁用所有外部缩略图程序">
+							<longdesc>设为 true 可禁用所有外部缩略图程序，而不管这些程序自身是启用还是禁用。</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="thumbnail_cache">
+					<entry name="maximum_size">
+						<local_schema>
+							<longdesc>缓存缩略图的最大大小，以 mb 为单位。设定为-1以禁用自动清除。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="maximum_age">
+						<local_schema>
+							<longdesc>缓存缩略图的最长寿命，以天为单位。设定为-1以禁用自动清除。</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="sound">
+					<entry name="input_feedback_sounds">
+						<local_schema short_desc="输入反馈声音">
+							<longdesc>是否在输入事件发生时播放声音。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="theme_name">
+						<local_schema short_desc="声音主题名称">
+							<longdesc>用于事件声音的 XDG 声音主题。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="event_sounds">
+						<local_schema short_desc="事件的声音">
+							<longdesc>是否在用户事件发生时播放声音。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="enable_esd">
+						<local_schema short_desc="启用 ESD">
+							<longdesc>在启动时启用声音服务器。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="default_mixer_tracks">
+						<local_schema short_desc="默认混音器音轨">
+							<longdesc>多媒体按键绑定所使用的默认混音器音轨。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="default_mixer_device">
+						<local_schema short_desc="默认混音器设备">
+							<longdesc>多媒体按键绑定所使用的默认混音器设备。</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="peripherals">
+					<dir name="mouse">
+						<entry name="cursor_size">
+							<local_schema short_desc="光标大小">
+								<longdesc>cursor_theme 引用的光标大小。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="cursor_theme">
+							<local_schema short_desc="光标主题">
+								<longdesc>光标主题名称。仅适用于支持 Xcursor 的 Xserver，比如 XFree86 4.3 或更新版本。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="cursor_font">
+							<local_schema short_desc="光标字体">
+								<longdesc>光标字体的名称。如果未设置，则使用默认的字体。此设置只有在每次会话开始前传送给 X 服务器，因此在会话当中改变它不会有用，要等到您下次登录后才会起作用。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="locate_pointer">
+							<local_schema short_desc="定位指针">
+								<longdesc>当键按下和放开时突出显示指针的当前位置。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="double_click">
+							<local_schema short_desc="双击时间">
+								<longdesc>鼠标双击的时间长度。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="drag_threshold">
+							<local_schema short_desc="拖放阈值">
+								<longdesc>判断拖放开始的距离。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="motion_threshold">
+							<local_schema short_desc="运动阈值">
+								<longdesc>启动鼠标运动加速前鼠标必须移动的像素点数。系统默认的值是 -1。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="motion_acceleration">
+							<local_schema short_desc="单击">
+								<longdesc>鼠标运动的加速倍数。系统的默认值是 -1。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="single_click">
+							<local_schema short_desc="单击">
+								<longdesc>单击以打开图标。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="left_handed">
+							<local_schema short_desc="鼠标按钮方向">
+								<longdesc>为左手鼠标交换左右鼠标按钮。</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="keyboard">
+						<entry name="remember_numlock_state">
+							<local_schema short_desc="记住 NumLock 状态">
+								<longdesc>设定为 true 时，GNOME 将在不同会话间记住 NumLock 灯的状态。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bell_custom_file">
+							<local_schema short_desc="自定义键盘铃声文件名">
+								<longdesc>要播放的响铃声音的文件名。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bell_mode">
+							<local_schema>
+								<longdesc>可用的值是“on”，“off”和“custom”。</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+				<dir name="lockdown">
+					<entry name="disable_application_handlers">
+						<local_schema short_desc="禁用 URL 和 MIME 类型处理器">
+							<longdesc>阻止运行任何 URL 或 MIME 类型处理程序。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_lock_screen">
+						<local_schema short_desc="禁止锁定屏幕">
+							<longdesc>禁止用户锁定自己的屏幕。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_user_switching">
+						<local_schema short_desc="禁用用户切换">
+							<longdesc>禁止用户在本人会话活动时切换到另外一个账户。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_print_setup">
+						<local_schema short_desc="禁用打印设置">
+							<longdesc>避免用户修改打印设置。例如，这将禁止访问全部应用程序的“打印设置”对话框。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_printing">
+						<local_schema short_desc="禁用打印">
+							<longdesc>避免用户进行打印。例如，这将禁止访问全部应用程序的“打印”对话框。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_save_to_disk">
+						<local_schema short_desc="禁止将文件保存到磁盘">
+							<longdesc>避免用户将文件保存到磁盘。例如，这将禁止访问全部应用程序的“另存为”对话框。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_command_line">
+						<local_schema short_desc="禁用命令行">
+							<longdesc>避免用户表单访问终端或指定要执行的命令行。例如，这将禁止访问面板的“运行应用程序”对话框。</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="interface">
+					<entry name="show_unicode_menu">
+						<local_schema short_desc="显示“Unicode 控制字符”菜单">
+							<longdesc>输入框和文本视图中的快捷菜单是否应提供插入控制字符的选项。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="show_input_method_menu">
+						<local_schema short_desc="显示“输入法”菜单">
+							<longdesc>输入框和文本视图中的快捷菜单是否应提供更改输入法的选项。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menubar_accel">
+						<local_schema short_desc="菜单栏加速键">
+							<longdesc>打开菜单栏的键盘快捷键。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="file_chooser_backend">
+						<local_schema short_desc="GtkFileChooser 的模块">
+							<longdesc>GtkFileChooser 部件所用的文件系统模型的模块。可供选择的值是“gio”、“gnome-vfs”和“gtk+”。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="status_bar_meter_on_right">
+						<local_schema short_desc="状态栏位于右边">
+							<longdesc>是否在右边显示状态栏指示。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="use_custom_font">
+						<local_schema short_desc="使用自定义字体">
+							<longdesc>是否在 gtk+ 程序中使用自定义字体。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="monospace_font_name">
+						<local_schema short_desc="等距字体">
+							<longdesc>类似终端程序等位置中所用的等距(固定宽度)字体。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="document_font_name">
+						<local_schema short_desc="文档字体">
+							<longdesc>读取文档所使用的默认字体的名称。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-module">
+						<local_schema short_desc="GTK IM 模块">
+							<longdesc>GTK+ 使用的输入法模块的名称。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-status-style">
+						<local_schema short_desc="GTK IM 状态风格">
+							<longdesc>gtk+ 使用的 GTK+ 输入法状态风格的名称。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-preedit-style">
+						<local_schema short_desc="GTK IM 预编辑风格">
+							<longdesc>gtk+ 使用的 GTK+ 输入法预编辑风格的名称。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="font_name">
+						<local_schema short_desc="默认字体">
+							<longdesc>gtk+ 使用的默认字体的名称。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_key_theme">
+						<local_schema short_desc="Gtk+ 主题">
+							<longdesc>gtk+ 使用的默认主题的基本名称。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_theme">
+						<local_schema short_desc="Gtk+ 主题">
+							<longdesc>gtk+ 使用的默认主题的基本名称。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="icon_theme">
+						<local_schema short_desc="图标主题">
+							<longdesc>用于面板、Nautilus 等的图标主题。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink_time">
+						<local_schema short_desc="光标闪烁时间">
+							<longdesc>光标闪烁周期的长度，单位为毫秒。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink">
+						<local_schema short_desc="光标闪烁">
+							<longdesc>光标是否应该闪烁。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_icons_size">
+						<local_schema short_desc="工具栏图标大小">
+							<longdesc>工具栏图标的大小，“小号工具栏”或者“大号工具栏”。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_detachable">
+						<local_schema short_desc="工具栏可分离">
+							<longdesc>用户是否能分离工具栏并四处移动它们。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menubar_detachable">
+						<local_schema short_desc="菜单栏可分离">
+							<longdesc>用户是否能分离菜单栏并四处移动它们。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="buttons_have_icons">
+						<local_schema short_desc="按钮上有图标">
+							<longdesc>是否在按钮文本旁边显示图标。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menus_have_icons">
+						<local_schema short_desc="菜单上使用图标">
+							<longdesc>是否在菜单上菜单项的旁边显示图标。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_style">
+						<local_schema short_desc="工具栏风格">
+							<longdesc>工具栏风格。有效的值是“都有”，“都有(水平)”，“图表”和“文本”。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="can_change_accels">
+						<local_schema short_desc="能改变加速键">
+							<longdesc>当指针指向激活菜单项时，用户是否能动态地输入新的加速键。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menus_have_tearoff">
+						<local_schema short_desc="菜单具有分离条">
+							<longdesc>菜单是否应该有分离条。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="enable_animations">
+						<local_schema short_desc="启用动画">
+							<longdesc>是否应该显示动画。注意：这是一个全局的设置，它将改变窗口管理器、面板等的行为。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="accessibility">
+						<local_schema short_desc="启用辅助工具">
+							<longdesc>应用程序是否应该有辅助访问支持。</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="file-views">
+					<entry name="icon_theme">
+						<local_schema short_desc="文件图标主题">
+							<longdesc>用于显示文件图标的主题。</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="background">
+					<entry name="color_shading_type">
+						<local_schema short_desc="颜色渐变类型">
+							<longdesc>如何渐变背景颜色。可用的值有“水平渐变”，“垂直渐变”和“纯色”。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="secondary_color">
+						<local_schema short_desc="次要颜色">
+							<longdesc>绘制渐变带时的右边或下边颜色，绘制纯色时不使用。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="primary_color">
+						<local_schema short_desc="主要颜色">
+							<longdesc>绘制渐变带时左边或上边的颜色，或者是绘制的纯色。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_opacity">
+						<local_schema short_desc="图片不透明度">
+							<longdesc>绘制背景图片的不透明度。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_filename">
+						<local_schema short_desc="图片文件名">
+							<longdesc>用作背景图片的文件。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_options">
+						<local_schema short_desc="图片选项">
+							<longdesc>决定如何显示墙纸文件名指定的图片。可用的值有：“none”、“wallpaper”、“centered”、“scaled”、“stretched”、“zoom”和“spanned”。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="draw_background">
+						<local_schema short_desc="绘制桌面背景">
+							<longdesc>让 GNOME 绘制桌面背景。</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="applications">
+					<dir name="component_viewer">
+						<entry name="exec">
+							<local_schema short_desc="默认组件查看器应用程序">
+								<longdesc>该应用程序用于查看需要组件才能查看的文件。参数 %s 将被替换为文件的 URI，参数 %c 将被替换为组件 IID。</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="window_manager">
+						<entry name="workspace_names">
+							<local_schema short_desc="工作区名称(不推荐)">
+								<longdesc>第一个窗口管理器工作区名称的列表。此键自 GNOME 2.12 之后不再推荐使用。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="number_of_workspaces">
+							<local_schema short_desc="工作区数目(不推荐)">
+								<longdesc>窗口管理器应该使用的工作区数目。此键自 GNOME 2.12 之后不再推荐使用。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="current">
+							<local_schema short_desc="用户窗口管理器(不推荐)">
+								<longdesc>首先尝试的窗口管理器。此键自 GNOME 2.12 之后不再推荐使用。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="default">
+							<local_schema short_desc="默认窗口管理器(不推荐)">
+								<longdesc>用户窗口管理器无法找到时使用的默认窗口管理器。此键自 GNOME 2.12 之后不再推荐使用。</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="terminal">
+						<entry name="exec_arg">
+							<local_schema short_desc="默认终端的执行参数">
+								<longdesc>为默认终端应用程序所使用的执行参数。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="默认终端应用程序">
+								<longdesc>为需要终端的应用程序所使用的默认终端应用程序。</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="tasks">
+						<entry name="needs_term">
+							<local_schema short_desc="任务需要终端">
+								<longdesc>默认的任务应用程序是否需要终端来运行。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="默认任务">
+								<longdesc>默认任务应用程序</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="calendar">
+						<entry name="needs_term">
+							<local_schema short_desc="日历需要终端">
+								<longdesc>默认的日历应用程序是否需要终端来运行。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="默认日历">
+								<longdesc>终端日历应用程序</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="browser">
+						<entry name="nremote">
+							<local_schema short_desc="浏览器理解远程命令">
+								<longdesc>默认的浏览器是否理解 netscape 远程控制命令。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="needs_term">
+							<local_schema short_desc="浏览器需要终端">
+								<longdesc>默认的浏览器是否需要终端来运行。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="默认浏览器">
+								<longdesc>全部 URL 的默认浏览器。</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="at">
+						<dir name="visual">
+							<entry name="startup">
+								<local_schema short_desc="启动首选的视觉辅助技术应用程序">
+									<longdesc>GNOME 将要在登录时启动的首选视觉辅助技术应用程序。</longdesc>
+								</local_schema>
+							</entry>
+							<entry name="exec">
+								<local_schema short_desc="首选的视觉辅助技术应用程序">
+									<longdesc>为登录、菜单或命令行使用的首选视觉辅助技术应用程序。</longdesc>
+								</local_schema>
+							</entry>
+						</dir>
+						<dir name="mobility">
+							<entry name="startup">
+								<local_schema short_desc="启动首选的行动辅助技术应用程序">
+									<longdesc>GNOME 将要在登录时启动的首选移动辅助技术应用程序。</longdesc>
+								</local_schema>
+							</entry>
+							<entry name="exec">
+								<local_schema short_desc="首选的行动辅助技术应用程序">
+									<longdesc>为登录、菜单或命令行使用的首选移动辅助技术应用程序。</longdesc>
+								</local_schema>
+							</entry>
+						</dir>
+					</dir>
+				</dir>
+				<dir name="accessibility">
+					<dir name="startup">
+						<entry name="exec_ats">
+							<local_schema short_desc="启动辅助技术应用程序">
+								<longdesc>登录 GNOME 桌面时启动的辅助技术应用程序列表。</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="keyboard">
+						<entry name="stickykeys_modifier_beep">
+							<local_schema>
+								<longdesc>按下修改键时响铃。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="stickykeys_two_key_off">
+							<local_schema>
+								<longdesc>如果两个键同时按下则禁用。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="slowkeys_delay">
+							<local_schema short_desc="最小间隔毫秒数">
+								<longdesc>除非按住 @delay 毫秒不放，否则不接受按键输入。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_init_delay">
+							<local_schema short_desc="初始延迟毫秒数">
+								<longdesc>在鼠标移动键起作用前等待多少毫秒。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_accel_time">
+							<local_schema short_desc="经过多少毫秒后开始加速">
+								<longdesc>在多少毫秒内从 0 增长到最大速度。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_max_speed">
+							<local_schema short_desc="每秒像素点">
+								<longdesc>最大速度时每秒钟移动多少个像素点。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bouncekeys_delay">
+							<local_schema short_desc="最小间隔毫秒数">
+								<longdesc>忽略在 @delay 毫秒内多次按下的“同一个”键。</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+			</dir>
+		</dir>
+	</dir>
+</gconf>

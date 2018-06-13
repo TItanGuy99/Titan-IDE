@@ -1,0 +1,58 @@
+#! /usr/bin/perl
+
+#============================================================================
+#  This is a compatibility interface to Pbmtoxbm.
+#
+#  It exists so existing programs and procedures that rely on Pbmtox10bm
+#  syntax continue to work.  You should not make new use of Pbmtox10bm and
+#  if you modify an old use, you should upgrade it to use Pbmtoxbm.
+#
+#  Pbmtoxbm with the -x10 option is backward compatible with Pbmtox10bm.
+#============================================================================
+
+use strict;
+use File::Basename;
+use Cwd 'abs_path';
+
+sub doVersionHack($) {
+    my ($argvR) = @_;
+
+    my $arg1 = $argvR->[0];
+
+    if (defined($arg1) && (($arg1 eq "--version") || ($arg1 eq "-version"))) {
+        my $termStatus = system('pbmtoxbm', '--version');
+        exit($termStatus == 0 ? 0 : 1);
+    }
+}
+
+doVersionHack(\@ARGV);
+
+my $infile;
+
+foreach (@ARGV) {
+    if (/^-/) {
+        # It's an option.  But Pbmtox10bm didn't have any options.
+        print(STDERR "Invalid option '$_'\n");
+        exit(10);
+    } else {
+        # It's a parameter
+        if (defined($infile)) {
+            print(STDERR
+                  "You may specify at most one non-option parameter.\n");
+            exit(10);
+        } else {
+            $infile = $_;
+        }
+    }
+}
+
+my $infileParm = defined($infile) ? $infile : "-";
+
+# We want to get Pbmtoxbm from the same directory we came from if
+# it's there.  Frequently, the directory containing Netpbm programs is
+# not in the PATH and we were invoked by absolute path.
+
+my $my_directory = abs_path(dirname($0));
+$ENV{"PATH"} = $my_directory . ":" . $ENV{"PATH"};
+
+exec('pbmtoxbm', '-x10', $infileParm);

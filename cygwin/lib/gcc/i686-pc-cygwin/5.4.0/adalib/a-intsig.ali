@@ -1,0 +1,84 @@
+V "GNAT Lib v5"
+A -gnatwa
+A -nostdinc
+A -O2
+A -Wextra
+A -Wall
+A -g
+A -gnatp
+A -gnatg
+A -mtune=generic
+A -march=i686
+P ZX
+
+RN
+
+U ada.interrupts.signal%b  a-intsig.adb		012be6f2 NE OL PK
+W ada.interrupts%s	a-interr.adb		a-interr.ali
+W system%s		system.ads		system.ali
+W system.interrupt_management%s  s-intman.adb	s-intman.ali
+W system.interrupt_management.operations%s  s-inmaop.adb  s-inmaop.ali
+
+U ada.interrupts.signal%s  a-intsig.ads		5bd6fd92 NE OL PK
+W ada.interrupts%s	a-interr.adb		a-interr.ali
+
+D ada.ads		20070406091342 3ffc8e18 ada%s
+D a-except.ads		20140730140058 5250cb69 ada.exceptions%s
+D a-finali.ads		20140611123707 69f99942 ada.finalization%s
+D a-interr.ads		20090409150019 391cab36 ada.interrupts%s
+D a-intsig.ads		20090409150019 62ca56a4 ada.interrupts.signal%s
+D a-intsig.adb		20090409150019 3de2a799 ada.interrupts.signal%b
+D a-stream.ads		20141120112812 119b8fb3 ada.streams%s
+D a-tags.ads		20140730140058 dc4d0634 ada.tags%s
+D a-unccon.ads		20070406091342 f9eb8f06 ada.unchecked_conversion%s
+D interfac.ads		20141120112812 6033a23f interfaces%s
+D i-c.ads		20110801143639 5421119b interfaces.c%s
+D i-cstrin.ads		20140611122922 341d0ddf interfaces.c.strings%s
+D system.ads		20141030114420 f4ce8c3a system%s
+D s-atacco.ads		20120515093410 4c36d12f system.address_to_access_conversions%s
+D s-exctab.ads		20140225151139 54135002 system.exception_table%s
+D s-finroo.ads		20120426095924 4ff27390 system.finalization_root%s
+D s-intman.ads		20140730124603 47ba1e06 system.interrupt_management%s
+D s-inmaop.ads		20090409150019 5e0317cf system.interrupt_management.operations%s
+D s-interr.ads		20140813165905 269c22db system.interrupts%s
+D s-multip.ads		20101011073009 38ac9f73 system.multiprocessors%s
+D s-osinte.ads		20150107102251 2e5b26a9 system.os_interface%s
+D s-parame.ads		20140801093848 7e2a0d7f system.parameters%s
+D s-soflin.ads		20140801100131 aa763b52 system.soft_links%s
+D s-stache.ads		20140225151139 a37c21ec system.stack_checking%s
+D s-stausa.ads		20110804134155 017a0a05 system.stack_usage%s
+D s-stalib.ads		20150220094550 fa0a3617 system.standard_library%s
+D s-stoele.ads		20140225151139 2dc34a04 system.storage_elements%s
+D s-tasinf.ads		20140613095942 601f6b72 system.task_info%s
+D s-taspri.ads		20141120144719 6c1d93d4 system.task_primitives%s
+D s-taskin.ads		20150106085750 339749f0 system.tasking%s
+D s-taprob.ads		20110927094500 502249e3 system.tasking.protected_objects%s
+D s-tpoben.ads		20121029113218 b641f948 system.tasking.protected_objects.entries%s
+D s-traent.ads		20140730135025 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20140731130224 9d58a4c0 system.unsigned_types%s
+D s-win32.ads		20140120152906 b7f96285 system.win32%s
+X 1 ada.ads
+16K9*Ada 19e8 5|37r9 42r5 6|34r14 46r5
+X 4 a-interr.ads
+38K13*Interrupts 1|16k9 4|71e19 5|37r13 42r9 6|34r18 46r9
+40I9*Interrupt_ID<19|64I9> 5|39r46 6|40r46
+X 5 a-intsig.ads
+37K24*Signal 4|38k13 5|42l20 42e26 6|34b29 46l20 46t26
+39U14*Generate_Interrupt 39>34 6|40b14 44l8 44t26
+39i34 Interrupt{4|40I9} 6|40b34 43r52
+X 11 i-c.ads
+35I9*int<integer>
+X 13 system.ads
+37K9*System 6|32r6 42r7 43r10 13|199e11
+X 17 s-intman.ads
+50K16*Interrupt_Management 6|32r13 42r14 43r17 17|111e32
+55I9*Interrupt_ID<11|35I9> 6|43r38
+X 18 s-inmaop.ads
+32K37*Operations 6|32w34 42r35 18|125e43
+99U14*Interrupt_Self_Process 6|42s46
+X 19 s-interr.ads
+64I9*Ada_Interrupt_ID<short_short_integer>
+X 25 s-stausa.ads
+203U14*Initialize 204i<c,__gnat_stack_usage_initialize>22
+268U14*Output_Results 272i<c,__gnat_stack_usage_output_results>22
+

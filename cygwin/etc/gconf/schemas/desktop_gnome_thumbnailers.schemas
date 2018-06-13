@@ -1,0 +1,403 @@
+<?xml version="1.0"?>
+<gconfschemafile>
+  <schemalist>
+
+    <schema>
+      <key>/schemas/desktop/gnome/thumbnailers/disable_all</key>
+      <applyto>/desktop/gnome/thumbnailers/disable_all</applyto>
+      <owner>gnome</owner>
+      <type>bool</type>
+      <default>false</default>
+      <locale name="C">
+        <short>Disable all external thumbnailers</short>
+        <long>Set to true to disable all external thumbnailer programs, independent on whether they are independently disabled/enabled.</long>
+      </locale>
+
+      <locale name="ar">
+        <short>عطّل كل المُضغّرات الخارجية</short>
+        <long>اضبط لصحيح لتعطيل كل البرامج الخارجية لانشاء مصغرات،يتوقف استقلال الفعل عما إذا ستعطل/تفعل مفردة.</long>
+      </locale>
+
+      <locale name="as">
+        <short>সমস্ত বহিস্থিত থাম্ব-নেইল নিষ্ক্ৰিয় কৰা হ&apos;ব</short>
+        <long>থাম্ব-নেইল অনুপ্ৰয়োগসমূহ স্বতন্ত্ৰৰূপে নিষ্ক্ৰিয়/সক্ৰিয় থাকিলেও সমস্ত বহিস্থিত থাম্ব-নেইল অনুপ্ৰয়োগ নিষ্ক্ৰিয় কৰিবলৈ মান true (সত্য) নিৰ্ধাৰণ কৰক ।</long>
+      </locale>
+
+      <locale name="ast">
+        <short>Desactivar tolos miniaturizadores esternos</short>
+        <long>Conseña &quot;true&quot; pa desactivar tolos programes miniaturizadores esternos, independientemente de si tan activaos o desactivaos pel so lláu.</long>
+      </locale>
+
+      <locale name="az">
+        <short>Bütün xarici ön nümayişçiləri qeyri-fəallaşdır</short>
+        <long>Bütün xarici ön nümayişçiləri qeyri-fəallaşdırmaq üçün seçin</long>
+      </locale>
+
+      <locale name="be">
+        <short>Выключыць усе вонкавыя стваральнікі мініятураў</short>
+        <long>Усталюйце ў &quot;Ісьціна&quot;, каб выключыць усе вонкавыя праграмы для стварэньня мініяцюраў; гэта не залежыць ад таго, ці ўключаны/выключаны яна паасобку.</long>
+      </locale>
+
+      <locale name="bg">
+        <short>Изключване на всички външни програми за създаване на мини-изображения</short>
+        <long>Укажете „истина“, за да се изключат всички външни програми за създаване на смалени изображения, независимо дали поотделно са включени или не.</long>
+      </locale>
+
+      <locale name="bn">
+        <short>সমস্ত বহিস্থিত থাম্ব-নেইল নিষ্ক্রিয় করা হবে</short>
+        <long>থাম্ব-নেইল প্রোগ্রামগুলি স্বতন্ত্ররূপে নিষ্ক্রিয়/সক্রিয় থাকলেও সমস্ত বহিস্থিত থাম্ব-নেইল প্রোগ্রাম নিষ্ক্রিয় করতে মান true (সত্য) নির্ধারণ করুন।</long>
+      </locale>
+
+      <locale name="bn_IN">
+        <short>সমস্ত বহিস্থিত থাম্ব-নেইল নিষ্ক্রিয় করা হবে</short>
+        <long>থাম্ব-নেইল প্রোগ্রামগুলি স্বতন্ত্ররূপে নিষ্ক্রিয়/সক্রিয় থাকলেও সমস্ত বহিস্থিত থাম্ব-নেইল প্রোগ্রাম নিষ্ক্রিয় করতে মান true (সত্য) নির্ধারণ করুন।</long>
+      </locale>
+
+      <locale name="bs">
+        <short>Onemogući sve vanjske sličice</short>
+        <long>Postavi na istinito za isključivanje svih vanjskih programa za sličice, nezavisno da li su zasebno o(ne)mogućeni.</long>
+      </locale>
+
+      <locale name="ca">
+        <short>Inhabilita tots els creadors de miniatures externs</short>
+        <long>Establiu-ho a cert per inhabilitar tots els programes externs de creació de miniatures, independentment de si estan habilitats o inhabilitats.</long>
+      </locale>
+
+      <locale name="ca@valencia">
+        <short>Inhabilita tots els creadors de miniatures externs</short>
+        <long>Establiu-ho a cert per inhabilitar tots els programes externs de creació de miniatures, independentment de si estan habilitats o inhabilitats.</long>
+      </locale>
+
+      <locale name="crh">
+        <short>Bütün tış başparmaq-tırnaqçılarını ğayrı qabilleştir.</short>
+        <long>Ayrı-ayrı ğayrı-qabilleştirilgen/qabilleştirilgen olmalarından bağımsız olaraq, bütün tış başparmaq-tırnaqçı programlarını ğayrı-qabilleştirmek içün saylañız.</long>
+      </locale>
+
+      <locale name="cs">
+        <short>Zakázat všechny externí tvůrce miniatur</short>
+        <long>Nastavte na true pro zákaz všech externích programů pro tvorbu miniatur, bez ohledu na to, jestli jsou jednotlivě zakázány/povoleny.</long>
+      </locale>
+
+      <locale name="cy">
+        <short>Analluogi pob teclyn allanol i greu braslun</short>
+        <long>Gosod yn wir er mwyn analluogi pob rhaglen allanol i greu brasluniau, a ydynt wedi eu galluogi/analluogi yn unigol ai peidio.</long>
+      </locale>
+
+      <locale name="da">
+        <short>Deaktivér alle eksterne miniaturegenereringer</short>
+        <long>Om alle eksterne miniaturegenereringer skal deaktiveres, uafhængigt af om de bliver deaktiveret/aktiveret hver for sig.</long>
+      </locale>
+
+      <locale name="de">
+        <short>Alle externen Miniatur-Vorschaubilderzeuger deaktivieren</short>
+        <long>Sollen alle externen Programme zum Erzeugen von Miniatur-Vorschaubildern deaktiviert werden, unabhängig davon, ob sie anderweitig aktiviert wurden?</long>
+      </locale>
+
+      <locale name="dz">
+        <short>ཕྱི་ཁའི་མཐེ་གཟེར་བརྡབ་མི་ ཆ་མཉམ་རང་ ལྕོགས་མིན་བཟོ།</short>
+        <long>ལས་རིམ་དེ་ཚུ་ རང་དབང་སྦེ་ ལྕོགས་མིན་/ལྕོགས་ཅན་ གང་རུང་ཡང་ ཕྱི་ཁའི་མཐེ་གཟེར་བརྡབ་མིའི་ལས་རིམ་ཚུ་ ལྕོགས་མིན་བཟོ་ནི་ལུ་ ངེས་བདེན་ལུ་ གཞི་སྒྲིག་འབད།</long>
+      </locale>
+
+      <locale name="el">
+        <short>Απενεργοποίηση όλων των εξωτερικών προγραμμάτων προεπισκόπησης</short>
+        <long>Ορισμός σε true για την απενεργοποίηση όλων των εξωτερικών προγραμμάτων προεπισκόπησης ανεξάρτητα από το αν είναι απενεργοποιημένα ή ενεργοποιημένα.</long>
+      </locale>
+
+      <locale name="en_CA">
+        <short>Disable all external thumbnailers</short>
+        <long>Set to true to disable all external thumbnailer programs, independent on whether they are independently disabled/enabled.</long>
+      </locale>
+
+      <locale name="en_GB">
+        <short>Disable all external thumbnailers</short>
+        <long>Set to true to disable all external thumbnailer programs, independent on whether they are independently disabled/enabled.</long>
+      </locale>
+
+      <locale name="eo">
+        <short>Elŝalti ĉiujn eksterajn miniaturigilojn</short>
+        <long>Agordu al vera por elŝalti ĉiujn eksterajn miniaturigajn programojn, sendepende de tio ĉu ili estas unuope malŝaltitaj/ŝaltitaj.</long>
+      </locale>
+
+      <locale name="es">
+        <short>Desactivar todos los miniaturizadores externos</short>
+        <long>Establecer a «true» para desactivar todos los programas miniaturizadores externos, independientemente de si estos están activados o desactivados independientemente.</long>
+      </locale>
+
+      <locale name="et">
+        <short>Kõikide väliste pisipilditegijate keelamine</short>
+        <long>Märgi see võti kõikide väliste pisipilditegijate keelamiseks sõltumata nende üksikult lubamisest/keelamisest.</long>
+      </locale>
+
+      <locale name="eu">
+        <short>Desgaitu kanpoko koadro txikitzaileak</short>
+        <long>Ezarri egia kanpoko koadro txikitzaileen programa guztiak desgaitzeko, beren kabuz gaituta/desgaituta dauden kontuan hartu gabe.</long>
+      </locale>
+
+      <locale name="fi">
+        <short>Poista erilliset pienoiskuvien tuottajat käytöstä</short>
+        <long>Kun tämä on ”true” (tosi), mitään erillisiä pienoiskuvien teko-ohjelmia ei käytetä, riippumatta siitä, mitä yksittäisissä kohdissa on valittu.</long>
+      </locale>
+
+      <locale name="fr">
+        <short>Désactiver tous les programmes de vignettage externes</short>
+        <long>Définir à vrai pour désactiver tous les programmes de vignettage externes, qu&apos;ils soient indépendamment activés ou désactivés.</long>
+      </locale>
+
+      <locale name="gl">
+        <short>Desactivar todas as miniaturizacións externas</short>
+        <long>Definir como true para desactivar todos os programas miniaturizadores externos, independentemente de se están activados ou desactivados de maneira independente.</long>
+      </locale>
+
+      <locale name="gu">
+        <short>બધા બાહ્ય થમ્બનેઈલરો નિષ્ક્રિય કરો</short>
+        <long>બધા બાહ્ય થમ્બનેઈલર કાર્યક્રમો નિષ્ક્રિય કરવા માટે ખરુ સુયોજિત કરો, શુ તેઓ સ્વતંત્ર રીતે નિષ્ક્રિય/સક્રિય હોય એના પર આધારિત નથી.</long>
+      </locale>
+
+      <locale name="he">
+        <short>Disable all external thumbnailers</short>
+        <long>Set to true to disable all external thumbnailer programs, independent on whether they are independently disabled/enabled.</long>
+      </locale>
+
+      <locale name="hi">
+        <short>सभी बाहरी थम्बनेलर्स अक्षम करें</short>
+        <long>सभी बाह्य थंबनेलर प्रोग्राम को निष्क्रिय करने के लिये सही वे स्वतंत्र रूप से निष्क्रिय हैं या नहीं</long>
+      </locale>
+
+      <locale name="hr">
+        <short>Isključuje sve vanjske sličice</short>
+        <long>Postavi potvrdno za isključivanje svih vanjskih programa za prikazivanje sličica, neovisno o tome dali su nezavisno uključeni ili isključeni.</long>
+      </locale>
+
+      <locale name="hu">
+        <short>Minden külső előnézet-program kikapcsolása</short>
+        <long>Állítsa igazra az összes külső előnézet-program kikapcsolásához, függetlenül attól, hogy ezek egyenként ki vagy be vannak-e kapcsolva.</long>
+      </locale>
+
+      <locale name="id">
+        <short>Matikan semua pembuat gambar kecil eksternal</short>
+        <long>Nyalakan untuk menonaktifkan semua program pembuat gambar kecil, terserah nantinya mau dinonaktifkan/dinyalakan per program atau tidak.</long>
+      </locale>
+
+      <locale name="is">
+        <short>Nota engin útvær smámyndatól</short>
+        <long>Hakaðu við þetta til þess að koma í veg fyrir að öll útvær smámyndatól verði notuð, hvernig sem hvert þeirra er stillt.</long>
+      </locale>
+
+      <locale name="it">
+        <short>Disabilita tutti i creatori di miniature esterni</short>
+        <long>Impostare a vero per disabilitare tutti i programmi esterni per creare provini e miniature, indipendentemente dalle impostazioni di ciascuno di essi.</long>
+      </locale>
+
+      <locale name="ja">
+        <short>サムネイル表示する外部のプログラムをすべて無効にする</short>
+        <long>TRUE にすると、サムネイル表示する外部プログラムを (外部プログラムの有効/無効に関わらず) すべて無効にします。</long>
+      </locale>
+
+      <locale name="ka">
+        <short>ყველა გარე მინიატურების ამორთვა</short>
+        <long>მიუთითეთ &apos;ჭეშმარიტი&apos; ჩართეთ ყველა გარე მინიატურების პროგრამის ამოსართავად, დამოუკიდებელი - მათ დამოუკიდებლად ამორთვა/ჩასართავად.</long>
+      </locale>
+
+      <locale name="kn">
+        <short>ಎಲ್ಲಾ ಹೊರಗಿನ ತಂಬ್‌ನೈಲರನ್ನು ಅಶಕ್ತಗೊಳಿಸು</short>
+        <long>ಹೊರಗಿನ ಎಲ್ಲಾ ತಂಬ್‌ನೈಲರ್ ಪ್ರೋಗ್ರಾಮುಗಳನ್ನು ಅಶಕ್ತಗೊಳಿಸಲು true ಗೆ ಬದಲಾಯಿಸಿ, ಅವುಗಳನ್ನು ಸ್ವತಂತ್ರವಾಗಿ ಅಶಕ್ತಗೊಳಿಸಲಾಗಿದೆ/ಶಕ್ತಗೊಳಿಸಲಾಗಿದೆಯೆ ಎಂಬುದನ್ನು ಹೊರತುಪಡಿಸಿ.</long>
+      </locale>
+
+      <locale name="ko">
+        <short>외부 썸네일 프로그램을 모두 사용하지 않음</short>
+        <long>모든 외부 썸네일 프로그램을 사용하지 않으면 true로 설정.  외부 썸네일 프로그램을 독립적으로 사용/사용하지 않게 만든 것과는 무관합니다.</long>
+      </locale>
+
+      <locale name="ku">
+        <short>Hemû pêşdîtinên derve betal bike</short>
+        <long>ji bo astengkirina hemû bernameyên derve yên avakirina mînakên wêneyan True çalak bike .</long>
+      </locale>
+
+      <locale name="lt">
+        <short>Atjungti visus išorinius miniatiūrų generatorius</short>
+        <long>Nustatykite teigiamai, jei norite blokuoti visas išorines miniatiūrų generavimo peržiūros programas, nepriklausomai nuo to, ar jos yra atskirai įjungtos/išjungtos.</long>
+      </locale>
+
+      <locale name="lv">
+        <short>Atslēgt visus ārējos sīktēlu veidotājus</short>
+        <long>Iestatiet uz patiess, lai atslēgtu visas ārējās sīktēlu veidošanas programmas, neatkarīgi no tā, vai tās ir atsevišķi ieslēgtas/izslēgtas.</long>
+      </locale>
+
+      <locale name="mai">
+        <short>सभटा बाहरी लघुचित्रसभकेँ अक्षम करू</short>
+        <long>सभटा बाहरी लघुचित्र प्रोग्रामकेँ निष्क्रिय करबाक लेल सही पर सेट करू, स्वतंत्र जकरा पर ओ स्वतंत्र रूपेँ निष्क्रिय/सक्रिय अछि अथवा नहि</long>
+      </locale>
+
+      <locale name="mg">
+        <short>Ajanony ny mpanao sary madinika ivelany rehetra</short>
+        <long>Ataovy marina raha hanajanona ny rindranasa mpanao sary madinika rehetra; tsy miankina amin&apos;ny fandefasana/fanajanona azy manokana any.</long>
+      </locale>
+
+      <locale name="mk">
+        <short>Оневозможи ги сите надворешни сликички</short>
+        <long>Поставете го на точно за да ги оневозможите сите надворешни програми за преглед на сликички.</long>
+      </locale>
+
+      <locale name="ml">
+        <short>പുറമേയുള്ള നഖച്ചിത്രങ്ങളുണ്ടാക്കുന്നവയേയെല്ലാം പ്രവര്‍ത്തനരഹിതമാക്കുക.</short>
+        <long>പുറമേയുള്ള നഖച്ചിത്രങ്ങളുണ്ടാക്കുന്നവയേയെല്ലാം, അവ ഒറ്റയ്ക്കൊറ്റയ്ക്കു് പ്രവര്‍ത്തനസജ്ജമാണോ/പ്രവര്‍ത്തനരഹിതമാണോ എന്നു് നോക്കാതെ, പ്രവര്‍ത്തനരഹിതമാക്കുവാന്‍ ശരിയെന്നു് സജ്ജമാക്കുക.</long>
+      </locale>
+
+      <locale name="mn">
+        <short>Бүх гадаад мини харагдалтыг хаах</short>
+        <long>Хэрвээ идэвхжүүлбэл бүх гадаад мини харагдалттай програмыг тэд тусдаа нээлттэй/хаалттай эсэхийг үл харгалзан хаана.</long>
+      </locale>
+
+      <locale name="mr">
+        <short>बाहेरील सर्व लघुरूप अनुपलब्धता करा</short>
+        <long>सर्व बाहेरील थंबनेल जरी ते स्वतंत्ररित्या अकार्यान्वीत/कार्यान्वीत असो किंवा नसो, कार्यक्रम अकार्यान्वीत करण्याकरीता खरे निश्चित करा.</long>
+      </locale>
+
+      <locale name="nb">
+        <short>Deaktiver alle eksterne miniatyrfunksjoner</short>
+        <long>Sett til sann for å deaktivere alle eksterne programmer for miniatyrer, uavhengig av om de er individuelt aktive eller ikke.</long>
+      </locale>
+
+      <locale name="ne">
+        <short>सबै बाह्य थम्बनेलर अक्षम पार्नुहोस्</short>
+        <long>सबै बाह्य थम्बनेलर कार्यक्रम स्वतन्त्रतापूर्वक अक्षम/सक्षम पारिएको छ या छैन निर्भर नभई, यीनलाई अक्षम पार्न ठीकमा सेट गर्नुहोस् ।</long>
+      </locale>
+
+      <locale name="nl">
+        <short>Externe miniaturiseringsprogramma&apos;s uitschakelen</short>
+        <long>Instellen op waar om alle externe miniaturiseringsprogramma&apos;s uit te schakelen, ongeacht of ze individueel ingeschakeld/uitgeschakeld zijn.</long>
+      </locale>
+
+      <locale name="nn">
+        <short>Slå av alle eksterne miniatyrlagarar</short>
+        <long>Sett til sann for å slå av bruken av alle eksterne program som lagar miniatyrar, utan omsyn til om dei allereie er slått av eller på.</long>
+      </locale>
+
+      <locale name="or">
+        <short>ସବୁ ବାହ୍ଯ କ୍ଷୁଦ୍ର ଚିତ୍ରଣକୁ ନିଷ୍କ୍ରିୟ କରନ୍ତୁ</short>
+        <long>ସବୁ ବାହ୍ଯ କ୍ଷୁଦ୍ର ଚିତ୍ରଣକୁ ନିଷ୍କ୍ରିୟ କରିବା ପାଇଁ ସତ ବିନ୍ଯାସ କରନ୍ତୁ, ସେହିଗୁଡ଼ିକ ସ୍ବତନ୍ତ୍ର ଭାବରେ ନିଷ୍କ୍ରିୟ/ସକ୍ରିୟ କରାଯାଇଛନ୍ତି କି ନାହିଁ.</long>
+      </locale>
+
+      <locale name="pa">
+        <short>ਹਰੇਕ ਬਾਹਰੀ ਥੰਬਨੇਲਰ ਨੂੰ ਅਯੋਗ ਕਰੋ</short>
+        <long>ਹਰੇਕ ਬਾਹਰੀ ਥੰਬਨੇਲਰ ਨੂੰ ਅਯੋਗ ਕਰੋ ਨੂੰ ਸੱਚ ਨਿਰਧਾਰਿਤ ਕਰਨ ਲਈ, ਇਹ ਵੇਖੇ ਬਿਨਾਂ ਕਿ ਇੱਕਲਾ-ਇੱਕਲਾ ਅਯੋਗ/ਯੋਗ ਹੈ ਜਾਂ ਨਹੀਂ।</long>
+      </locale>
+
+      <locale name="pl">
+        <short>Wyłączenie zewnętrznych programów tworzących miniaturki</short>
+        <long>Określa czy wyłączyć zewnętrzne programy tworzące miniaturki, niezależnie od tego czy są one oddzielnie włączone/wyłączone.</long>
+      </locale>
+
+      <locale name="pt">
+        <short>Desactivar todos os geradores de amostras externos</short>
+        <long>Definir como verdadeiro para desactivar todas as aplicações externas de geração de amostras, independentemente de serem ou não activadas/desactivadas independentemente.</long>
+      </locale>
+
+      <locale name="pt_BR">
+        <short>Desabilitar todos os criadores de miniaturas externos</short>
+        <long>Defina como verdadeiro para desabilitar todos os programas criadores de miniaturas externos, independente de se eles estão independentemente desabilitados/habilitados.</long>
+      </locale>
+
+      <locale name="ro">
+        <short>Dezactivează crearea miniaturilor pentru toate aplicațiile externe</short>
+        <long>Setați această valoare ca „true” pentru a dezactiva crearea miniaturilor în toate programele grafice externe, independent de opțiunile lor individuale.</long>
+      </locale>
+
+      <locale name="ru">
+        <short>Отключить все внешние миниатюризаторы</short>
+        <long>Установите этот ключ, чтобы отключить все внешние программы миниатюризации, независимо от того, включены они или отключены другими способами.</long>
+      </locale>
+
+      <locale name="sk">
+        <short>Deaktivovať všetky externé vytvárače náhľadov</short>
+        <long>Nastaviť na true, aby sa deaktivovali všetky externé programy na tvorbu náhľadov, nezávisle od toho, či sú jednotlivo deaktivované/aktivované.</long>
+      </locale>
+
+      <locale name="sl">
+        <short>Onemogoči vse zunanje izdelovalce pomanjšanih sličic</short>
+        <long>Izbrana možnost omogoča izklop vseh zunanjih izdelovalcev pomanjšanih sličic, neodvisno od tega ali so omogočeni ali ne.</long>
+      </locale>
+
+      <locale name="sq">
+        <short>Ç&apos;aktivo të gjithë krijuesit e jashtëm të miniaturave</short>
+        <long>Vendose në «e vërtetë» që të disaktivohen të gjithë programet e jashtëm për të krijuar miniatura, pavarësisht nga rregullimi i tyre.</long>
+      </locale>
+
+      <locale name="sr">
+        <short>Искључи све спољашње приказиваче</short>
+        <long>Поставите да бисте искључили све спољашње програме за прављење малих приказа, независно од тога да ли су они самостално искључени или укључени.</long>
+      </locale>
+
+      <locale name="sr@ije">
+        <short>Искључи све спољашње приказиваче</short>
+        <long>Поставите да бисте искључили све спољашње програме за прављење малих приказа, независно од тога да ли су они самостално искључени или укључени.</long>
+      </locale>
+
+      <locale name="sr@latin">
+        <short>Isključi sve spoljašnje prikazivače</short>
+        <long>Postavite da biste isključili sve spoljašnje programe za pravljenje malih prikaza, nezavisno od toga da li su oni samostalno isključeni ili uključeni.</long>
+      </locale>
+
+      <locale name="sv">
+        <short>Inaktivera alla externa skapare av miniatyrbilder</short>
+        <long>Ställ till sant för att inaktivera alla externa program som skapar miniatyrbilder, oavsett om de aktiveras/inaktiveras individuellt.</long>
+      </locale>
+
+      <locale name="ta">
+        <short>வெளி சிறுபடங்களை செயல்படுத்தாதே</short>
+        <long>வெளி சிறுபட நிரல்களை செயல்படுத்தாமல் இருக்க இதை உண்மை என அமைக்க வேண்டும், தனித்தனியே செயலிழக்க செய்யலாம்/செயல்படுத்தலாம்</long>
+      </locale>
+
+      <locale name="te">
+        <short>అన్ని బహిర్గత థంబ్‌నెయిలర్స్‍‌ను అచేతనంచేయుము</short>
+        <long>అవి వేరువేరుగా చేతనం/అచేతనం చేయబడినా కూడా, అన్ని బహిర్గత థంబ్‌నెయిలర్స్‍‌ ప్రోగ్రాములను అచేతనంచేయుటకు సత్యముకు అమర్చుము.</long>
+      </locale>
+
+      <locale name="th">
+        <short>ปิดการใช้งานโปรแกรมแสดงรูปภาพย่อภายนอกทั้งหมด</short>
+        <long>ตั้งเป็นค่าจริงเพื่อปิดการเรียกใช้โปรแกรมแสดงรูปภาพย่อภายนอกทั้งหมด โดยไม่สนใจว่าโปรแกรมแต่ละตัวเหล่านั้นจะมีการสั่งเปิดใช้หรือปิดการใช้งานต่างหากไว้หรือไม่</long>
+      </locale>
+
+      <locale name="tr">
+        <short>Tüm dış öngörünümleri iptal et</short>
+        <long>Eğer seçiliyse, ayrı ayrı kapat/etkinleştir ayarlarından bağımsız olarak tüm dış öngörünüm programlarını iptal eder.</long>
+      </locale>
+
+      <locale name="ug">
+        <short>سىرتتىكى ھەممە كىچىك سۈرەتنى چەكلە</short>
+        <long>true قىلىپ تەڭشەلسە بۇ پروگراممىلارنىڭ ئۆزىدە قوزغىتىلغان ياكى چەكلەنگەن بولسىمۇ سىرتتىكى ھەممە كىچىك سۈرەت پروگراممىسىنى چەكلەيدۇ.</long>
+      </locale>
+
+      <locale name="uk">
+        <short>Вимкнути всі зовнішні програми створення мініатюр</short>
+        <long>Відмітьте, для вимикання всіх зовнішніх програм створення мініатюр, незалежно від того, чи вони ввімкнені іншими способами.</long>
+      </locale>
+
+      <locale name="vi">
+        <short>Tắt mọi trình hiển ảnh thu nhỏ bên ngoài.</short>
+        <long>Đặt Đúng (true) để vô hiệu hoá mọi trình hiển ảnh thu nhỏ bên ngoài, không cần biết chúng có bị vô hiệu hoá hay không.</long>
+      </locale>
+
+      <locale name="xh">
+        <short>Vala zonke izityhili ezikhawulezayo zangaphandle</short>
+        <long>Setela kwinyaniso ukuvala zonke iinkqubo zangaphandle zokutyhila okukhawulezayo, ezizimeleyo noba zivalwe/zivulwe ngokuzimeleyo.</long>
+      </locale>
+
+      <locale name="zh_CN">
+        <short>禁用所有外部缩略图程序</short>
+        <long>设为 true 可禁用所有外部缩略图程序，而不管这些程序自身是启用还是禁用。</long>
+      </locale>
+
+      <locale name="zh_HK">
+        <short>停止使用任何製作縮圖的程式</short>
+        <long>如設定為“true”，會停止產生任何縮圖，而不理會各種製作縮圖的程式是否已經個別被啟用或者停止使用</long>
+      </locale>
+
+      <locale name="zh_TW">
+        <short>停止使用任何製作縮圖的程式</short>
+        <long>如設定為“true”，會停止產生任何縮圖，而不理會各種製作縮圖的程式是否已經個別被啟用或者停止使用</long>
+      </locale>
+    </schema>
+
+  </schemalist>
+</gconfschemafile>

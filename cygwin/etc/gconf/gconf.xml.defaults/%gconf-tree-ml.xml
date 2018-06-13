@@ -1,0 +1,626 @@
+<?xml version="1.0"?>
+<gconf>
+	<dir name="schemas">
+		<dir name="system">
+			<dir name="smb">
+				<entry name="workgroup">
+					<local_schema short_desc="SMB വര്‍ക്ക് ഗ്രൂപ്പ്">
+						<longdesc>ഉപയോക്താവ് ഭാഗമായിരിക്കുന്ന Windows നെറ്റ്‍വര്‍ക്കിങ് ഗ്രൂപ്പ് അല്ലെങ്കില്‍ ഡൊമെയിന്‍. ഒരു പുതിയ വര്‍ക്ക് ഗ്രൂപ്പ് കംപ്യൂട്ടര്‍ അംഗീകരിക്കണമെങ്കില്‍ ഉപയോക്താവ് ലോഗൌട്ട് ചെയ്ത് വീണ്ടും ലോഗിന്‍ ചെയ്യേണ്ടതാകുന്നു.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="proxy">
+				<entry name="autoconfig_url">
+					<local_schema short_desc="ഓട്ടോമാറ്റിക്ക് പ്രോക്സി കോണ്‍ഫിഗറേഷനുളള URL">
+						<longdesc>പ്രോക്സി കോണ്‍ഫിഗറേഷന്‍ മൂല്ല്യങ്ങള്‍ ലഭ്യമാക്കുന്ന URL</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="socks_port">
+					<local_schema short_desc="SOCKS പ്രോക്സി പോര്‍ട്ട്">
+						<longdesc>നിങ്ങള്‍ പ്രോക്സി ചെയ്യുന്ന കംപ്യൂട്ടറിന്‍റെ പോര്‍ട്ട് &quot;/system/proxy/socks_host&quot; വ്യക്തമാക്കിയിരിക്കുന്നു.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="socks_host">
+					<local_schema short_desc="SOCKS പ്രോക്സി ഹോസ്റ്റ് നെയിം">
+						<longdesc>സോക്ക്സ് വഴി പ്രോക്സി ചെയ്യുന്നതിനുളള കംപ്യൂട്ടറിന്‍റെ പേര്.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="ftp_port">
+					<local_schema short_desc="FTP പ്രോക്സി പോര്‍ട്ട്">
+						<longdesc>നിങ്ങള്‍ പ്രോക്സി ചെയ്യുന്ന കംപ്യൂട്ടറിന്‍റെ പോര്‍ട്ട് &quot;/system/proxy/ftp_host&quot; വ്യക്തമാക്കിയിരിക്കുന്നു.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="ftp_host">
+					<local_schema short_desc="FTP പ്രോക്സി ഹോസ്റ്റ് നെയിം">
+						<longdesc>FTP വഴി പ്രോക്സി ചെയ്യുന്നതിനുളള കംപ്യൂട്ടറിന്‍റെ പേര്.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="secure_port">
+					<local_schema short_desc="സെക്ക്യൂര്‍ HTTP പ്രോക്സി പോര്‍ട്ട്">
+						<longdesc>നിങ്ങള്‍ പ്രോക്സി ചെയ്യുന്ന കംപ്യൂട്ടറിന്‍റെ പോര്‍ട്ട് &quot;/system/proxy/secure_host&quot; വ്യക്തമാക്കിയിരിക്കുന്നു.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="secure_host">
+					<local_schema short_desc="സെക്ക്യൂര്‍ HTTP പ്രോക്സി ഹോസ്റ്റ് നെയിം">
+						<longdesc>സുരക്ഷിതമായ HTTP വഴി പ്രോക്സി ചെയ്യുന്നതിനുളള കംപ്യൂട്ടറിന്‍റെ പേര്.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="mode">
+					<local_schema short_desc="പ്രോക്സി കോണ്‍ഫിഗറേഷന്‍ മോഡ്">
+						<longdesc>പ്രോക്സി കോണ്‍ഫിഗറേഷന്‍ രീതി തിരഞ്ഞെടുക്കുക. &quot;ഒന്നുമില്ല&quot;, &quot;മാനുവല്‍&quot;, &quot;ഓട്ടോ&quot; ആണ് പിന്തുണയുളള മൂല്ല്യങ്ങള്‍.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="http_proxy">
+				<entry name="ignore_hosts">
+					<local_schema short_desc="നോണ്‍-പ്രോക്സി ഹോസ്റ്റുകള്‍">
+						<longdesc>പ്രോക്സി വഴി (സജ്ജമെങ്കില്‍) അല്ലാതെ നേരിട്ട് കണക്ട് ചെയ്യുന്ന ഹോസ്റ്റുകളുടെ ലിസ്റ്റ് ഈ കീയില്‍ അടങ്ങുന്നു. ഹോസ്റ്റ് നെയിമുകള്‍, ഡോമെയിനുകള്‍ (*.foo.com പോലുളള ആരംഭത്തിലുളള വൈള്‍ഡ് കാര്‍ഡ് ഉപയോഗിക്കുന്നു), IP ഹോസ്റ്റ് വിലാസങ്ങള്‍ ( IPv4, IPv6 എന്നിവ), നെറ്റ്മാസ്കുളള നെറ്റ്‍വര്‍ക്ക് വിലാസങ്ങള്‍ (192.168.0.0/24 പോലുളളവ) എന്നിവ മൂല്ല്യങ്ങള്‍ ആവാം.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="authentication_password">
+					<local_schema short_desc="HTTP പ്രോക്സി പാസ്‍വേര്‍ഡ്">
+						<longdesc>HTTP പ്രോക്സി ചെയ്യുന്പോള്‍ ആധികാരികത ഉറപ്പുവരുത്തുന്നതിനുളള പാസ്‍വേര്‍ഡ്.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="authentication_user">
+					<local_schema short_desc="HTTP പ്രോക്സി ഉപയോക്തൃനാമം">
+						<longdesc>HTTP പ്രോക്സി ചെയ്യുന്പോള്‍ ആധികാരികത ഉറപ്പ് വരുത്തുന്നതിനായി നിങ്ങള്‍ ഉപയോഗിക്കുന്ന പേര്.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="use_authentication">
+					<local_schema short_desc="പ്രോക്സി സര്‍വര്‍ കണക്ഷനുകളില്‍ ആധികാരികത ഉറപ്പ് വരുത്തുക">
+						<longdesc>ട്രൂ എങ്കില്‍, പ്രോക്സി സര്‍വറിലേക്കുളള കണക്ഷനുകള്‍ക്ക് ആധികാരികത ഉറപ്പ് വരുത്തേണ്ടതുണ്ട്. &quot;/system/http_proxy/authentication_user&quot; , &quot;/system/http_proxy/authentication_password&quot; ഉപയോഗിച്ച് username/password കോംപോ വ്യക്തമാക്കിയിരിക്കുന്നു.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="port">
+					<local_schema short_desc="HTTP പ്രോക്സി പോര്‍ട്ട്">
+						<longdesc>നിങ്ങള്‍ പ്രോക്സി ചെയ്യുന്ന കംപ്യൂട്ടറിന്‍റെ പോര്‍ട്ട് &quot;/system/http_proxy/host&quot; വ്യക്തമാക്കിയിരിക്കുന്നു.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="host">
+					<local_schema short_desc="HTTP പ്രോക്സി ഹോസ്റ്റ് നെയിം">
+						<longdesc>HTTP വഴി പ്രോക്സി ചെയ്യുന്നതിനുളള കംപ്യൂട്ടറിന്‍റെ പേര്.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="use_http_proxy">
+					<local_schema short_desc="HTTP പ്രോക്സി ഉപയോഗിക്കുക">
+						<longdesc>ഇന്‍റര്‍നെറ്റിലൂടെ HTTP ലഭ്യമാക്കുന്പോള്‍ പ്രോക്സി ക്രമീകരണങ്ങള്‍ സജ്ജമാക്കുന്നു.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="dns_sd">
+				<entry name="extra_domains">
+					<local_schema short_desc="DNS-SD സേവനങ്ങള്‍ തിരയുന്നതിനുളള അധികമായ ഡൊമെയിനുകള്‍">
+						<longdesc>&quot;നെറ്റ്‍വര്‍ക്ക്:///&quot; സ്ഥാനത്ത് ദൃശ്യമായിരിക്കേണ്ട കോമാ ഉപയോഗിച്ച് വേര്‍തിരിച്ചിരിക്കുന്ന DNS-SD ഡൊമെയിനുകള്‍.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="display_local">
+					<local_schema short_desc="ലോക്കല്‍ DNS-SD സേവനം എങ്ങനെ പ്രദര്‍ശിപ്പിക്കണം എന്ന്">
+						<longdesc>&quot;യോജിച്ചിരിക്കുന്നു&quot;, &quot;വേര്‍പ്പെട്ട്&quot;, &quot;അപ്രാപ്യമായ&quot; എന്നിവയാണ് സാധ്യമായ മൂല്ല്യങ്ങള്‍.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+		</dir>
+		<dir name="desktop">
+			<dir name="gnome">
+				<dir name="typing_break">
+					<entry name="enabled">
+						<local_schema short_desc="കീബോര്‍ഡ് പൂട്ടുന്ന സംവിധാനം പ്രവര്‍ത്തന സജ്ജമാക്കുവാന്‍ സാധ്യമോ എന്ന്">
+							<longdesc>കീബോര്‍ഡ് പൂട്ടുന്ന സംവിധാനം പ്രവര്‍ത്തന സജ്ജമാക്കുവാന്‍ സാധ്യമോ എന്ന്.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="allow_postpone">
+						<local_schema short_desc="ഇടവേളകള്‍ നീട്ടിവയ്ക്കാന്‍ അനുവദിയ്ക്കുക">
+							<longdesc>ടൈപ്പ് ചെയ്യുന്നതിനുള്ള ഇടവേളയ്ക്കുള്ള സ്ക്രീന്‍ മാറ്റി വയ്ക്കാമോ എന്നു്</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="break_time">
+						<local_schema short_desc="ഇടവേള">
+							<longdesc>ടൈപ്പ് ചെയ്യുന്നതിനുള്ള ഇടവേള എത്ര സമയത്തേയ്ക്കു് വേണം.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="type_time">
+						<local_schema short_desc="ടെപ്പ് ചെയ്യുവാന്‍ എടുക്കുന്ന സമയം">
+							<longdesc>ഇടവേള തുടങ്ങുന്നതിനു് മുമ്പു് എത്ര മിനിട്ട് ടൈപ്പ് ചെയ്യുന്ന സമയം വേണം.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="thumbnailers">
+					<entry name="disable_all">
+						<local_schema short_desc="പുറമേയുള്ള നഖച്ചിത്രങ്ങളുണ്ടാക്കുന്നവയേയെല്ലാം പ്രവര്‍ത്തനരഹിതമാക്കുക.">
+							<longdesc>പുറമേയുള്ള നഖച്ചിത്രങ്ങളുണ്ടാക്കുന്നവയേയെല്ലാം, അവ ഒറ്റയ്ക്കൊറ്റയ്ക്കു് പ്രവര്‍ത്തനസജ്ജമാണോ/പ്രവര്‍ത്തനരഹിതമാണോ എന്നു് നോക്കാതെ, പ്രവര്‍ത്തനരഹിതമാക്കുവാന്‍ ശരിയെന്നു് സജ്ജമാക്കുക.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="thumbnail_cache">
+					<entry name="maximum_size">
+						<local_schema>
+							<longdesc>കാഷില്‍ നഖചിത്രം സൂക്ഷിക്കുവാനുള്ള ഏറ്റവും കൂടുതലായ വ്യാപ്തി, മെഗാബൈറ്റില്‍. വെടിപ്പാക്കല്‍ പ്രവര്‍ത്തന രഹിതമാക്കുന്നതിനു് -1 ആയി സജ്ജമാക്കുക.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="maximum_age">
+						<local_schema>
+							<longdesc>കാഷില്‍ നഖചിത്രം സൂക്ഷിക്കുവാനുള്ള ഏറ്റവും കൂടുതലായ സമയം, ദിവസങ്ങളില്‍. വെടിപ്പാക്കല്‍ പ്രവര്‍ത്തന രഹിതമാക്കുന്നതിനു് -1 ആയി സജ്ജമാക്കുക.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="sound">
+					<entry name="input_feedback_sounds">
+						<local_schema short_desc="ഇന്‍പുട്ട് അഭിപ്രായങ്ങളുടെ ശബ്ദങ്ങള്‍">
+							<longdesc>ഇന്‍പുട്ട് ഇവന്റുകളില്‍ ശബ്ദം കേള്‍പ്പിയ്ക്കണോ.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="theme_name">
+						<local_schema short_desc="ശബ്ദ പ്രമേയത്തിനുള്ള പേരു്">
+							<longdesc>ഇവന്റ് ശബ്ദങ്ങള്‍ക്കു് വേണ്ടിയുള്ള XDG ശബ്ദ ഥീം.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="event_sounds">
+						<local_schema short_desc="സംഭവങ്ങള്‍ക്കുളള ശബ്ദങ്ങള്‍">
+							<longdesc>ഉപയോക്താക്കളുടെ സംഭവങ്ങളില്‍ ശബ്ദം കേള്‍പ്പിയ്ക്കണോ.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="enable_esd">
+						<local_schema short_desc="ഇഎസ്ഡി പ്രവര്‍ത്തന സജ്ജമാക്കുക">
+							<longdesc>ശബ്ദ സേവകന്റെ തുടക്കം പ്രവര്‍ത്തന സജ്ജമാക്കുക</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="default_mixer_tracks">
+						<local_schema short_desc="സഹജമായ മിക്സര്‍ ട്രാക്കുകള്‍">
+							<longdesc>മള്‍ട്ടിമീഡിയ കീ ബന്ധങ്ങള്‍ ഉപയോഗിയ്ക്കേണ്ട സഹജമായ മിക്സര്‍ ട്രാക്കുകള്‍.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="default_mixer_device">
+						<local_schema short_desc="സഹജമായ മിക്സര്‍ ഉപകരണം">
+							<longdesc>മള്‍ട്ടിമീഡിയ കീ ബന്ധങ്ങള്‍ ഉപയോഗിയ്ക്കേണ്ട സഹജമായ മിക്സര്‍ ഉപകരണം.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="peripherals">
+					<dir name="mouse">
+						<entry name="cursor_size">
+							<local_schema short_desc="സൂചകത്തിന്റെ വലുപ്പം">
+								<longdesc>കര്‍സ_തീം (cursor_theme) കാണുന്ന കര്‍സറിന്റെ വലിപ്പം.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="cursor_theme">
+							<local_schema short_desc="സൂചകത്തിന്റെ രംഗവിതാനം">
+								<longdesc>സൂചകത്തിന്റെ രംഗവിതാനത്തിന്റെ പേരു്. എക്സ്ഫ്രീ86 4.3 ഉം പുതിയതും പോലുള്ള എക്സ്കര്‍സര്‍ പിന്തുണയുള്ള എക്സ്സേവകര്‍ മാത്രം ഉപയോഗിയ്ക്കുന്നതു്.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="cursor_font">
+							<local_schema short_desc="സൂചകത്തിന്റെ അക്ഷരരൂപം">
+								<longdesc>കര്‍സറിനുപയോഗിയ്ക്കുന്ന അക്ഷരരൂപത്തിന്റെ പേരു്. സജ്ജീകരിച്ചിട്ടില്ലെങ്കില്‍ സഹജമായ അക്ഷരരൂപം ഉപയോഗിയ്ക്കും. ഈ വില സെഷന്‍ തുടങ്ങുമ്പോള്‍ മാത്രമാണു് എക്സ് സേവകനു് കൈമാറുന്നതു്, അതുകൊണ്ടു് തന്നെ സെഷനിടയില്‍ ഇതു് മാറ്റുന്നതിനു് അടുത്ത തവണ അകത്തുകയറുന്നതുവരെ ഒരു ഫലവുമുണ്ടാകില്ല.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="locate_pointer">
+							<local_schema short_desc="സൂചിക കണ്ടുപിടിക്കുക">
+								<longdesc>കണ്ട്രോള്‍ കീ അമര്‍ത്തി വിടുമ്പോള്‍ സൂചികയുടെ ഇപ്പോഴത്തെ സ്ഥാനം എടുത്തുകാട്ടുന്നു.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="double_click">
+							<local_schema short_desc="രണ്ട് ക്ളിക്ക് ചെയ്യുന്ന സമയം">
+								<longdesc>ഇരട്ട ഞെക്കിനെത്ര സമയം</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="drag_threshold">
+							<local_schema short_desc="വലിച്ചിഴയ്ക്കുന്നതിനുള്ള കുറഞ്ഞവില">
+								<longdesc>വലിച്ചിഴയ്ക്കാന്‍ തുടങ്ങുന്നതിനു് മുമ്പത്തെ ദൂരം</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="motion_threshold">
+							<local_schema short_desc="നീക്കത്തിനുള്ള കുറഞ്ഞ വില">
+								<longdesc>വേഗം കൂടിയ മൌസിന്റെ നീക്കം സജീവമാക്കുന്നതിനു് മുമ്പു് സൂചിക നീങ്ങിയിരിയ്ക്കേണ്ട ദൂരം പിക്സലില്‍. -1 എന്ന വിലയാണു് സഹജമായിട്ടുള്ളതു്.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="motion_acceleration">
+							<local_schema short_desc="ഒറ്റ ഞെക്ക്">
+								<longdesc>മൌസിന്റെ നീക്കത്തിനുള്ള വേഗവര്‍ദ്ധനയ്ക്കായുള്ള ഗുണോത്തരം. -1 എന്ന വിലയാണു് സിസ്റ്റത്തിലെ സഹജമായതു്.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="single_click">
+							<local_schema short_desc="ഒറ്റ ഞെക്ക്">
+								<longdesc>ചിഹ്നങ്ങള്‍ തുറക്കുന്നതിനായി ഒരു ഞെക്കു്.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="left_handed">
+							<local_schema short_desc="മൌസ് ബട്ടന്റെ ചായ്‌വു്">
+								<longdesc>ഇടംകൈയ്യന്‍ മൈസിനു് വേണ്ടി ഇടതുവലതു് മൌസ് ബട്ടണുകളെ പരസ്പരം മാറ്റുക.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="keyboard">
+						<entry name="remember_numlock_state">
+							<local_schema short_desc="NumLock-ന്റെ അവസ്ഥ ഓര്‍മ്മിക്കുക">
+								<longdesc>ശരിയെന്നു് സജ്ജീകരിച്ചാല്‍ ഗ്നോം നംലോക്ക് എന്ന എല്‍ഇഡിയുടെ അവസ്ഥ സെഷനുകള്‍ക്കിടയില്‍ ഓര്‍ത്തുവയ്ക്കും.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bell_custom_file">
+							<local_schema short_desc="കീബോര്‍ഡ് ബെല്‍ കസ്റ്റം ഫയല്‍നെയിം">
+								<longdesc>കേള്‍പ്പിയ്ക്കാന്‍ പോകുന്ന മണിനാദമുള്ള ഫയലിന്റെ പേരു്.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bell_mode">
+							<local_schema>
+								<longdesc>സാധ്യമുളള മൂല്ല്യങ്ങള്‍ ആണ് -  &quot;on&quot;, &quot;off&quot;, &quot;custom&quot;.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+				<dir name="lockdown">
+					<entry name="disable_application_handlers">
+						<local_schema short_desc="URL, MIME തരത്തിലുള്ള ഹാന്‍ഡിലറുകളെ പ്രവര്‍ത്ത രഹിതമാക്കുക">
+							<longdesc>ഏതു് തരത്തിലുമുള്ള URL അല്ലെങ്കില്‍ MIME തരത്തിലുള്ള ഹാന്‍ഡിലര്‍ പ്രയോഗങ്ങളുടെ പ്രവര്‍ത്തനം തടയുക.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_lock_screen">
+						<local_schema short_desc="സ്ക്രീന്‍ പൂട്ടുന്ന സംവിധാനം പ്രവര്‍ത്തന രഹിതമാക്കുക">
+							<longdesc>സ്ക്രീന്‍ പൂട്ടുന്നതിന് യൂസറിനെ അനുവദിക്കാതിരിക്കുക.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_user_switching">
+						<local_schema short_desc="യൂസര്‍ സ്വിച്ചിങ് പ്രവര്‍ത്തന രഹിതമാക്കുക">
+							<longdesc>സ്വന്തം സെഷന്‍ സജിവമായിരിയ്ക്കുമ്പോള്‍ വേറൊരു അക്കൌണ്ടിലേയ്ക്കു് മാറുന്നതില്‍ നിന്നും ഉപയോക്താവിനെ തടയുക.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_print_setup">
+						<local_schema short_desc="അച്ചടി സജ്ജീകരണം പ്രവര്‍ത്തന രഹിതമാക്കുക">
+							<longdesc>അച്ചടിയുടെ സജ്ജീകരണങ്ങള്‍ മാറ്റുന്നതില്‍ നിന്നും ഉപയോക്താവിനെ തടയുക. ഉദാഹരണത്തിനു്, ഇതു് എല്ലാ പ്രയോഗങ്ങളിലുമുള്ള &quot;അച്ചടിയുടെ സജ്ജീകരണം&quot; എന്ന ചെറുജാലകമുപയോഗിയ്ക്കുന്നതു് പ്രവര്‍ത്തനക്ഷമമല്ലാതാക്കും.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_printing">
+						<local_schema short_desc="അച്ചടിയ്ക്കുന്നതു് പ്രവര്‍ത്തന രഹിതമാക്കുക">
+							<longdesc>ഉപയോക്താവിനെ അച്ചടിയ്ക്കുന്നതില്‍ നിന്നും തടയുക. ഉദാഹരണത്തിനു്, ഇതു് എല്ലാ പ്രയോഗങ്ങളിലും &quot;അച്ചടിയ്ക്കുക&quot; എന്ന ചറുജാലകമുപയോഗിയ്ക്കുന്നതു് പ്രവര്‍ത്തനക്ഷമമല്ലാതാക്കും.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_save_to_disk">
+						<local_schema short_desc="ഡിസ്കില്‍ ഫയല്‍ സൂക്ഷിക്കുന്നത് പ്രവര്‍ത്തന രഹിതമാക്കുക">
+							<longdesc>ഫയലുകള്‍ ഡിസ്കില്‍ സൂക്ഷിയ്ക്കുന്നതു് തടയുക. ഉദാഹരണത്തിനു്, ഇതു് എല്ലാ പ്രയോഗങ്ങളിലും &quot;പേരു് മാറ്റി സൂക്ഷിയ്ക്കുക&quot; എന്ന ചെറുജാലകമുപയോഗിയ്ക്കുന്നതു് പ്രവര്‍ത്തനക്ഷമമല്ലാതാക്കും.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_command_line">
+						<local_schema short_desc="കമാന്‍ഡ് ലൈന്‍ പ്രവര്‍ത്തന രഹിതമാക്കുക">
+							<longdesc>ടെര്‍മിനല്‍ എടുക്കാന്നതില്‍ നിന്നോ പ്രവര്‍ത്തിപ്പിയ്ക്കാന്‍ ഒരു ആജ്ഞ നല്‍കുന്നതില്‍ നിന്നോ ഒരു ഉപയോക്താവിനെ തടയുക. ഉദാഹരണത്തിനു്, ഇതു് പാനലിലെ &quot;പ്രയോഗം പ്രവര്‍ത്തിപ്പിയ്ക്കുക&quot; എന്ന ചെറുജാലകം എടുക്കുന്നതു് പ്രാവര്‍ത്തികമല്ലാതാക്കും.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="interface">
+					<entry name="show_unicode_menu">
+						<local_schema short_desc="യുണിക്കോഡ് കണ്ട്രോള്‍ കാരക്റ്റര്‍ മെനു">
+							<longdesc>വിലകള്‍ നല്‍കാനുള്ള സാന്ദര്‍ഭിക മെനുകള്‍ നിയന്ത്രണാക്ഷരങ്ങള്‍ ചേര്‍ക്കാനുള്ള അവസരം നല്‍കണമോ എന്നു്</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="show_input_method_menu">
+						<local_schema short_desc="ഇന്‍പുട്ട് മാര്‍ഗങ്ങളുടെ മെനു കാണിയ്ക്കുക">
+							<longdesc>വിലകള്‍ നല്‍കാനുള്ള സാന്ദര്‍ഭിക മെനുകള്‍ നിവേശകരീതി മാറ്റാനുള്ള അവസരം നല്‍കണമോ എന്നു്.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menubar_accel">
+						<local_schema short_desc="മെനുപ്പട്ടയില്‍ പെട്ടെന്നെത്താന്‍">
+							<longdesc>മെനു ബാറുകള്‍ തുറക്കുന്നതിനായുളള കീബോര്‍ഡിന്റെ കുറുക്കുവഴികള്‍</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="file_chooser_backend">
+						<local_schema short_desc="GtkFileChooser-നുളള ഘടകം">
+							<longdesc>ജിടികെഫയല്‍ചൂസര്‍ (GtkFileChooser) എന്ന വിഡ്ജറ്റില്‍ ഫയല്‍സിസ്റ്റത്തിന്റെ മാതൃകയായി ഉപയോഗിയ്ക്കേണ്ട മൊഡ്യൂള്‍. സാധ്യമായ വിലകള്‍ &quot;ജിയോ&quot;, &quot;ഗ്നോം-വിഎഫ്എസ്&quot;, &quot;ജിടികെ+&quot; എന്നിവയാണു്.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="status_bar_meter_on_right">
+						<local_schema short_desc="വലത്ത് വശത്തുളള സ്റ്റേറ്റസ് ബാര്‍">
+							<longdesc>അവസ്ഥാപ്പട്ടയുടെ മാനകം വലതുവശത്തു് കാണിയ്ക്കണമോ എന്നു്.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="use_custom_font">
+						<local_schema short_desc="ഇഷ്ടപ്പെട്ട അക്ഷരരൂപം ഉപയോഗിക്കുക">
+							<longdesc>gtk+ പ്രയോഗങ്ങളില്‍ ഇഷ്ടമുളള അക്ഷരരൂപം ഉപയോഗിക്കണമോ എന്ന്.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="monospace_font_name">
+						<local_schema short_desc="മോണോസ്പെയിസ് അക്ഷരരൂപം">
+							<longdesc>ടെര്‍മിനല്‍ പോലുള്ള സ്ഥാനങ്ങളില്‍ ഉപയോഗിയ്ക്കേണ്ട ഒരേ വിടവുള്ള (തുല്ല്യ-വിതിയുള്ള) അക്ഷരരൂപത്തിന്റെ പേരു്.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="document_font_name">
+						<local_schema short_desc="രേഖയിലുപയോഗിയ്ക്കുന്ന അക്ഷരരൂപം">
+							<longdesc>രചനകള്‍ വായിയ്ക്കുന്നതിനായി ഉപയോഗിയ്ക്കുന്ന സഹജമായ അക്ഷരരൂപത്തിന്റെ പേരു്.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-module">
+						<local_schema short_desc="ജിടികെ ഐഎം മൊഡ്യൂള്‍">
+							<longdesc>ജിടികെ+ ഉപയോഗിയ്ക്കുന്ന നിവേശകരീതിയുടെ മൊഡ്യൂളിന്റെ പേരു്.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-status-style">
+						<local_schema short_desc="GTK IM സ്റ്റേറ്റസ് സ്റ്റൈല്‍">
+							<longdesc>gtk+ ഉപയോഗിക്കുന്ന GTK+ ഇന്‍പുട്ട് മെഥേഡ് സ്റ്റേറ്റ്സ് സ്റ്റൈല്‍ സ്റ്റൈലിന്റെ പേര്.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-preedit-style">
+						<local_schema short_desc="GTK IM പ്രിഎഡിറ്റ് സ്റ്റൈല്‍">
+							<longdesc>gtk+ ഉപയോഗിക്കുന്ന GTK+ ഇന്‍പുട്ട് മെഥേഡ് പ്രീ എഡിറ്റ് സ്റ്റൈലിന്റെ പേര്.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="font_name">
+						<local_schema short_desc="സഹജമായ അക്ഷരരൂപം">
+							<longdesc>gtk+ ഉപയോഗിക്കുന്ന സഹജമായ അക്ഷരരൂപത്തിന്റെ പേരു്.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_key_theme">
+						<local_schema short_desc="Gtk+ രംഗവിതാനം">
+							<longdesc>gtk+ ഉപയോഗിക്കുന്ന ഡീഫോള്‍ട്ട് ഥീമിന്റെ ബെയിസ്‍ നെയിം.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_theme">
+						<local_schema short_desc="Gtk+ രംഗവിതാനം">
+							<longdesc>gtk+ ഉപയോഗിക്കുന്ന ഡീഫോള്‍ട്ട് ഥീമിന്റെ ബെയിസ്‍ നെയിം.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="icon_theme">
+						<local_schema short_desc="ചിഹ്നത്തിന്റെ രംഗവിതാനം">
+							<longdesc>നോട്ടിലസ്സിലും പാനലിലുമെല്ലാം ഉപയോഗിയ്ക്കേണ്ട ചിഹ്നങ്ങളുടെ രംഗവിതാനം.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink_time">
+						<local_schema short_desc="സ്ഥാനസൂചി മിന്നുന്ന സമയം">
+							<longdesc>മില്ലീസെക്കന്റിലുള്ള സൂചികയുടെ മിന്നലിന്റെ ദൈര്‍ഘ്യം.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink">
+						<local_schema short_desc="സൂചികയുടെ മിന്നല്‍">
+							<longdesc>കര്‍സര്‍ മിന്നണമോ എന്നു്.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_icons_size">
+						<local_schema short_desc="ടൂള്‍ബാറിലെ ചിഹ്നങ്ങളുടെ വലുപ്പം">
+							<longdesc>ഉപകരണപ്പട്ടയിലെ ചിഹ്നങ്ങളുടെ വലിപ്പം, &quot;ചെറിയ ഉപകരണപ്പട്ട&quot; അല്ലെങ്കില്‍ &quot;വലിയ ഉപകരണപ്പട്ട&quot; എന്നതിലേതെങ്കിലും.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_detachable">
+						<local_schema short_desc="ഉപകരണപ്പട്ട വേണമെങ്കില്‍ പറിച്ചെടുക്കാം">
+							<longdesc>ഉപയോക്താക്കള്‍ക്കു് ഉപകരണപ്പട്ട പറിച്ചെടുക്കാനും അങ്ങോട്ടുമിങ്ങോട്ടും നീക്കാനും സാധിയ്ക്കണമോ എന്നു്.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menubar_detachable">
+						<local_schema short_desc="മെനുപ്പട്ട വേണമെങ്കില്‍ പറിച്ചെടുക്കാം">
+							<longdesc>ഉപയോക്താക്കള്‍ക്കു് മെനുപ്പട്ട പറിച്ചെടുക്കാനും അങ്ങോട്ടുമിങ്ങോട്ടും നീക്കാനും സാധിയ്ക്കണമോ എന്നു്.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="buttons_have_icons">
+						<local_schema short_desc="ബട്ടണുകളില്‍ ചിഹ്നങ്ങള്‍ ഉണ്ട്">
+							<longdesc>ബട്ടണിലെ വാചകം കൂടാതെ ബട്ടണുകള്‍ ഒരു ചിഹ്നം കൂടി കാണിയ്ക്കണമോ എന്നു്.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menus_have_icons">
+						<local_schema short_desc="മെനുവില്‍ ചിഹ്നങ്ങള്‍ ഉണ്ട്">
+							<longdesc>മെനുവിലെ വിലയുടെ അരികില്‍ ഒരു ചിഹ്നം കൂടി കാണിയ്ക്കണമോ എന്നു്.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_style">
+						<local_schema short_desc="ടൂള്‍ബാറിന്റെ രീതി">
+							<longdesc>ടൂള്‍ബാറിന്റെ രീതി. ശരിയായ മൂല്ല്യങ്ങള്‍ ഇവയാണു് - &quot;രണ്ടും&quot;, &quot;രണ്ടും-തിരശ്ചീനമായി&quot;, &quot;ചിഹ്നങ്ങള്‍&quot;,&quot;പദാവലി&quot;</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="can_change_accels">
+						<local_schema short_desc="ആക്സലുകള്‍ മാറ്റാം">
+							<longdesc>സജീവമായൊരു മെനുവിലെ ഐറ്റത്തിനു് മുകളിലാകുമ്പോള്‍ത്തന്നെ ഉപയോക്താവിനു് പുതിയൊരു പെട്ടെന്നെത്താനുള്ള കീ ടൈപ് ചെയ്യാന്‍ സാധിയ്ക്കണമോ എന്നു്.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menus_have_tearoff">
+						<local_schema short_desc="മെനുവിനു് ടിയറോഫുണ്ടു്">
+							<longdesc>മെനുകള്‍ക്കു് ടിയറോഫ് ഉണ്ടാകണമോ എന്നു്.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="enable_animations">
+						<local_schema short_desc="ആനിമേഷന്‍ സജ്ജമാക്കുക">
+							<longdesc>അനിമേഷനുകള്‍ പ്രദര്‍ശിപ്പിയ്ക്കണമോ എന്നു്. കുറിപ്പു്: ഇതെല്ലായിടത്തും ബാധകമായൊരു വിലയാണു്, പാളി, ജാലകങ്ങളുടെ നടത്തിപ്പുകാരന്‍ തുടങ്ങിയവയുടെയെല്ലാം പെരുമാറ്റം ഇതു് മാറ്റുന്നു</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="accessibility">
+						<local_schema short_desc="ആക്സസിബിളിറ്റി സജ്ജമാക്കുക">
+							<longdesc>പ്രയോഗങ്ങള്‍ക്കു് സാമീപ്യതയ്ക്കുള്ള പിന്തുണ വേണമോ എന്നു്</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="file-views">
+					<entry name="icon_theme">
+						<local_schema short_desc="ഫയല്‍ പ്രതിരൂപത്തിന്റെ ഥീം">
+							<longdesc>ഫയലുകളുടെ ചിഹ്നങ്ങള്‍ കാണിയ്ക്കാനുപയോഗിയ്ക്കുന്ന രംഗവിതാനം.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="background">
+					<entry name="color_shading_type">
+						<local_schema short_desc="നിറങ്ങളുടെ നിഴലിന്റെ തരം">
+							<longdesc>പുരോതലനിറത്തിന്റെ നിഴല്‍ എങ്ങനെ കാണിയ്ക്കണം. സാധ്യമായ വിലകള്‍ &quot;തിരശ്ചീനമായി-വിതറുക&quot;, &quot;ലംബമായി-വിതറുക&quot;, &quot;ഘനമായി&quot; എന്നിവയാണു്.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="secondary_color">
+						<local_schema short_desc="ദ്വീതീയ നിറം">
+							<longdesc>നിറങ്ങള്‍ വിതറുമ്പോള്‍ വലതുവശത്തോ താഴെയോ ചേര്‍ക്കേണ്ട നിറം, ഘനമായ നിറമാണെങ്കില്‍ ഇതുപയോഗിയ്ക്കില്ല.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="primary_color">
+						<local_schema short_desc="പ്രാഥമിക നിറം">
+							<longdesc>ഘനമായ നിറത്തിലോ നിറങ്ങള്‍ വിതറുമ്പോഴോ ഇടതുവശത്തോ മുകളിലോ കാണുന്ന നിറം.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_opacity">
+						<local_schema short_desc="ചിത്രത്തിന്റെ വ്യക്തത">
+							<longdesc>പശ്ചാത്തലചിത്രം വരയ്ക്കേണ്ട വ്യക്തത.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_filename">
+						<local_schema short_desc="ചിത്രത്തിന്റെ ഫയല്‍നെയിം">
+							<longdesc>പശ്ചാത്തലചിത്രത്തിനുപയോഗിയ്ക്കേണ്ട ഫയല്‍.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_options">
+						<local_schema short_desc="ചിത്രത്തിന്റെ ഉപാധികള്‍">
+						</local_schema>
+					</entry>
+					<entry name="draw_background">
+						<local_schema short_desc="പണിയിട പശ്ചാത്തലം വരയ്കുക">
+							<longdesc>ഗ്നോം തന്നെ പണിയിട പശ്ചാത്തലം വരയ്കുക.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="applications">
+					<dir name="component_viewer">
+						<entry name="exec">
+							<local_schema short_desc="ഡീഫോള്‍ട്ടായ കംപോണന്‍റ് വ്യൂവര്‍ ആപ്ളിക്കേഷന്‍">
+								<longdesc>പ്രയോഗത്തില്‍ ഉപയോഗിക്കുന്ന ഫയലുകള്‍ കാണുന്നതിനായി ആവശ്യമുളള ഘടകം. %s പരാമീറ്ററിന് പകരം ഫയലിന്‍റെ URI, %c പരാമീറ്ററിന് പകരം ഘടകം IID എന്നിവ ഉപയോഗിക്കുന്നു.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="window_manager">
+						<entry name="workspace_names">
+							<local_schema short_desc="പണിയറകളുടെ പേരുകള്‍">
+								<longdesc>ആദ്യത്തെ ജാലകങ്ങളുടെ നടത്തിപ്പുകാരന്റെ പണിസ്ഥലങ്ങളുടെ പേരുള്ള പട്ടിക. ഈ കീ ഗ്നോം 2.12 മുതല്‍ നിരുത്സാഹപ്പെടുത്തിയിരിയ്ക്കുന്നു.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="number_of_workspaces">
+							<local_schema short_desc="പണിയറകളുടെ എണ്ണം ">
+								<longdesc>ജാലകങ്ങളുടെ നടത്തിപ്പുകാരന്‍ ഉപയോഗിയ്ക്കേണ്ട പണിസ്ഥലങ്ങളുടെ എണ്ണം.  ഗ്നോമിന്റെ 2.12 പതിപ്പു് മുതല്‍ ഇതു് നിരുത്സാഹപ്പെടുത്തിയിരിയ്ക്കുന്നു.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="current">
+							<local_schema short_desc="ഉപയോക്താവിന്റെ ജാലക നിരീക്ഷകന്‍">
+								<longdesc>ആദ്യം ശ്രമിച്ചുനോക്കേണ്ട ജാലകങ്ങളുടെ നടത്തിപ്പുകാരന്‍. ഗ്നോമിന്റെ 2.12 പതിപ്പു് മുതല്‍ ഇതു് നിരുത്സാഹപ്പെടുത്തിയിരിയ്ക്കുന്നു.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="default">
+							<local_schema short_desc="ഫോള്‍ബാക്ക് ജാലക മാനേജര്‍">
+								<longdesc>ഉപയോക്താവിന്റെ ജാലകങ്ങളുടെ നടത്തിപ്പുകാരനെ കണ്ടില്ലെങ്കില്‍ പകരമുപയോഗിയ്ക്കേണ്ട ജാലകങ്ങളുടെ നടത്തിപ്പുകാരന്‍. ഗ്നോമിന്റെ 2.12 പതിപ്പു് മുതല്‍ ഇതു് നിരുത്സാഹപ്പെടുത്തിയിരിയ്ക്കുന്നു.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="terminal">
+						<entry name="exec_arg">
+							<local_schema short_desc="ഡീഫോള്‍ട്ട് ടെര്‍മിനലിനായുളള exec ആര്‍ഗ്യുമെന്‍റ്">
+								<longdesc>ഡീഫോള്‍ട്ടായ ടെര്‍മിനല്‍ പ്രയോഗത്തിന് ആയുളള exec ആര്‍ഗ്യുമെന്‍റ്</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="ഡീഫോള്‍ട്ടായ ടെര്‍മിനല്‍ പ്രയോഗം">
+								<longdesc>ടെര്‍മിനല്‍ ആവശ്യമായ പ്രയോഗങ്ങള്‍ക്ക് ഉപയോഗിക്കുന്നതിനായുളള ഡീഫോള്‍ട്ടായ ടെര്‍മിനല്‍ പ്രയോഗം</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="tasks">
+						<entry name="needs_term">
+							<local_schema short_desc="പണികള്‍ക്കു് ടെര്‍മിനല്‍ ആവശ്യമുണ്ടു്">
+								<longdesc>സഹജമായുള്ള പണികള്‍ക്കുള്ള പ്രയോഗത്തിനു് പ്രവര്‍ത്തിക്കുന്നതിനു് ടെര്‍മിനല്‍ ആവശ്യമോ എന്നു്</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="സഹജമായുള്ള പണികള്‍">
+								<longdesc>സഹജമായുള്ള പണികള്‍ക്കുള്ള പ്രയോഗം</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="calendar">
+						<entry name="needs_term">
+							<local_schema short_desc="പിശക് അറിയിയ്ക്കുന്ന സന്ദേശം">
+								<longdesc>സഹജമായുള്ള കലണ്ടര്‍ പ്രയോഗത്തിനു് പ്രവര്‍ത്തിക്കുന്നതിനു് ടെര്‍മിനല്‍ ആവശ്യമോ എന്നു്</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="സഹജമായ കലണ്ടര്‍">
+								<longdesc>സഹജമായ കലണ്ടര്‍ പ്രയോഗം</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="browser">
+						<entry name="nremote">
+							<local_schema short_desc="അന്വേഷകന്‍ വിദൂരതയിലുളളത് മനസ്സിലാക്കുന്നു">
+								<longdesc>സഹജമായ ബ്രൌസര്‍ നെറ്റ്സ്കേപ്പ് റിമോട്ട് മനസ്സിലാക്കുന്നുവോ എന്നു്.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="needs_term">
+							<local_schema short_desc="അന്വേഷകന് ടെര്‍മിനല്‍ ആവശ്യമുണ്ട്">
+								<longdesc>സഹജമായ ബ്രൌസര്‍ പ്രവര്‍ത്തിക്കുന്നതിനായി ടെര്‍മിനല്‍ വേണമോ എന്നു്</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="സഹജമായ ബ്രൈസര്‍">
+								<longdesc>എല്ലാ യുആര്‍എല്ലുകള്‍ക്കും ഉപയോഗിയ്ക്കേണ്ട സഹജമായ ബ്രൌസര്‍.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="at">
+						<dir name="visual">
+							<entry name="startup">
+								<local_schema short_desc="ആവശ്യമനുസരിച്ചുളള വിഷ്വല്‍ അസ്സിസ്റ്റീവ് ടെക്നോളജി പ്രയോഗങ്ങള്‍ തുടങ്ങുക">
+									<longdesc>ആവശ്യമനുസരിച്ചുളള വിഷ്വല്‍ അസ്സിസ്റ്റീവ് ടെക്നോളജി പ്രയോഗങ്ങള്‍ അകത്തുകയറുമ്പോള്‍ ഗ്നോം തന്നെ തുടങ്ങുക.</longdesc>
+								</local_schema>
+							</entry>
+							<entry name="exec">
+								<local_schema short_desc="ആവശ്യമനുസരിച്ചുളള വിഷ്വല്‍ അസ്സിസ്റ്റീവ് ടെക്നോളജി പ്രയോഗങ്ങള്‍ ">
+									<longdesc>അകത്തുകയറുന്നതിനോ മെനുവിനോ അല്ലെങ്കില്‍ ആജ്ഞാസ്ഥാനത്തിനോ ഉപയോഗിയ്ക്കേണ്ട ഇഷ്ടപ്പെട്ട വിഷ്വല്‍  അസ്സിസ്റ്റീവ് ടെക്നോളജി പ്രയോഗങ്ങള്‍.</longdesc>
+								</local_schema>
+							</entry>
+						</dir>
+						<dir name="mobility">
+							<entry name="startup">
+								<local_schema short_desc="ആവശ്യമനുസരിച്ചുളള മൊബിളിറ്റി അസ്സിസ്റ്റീവ് ടെക്നോളജി പ്രയോഗങ്ങള്‍ തുടങ്ങുക">
+									<longdesc>ആവശ്യമനുസരിച്ചുളള മൊബിളിറ്റി അസ്സിസ്റ്റീവ് ടെക്നോളജി പ്രയോഗങ്ങള്‍ അകത്തുകയറുമ്പോള്‍ ഗ്നോം തന്നെ തുടങ്ങുക.</longdesc>
+								</local_schema>
+							</entry>
+							<entry name="exec">
+								<local_schema short_desc="ആവശ്യമനുസരിച്ചുളള മൊബിളിറ്റി അസ്സിസ്റ്റീവ് ടെക്നോളജി പ്രയോഗങ്ങള്‍">
+									<longdesc>അകത്തുകയറുന്നതിനോ മെനുവിനോ അല്ലെങ്കില്‍ ആജ്ഞാസ്ഥാനത്തിനോ ഉപയോഗിയ്ക്കേണ്ട ഇഷ്ടപ്പെട്ട മൊബിളിറ്റി അസ്സിസ്റ്റീവ് ടെക്നോളജി പ്രയോഗങ്ങള്‍.</longdesc>
+								</local_schema>
+							</entry>
+						</dir>
+					</dir>
+				</dir>
+				<dir name="accessibility">
+					<dir name="startup">
+						<entry name="exec_ats">
+							<local_schema short_desc="സ്റ്റാര്‍ട്ടപ്പ് അസ്സിസ്റ്റീവ് ടെക്നോളജി പ്രയോഗങ്ങള്‍">
+								<longdesc>ഗ്നോം പണിയിടത്തിലേയ്ക്കു കയറുമ്പോള്‍ തുടങ്ങേണ്ട സഹായകമായ സാങ്കേതികവിദ്യാ പ്രയോഗങ്ങളുടെ പട്ടിക.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="keyboard">
+						<entry name="stickykeys_modifier_beep">
+							<local_schema>
+								<longdesc>ഒരു മോഡിഫയര്‍ അമര്‍ത്തുമ്പോള്‍ ശബ്ദമുണ്ടാക്കുക</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="stickykeys_two_key_off">
+							<local_schema>
+								<longdesc>രണ്ട് കീ ഒരുമിച്ച് അമര്‍ത്തിയാല്‍, പ്രവര്‍ത്തനരഹിതമാക്കുക.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="slowkeys_delay">
+							<local_schema short_desc="മില്ലിസെക്കന്‍ഡില്‍ ഏറ്റവും കുറഞ്ഞ ഇടവേള ">
+								<longdesc>@delay മില്ലീസെക്കന്റുകള്‍ അമര്‍ത്തിപ്പിടിച്ചില്ലെങ്കില്‍ കീ അമര്‍ത്തിയതായി കണക്കാക്കേണ്ട.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_init_delay">
+							<local_schema short_desc="മില്ലിസെക്കന്‍ഡില്‍ ആദ്യമുളള ഇടവേള ">
+								<longdesc>മൌസ് നീക്കാനുള്ള കീകള്‍ പ്രവര്‍ത്തിച്ചു് തുടങ്ങുന്നതിനെത്ര മില്ലീസെക്കന്റുകള്‍ കാത്തിരിയ്ക്കണം.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_accel_time">
+							<local_schema short_desc="എത്ര നേരം വേഗത കൂട്ടണമെന്നു് മില്ലീസെക്കന്റില്‍">
+								<longdesc>0-ല്‍ നിന്നും ഏറ്റവും കൂടുതല്‍ വേഗതയില്‍ എത്തുന്നതിനായി എടുക്കുന്ന സമയം മില്ലിസെക്കന്‍ഡില്‍.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_max_speed">
+							<local_schema short_desc="ഓരോ സെക്കന്‍ഡിലും ഉളള പിക്സലുകള്‍ ">
+								<longdesc>ഏറ്റവും കൂടുതല്‍ വേഗതയില്‍ നീങ്ങുമ്പോള്‍ ഒരു സെക്കന്‍ഡില്‍ നീങ്ങേണ്ട പിക്സലുകളുടെ എണ്ണം.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bouncekeys_delay">
+							<local_schema short_desc="മില്ലിസെക്കന്‍ഡില്‍ ഏറ്റവും കുറഞ്ഞ ഇടവേള">
+								<longdesc>@delay മില്ലീസെക്കന്റിനുള്ളില്‍ ഒരേ കീ പല തവണ അമര്‍ത്തിയാലും അവഗണിയ്ക്കുക.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+			</dir>
+		</dir>
+	</dir>
+</gconf>

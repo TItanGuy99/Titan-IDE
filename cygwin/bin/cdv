@@ -1,0 +1,571 @@
+#!/bin/python
+
+# Written by Ross Cohen
+# See LICENSE.txt for license information.
+
+# Setup import path in case we can't find codeville in standard places
+
+try:
+    import Codeville.db
+except ImportError:
+    import sys, os.path
+    from os.path import dirname, abspath, join
+    pypath = "lib/python%d.%d/site-packages" % \
+                (sys.version_info[0], sys.version_info[1])
+    base   = dirname(dirname(abspath(sys.argv[0])))
+    sys.path[0:0] = [ join(base, pypath) ]  # first place to look
+
+import binascii
+import Codeville
+from Codeville.db import db
+from Codeville.db import VersionMismatchException
+from Codeville.db import check_format_version, check_rebuild_version
+from Codeville.client import cli_init, PathError
+from Codeville.client import add, delete, rename, revert, edit
+from Codeville.client import history, status, diff, describe, annotate
+from Codeville.client import update, commit, set_password, rebuild
+from Codeville.client import create_repo, remove_repo, list_repos
+from Codeville.client import find_co, server_to_tuple, Checkout
+from Codeville.client import cli_is_ancestor, cli_print_mini_dag, cli_print_dag
+from Codeville.client import cli_construct, cli_heads, cli_last_modified
+from Codeville.client import cli_handle_to_filename
+from Codeville.client import term_encoding, text_encoding
+from Codeville.history import long_id, short_id
+from Codeville.history import ChangeNotKnown, ChangeNotUnique, ChangeBadRepository
+from getopt import gnu_getopt, GetoptError
+import os
+from os import path
+from random import seed
+import signal
+from sys import argv, exit
+from time import time, strptime, mktime
+from traceback import print_exc
+
+def run_init(co, opts, args):
+    return cli_init(args)
+
+def run_add(co, opts, args):
+    return add(co, args)
+
+def run_remove(co, opts, args):
+    return delete(co, args)
+
+def run_rename(co, opts, args):
+    return rename(co, args[0], args[1])
+
+def run_revert(co, opts, args):
+    unmod_flag = 0
+    for (opt, arg) in opts:
+        if opt == '-a':
+            unmod_flag = 1
+    return revert(co, args, unmod_flag)
+
+def run_edit(co, opts, args):
+    by_id = False
+    for (opt, arg) in opts:
+        if opt == '-i':
+            by_id = True
+    return edit(co, args, by_id=by_id)
+
+def run_history(co, opts, args):
+    head, limit, skip = None, -1, 0
+    by_id = False
+    v = 0
+    for (opt, arg) in opts:
+        if   opt == '-h':
+            head = long_id(co, arg)
+
+        elif opt == '-i':
+            by_id = True
+
+        elif opt == '-c':
+            try:
+                limit = int(arg)
+            except ValueError:
+                print 'Invalid count: ' + arg
+                return 1
+
+        elif opt == '-s':
+            try:
+                skip = int(arg)
+            except ValueError:
+                print 'Invalid skip: ' + arg
+                return 1
+            if skip < 0:
+                print 'Invalid skip: ' + arg
+                return 1
+
+        elif opt == '-v':
+            v = 1
+
+    return history(co, head, limit, skip, v, by_id, args)
+
+def run_status(co, opts, args):
+    verbose = 0
+    for (opt, arg) in opts:
+        if opt == '-v':
+            verbose = 1
+
+    return status(co, args, verbose)
+
+def run_heads(co, opts, args):
+    return cli_heads(co)
+
+def run_last_mod(co, opts, args):
+    uhead = None
+    by_id = False
+    for (opt, arg) in opts:
+        if opt == '-h':
+            uhead = arg
+        elif opt == '-i':
+            by_id = True
+    return cli_last_modified(co, args[0], uhead, by_id)
+
+def run_diff(co, opts, args):
+    print_new = False
+    rev = [co.repo, 'local']
+    revnum = 0
+    for (opt, arg) in opts:
+        if opt == '-r':
+            if revnum == 2:
+                print '-r cannot be used more than twice'
+                return 1
+            rev[revnum] = arg
+            revnum += 1
+
+        elif opt == '-N':
+            print_new = True
+
+    return diff(co, rev, args, print_new)
+
+def run_update(co, opts, args):
+    merge = True
+    for (opt, arg) in opts:
+        if opt == '-d':
+            merge = False
+
+    if co.repo is None:
+        print 'error - no server specified'
+        return 1
+
+    remote = server_to_tuple(co.repo)
+    if remote is None or remote[2] is None:
+        print 'error - Invalid server: ' + co.repo
+        return 1
+    return update(co, remote, merge=merge)
+
+def run_commit(co, opts, args):
+    backup, tstamp, comment, noserver = False, None, None, 0
+    for (opt, arg) in opts:
+        if opt == '-b':
+            backup = True
+        elif opt == '-D':
+            tstamp = mktime(strptime(arg, '%Y/%m/%d %H:%M:%S %Z'))
+        elif opt == '-m':
+            comment = arg
+            ucomment = comment.decode(term_encoding)
+            comment = ucomment.encode('utf8')
+        elif opt == '-M':
+            try:
+                fd = open(arg, "r")
+                comment = fd.read()
+                fd.close()
+            except IOError, err:
+                print 'error - Cannot read "%s": %s' % (arg, err[1])
+                return 1
+            try:
+                ucomment = comment.decode(text_encoding)
+                comment = ucomment.encode('utf8')
+            except UnicodeDecodeError:
+                print "error - Invalid %s characters in comment" % \
+                      (text_encoding,)
+                return 1
+
+        elif opt == '-n':
+            noserver = 1
+    if noserver or co.repo is None:
+        co.repo = None
+        remote  = None
+    else:
+        remote = server_to_tuple(co.repo)
+        if remote is None or remote[2] is None:
+            print 'error - Invalid server: ' + co.repo
+            return 1
+    return commit(co, remote, comment, tstamp=tstamp, backup=backup, files=args)
+
+def run_construct(co, opts, args):
+    return cli_construct(co, args[0])
+
+def run_rebuild(co, opts, args):
+    uheads = []
+    for (opt, arg) in opts:
+        if opt == '-h':
+            uheads.append(arg)
+    return rebuild(co, uheads)
+
+def run_is_ancestor(co, opts, args):
+    return cli_is_ancestor(co, args[0], args[1])
+
+def run_print_dag(co, opts, args):
+    return cli_print_dag(co, args)
+
+def run_print_mini_dag(co, opts, args):
+    uheads = []
+    by_id = False
+    for (opt, arg) in opts:
+        if opt == '-h':
+            uheads.append(arg)
+        if opt == '-i':
+            by_id = True
+    return cli_print_mini_dag(co, args[0], uheads, by_id)
+
+def run_create(co, opts, args):
+    remote = server_to_tuple(args[0])
+    if remote is None or remote[2] is None:
+        print 'Invalid server: ' + args[0]
+        return 1
+    return create_repo(co, remote)
+
+def run_destroy(co, opts, args):
+    remote = server_to_tuple(args[0])
+    if remote is None or remote[2] is None:
+        print 'Invalid server: ' + args[0]
+        return 1
+    return remove_repo(co, remote)
+
+def run_list(co, opts, args):
+    return list_repos(co)
+
+def run_set(co, opts, args):
+    txn = co.txn_begin()
+    co.varsdb.put(args[0], args[1], txn=txn)
+    co.txn_commit(txn)
+    print 'Variable set'
+    return 0
+
+def run_unset(co, opts, args):
+    txn = co.txn_begin()
+    try:
+        co.varsdb.delete(args[0], txn=txn)
+    except db.DBNotFoundError:
+        print 'Variable was not set'
+        txn.abort()
+        return 1
+    co.txn_commit(txn)
+    print 'Variable unset'
+    return 0
+
+def run_show_vars(co, opts, args):
+    for item in co.varsdb.items():
+        print "%s:\t%s" % item
+    return 0
+
+def run_describe(co, opts, args):
+    dodiff, short, xml = False, False, False
+    for (opt, arg) in opts:
+        if opt == '-d':
+            dodiff = True
+        elif opt == '-s':
+            short = True
+        elif opt == '-x':
+            xml = True
+
+    if dodiff and xml:
+        print 'error - Only 1 of -x, -d is allowed'
+        return 1
+
+    return describe(co, args[0], short, xml, dodiff, args[1:])
+
+def run_password(co, opts, args):
+    return set_password(co)
+
+def run_annotate(co, opts, args):
+    rev = 'local'
+    for (opt, arg) in opts:
+        if opt == '-r':
+            rev = arg
+
+    return annotate(co, rev, args)
+
+def run_id_to_name(co, opts, args):
+    head = 'local'
+    for (opt, arg) in opts:
+        if opt == '-h':
+            head = arg
+    return cli_handle_to_filename(co, head, args)
+
+options = {
+    "unmodified": ('a', 0,  "Only files which were not modified"),
+    "backup":     ('b', 0,  "Backup existing changesets, don't create a new one"),
+    "count":      ('c', 1, "<count> elements to display"),
+    "date":       ('D', 1, "<YYYY/MM/DD HH:MM:SS TZ> indicating changeset creation time"),
+    "diff":       ('d', 0,  "Display a diff"),
+    "dont-merge": ('d', 0,  "Don't merge changes into the workspace"),
+    "head":       ('h', 1, "Use <head> as the head"),
+    "id":         ('i', 0, "Treat name as a file identifier"),
+    "message":    ('m', 1, "Use <message> as the commit message"),
+    "message-file": ('M', 1, "Get commit message from <file>"),
+    "no-network": ('n', 0,  "Don't perform any network activity"),
+    "new-files":  ('N', 0,  "Show diffs for new and deleted files"),
+    "path":       ('p', 1, "<path> to client"),
+    "revision":   ('r', 1, "<URL> or <changeset>"),
+    "repository": ('R', 1, "<repository> for this operation"),
+    "skip":       ('s', 1, "<skip> number of elements"),
+    "user":       ('u', 1, "<user> as whom to perform this operation"),
+    "verbose":    ('v', 0,  ""),
+    "version":    ('V', 0,  "Print version information"),
+    "xml":        ('x', 0,  "Output XML")
+    }
+
+# the format is (function, min args, max args, long opts)
+commands = {
+    'init':       (run_init,      0, 0,     []),
+    'add':        (run_add,       1, None,  []),
+    'rename':     (run_rename,    2, 2,     []),
+    'remove':     (run_remove,    1, None,  []),
+    'revert':     (run_revert,    1, None,  ["unmodified"]),
+    'edit':       (run_edit,      1, None,  ["id"]),
+    'annotate':   (run_annotate,  0, None,  ["revision"]), 
+    'diff':       (run_diff,      0, None,  ["revision", "new-files"]),
+    'describe':   (run_describe,  1, None,  ["diff", "xml"]),
+    'history':    (run_history,   0, None,  ["head", "id", "count", "skip", "verbose"]),
+    'status':     (run_status,    0, None,  ["verbose"]),
+    'heads':      (run_heads,     0, 0,     []),
+    'last-modified': (run_last_mod, 1, 1,   ["head", "id"]),
+    'update':     (run_update,    0, 0,     ["dont-merge"]),
+    'commit':     (run_commit,    0, None,  ["backup", "date", "message", "message-file", "no-network"]),
+    'construct':  (run_construct, 1, 1,     []),
+    'rebuild':    (run_rebuild,   0, 0,     ["head"]),
+    'is_ancestor': (run_is_ancestor, 2, 2,  []),
+    'print_mini_dag': (run_print_mini_dag, 1, 1, ["head", "id"]),
+    'print_dag':  (run_print_dag, 0, None, []),
+    'id_to_name': (run_id_to_name, 1, 1,    ["head"]),
+    'create':     (run_create,    1, 1,     []),
+    'destroy':    (run_destroy,   1, 1,     []),
+    'list-repos': (run_list,      0, 0,     []),
+    'set':        (run_set,       2, 2,     []),
+    'unset':      (run_unset,     1, 1,     []),
+    'show-vars':  (run_show_vars, 0, 0,     []),
+    'password':   (run_password,  0, 0,     []),
+    }
+
+def run_help():
+    print 'Valid commands are:\n\t',
+    coms = commands.keys()
+    coms.sort()
+    print '\n\t'.join(coms)
+
+def opt_help(opts):
+    for lopt in opts:
+        sopt = options[lopt][0]
+        desc = options[lopt][2]
+        print "  -%s, --%s\t%s" % (sopt, lopt, desc)
+    return
+
+def subcommand_help(cmd):
+    print "Global options:"
+    opt_help(["path", "repository", "user", "version"])
+    if cmd is None:
+        return
+
+    print "\nOptions for '%s':" % (cmd,)
+    opt_help(commands[cmd][3])
+    return
+
+def aggregate_opts(commands):
+    fopts, lfopts = [], []
+    for key, value in options.items():
+        if value[1] == 1:
+            fopts.append(value[0] + ':')
+            lfopts.append(key + '=')
+        else:
+            fopts.append(value[0])
+            lfopts.append(key)
+
+    return ''.join(fopts), lfopts
+
+def convert_to_short_opts(optlist):
+    new_optlist = []
+    for opt, arg in optlist:
+        if options.has_key(opt[2:]):
+            opt = '-' + options[opt[2:]][0]
+        new_optlist.append((opt, arg))
+    return new_optlist
+
+def check_subcommand_opts(cmd, opts):
+    known_opts = []
+    command = commands[cmd]
+    for lo in command[3]:
+        known_opts.append('--' + lo)
+        if options.has_key(lo):
+            known_opts.append('-' + options[lo][0])
+
+    for opt, arg in opts:
+        if opt not in known_opts:
+            raise GetoptError, "option %s not recognized" % (opt,)
+    return
+
+def run(args):
+    seed(time() + os.getpid())
+    local, ulocal, repo, user = None, None, None, None
+    retval = 1
+
+    # get rid of nuisance traceback
+    if os.name != 'nt':
+        signal.signal(signal.SIGPIPE, signal.SIG_DFL)
+
+    all_opts, all_lopts = aggregate_opts(commands)
+    try:
+        optlist, args = gnu_getopt(args, all_opts, all_lopts)
+    except GetoptError, msg:
+        print "error - %s\n" % (msg.args[0],)
+
+        # maybe we can find something that looks like a subcommand
+        cmd = None
+        for arg in args:
+            if arg not in commands:
+                continue
+            cmd = arg
+            break
+
+        subcommand_help(cmd)
+        return 1
+
+    # parse the top level options
+    optlist = convert_to_short_opts(optlist)
+    optlist_unhandled = []
+    for (opt, arg) in optlist:
+        if   opt == '-p':
+            ulocal = os.path.abspath(arg)
+        elif opt == '-R':
+            repo = arg
+        elif opt == '-u':
+            user = arg
+        elif opt == '-V':
+            print "cdv, version %s" % (Codeville.version,)
+            return 0
+        else:
+            optlist_unhandled.append((opt, arg))
+    optlist = optlist_unhandled
+
+    # pull the subcommand
+    if len(args) == 0:
+        run_help()
+        return 1
+    user_cname = args.pop(0)
+    cname_list = []
+    for cname in commands.keys():
+        if cname.startswith(user_cname):
+            cname_list.append(cname)
+    if len(cname_list) > 1:
+        print 'Command \'%s\' is not specific enough.' % (user_cname,)
+        print 'Matching commands:\n\t',
+        print '\n\t'.join(cname_list)
+        return 1
+    elif len(cname_list) == 1:
+        cname = cname_list[0]
+        command = commands[cname]
+    else:
+        print '\'%s\' does not match any commands.' % (user_cname,)
+        run_help()
+        return 1
+
+    # check the options passed in against the subcommand
+    try:
+        check_subcommand_opts(cname, optlist)
+    except GetoptError, msg:
+        print 'error - %s\n' % (msg.args[0],)
+        subcommand_help(cname)
+        return 1
+
+    # check the proper number of arguments were passed
+    if len(args) < command[2]:
+        print 'Too few arguments to "%s" (requires %s).' % \
+              (cname, command[2])
+        return 1
+
+    elif command[3] is not None and len(args) > command[3]:
+        print 'Too many arguments to "%s" (max %d).' % \
+              (cname, command[3])
+        return 1
+
+    # find the metadata directory
+    if ulocal is None:
+        ulocal = os.getcwd()
+    try:
+        local = find_co(ulocal)
+    except PathError, msg:
+        if cname != 'init':
+            print msg
+            return 1
+
+    if cname == 'init':
+        if local != None:
+            print 'error - found existing repository at %s' % (local,)
+            return 1
+        return command[0](None, optlist, [ulocal])
+
+    metadata_dir = path.join(local, '.cdv')
+    try:
+        check_format_version(metadata_dir)
+    except VersionMismatchException, versions:
+        print "error - expected version %d does not match repository version %d, you probably need to run cdvupgrade." % versions.args
+        return 1
+
+    if cname != 'rebuild':
+        try:
+            check_rebuild_version(metadata_dir)
+        except VersionMismatchException, versions:
+            print "error - auxiliary format %d does not match repository format %d, you need to run 'cdv rebuild'" % versions.args
+            return 1
+
+    # run the user's command
+    co = None
+    try:
+        # open the database
+        co = Checkout(local)
+
+        if repo is None:
+            co.repo = co.varsdb.get('repository')
+        else:
+            co.repo = repo
+
+        if user is not None:
+            co.user = user
+
+        retval = command[0](co, optlist, args)
+    except KeyboardInterrupt:
+        print 'Aborting...'
+    except ChangeNotKnown, point:
+        print 'error - %s is not a valid changeset' % (point,)
+    except ChangeNotUnique, (point, changes):
+        changes = [short_id(co, binascii.unhexlify(change)) for change in changes]
+        print 'error - %s matches more than one changeset:\n\t%s' % \
+              (point, '\n\t'.join(changes))
+    except ChangeBadRepository, repo:
+        print 'error - %s is not a known repository' % (repo,)
+    except:
+        print_exc()
+
+    if co is not None:
+        # clean up and shut down
+        if co.txn is not None:
+            co.txn_abort(co.txn)
+        co.close()
+
+    return retval
+
+if __name__ == '__main__':
+    if 0:
+        import hotshot, hotshot.stats
+        prof = hotshot.Profile("cdv.prof")
+        retval = prof.runcall(run, argv[1:])
+        prof.close()
+        stats = hotshot.stats.load("cdv.prof")
+        stats.strip_dirs()
+        stats.sort_stats('time', 'calls')
+        stats.print_stats()
+    else:
+        retval = run(argv[1:])
+    #retval = run(argv[1:])
+    exit(retval)

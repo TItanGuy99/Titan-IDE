@@ -1,0 +1,95 @@
+#!/bin/sh
+#
+
+usage() {
+cat <<EOF
+gtkdoc-mkman version 1.24 - generate documentation in man format
+
+--verbose               Print extra output while processing
+--path=SEARCH_PATH      Extra source directories
+MODULE                  Name of the doc module being parsed
+DRIVER_FILE             File containing the toplevel DocBook file.
+--version               Print the version of this program
+--help                  Print this help
+EOF
+}
+
+# parse options, ignore unknown options for future extensions
+
+verbose=0
+searchpath=
+uninstalled=no
+while true; do
+    case "X$1" in
+        X--version) echo "1.24"; exit 0;;
+        X--help) usage; exit 0;;
+        X--uninstalled) uninstalled=yes; shift;;
+        X--verbose) verbose="1"; shift;;
+        X--path=*) searchpath=`echo $1 | sed s/.*=//`; shift;;
+        X--*) shift;;
+        X*) break;;
+    esac
+done
+
+if test $# -ne 2; then
+    usage 1>&2
+    exit 1
+fi
+
+module=$1
+shift
+document=$1
+shift
+
+quiet="1"
+if test $verbose = "1"; then
+    quiet="0"
+fi
+
+if test $uninstalled = yes; then
+    # this does not work from buiddir!=srcdir
+    gtkdocdir=`dirname $0`
+    #echo "uninstalled, gtkdocdir=$gtkdocdir"
+else
+    # the first two are needed to resolve datadir
+    prefix=/usr
+    datarootdir=${prefix}/share
+    gtkdocdir=${datarootdir}/gtk-doc/data
+fi
+
+if head -n 1 $document | grep "<?xml" > /dev/null; then
+   is_xml=true
+    path_option='--path'
+else
+    is_xml=false
+    path_option='--directory'
+fi
+
+# we could do "$path_option $PWD "
+# to avoid needing rewriting entities that are copied from the header
+# into docs under xml
+if test "X$searchpath" = "X"; then
+    path_arg=
+else
+    path_arg="$path_option $searchpath"
+fi
+
+# would it make sens to create man pages only for certain refentries
+# e.g. for tools
+if $is_xml; then
+    # see http://bugzilla.gnome.org/show_bug.cgi?id=467488
+    /usr/bin/xsltproc $path_arg --nonet --xinclude \
+        --stringparam gtkdoc.bookname $module \
+        --stringparam gtkdoc.version "1.24" \
+        --stringparam chunk.quietly $quiet \
+        --stringparam chunker.output.quiet $quiet \
+        http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl \
+        $document || exit $?
+else
+    for i in `cd sgml;ls *.sgml`; do
+        j=`echo $i | sed 's/.sgml/.man/'`
+        echo ": converting " $i $j
+        docbook-to-man sgml/$i > man/$j 2> man/$j.log
+    done
+fi
+

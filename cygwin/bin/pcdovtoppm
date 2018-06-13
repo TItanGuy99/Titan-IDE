@@ -1,0 +1,214 @@
+#!/bin/sh
+#
+# pcdovtoppm - generate a single PPM file from a PCD overview file
+#
+# Based on pnmindex (PBMPLUS), which was written by Jef Poskanzer,
+# this script makes also use of hpcdtoppm, written by Hadmut Danisch.
+#
+# Formerly called Pcdindex.
+#
+# A similar result can be achieved by using "hpcdtoppm -Overview"
+# followed by "pnmindex -black" on the generated PPM images.
+# This shell just makes it more convenient and transparent to
+# convert from one PCD to one PPM overview file.
+#
+# Additional options (compared to pnmindex) are -maxwidth and
+# -font <font>. See "man pbmtext" on how to create your own font.
+#
+# Pieter S. van der Meulen, 1992.
+# Rewritten in sh by Steve McIntyre <93sam@debian.org>, 2001
+
+# You may want to change the default values in the next 6 lines:
+maxwidth=1152   # maximum width of the index image
+size=192                # make the images about this big
+across=6                # show this many images per row
+colors="noquant"        # maximum amount of colors or noquant (no quantization)
+back="-black"   # default background color
+font=" "                # default font or none (pbmtext's internal font)
+
+usage ()
+{
+    echo "Usage: $0 [-m W] [-s S] [-a A] [-c N|n] [-f F] [-b|-w] <overview.pcd>"
+    echo " with"
+    echo "      W = maximum width of the result image   (default: $maxwidth)"
+    echo "      S = maximum size of each of the images  (default: $size)"
+    echo "      A = maximum number of images across     (default: $across)"
+    echo "      N = maximum number of colors or noquant (default: $colors)"
+    echo -n "   F = font to be used for annotation      (default: "
+    if [ "$font" = " " ] ; then
+                echo "internal font)"
+    else
+                echo "$font)"
+    fi
+    echo "      -b/-w = black/white background color    (default: $back)"
+    echo " "
+    echo " e.g.: $0 -m 768 -s 96 -f smallfont.pbm overview.pcd > overview.ppm"
+    echo " or  : $0 /cdrom/photo_cd/overview.pcd | ppmtojpeg > overview.jpg"
+    exit 1
+}
+
+# Parse the options
+while :; do
+    case "$1" in 
+        -m*)
+             if [ $# -lt 2 ] ; then usage; fi
+             maxwidth="$2"
+             shift
+             shift
+             ;;
+
+        -s*)
+             if [ $# -lt 2 ] ; then usage; fi
+             size="$2"
+             shift
+             shift
+             ;;
+
+            -a*)
+                if [ $# -lt 2 ] ; then usage; fi
+                across="$2"
+                shift
+                shift
+                ;;
+
+            -c*)
+                if [ $# -lt 2 ] ; then usage; fi
+                colors="$2"
+                shift
+                shift
+                ;;
+
+            -f*)
+                if [ $# -lt 2 ] ; then usage; fi
+                font="-font $2"
+                shift
+                shift
+                ;;
+
+            -b*)
+                back="-black"
+                shift
+                ;;
+
+            -w*)
+                back="-white"
+                shift
+                ;;
+
+            -*)
+                echo "$0 : Unknown option $1"
+                echo " "
+                usage
+                ;;
+
+            *)
+                break
+                ;;
+
+    esac
+done
+
+if [ $# = 0 ]; then
+    usage
+fi
+
+tmpfile=`tempfile -p pi -m 600`
+
+rowfiles=()
+imagefiles=()
+row=1
+col=1
+width=$size
+
+# Convert the PCD overview file to many PPM images
+if [ -f $1 ] ; then
+    hpcdtoppm -Overview $1 $tmpfile
+else
+    echo "$0 : Could not access $1"
+    echo " "
+    usage
+fi
+
+for i in "$tmpfile"* 
+do
+    if [ -f $i ] ; then
+        description=`pnmfile $i`
+        if [ "${description[4]}" -le $size -a \
+             "${description[6]}" -le $size ] ; then
+            cat $i > $tmpfile
+                else
+            if [ "$colors" = "n" ] ; then
+                pnmscale -quiet -xysize $size $size $i > $tmpfile
+            else
+                pnmscale -quiet -xysize $size $size $i | \
+                ppmquant -quiet $colors > $tmpfile
+            fi
+        fi
+    fi
+    imagefile=pi.${row}.${col}.$$
+    rm -f $imagefile
+    ttext="$i:t"
+
+    if [ "$back" = "-white" ] ; then
+        pbmtext $font "$ttext" | pnmcrop -quiet | pnmmargin -white 2| \
+        pnmcat $back -tb $tmpfile - > $imagefile
+    else
+        pbmtext $font "$ttext" | pnmcrop -quiet | pnmmargin -white 2 | \
+        pnminvert | pnmcat $back -tb $tmpfile - > $imagefile
+    fi
+
+    rm -f $tmpfile
+    description=`pnmfile $imagefile`
+    width=$(( $width + ${description[4]} ))
+    imagefiles="$imagefiles $imagefile"
+
+    if [ $col -ge $across -o $width -gt $maxwidth ] ; then
+        rowfile=pi.${row}.$$
+        rm -f $rowfile
+    if [ "$colors" = "n" ] ; then
+        pnmcat $back -lr -jbottom $imagefiles > $rowfile
+    else
+        pnmcat $back -lr -jbottom $imagefiles | \
+        ppmquant -quiet $colors > $rowfile
+    fi
+    rm -f $imagefiles
+    imagefiles=()
+    rowfiles="$rowfiles $rowfile"
+    col=1
+    row=$(( $row + 1 ))
+    width=$size
+    else
+        col=$(( $col + 1 ))
+    fi
+done
+
+if [ ${#imagefiles[*]} -gt 0 ] ; then
+    rowfile=pi.${row}.$$
+    rm -f $rowfile
+    if [ "$colors" = "n" ] ; then
+        pnmcat $back -lr -jbottom $imagefiles > $rowfile
+    else
+        pnmcat $back -lr -jbottom $imagefiles | \
+        ppmquant -quiet $colors > $rowfile
+    fi
+    rm -f $imagefiles
+    rowfiles="$rowfiles $rowfile"
+fi
+
+if [ ${#rowfiles[*]} = 1 ]; then
+    cat $rowfiles
+else
+    if [ "$colors" = "n" ] ; then
+        pnmcat $back -tb $rowfiles
+    else
+        pnmcat $back -tb $rowfiles | ppmquant -quiet $colors
+    fi
+fi
+
+rm -f $rowfiles
+
+exit 0
+
+
+
+

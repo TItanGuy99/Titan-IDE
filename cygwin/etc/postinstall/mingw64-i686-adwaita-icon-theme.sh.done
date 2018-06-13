@@ -1,0 +1,5 @@
+if [ -x /usr/bin/gtk-update-icon-cache.exe ]
+then
+    /usr/bin/gtk-update-icon-cache --force /usr/i686-w64-mingw32/sys-root/mingw/share/icons/Adwaita
+fi
+

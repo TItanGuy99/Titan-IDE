@@ -1,0 +1,370 @@
+<?xml version="1.0"?>
+<gconf>
+	<dir name="schemas">
+		<dir name="system">
+			<dir name="smb">
+				<entry name="workgroup">
+					<local_schema short_desc="СМБ радна група">
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="proxy">
+				<entry name="autoconfig_url">
+					<local_schema short_desc="Адреса за самоподешавање посредника">
+						<longdesc>Адреса која обезбеђује вриједности за подешавање посредника.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="socks_port">
+					<local_schema short_desc="Порт SOCKS посредника">
+						<longdesc>Порт машине одређене помоћу „/system/proxy/socks_proxy“ која је посредник.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="socks_host">
+					<local_schema short_desc="Име SOCKS посредника">
+						<longdesc>Име рачунара SOCKS посредника.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="ftp_port">
+					<local_schema short_desc="Порт FTP посредника">
+						<longdesc>Порт машине одређене помоћу „/system/proxy/ftp_proxy“ која је посредник.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="ftp_host">
+					<local_schema short_desc="Име FTP посредника">
+						<longdesc>Име рачунара FTP посредника.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="secure_port">
+					<local_schema short_desc="Порт безбједног HTTP посредника">
+						<longdesc>Порт машине одређене помоћу „/system/proxy/secure_proxy“ која је посредник.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="secure_host">
+					<local_schema short_desc="Име безбједног HTTP посредника">
+						<longdesc>Име рачунара за безбедно веб (HTTPS) посредовање.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="mode">
+					<local_schema short_desc="Режим подешавања посредника">
+						<longdesc>Изаберите режим подешавања посредника. Допуштене вриједности су „none“, „manual“ и „auto“.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="http_proxy">
+				<entry name="ignore_hosts">
+					<local_schema short_desc="Беспосредничке адресе">
+						<longdesc>Овај кључ садржи списак рачунара који су непосредно повезани, умјесто путем посредника (уколико је у дејству). Ове вриједности могу бити имена рачунара, домени (помоћу почетних навода као што је *.нешто.ију), ИП адресе рачунара (било ИПв4 било ИПв6) и адресе мрежа уз мрежну маску (нешто као што је 192.168.0.0/24).</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="authentication_password">
+					<local_schema short_desc="Лозинка HTTP посредника">
+						<longdesc>Лозинка која се користи за идентификацију код веб посредника.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="authentication_user">
+					<local_schema short_desc="Корисник HTTP посредника">
+						<longdesc>Корисничко име које се шаље при идентификацији код веб посредника.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="use_authentication">
+					<local_schema short_desc="Идентификуј везе са посредничким сервером">
+					</local_schema>
+				</entry>
+				<entry name="port">
+					<local_schema short_desc="Порт HTTP посредника">
+						<longdesc>Порт машине одређене помоћу „/system/http_proxy/host“ која је посредник.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="host">
+					<local_schema short_desc="Име HTTP посредника">
+						<longdesc>Име рачунара за веб (HTTP) посредовање.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="use_http_proxy">
+					<local_schema short_desc="Користи веб посредника">
+						<longdesc>Укључује подешавања посредника при приступу вебу преко Интернета.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+		</dir>
+		<dir name="desktop">
+			<dir name="gnome">
+				<dir name="typing_break">
+					<entry name="enabled">
+						<local_schema short_desc="Да ли је или није укључено закључавање тастатуре">
+							<longdesc>Да ли је или није укључено закључавање тастатуре.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="allow_postpone">
+						<local_schema short_desc="Допусти одлагање одмора">
+							<longdesc>Да ли се може одложити екран за одмор од куцања.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="break_time">
+						<local_schema short_desc="Вријеме за одмор">
+							<longdesc>Колико минута треба да траје одмор од куцања.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="type_time">
+						<local_schema short_desc="Вријеме куцања">
+							<longdesc>Број минута куцања прије него што почне одмор.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="thumbnailers">
+					<entry name="disable_all">
+						<local_schema short_desc="Искључи све спољашње приказиваче">
+							<longdesc>Поставите да бисте искључили све спољашње програме за прављење малих приказа, независно од тога да ли су они самостално искључени или укључени.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="sound">
+					<entry name="event_sounds">
+						<local_schema short_desc="Звуци за догађаје">
+							<longdesc>Да ли да пусти звук при корисниковим догађајима.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="enable_esd">
+						<local_schema short_desc="Омогући ЕСД">
+							<longdesc>Покрени звучни сервер при покретању.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="peripherals">
+					<dir name="mouse">
+						<entry name="cursor_size">
+							<local_schema short_desc="Величина курсора">
+							</local_schema>
+						</entry>
+						<entry name="cursor_theme">
+							<local_schema short_desc="Тема курсора">
+							</local_schema>
+						</entry>
+						<entry name="cursor_font">
+							<local_schema short_desc="Писмо за курсор">
+								<longdesc>Име фонта за курсор. Уколико није постављено, користи се уобичајени фонт. Ова вриједност са шаље Икс серверу само на почетку рада, па измјене у току рада неће имати утицаја док се поново не пријавите.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="locate_pointer">
+							<local_schema short_desc="Пронађи показивач">
+							</local_schema>
+						</entry>
+						<entry name="double_click">
+							<local_schema short_desc="Вријеме двоструког клика">
+							</local_schema>
+						</entry>
+						<entry name="drag_threshold">
+							<local_schema short_desc="Праг превлачења">
+							</local_schema>
+						</entry>
+						<entry name="motion_threshold">
+							<local_schema short_desc="Праг кретања">
+								<longdesc>Растојање у тачкама које показивач мора да пријеђе прије него што се покрене убрзано кретање миша. Уобичајена системска вриједност је -1.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="motion_acceleration">
+							<local_schema short_desc="Једноструки клик">
+								<longdesc>Фактор убрзања за кретање миша. Уобичајена системска вриједност је -1.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="single_click">
+							<local_schema short_desc="Једноструки клик">
+							</local_schema>
+						</entry>
+						<entry name="left_handed">
+							<local_schema short_desc="Замена дугмета миша">
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="keyboard">
+						<entry name="bell_custom_file">
+							<local_schema short_desc="Избор датотеке за звук звона тастатуре">
+							</local_schema>
+						</entry>
+						<entry name="bell_mode">
+							<local_schema>
+								<longdesc>дозвољене вриједности су „on“, „off“ и „custom“.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+				<dir name="lockdown">
+					<entry name="disable_print_setup">
+						<local_schema short_desc="Онемогући подешавање штампе">
+							<longdesc>Спријечи корисника да мења подешавања штампе.  На пример, ово ће онемогућити приступ прозорчету „Подешавање штампе“ из сваког програма.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_printing">
+						<local_schema short_desc="Онемогући штампу">
+							<longdesc>Спријечи корисника да штампа.  На пример, ово ће онемогућити приступ прозорчету „Штампај“ из сваког програма.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_save_to_disk">
+						<local_schema short_desc="Онемогући чување датотека на диск">
+							<longdesc>Спријечи корисника да чува датотеке на диску.  На пример, ово ће онемогућити приступ прозорчету „Сачувај као“ из сваког програма.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_command_line">
+						<local_schema short_desc="Онемогући ред наредби">
+							<longdesc>Спријечи корисника да приступа терминалу или да издаје наредбу за извршење.  На пример, ово ће онемогућити приступ прозорчету „Покрени програм“ са панела.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="interface">
+					<entry name="file_chooser_backend">
+						<local_schema short_desc="Дио за избор датотека (GtkFileChooser)">
+						</local_schema>
+					</entry>
+					<entry name="status_bar_meter_on_right">
+						<local_schema short_desc="Стање на десној страни">
+						</local_schema>
+					</entry>
+					<entry name="use_custom_font">
+						<local_schema short_desc="Прилагоди писмо">
+							<longdesc>Да ли да користи прилагођено писмо у Гтк+ програмима.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="monospace_font_name">
+						<local_schema short_desc="Фонт утврђене ширине">
+							<longdesc>Име фонта утврђене ширине који се користе на мјестима као што је нпр. терминал.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-status-style">
+						<local_schema short_desc="GTK IM Стил стања">
+							<longdesc>Име Гтк+ IM стила стања који користи Гтк+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-preedit-style">
+						<local_schema short_desc="GTK IM Стил предуноса">
+							<longdesc>Име Гтк+ IM стила предуноса који користи Гтк+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="font_name">
+						<local_schema short_desc="Уобичајено писмо">
+							<longdesc>Име уобичајеног писма које користи Гтк+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_key_theme">
+						<local_schema short_desc="Гтк+ тема">
+							<longdesc>Основно име уобичајене теме коју користи Гтк+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_theme">
+						<local_schema short_desc="Гтк+ тема">
+							<longdesc>Основно име уобичајене теме коју користи Гтк+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="icon_theme">
+						<local_schema short_desc="Тема икона">
+							<longdesc>Тема икона која се користи за панел, Наутилус, итд.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink_time">
+						<local_schema short_desc="Период трептаја курсора">
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink">
+						<local_schema short_desc="Треперење курсора">
+						</local_schema>
+					</entry>
+					<entry name="toolbar_icons_size">
+						<local_schema short_desc="Величина икона алатки">
+						</local_schema>
+					</entry>
+					<entry name="toolbar_detachable">
+						<local_schema short_desc="Одвојиве алатке">
+						</local_schema>
+					</entry>
+					<entry name="menubar_detachable">
+						<local_schema short_desc="Одвојив основни мени">
+						</local_schema>
+					</entry>
+					<entry name="menus_have_icons">
+						<local_schema short_desc="Менији садрже иконе">
+						</local_schema>
+					</entry>
+					<entry name="toolbar_style">
+						<local_schema short_desc="Стил алатки">
+						</local_schema>
+					</entry>
+					<entry name="can_change_accels">
+						<local_schema short_desc="Дозвољена измјена пречица">
+						</local_schema>
+					</entry>
+					<entry name="menus_have_tearoff">
+						<local_schema short_desc="Мени се може откинути">
+						</local_schema>
+					</entry>
+					<entry name="enable_animations">
+						<local_schema short_desc="Омогући анимације">
+							<longdesc>Да ли се приказују анимације. Напомена: ово је општи кључ, и измениће понашање управника прозора, панела, итд.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="accessibility">
+						<local_schema short_desc="Омогући приступачност">
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="file-views">
+					<entry name="icon_theme">
+						<local_schema short_desc="Тема икона за датотеке">
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="background">
+					<entry name="color_shading_type">
+						<local_schema short_desc="Врста претапања боја">
+						</local_schema>
+					</entry>
+					<entry name="secondary_color">
+						<local_schema short_desc="Додатна боја">
+							<longdesc>Боја на дну или десној страни при исцртавању претапања боја; не користи се за једнобојну позадину.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="primary_color">
+						<local_schema short_desc="Основна боја">
+							<longdesc>Боја на врху или левој страни при исцртавању претапања боја, или боја једнобојне позадине.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_opacity">
+						<local_schema short_desc="Непровидност слике">
+						</local_schema>
+					</entry>
+					<entry name="picture_filename">
+						<local_schema short_desc="Датотека са сликом">
+						</local_schema>
+					</entry>
+					<entry name="picture_options">
+						<local_schema short_desc="Избори за слику">
+						</local_schema>
+					</entry>
+					<entry name="draw_background">
+						<local_schema short_desc="Исцртај позадину радне површине">
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="applications">
+					<dir name="component_viewer">
+						<entry name="exec">
+							<local_schema short_desc="Подразумјевани програм за преглед дијелова">
+								<longdesc>Програм који се користи за прегледање датотека које захтјевају компоненту за преглед. Параметар %s ће бити замјењен адресом датотеке, а параметар %c ће бити замјењен IID-ом компоненте.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="terminal">
+						<entry name="exec_arg">
+							<local_schema short_desc="Аргумент извршавања за подразумјевани терминал">
+								<longdesc>Аргумент извршавања за подразумјевани терминалски програм.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Подразумјевани терминалски програм">
+								<longdesc>Подразумјевани терминалски програм који се користи за програме којима је неопходан терминал.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+			</dir>
+		</dir>
+	</dir>
+</gconf>

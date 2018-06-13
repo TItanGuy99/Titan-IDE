@@ -1,0 +1,6 @@
+if [ ! -f /etc/colordiffrc ]
+then
+    /usr/bin/mkdir -p /etc
+    /usr/bin/cp /etc/defaults/etc/colordiffrc /etc/colordiffrc
+fi
+

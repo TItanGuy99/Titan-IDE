@@ -1,0 +1,6 @@
+if [ ! -f /etc/lftp.conf ]
+then
+    /usr/bin/mkdir -p /etc
+    /usr/bin/cp /etc/defaults/etc/lftp.conf /etc/lftp.conf
+fi
+

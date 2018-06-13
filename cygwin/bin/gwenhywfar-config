@@ -1,0 +1,81 @@
+#! /bin/sh
+dir="/usr"
+# $Id$
+# Author of this file: Martin Preuss<martin@libchipcard.de>
+
+bindir=${exec_prefix}/bin
+
+result=""
+
+for d in $*; do
+    case $d in
+	--includes)
+	    result="$result $(pkg-config --cflags gwenhywfar)"
+	    ;;
+	--libraries)
+	    result="$result $(pkg-config --libs gwenhywfar)"
+	    ;;
+	--bindir)
+	    result="$result ${bindir}"
+	    ;;
+	--headers)
+	    result="$result $(pkg-config --cflags gwenhywfar)"
+	    ;;
+	--plugins)
+	    result="$result $(pkg-config --variable=plugindir gwenhywfar)"
+	    ;;
+	--vmajor)
+	    result="$result 4"
+	    ;;
+	--vminor)
+	    result="$result 15"
+	    ;;
+	--vpatchlevel)
+	    result="$result 3"
+	    ;;
+	--vbuild)
+	    result="$result 0"
+	    ;;
+	--vtag)
+	    result="$result stable"
+	    ;;
+        --vstring)
+	    result="$result 4.15.3"
+            ;;
+        --has-crypt)
+	    # Keep this argument in order not to completely break
+	    # the old gwenhywfar.m4 macro.
+	    result="This argument is obsolete. See $0 --help for current arguments."
+            ;;
+	--has-ui)
+	    # Keep this argument in order not to completely break
+	    # the old gwenhywfar.m4 macro.
+	    result="This argument is obsolete. See $0 --help for current arguments."
+	    ;;
+	--libraries++)
+	    # Keep this argument in order not to completely break
+	    # the old gwenhywfar.m4 macro.
+	    result="This argument is obsolete. See $0 --help for current arguments."
+	    ;;
+	--libraries-ui)
+	    # Keep this argument in order not to completely break
+	    # the old gwenhywfar.m4 macro.
+	    result="This argument is obsolete. See $0 --help for current arguments."
+	    ;;
+	*)
+	    echo "Usage:"
+	    echo "$0 --includes gives you the include flags"
+	    echo "$0 --libraries gives you the library flags"
+	    echo "$0 --bindir returns the folder for binary tools"
+	    echo "$0 --headers gives you the location of the header files"
+	    echo "$0 --vmajor gives the major version of LibGwenhywfar"
+	    echo "$0 --vminor gives the minor version of LibGwenhywfar"
+	    echo "$0 --vpatchlevel gives the patchlevel of LibGwenhywfar"
+	    echo "$0 --vbuild gives the build number of LibGwenhywfar"
+	    echo "$0 --vtag gives the tag of LibGwenhywfar (cvs, beta or stable)"
+	    echo "$0 --vstring returns a version string"
+	    exit 1
+	    ;;
+    esac
+done
+echo $result

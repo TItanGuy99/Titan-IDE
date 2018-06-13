@@ -1,0 +1,81 @@
+V "GNAT Lib v5"
+A -gnatwa
+A -nostdinc
+A -O2
+A -Wextra
+A -Wall
+A -g
+A -gnatp
+A -gnatg
+A -mtune=generic
+A -march=i686
+P SS ZX
+
+RN
+RV NO_SECONDARY_STACK
+RV NO_IMPLEMENTATION_PRAGMAS
+RV SPARK_05
+
+U ada.strings.wide_unbounded.wide_hash%b  a-swuwha.adb  15ec06fd NE OL PR SU
+W ada.strings.wide_unbounded%s  a-stwiun.adb	a-stwiun.ali
+W system%s		system.ads		system.ali
+W system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+W system.string_hash%s	s-strhas.adb		s-strhas.ali
+
+U ada.strings.wide_unbounded.wide_hash%s  a-swuwha.ads  f8259ef6 NE OL PR SU
+W ada%s			ada.ads			ada.ali
+W ada.containers%s	a-contai.ads		a-contai.ali
+W ada.strings.wide_unbounded%s  a-stwiun.adb	a-stwiun.ali
+
+D ada.ads		20070406091342 3ffc8e18 ada%s
+D a-contai.ads		20101025135029 61e5e089 ada.containers%s
+D a-except.ads		20140730140058 5250cb69 ada.exceptions%s
+D a-finali.ads		20140611123707 69f99942 ada.finalization%s
+D a-stream.ads		20141120112812 119b8fb3 ada.streams%s
+D a-string.ads		20070406091342 90ac6797 ada.strings%s
+D a-stwima.ads		20111222115200 09a6f5ac ada.strings.wide_maps%s
+D a-stwiun.ads		20150106093903 64ae971d ada.strings.wide_unbounded%s
+D a-swuwha.ads		20080324105732 fd6ee962 ada.strings.wide_unbounded.wide_hash%s
+D a-swuwha.adb		20090622122457 ce1e370b ada.strings.wide_unbounded.wide_hash%b
+D a-tags.ads		20140730140058 dc4d0634 ada.tags%s
+D a-unccon.ads		20070406091342 f9eb8f06 ada.unchecked_conversion%s
+D system.ads		20141030114420 f4ce8c3a system%s
+D s-atocou.ads		20141017084241 cd7c94ca system.atomic_counters%s
+D s-exctab.ads		20140225151139 54135002 system.exception_table%s
+D s-finmas.ads		20140225151139 814daec4 system.finalization_masters%s
+D s-finroo.ads		20120426095924 4ff27390 system.finalization_root%s
+D s-parame.ads		20140801093848 7e2a0d7f system.parameters%s
+D s-secsta.ads		20140225151139 86a2856d system.secondary_stack%s
+D s-soflin.ads		20140801100131 aa763b52 system.soft_links%s
+D s-stache.ads		20140225151139 a37c21ec system.stack_checking%s
+D s-stalib.ads		20150220094550 fa0a3617 system.standard_library%s
+D s-stoele.ads		20140225151139 2dc34a04 system.storage_elements%s
+D s-stopoo.ads		20131010103753 b16154c2 system.storage_pools%s
+D s-stposu.ads		20140718101241 97a6219c system.storage_pools.subpools%s
+D s-stratt.ads		20131014135145 aedef97e system.stream_attributes%s
+D s-strhas.ads		20090623093900 269cd894 system.string_hash%s
+D s-strhas.adb		20140225151139 2e038444 system.string_hash%b
+D s-traent.ads		20140730135025 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20140731130224 9d58a4c0 system.unsigned_types%s
+X 1 ada.ads
+16K9*Ada 19e8 9|18r6 20r10 23r22 10|32r10 35r8 40r5
+X 2 a-contai.ads
+16K13*Containers 24e19 9|18w10 21r40 10|33r40 35r12
+19M9*Hash_Type 9|21r51 10|33r51 37r36
+X 6 a-string.ads
+16K13*Strings 35e16 9|20r14 23r26 10|32r14 40r9
+X 8 a-stwiun.ads
+48K21*Wide_Unbounded 494e31 9|20r22 23r34 10|32r22 40r17
+51R9*Unbounded_Wide_String<4|43R9> 451e14 9|21r10 10|33r10
+72V13*To_Wide_String{wide_string} 10|39s17
+X 9 a-swuwha.ads
+20V37*Wide_Hash{2|19M9} 8|48k21 9|21>4 23r49 10|32b37 40l32 40t41
+21r4 Key{8|51R9} 10|33b4 39r33
+X 10 a-swuwha.adb
+36V13 Hash[27|56]{2|19M9} 39s11 28|43b13
+X 13 system.ads
+37K9*System 10|30r6 36r25 13|199e11
+X 27 s-strhas.ads
+41K16*String_Hash 10|30w13 36r32 27|60e23
+56v13*Hash 10|36r44
+

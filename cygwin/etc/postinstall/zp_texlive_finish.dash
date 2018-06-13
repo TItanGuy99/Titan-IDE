@@ -1,0 +1,35 @@
+#! /bin/dash
+
+markerdir=/var/lib/texmf/postinstall
+
+for f in ${markerdir}/*.map
+do
+    if [ -f ${f} ]
+    then
+	maps=$(cat ${markerdir}/*.map)
+    fi
+    break
+done
+
+if [ -n "${maps}" ]
+then
+    if [ -x /usr/bin/updmap-sys ]
+    then
+	/usr/bin/updmap-sys --nohash --nomkmap ${maps}
+	echo y | /usr/bin/updmap-sys --syncwithtrees
+	/usr/bin/updmap-sys
+    fi
+    for f in ${markerdir}/*.map
+    do
+	mv -f ${f} ${f}.done
+    done
+    [ -f /usr/share/tlpkg/tlpostcode/dvipdfmx.pl ] \
+	&& perl /usr/share/tlpkg/tlpostcode/dvipdfmx.pl install /usr/share
+fi
+
+if [ -f ${markerdir}/texlive.rebuild_all_fmts ]
+then
+    [ -x /usr/bin/fmtutil-sys ] && /usr/bin/fmtutil-sys --all
+    mv -f ${markerdir}/texlive.rebuild_all_fmts \
+       ${markerdir}/texlive.rebuild_all_fmts.done
+fi

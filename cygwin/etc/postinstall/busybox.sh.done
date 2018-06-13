@@ -1,0 +1,3 @@
+/usr/sbin/alternatives --install /usr/bin/busybox busybox \
+                       /usr/libexec/busybox/bin/busybox.exe 20
+

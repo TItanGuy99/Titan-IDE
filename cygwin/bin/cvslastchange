@@ -1,0 +1,55 @@
+#! /usr/bin/env perl
+
+use File::Basename;
+
+sub usage()
+{
+  print "Usage:\n";
+  print "  $0 [ <filename > | <filename> <rev> | \n" .
+        "       M +<digits> -<digits> <filename <rev> ]\n";
+  print "\n";
+  
+  exit 5;
+}
+
+my $filename;
+
+my $argc = scalar @ARGV;
+
+if ($argc > 0 and $argc < 3 ) {
+  $filename = $ARGV[0];
+  $cvsversion= dirname($0) . "/cvsversion";
+  $version=`$cvsversion $filename`;
+  chomp $version;
+  $version=$ARGV[1] if ($argc > 1 and $ARGV[1] =~ /^[\d\.]{3,}$/);
+} elsif ($argc == 5) {
+  $filename=$ARGV[3] if (-f $ARGV[3]);
+  $version=$ARGV[4] if ($ARGV[4] =~ /^[\d\.]{3,}$/);
+} else {
+  &usage();
+}
+
+die "$0: filename expected" if(!length($filename));
+die "$filename: $!\n" if (! -f $filename);
+
+my $vold = $version;
+my $vnew = $version;
+
+if ($version=~/^.*\.1$/) {
+  $vold = $1 if ($version=~/^(\d+\.\d+(?:\.\d+\.\d+)*)\.\d+\.1$/);
+}
+else {
+  if ($version=~/^(.*)\.([^.]*)$/) { $v1 = $1; $v2 = $2 } 
+  $v2old = ${v2}-1;
+  $vold = $v1 . '.' . $v2old;
+}
+my $base = basename($filename);
+my $dir = dirname($filename);
+my $cmd = "cd $dir; cvs -f log -N -r$vnew $base";
+print "$cmd\n";
+system("$cmd");
+my $whitespace = "";
+$whitespace = "-b" unless (defined $ENV{"CVSLASTCHANGE_KEEP_WHITESPACE"});
+$cmd = "cd $dir; cvs -f diff -kk $whitespace -p -u -r$vold -r$vnew $base";
+print "$cmd\n";
+system("$cmd");

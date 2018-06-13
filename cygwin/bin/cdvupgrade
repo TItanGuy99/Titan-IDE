@@ -1,0 +1,152 @@
+#!/bin/python
+
+# Written by Ross Cohen
+# see LICENSE.txt for license information
+
+try:
+    import Codeville.db
+except ImportError:
+    import sys, os.path
+    from os.path import dirname, abspath, join
+    pypath = "lib/python%d.%d/site-packages" % \
+                (sys.version_info[0], sys.version_info[1])
+    base   = dirname(dirname(abspath(sys.argv[0])))
+    sys.path[0:0] = [ join(base, pypath) ]  # first place to look
+
+from Codeville.bencode import bdecode, bencode
+from Codeville.client import find_co, Checkout, _rebuild_fndb, PathError
+from Codeville.server import ServerRepository
+from Codeville.upgrade import upgrade
+
+import os
+from os import path
+from sys import argv, exit, version_info
+
+assert version_info >= (2,3), "Python 2.3 or higher is required"
+
+def upgrade_client(repo_dir):
+    print "Looks like we're upgrading a client."
+
+    try:
+        local = find_co(repo_dir, 'CVILLE')
+    except PathError:
+        print "Couldn't find checkout, aborting."
+        return 1
+
+    old_repo = Checkout(local, metadata_dir='CVILLE', rw=False)
+    # since we're creating a new metadata directory, we can upgrade in place
+    new_repo = Checkout(local, init=True)
+
+    txn = new_repo.txn_begin()
+
+    UR = upgrade(old_repo, new_repo, old_repo.lcrepo.keys(), txn)
+
+    # fix up all the client specific dbs
+    for handle, modtime in old_repo.modtimesdb.items():
+        new_handle = handle
+        if UR.handle_map.has_key(handle):
+            new_handle = UR.handle_map[handle]
+        new_repo.modtimesdb.put(new_handle, modtime, txn=txn)
+
+    for handle, bhinfo in old_repo.editsdb.items():
+        hinfo = bdecode(bhinfo)
+        if hinfo.has_key('parent'):
+            hinfo['parent'] = UR.handle_map[hinfo['parent']]
+
+        new_handle = handle
+        if not hinfo.has_key('add'):
+            new_handle = UR.handle_map[handle]
+        else:
+            old_sinfo = old_repo.staticdb.get(handle)
+            new_repo.staticdb.put(new_handle, old_sinfo, txn=txn)
+            new_repo.allnamesdb.put(hinfo['parent'] + hinfo['name'], new_handle, txn=txn)
+
+        new_repo.editsdb.put(new_handle, bencode(hinfo), txn=txn)
+
+    for key, value in old_repo.varsdb.items():
+        new_repo.varsdb.put(key, value, txn=txn)
+
+    heads = bdecode(old_repo.linforepo.get('heads'))
+    new_heads = [UR.point_map[point] for point in heads]
+    new_repo.linforepo.put('heads', bencode(new_heads), txn=txn)
+
+    _rebuild_fndb(new_repo, txn)
+
+    for key, value in old_repo.linforepo.items():
+        if not key.startswith('cdv://'):
+            continue
+        new_repo.linforepo.put(key, UR.point_map[value], txn=txn)
+
+    # all done! close everything down.
+    old_repo.close()
+    new_repo.txn_commit(txn)
+    new_repo.close()
+
+    print """
+The client has been upgraded in place. If things are working, you should
+delete all the old metadata directory by doing:
+rm -rf CVILLE/
+"""
+
+    return 0
+
+def upgrade_server(repo_dir):
+    print "Looks like we're upgrading a server."
+
+    old_repo = ServerRepository()
+    old_repo._db_init(repo_dir, '', rw=False)
+
+    # since we're creating a new metadata directory, we can upgrade in place
+    new_repo = ServerRepository()
+    new_repo._db_init(repo_dir, init=True)
+
+    txn = new_repo.txn_begin()
+
+    UR = upgrade(old_repo, new_repo, old_repo.repolistdb.values(), txn)
+
+    # write the new repository heads
+    for repo, head in old_repo.repolistdb.items():
+        new_repo.repolistdb.put(repo, UR.point_map[head], txn=txn)
+
+    old_repo.close()
+    new_repo.txn_commit(txn)
+    new_repo.close()
+
+    print """
+The server has been upgraded in place. If things are working, you should
+delete all the old database files by doing:
+rm -rf *.db log.* contents/
+"""
+
+    return 0
+
+def run():
+    retval = 0
+
+    repo_dir = None
+    if len(argv) < 2:
+        repo_dir = os.getcwd()
+    else:
+        repo_dir = path.abspath(argv[1])
+
+    if path.exists(path.join(repo_dir, 'codeville_repository')):
+        retval = upgrade_server(repo_dir)
+    else:
+        retval = upgrade_client(repo_dir)
+
+    return 0
+
+
+if __name__ == '__main__':
+    if 0:
+        import hotshot, hotshot.stats
+        prof = hotshot.Profile("cdvupgrade.prof")
+        retval = prof.runcall(run)
+        prof.close()
+        stats = hotshot.stats.load("cdvupgrade.prof")
+        stats.strip_dirs()
+        stats.sort_stats('time', 'calls')
+        stats.print_stats()
+    else:
+        retval = run()
+    exit(retval)

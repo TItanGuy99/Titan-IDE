@@ -1,0 +1,6 @@
+if [ ! -f /etc/smi.conf ]
+then
+    /usr/bin/mkdir -p /etc
+    /usr/bin/cp /etc/defaults/etc/smi.conf /etc/smi.conf
+fi
+

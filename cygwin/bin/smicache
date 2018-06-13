@@ -1,0 +1,80 @@
+#!/usr/bin/sh
+#
+# smicache --
+#
+#	A simple caching method, used by the config file `cache' directive.
+#
+# Copyright (c) 2001 Frank Strauss, Technical University of Braunschweig.
+#
+# See the file "COPYING" for information on usage and redistribution
+# of this file, and for a DISCLAIMER OF ALL WARRANTIES.
+#
+# $Id: smicache.in 1614 2008-04-18 12:56:29Z strauss $
+#
+# NOTE, that this script relies on wget and getopts
+# (shell builtin like in bash or standalone).
+#
+# NOTE, that smicache has just been an experiment. It is NOT suggested
+# to use it in a production environment.
+
+WGET=/usr/bin/wget
+GETOPTS=getopts
+VERSION=0.5.0
+
+prefix=http://www.ibr.cs.tu-bs.de/projects/libsmi/smicache/
+dir=/tmp
+
+
+
+do_version () {
+    echo "smicache $VERSION"
+}
+
+
+
+do_usage () {
+    echo "Usage: smicache [-Vh] [-d dir] [-p prefix] mib"
+    echo "-V         show version and license information"
+    echo "-h         show usage information"
+    echo "-d dir     use dir as the caching directory"
+    echo "-p prefix  use prefix as the URL prefix for fetching modules"
+    echo "mib        name of the module to be fetched"
+}
+
+
+
+do_fetch () {
+    $WGET -q -O "$dir/$1" "$prefix/$1"
+}
+
+
+
+while $GETOPTS Vhd:p: c ; do
+    case $c in
+	d)	dir="$OPTARG"
+		;;
+	p)	prefix="$OPTARG"
+		;;
+	h)	do_usage
+		exit 0
+		;;
+	V)	do_version
+		exit 0
+		;;
+	*)	do_usage
+		exit 1
+		;;
+    esac
+done
+
+shift `expr $OPTIND - 1`
+
+
+
+if [ $# -eq 1 ] ; then
+    do_fetch $1
+else 
+    do_usage
+fi
+
+exit 0

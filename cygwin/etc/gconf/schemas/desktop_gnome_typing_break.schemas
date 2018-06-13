@@ -1,0 +1,1670 @@
+<gconfschemafile>
+  <schemalist>
+    <schema>
+      <key>/schemas/desktop/gnome/typing_break/type_time</key>
+      <applyto>/desktop/gnome/typing_break/type_time</applyto>
+      <owner>gnome</owner>
+      <type>int</type>
+      <default>60</default>
+      <locale name="C">
+         <short>Type time</short>
+         <long>
+	  Number of minutes of typing time before break mode starts.
+         </long>
+      </locale>
+
+      <locale name="ar">
+         <short>وقت الكتابة</short>
+         <long>عدد دقائق وقت الكتابة قبل أن يبدأ نمط فترة الراحة.</long>
+      </locale>
+
+      <locale name="as">
+         <short>টাইপ কৰাৰ সময়</short>
+         <long>বিৰতিকাল আৰম্ভৰ পূৰ্বৰ টাইপ কৰাৰ সময়, মিনিট অনুযায়ী ব্যক্ত ।</long>
+      </locale>
+
+      <locale name="ast">
+         <short>Tiempu de tecléu</short>
+         <long>Númberu de minutos de tiempu pa tecliar enantes de qu&apos;entame&apos;l mou de descansu.</long>
+      </locale>
+
+      <locale name="az">
+         <short>Yazma vaxtı</short>
+         <long>Fasilənin başlaması üçün keçməsi lazım olan vaxt.</long>
+      </locale>
+
+      <locale name="be">
+         <short>Час набору</short>
+         <long>Колькасьць хвілін набору тэксту, перад пачаткам перапынку.</long>
+      </locale>
+
+      <locale name="bg">
+         <short>Време за писане</short>
+         <long>Брой минути писане, преди да се пусне почивка.</long>
+      </locale>
+
+      <locale name="bn">
+         <short>টাইপ করার সময়</short>
+         <long>বিরতিকাল আরম্ভের পূর্বের টাইপ করার সময়, মিনিট অনুযায়ী ব্যক্ত।</long>
+      </locale>
+
+      <locale name="bn_IN">
+         <short>টাইপ করার সময়</short>
+         <long>বিরতিকাল আরম্ভের পূর্বের টাইপ করার সময়, মিনিট অনুযায়ী ব্যক্ত।</long>
+      </locale>
+
+      <locale name="bs">
+         <short>Vrijeme kucanja</short>
+         <long>Broj minuta kucanja prije početka pauze.</long>
+      </locale>
+
+      <locale name="ca">
+         <short>Temps d&apos;escriptura</short>
+         <long>Nombre de minuts de temps de tecleig abans que comenci el mode de descans.</long>
+      </locale>
+
+      <locale name="ca@valencia">
+         <short>Temps d&apos;escriptura</short>
+         <long>Nombre de minuts de temps de tecleig abans que comence el mode de descans.</long>
+      </locale>
+
+      <locale name="crh">
+         <short>Basuv vaqtı</short>
+         <long>Teneffüs kelişi başlanğance basuv vaqtı daqqa sayısı.</long>
+      </locale>
+
+      <locale name="cs">
+         <short>Doba psaní</short>
+         <long>Počet minut psaní před přechodem do režimu přestávky.</long>
+      </locale>
+
+      <locale name="cy">
+         <short>Amser teipio</short>
+         <long>Nifer o funudau o amser teipio cyn mae&apos;r modd gorffwys yn cychwyn.</long>
+      </locale>
+
+      <locale name="da">
+         <short>Indtastningstid</short>
+         <long>Antal minutters indtastningstid før pausetilstand begynder.</long>
+      </locale>
+
+      <locale name="de">
+         <short>Tippdauer</short>
+         <long>Die Anzahl der Eingabeminuten bevor der Pausenmodus beginnt.</long>
+      </locale>
+
+      <locale name="dz">
+         <short>ཡིག་དཔར་བརྐྱབ་ནིའི་དུས་ཚོད།</short>
+         <long>བར་མཚམས་ཐབས་ལམ་ འགོ་མ་བཙུགས་པའི་ཧེ་མར་ ཡིག་དཔར་བརྐྱབ་ནིའི་དུས་ཚོད་ སྐར་མའི་གྲངས།</long>
+      </locale>
+
+      <locale name="el">
+         <short>Χρόνος πληκτρολόγησης</short>
+         <long>Αριθμός λεπτών πληκτρολόγησης πριν την έναρξη διαλείμματος.</long>
+      </locale>
+
+      <locale name="en@shaw">
+         <short>𐑑𐑲𐑐 𐑑𐑲𐑥</short>
+         <long>𐑯𐑳𐑥𐑚𐑼 𐑝 𐑥𐑦𐑯𐑦𐑑𐑕 𐑝 𐑑𐑲𐑐𐑦𐑙 𐑑𐑲𐑥 𐑚𐑦𐑓𐑹 𐑚𐑮𐑱𐑒 𐑥𐑴𐑛 𐑕𐑑𐑸𐑑𐑕.</long>
+      </locale>
+
+      <locale name="en_CA">
+         <short>Type time</short>
+         <long>Number of minutes of typing time before break mode starts.</long>
+      </locale>
+
+      <locale name="en_GB">
+         <short>Type time</short>
+         <long>Number of minutes of typing time before break mode starts.</long>
+      </locale>
+
+      <locale name="eo">
+         <short>Tajpa tempo</short>
+         <long>Nombro de minutoj de tajpotempo antaŭ ol paŭza reĝimo komencas.</long>
+      </locale>
+
+      <locale name="es">
+         <short>Tiempo de tecleo</short>
+         <long>Número de minutos del tiempo de tecleo antes de que el modo de descanso se active.</long>
+      </locale>
+
+      <locale name="et">
+         <short>Tippimisaeg</short>
+         <long>Tippimiseks kuluvate minutite arv enne puhkepausi aktiveerimist.</long>
+      </locale>
+
+      <locale name="eu">
+         <short>Idazteko denbora</short>
+         <long>Idazteko denborako minutuak atseden-modua abiarazi aurretik.</long>
+      </locale>
+
+      <locale name="fa">
+         <short>زمان تایپ</short>
+         <long>تعداد دقایق زمان تایپ کردن قبل از شروع حالت استراحت.</long>
+      </locale>
+
+      <locale name="fi">
+         <short>Kirjoitusaika</short>
+         <long>Kirjoitusaika (minuutteja) ennen kuin taukovaihe alkaa.</long>
+      </locale>
+
+      <locale name="fr">
+         <short>Durée de saisie</short>
+         <long>Nombre de minutes de saisie avant que la pause ne commence.</long>
+      </locale>
+
+      <locale name="ga">
+         <short>Clóscríobh an t&apos;Ám</short>
+         
+      </locale>
+
+      <locale name="gl">
+         <short>Tempo de dixitación</short>
+         <long>Número de minutos do tempo de dixitación antes de que comece o modo de descanso.</long>
+      </locale>
+
+      <locale name="gu">
+         <short>લખવાનો સમય</short>
+         <long>અટકણોની સ્થિતિત શરુ થાય તે પહેલા લખવામાં લાગતો સમય મિનિટોમાં.</long>
+      </locale>
+
+      <locale name="he">
+         <short>Type time</short>
+         <long>Number of minutes of typing time before break mode starts.</long>
+      </locale>
+
+      <locale name="hi">
+         <short>टाइप समय</short>
+         <long>ब्रेक मोड प्रारंभ होने से पहले का टाइपिंग समय मिनटों में</long>
+      </locale>
+
+      <locale name="hr">
+         <short>Vrsta vremena</short>
+         <long>Broj minuta vremena pisanja prije početka predaha.</long>
+      </locale>
+
+      <locale name="hu">
+         <short>Gépelési idő</short>
+         <long>Gépelési idő szünet előtt.</long>
+      </locale>
+
+      <locale name="id">
+         <short>Waktu pengetikan</short>
+         <long>Lama waktu mengetik (dalam menit) sebelum mode jeda dimulai.</long>
+      </locale>
+
+      <locale name="is">
+         <short>Vélritunartími</short>
+         <long>Lengd lotu við lyklaborðið áður en pása hefst.</long>
+      </locale>
+
+      <locale name="it">
+         <short>Durata digitazione</short>
+         <long>Numero di minuti di digitazione prima dell&apos;inizio della modalità di pausa</long>
+      </locale>
+
+      <locale name="ja">
+         <short>一休み前のキーボード入力時間</short>
+         <long>一休みの警告を出すまでの時間 (分) を指定します。</long>
+      </locale>
+
+      <locale name="ka">
+         <short>ტექსტის შეტანის ხანგრძლივობა</short>
+         <long>ტექსტის შეტანის ხანგრძლივობა წუთებში წყვეტის რეჟიმის დაწყებამდე.</long>
+      </locale>
+
+      <locale name="kn">
+         <short>ನಮೂದಿಸುವ ಸಮಯ</short>
+         <long>ವಿರಾಮದ ಕ್ರಮವು ಆರಂಭಗೊಳ್ಳುವ ಮೊದಲಿನ ನಮೂದಿಸುವ ಸಮಯ, ನಿಮಿಷಗಳಲ್ಲಿ.</long>
+      </locale>
+
+      <locale name="ko">
+         <short>타이핑 시간</short>
+         <long>몇 분동안 타이핑해야 휴식 모드가 시작하는 지.</long>
+      </locale>
+
+      <locale name="ku">
+         <short>Dema nivîsandinê</short>
+         <long>Berî ku moda bêhnvedanê dest pê bike xulekên pêwist yên ji bo nivîsandinê.</long>
+      </locale>
+
+      <locale name="lt">
+         <short>Spausdinimo laikas</short>
+         <long>Po kiek minučių teksto vedimo turi prasidėti spausdinimo pertraukėlės.</long>
+      </locale>
+
+      <locale name="lv">
+         <short>Rakstīšanas laiks</short>
+         <long>Pēc cik ilga rakstīšanas laika minūtēs sāksies pārtraukuma režīms.</long>
+      </locale>
+
+      <locale name="mai">
+         <short>टाइप समय</short>
+         <long>ब्रेक मोड प्रारंभ होबासँ पहिने क&apos; टाइपिंग समय मिनटमे</long>
+      </locale>
+
+      <locale name="mg">
+         <short>Faharetan&apos;ny fanoratana</short>
+         <long>Ny faharetan&apos;ny fanoratana (minitra) alohan&apos;ny iantombohan&apos;ny fiatoana.</long>
+      </locale>
+
+      <locale name="mk">
+         <short>Време за куцање</short>
+         <long>Број на минути за време на куцање пред да започне паузата.</long>
+      </locale>
+
+      <locale name="ml">
+         <short>ടെപ്പ് ചെയ്യുവാന്‍ എടുക്കുന്ന സമയം</short>
+         <long>ഇടവേള തുടങ്ങുന്നതിനു് മുമ്പു് എത്ര മിനിട്ട് ടൈപ്പ് ചെയ്യുന്ന സമയം വേണം.</long>
+      </locale>
+
+      <locale name="mn">
+         <short>Оруулах хугацаа</short>
+         <long>Оруулах (бичих) үеийн түр зогсолтын горим эхлэхийн өмнөх минутын тоо</long>
+      </locale>
+
+      <locale name="mr">
+         <short>वेळेचे प्रकार</short>
+         <long>विश्रांती पध्दती सुरू होण्यापूर्वी इतक्या मिनिटाचा टायपिंग कालावधी असतो.</long>
+      </locale>
+
+      <locale name="ms">
+         <short>Masa menaip</short>
+         <long>Bilangan minit oleh masa menaip sebelum mod rehat bermula.</long>
+      </locale>
+
+      <locale name="nb">
+         <short>Skrivetid</short>
+         <long>Antall minutter med skriving før pausemodus starter.</long>
+      </locale>
+
+      <locale name="nds">
+         <short>Typtied</short>
+         
+      </locale>
+
+      <locale name="ne">
+         <short>समय प्रकार</short>
+         <long>विच्छेद मोड सुरु हुनुभन्दा पहिलाको टाइपिङ मिनेटको सङ्ख्या ।</long>
+      </locale>
+
+      <locale name="nl">
+         <short>Tijd om te typen</short>
+         <long>Aantal minuten tijd om te typen voordat pauze-modus begint.</long>
+      </locale>
+
+      <locale name="nn">
+         <short>Skrivetid</short>
+         <long>Tal på minutt skrivetid før pausemodus startar.</long>
+      </locale>
+
+      <locale name="or">
+         <short>ଟାଇପ ସମୟ</short>
+         <long>ବିରତି ଅବସ୍ଥା ଆରମ୍ଭ ହେବା ପୂର୍ବରୁ ଟାଇପିଙ୍ଗର ସମୟ, ମିନିଟରେ.</long>
+      </locale>
+
+      <locale name="pa">
+         <short>ਟਾਇਪ ਸਮਾਂ</short>
+         <long>ਮਿੰਟਾਂ ਦੀ ਗਿਣਤੀ, ਜਦੋਂ ਕਿ ਟਾਇਪ ਕਰਨ ਮਗਰੋਂ ਅੰਤਰਾਲ ਮੋਡ ਸ਼ੁਰੂ ਹੋ ਸਕੇ</long>
+      </locale>
+
+      <locale name="pl">
+         <short>Czas pisania</short>
+         <long>Liczba minut pisania na klawiaturze zanim zostanie uaktywniony tryb przerwy.</long>
+      </locale>
+
+      <locale name="pt">
+         <short>Tempo a digitar</short>
+         <long>Número de minutos a digitar antes de iniciar modo de intervalo.</long>
+      </locale>
+
+      <locale name="pt_BR">
+         <short>Tempo de digitação</short>
+         <long>Número de minutos de digitação antes de o modo de intervalo começar.</long>
+      </locale>
+
+      <locale name="ro">
+         <short>Timp de lucru</short>
+         <long>Număr de minute pentru timpul de lucru înaintea activării pauzei.</long>
+      </locale>
+
+      <locale name="ru">
+         <short>Период активности</short>
+         <long>Продолжительность периода активности до начала перерыва.</long>
+      </locale>
+
+      <locale name="sk">
+         <short>Trvanie písania</short>
+         <long>Dĺžka trvania písania (v minútach) pred spustením režimu prestávky.</long>
+      </locale>
+
+      <locale name="sl">
+         <short>Čas tipkanja</short>
+         <long>Čas tipkanja v minutah, preden se začne premor</long>
+      </locale>
+
+      <locale name="sq">
+         <short>Kohëzgjatja e shkrimit</short>
+         <long>Numri i minutave të shkrimit para modalitetit pushim</long>
+      </locale>
+
+      <locale name="sr">
+         <short>Време куцања</short>
+         <long>Број минута куцања пре него што почне одмор.</long>
+      </locale>
+
+      <locale name="sr@ije">
+         <short>Вријеме куцања</short>
+         <long>Број минута куцања прије него што почне одмор.</long>
+      </locale>
+
+      <locale name="sr@latin">
+         <short>Vreme kucanja</short>
+         <long>Broj minuta kucanja pre nego što počne odmor.</long>
+      </locale>
+
+      <locale name="sv">
+         <short>Skrivtid</short>
+         <long>Antal minuter med skrivtid innan pausläget börjar.</long>
+      </locale>
+
+      <locale name="ta">
+         <short>நேரம் உள்ளீடுக</short>
+         <long>நிறுத்த பாங்கு துவங்குவதற்கு முன் உள்ள நிமிடங்களின் எண்ணிக்கை</long>
+      </locale>
+
+      <locale name="te">
+         <short>టైపుకు సమయం</short>
+         <long>విరామ(బ్రేకు) రీతి ప్రారంభముకు ముందుగా టైపింగు సమయంకు నిముషాల సంఖ్య.</long>
+      </locale>
+
+      <locale name="th">
+         <short>ระยะเวลาพิมพ์</short>
+         <long>จำนวนนาทีที่พิมพ์ก่อนที่จะบังคับให้พัก</long>
+      </locale>
+
+      <locale name="tr">
+         <short>Yazma zamanı</short>
+         <long>Mola kipinin başlamasından önce yazmak için dakika sayısı.</long>
+      </locale>
+
+      <locale name="ug">
+         <short>خەت ئۇرۇش ۋاقتى</short>
+         <long>ئۈزۈش ھالىتى باشلىنىشتىن ئىلگىرىكى ئەڭ قىسقا خەت ئۇرۇش ۋاقتى.</long>
+      </locale>
+
+      <locale name="uk">
+         <short>Період активності</short>
+         <long>Кількість хвилин активності перед початком перерви.</long>
+      </locale>
+
+      <locale name="vi">
+         <short>Thời gian nhập liệu</short>
+         <long>Số phút nhập liệu trước khi bắt đầu thư giãn.</long>
+      </locale>
+
+      <locale name="xh">
+         <short>Udidi lwexesha</short>
+         <long>Inani lemizuzu yexesha lokuchwetheza ngaphambi kokuqala kwemowudi yekhefu.</long>
+      </locale>
+
+      <locale name="zh_CN">
+         <short>打字时间</short>
+         <long>间断模式开始前的最少打字时间。</long>
+      </locale>
+
+      <locale name="zh_HK">
+         <short>工作時間</short>
+         <long>開始休息時間之前可以工作（打字）的時間，以分鐘計算</long>
+      </locale>
+
+      <locale name="zh_TW">
+         <short>工作時間</short>
+         <long>開始休息時間之前可以工作（打字）的時間，以分鐘計算</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/desktop/gnome/typing_break/break_time</key>
+      <applyto>/desktop/gnome/typing_break/break_time</applyto>
+      <owner>gnome</owner>
+      <type>int</type>
+      <default>3</default>
+      <locale name="C">
+         <short>Break time</short>
+         <long>
+          Number of minutes that the typing break should last.
+         </long>
+      </locale>
+
+      <locale name="ar">
+         <short>وقت الراحة</short>
+         <long>عدد الدقائق التي يجب أن تمتد فيها فترة الراحة.</long>
+      </locale>
+
+      <locale name="as">
+         <short>বিৰতিকাল</short>
+         <long>টাইপৰ বিৰতিকালৰ স্থিতিসময়, মিনিট অনুযায়ী ব্যক্ত ।</long>
+      </locale>
+
+      <locale name="ast">
+         <short>Tiempu de descansu</short>
+         <long>Númberu de minutos que tien que durar el descansu de tecliar.</long>
+      </locale>
+
+      <locale name="az">
+         <short>Fasilə vaxtı</short>
+         <long>Yazma fasiləsinin davam edəcəyi vaxt.</long>
+      </locale>
+
+      <locale name="be">
+         <short>Час перапынку</short>
+         <long>Працягласьць перапынку пры наборы тэксту (вымяраецца ў хвілінах).</long>
+      </locale>
+
+      <locale name="bg">
+         <short>Време за почивка</short>
+         <long>Колко минути да трае почивката от писане</long>
+      </locale>
+
+      <locale name="bn">
+         <short>বিরতিকাল</short>
+         <long>টাইপের বিরতিকালের স্থিতিসময়, মিনিট অনুযায়ী ব্যক্ত।</long>
+      </locale>
+
+      <locale name="bn_IN">
+         <short>বিরতিকাল</short>
+         <long>টাইপের বিরতিকালের স্থিতিসময়, মিনিট অনুযায়ী ব্যক্ত।</long>
+      </locale>
+
+      <locale name="bs">
+         <short>Dužina pauze</short>
+         <long>Broj minuta koliko treba trajati pauza kucanja.</long>
+      </locale>
+
+      <locale name="ca">
+         <short>Temps de descans</short>
+         <long>Nombre de minuts que ha de durar el descans.</long>
+      </locale>
+
+      <locale name="ca@valencia">
+         <short>Temps de descans</short>
+         <long>Nombre de minuts que ha de durar el descans.</long>
+      </locale>
+
+      <locale name="crh">
+         <short>Teneffüs vaqtı</short>
+         <long>Basuv teneffüsiniñ devam etecegi daqqa sayısı.</long>
+      </locale>
+
+      <locale name="cs">
+         <short>Doba přestávky</short>
+         <long>Počet minut délky přestávky.</long>
+      </locale>
+
+      <locale name="cy">
+         <short>Amser gorffwys</short>
+         <long>Y nifer o funudau dylai&apos;r gorffwys teipio bara.</long>
+      </locale>
+
+      <locale name="da">
+         <short>Pausetid</short>
+         <long>Antal minutter som indtastningspausen skal vare.</long>
+      </locale>
+
+      <locale name="de">
+         <short>Pausenzeit</short>
+         <long>Die Anzahl der Minuten, die die Eingabepause dauern soll.</long>
+      </locale>
+
+      <locale name="dz">
+         <short>བར་མཚམས་དུས་ཚོད།</short>
+         <long>ཡིག་དཔར་བརྐྱབ་ནིའི་བར་མཚམས་རིང་ཐུང་ སྐར་མའི་གྲངས།</long>
+      </locale>
+
+      <locale name="el">
+         <short>Ώρα διαλείμματος</short>
+         <long>Αριθμός λεπτών που διαρκεί το διάλειμμα πληκτρολόγησης.</long>
+      </locale>
+
+      <locale name="en@shaw">
+         <short>𐑚𐑮𐑱𐑒 𐑑𐑲𐑥</short>
+         <long>𐑯𐑳𐑥𐑚𐑼 𐑝 𐑥𐑦𐑯𐑦𐑑𐑕 𐑞𐑨𐑑 𐑞 𐑑𐑲𐑐𐑦𐑙 𐑚𐑮𐑱𐑒 𐑖𐑫𐑛 𐑤𐑭𐑕𐑑.</long>
+      </locale>
+
+      <locale name="en_CA">
+         <short>Break time</short>
+         <long>Number of minutes that the typing break should last.</long>
+      </locale>
+
+      <locale name="en_GB">
+         <short>Break time</short>
+         <long>Number of minutes that the typing break should last.</long>
+      </locale>
+
+      <locale name="eo">
+         <short>Paŭza tempo</short>
+         <long>Nombro de minutoj kiom longe la tajpa paŭzo daŭru.</long>
+      </locale>
+
+      <locale name="es">
+         <short>Tiempo de descanso</short>
+         <long>Número de minutos que descanso de tecleo debería durar.</long>
+      </locale>
+
+      <locale name="et">
+         <short>Puhkepausi kestus</short>
+         <long>Puhkepausi pikkus minutites</long>
+      </locale>
+
+      <locale name="eu">
+         <short>Atsedenaldia</short>
+         <long>Idazteko atsedenaldiak iraun behar dituen minutuak.</long>
+      </locale>
+
+      <locale name="fa">
+         <short>زمان استراحت</short>
+         <long>تعداد دقایقی که استراحت تایپ ادامه می‌یابد.</long>
+      </locale>
+
+      <locale name="fi">
+         <short>Taukoaika</short>
+         <long>Kirjoitustauon pituus minuutteina.</long>
+      </locale>
+
+      <locale name="fr">
+         <short>Durée de la pause</short>
+         <long>Nombre de minutes avant que la pause ne se termine.</long>
+      </locale>
+
+      <locale name="ga">
+         <short>Ám Sos</short>
+         
+      </locale>
+
+      <locale name="gl">
+         <short>Tempo de descanso</short>
+         <long>Número de minutos que debería durar a interrupción da dixitación.</long>
+      </locale>
+
+      <locale name="gu">
+         <short>અટકણ સમય</short>
+         <long>છેલ્લે આવતી લખવાની અટકણો માટે લાગતી મિનિટોની સંખ્યા.</long>
+      </locale>
+
+      <locale name="he">
+         <short>Break time</short>
+         <long>Number of minutes that the typing break should last.</long>
+      </locale>
+
+      <locale name="hi">
+         <short>ब्रेक समय</short>
+         <long>टाइपिंग ब्रेक इतने मिनट तक चले</long>
+      </locale>
+
+      <locale name="hr">
+         <short>Pauza</short>
+         <long>Broj minuta koliko treba trajati pauza pisanja.</long>
+      </locale>
+
+      <locale name="hu">
+         <short>Szünet ideje</short>
+         <long>Ennyi percig tartson a gépelési szünet.</long>
+      </locale>
+
+      <locale name="id">
+         <short>Waktu jeda</short>
+         <long>Lama waktu (dalam menit) jeda pengetikan.</long>
+      </locale>
+
+      <locale name="is">
+         <short>Pásutími</short>
+         <long>Lengd pásu í mínútum.</long>
+      </locale>
+
+      <locale name="it">
+         <short>Durata pausa</short>
+         <long>Durata in minuti della pausa.</long>
+      </locale>
+
+      <locale name="ja">
+         <short>一休みする時間</short>
+         <long>一休みする時間 (分) を指定します。</long>
+      </locale>
+
+      <locale name="ka">
+         <short>წყვეტის დრო</short>
+         <long>ტექსტის შეტანის წყვეტის ხანგრძლივობა წუთებში.</long>
+      </locale>
+
+      <locale name="kn">
+         <short>ವಿರಾಮದ ಸಮಯ</short>
+         <long>ನಮೂದಿಸುವ ವಿರಾಮವು ಇರಬೇಕಾದ ಸಮಯ, ನಿಮಿಷಗಳಲ್ಲಿ.</long>
+      </locale>
+
+      <locale name="ko">
+         <short>휴식 시간</short>
+         <long>몇 분동안 타이핑 휴식 시간이 계속되는 지.</long>
+      </locale>
+
+      <locale name="ku">
+         <short>Dema navberan</short>
+         <long>Ji bo moda bêhnvedanê bi dawî be xulekên pêwist e.</long>
+      </locale>
+
+      <locale name="lt">
+         <short>Pertraukos laikas</short>
+         <long>Spausdinimo pertraukėlės trukmė (minutėmis).</long>
+      </locale>
+
+      <locale name="lv">
+         <short>Pārtraukuma laiks</short>
+         <long>Cik garai būtu jābūt rakstīšanas pauzei (minūtēs).</long>
+      </locale>
+
+      <locale name="mai">
+         <short>ब्रेक समय</short>
+         <long>टाइपिंग ब्रेक एतए मिनट तक चलनाइ चाही</long>
+      </locale>
+
+      <locale name="mg">
+         <short>Faharetan&apos;ny fiatoana</short>
+         <long>Ny faharetan&apos;ny fiatoan&apos;ny fanoratana (minitra).</long>
+      </locale>
+
+      <locale name="mk">
+         <short>Време за пауза</short>
+         <long>Број на минути колку што треба да трае паузата за куцање.</long>
+      </locale>
+
+      <locale name="ml">
+         <short>ഇടവേള</short>
+         <long>ടൈപ്പ് ചെയ്യുന്നതിനുള്ള ഇടവേള എത്ര സമയത്തേയ്ക്കു് വേണം.</long>
+      </locale>
+
+      <locale name="mn">
+         <short>Түр зогсолт</short>
+         <long>Оруулах үеийн түр зогсолтын үргэлжилэх минут.</long>
+      </locale>
+
+      <locale name="mr">
+         <short>विश्रांती कालावधी</short>
+         <long>टायपिंग अवकाश इतके मिनीटे रहायला पाहिजे.</long>
+      </locale>
+
+      <locale name="ms">
+         <short>Masa rehat</short>
+         
+      </locale>
+
+      <locale name="nb">
+         <short>Pausetid</short>
+         <long>Antall minutter skrivepausen skal vare.</long>
+      </locale>
+
+      <locale name="nds">
+         <short>Middag</short>
+         
+      </locale>
+
+      <locale name="ne">
+         <short>विच्छेद समय</short>
+         <long>टाइपिङ वेच्छेद अन्त्य हुनुपर्ने मिनेटको सङ्ख्या ।</long>
+      </locale>
+
+      <locale name="nl">
+         <short>Pauze-tijd</short>
+         <long>Aantal minuten dat de tikpauze duurt.</long>
+      </locale>
+
+      <locale name="nn">
+         <short>Pausetid</short>
+         <long>Kor mange minutt skrivepausen skal vara.</long>
+      </locale>
+
+      <locale name="or">
+         <short>ବିରତି ସମୟ</short>
+         <long>ଟାଇପିଙ୍ଗ ବିରତିର ସମୟ, ମିନିଟରେ.</long>
+      </locale>
+
+      <locale name="pa">
+         <short>ਬਰੇਕ ਟਾਈਮ</short>
+         <long>ਮਿੰਟਾਂ ਦੀ ਗਿਣਤੀ, ਜਦੋਂ ਕਿ ਟਾਇਪ ਅੰਤਰਾਲ ਰਹਿ ਸਕੇ।</long>
+      </locale>
+
+      <locale name="pl">
+         <short>Czas przerwy</short>
+         <long>Liczba minut trwania przerwy w pisaniu.</long>
+      </locale>
+
+      <locale name="pt">
+         <short>Intervalo</short>
+         <long>Número de minutos que o intervalo deve durar.</long>
+      </locale>
+
+      <locale name="pt_BR">
+         <short>Tempo de intervalo</short>
+         <long>Número de minutos que o intervalo de digitação deve durar.</long>
+      </locale>
+
+      <locale name="ro">
+         <short>Durată pauză</short>
+         <long>Număr de minute pentru durata unei pauze de tastare.</long>
+      </locale>
+
+      <locale name="ru">
+         <short>Период перерыва</short>
+         <long>Продолжительность перерыва (в минутах).</long>
+      </locale>
+
+      <locale name="sk">
+         <short>Trvanie prestávky</short>
+         <long>Počet minút, po ktoré ma trvať prestávka v písaní.</long>
+      </locale>
+
+      <locale name="sl">
+         <short>Čas preloma</short>
+         <long>Število minut kolikor naj traja premor</long>
+      </locale>
+
+      <locale name="sq">
+         <short>Kohëzgjatja e pushimit</short>
+         <long>Kohëzgjatja në minuta e pushimit.</long>
+      </locale>
+
+      <locale name="sr">
+         <short>Време за одмор</short>
+         <long>Колико минута треба да траје одмор од куцања.</long>
+      </locale>
+
+      <locale name="sr@ije">
+         <short>Вријеме за одмор</short>
+         <long>Колико минута треба да траје одмор од куцања.</long>
+      </locale>
+
+      <locale name="sr@latin">
+         <short>Vreme za odmor</short>
+         <long>Koliko minuta treba da traje odmor od kucanja.</long>
+      </locale>
+
+      <locale name="sv">
+         <short>Paustid</short>
+         <long>Antal minnuter som skrivpausen ska vara.</long>
+      </locale>
+
+      <locale name="ta">
+         <short>இடைவேளை நேரம்</short>
+         <long>தட்டச்சு நிறுத்தம் முடியும் நிமிடம்</long>
+      </locale>
+
+      <locale name="te">
+         <short>విరామం(బ్రేకు) సమయం</short>
+         <long>టైపింగు విరామం ముగియవలిసిన నిముషముల సంఖ్య</long>
+      </locale>
+
+      <locale name="th">
+         <short>เวลาพัก</short>
+         <long>จำนวนนาทีของระยะเวลาพักพิมพ์</long>
+      </locale>
+
+      <locale name="tr">
+         <short>Mola Zamanı</short>
+         <long>Mola kipinin sonlanması için gereken dakika miktarı.</long>
+      </locale>
+
+      <locale name="ug">
+         <short>ئۈزۈش ۋاقتى</short>
+         <long>خەت ئۇرۇشنى ئۈزۈش داۋاملىشىدىغان مىنۇت سانى.</long>
+      </locale>
+
+      <locale name="uk">
+         <short>Період перерви</short>
+         <long>Тривалість перерви.</long>
+      </locale>
+
+      <locale name="vi">
+         <short>Thời gian thư giãn</short>
+         <long>Số phút thư giãn.</long>
+      </locale>
+
+      <locale name="xh">
+         <short>Ixesha lekhefu</short>
+         <long>Inani lemizuzu yokuphela kwekhefu lokuchwetheza.</long>
+      </locale>
+
+      <locale name="zh_CN">
+         <short>间断时间</short>
+         <long>打字间断应该持续的分钟数。</long>
+      </locale>
+
+      <locale name="zh_HK">
+         <short>休息時間</short>
+         <long>工作時間中必須間歇性地休息指定的時間，以分鐘計算</long>
+      </locale>
+
+      <locale name="zh_TW">
+         <short>休息時間</short>
+         <long>工作時間中必須間歇性地休息指定的時間，以分鐘計算</long>
+      </locale>
+    </schema>
+
+  <schema>
+      <key>/schemas/desktop/gnome/typing_break/allow_postpone</key>
+      <applyto>/desktop/gnome/typing_break/allow_postpone</applyto>
+      <owner>gnome</owner>
+      <type>bool</type>
+      <default>false</default>
+      <locale name="C">
+         <short>Allow postponing of breaks</short>
+         <long>
+          Whether or not the typing break screen can be postponed.
+         </long>
+      </locale>
+
+      <locale name="ar">
+         <short>اسمح بإرجاء فترات الراحة</short>
+         <long>ما إذا يمكن تأجيل شاشة إستراحة الكتابة.</long>
+      </locale>
+
+      <locale name="as">
+         <short>বিৰতিকাল মুলতুবি কৰাৰ সুবিধা উপলব্ধ কৰা হ&apos;ব</short>
+         <long>টাইপৰ বিৰতিকালৰ পৰ্দা প্ৰদৰ্শন মুলতুবি কৰা হ&apos;ব নে নহয় ।</long>
+      </locale>
+
+      <locale name="ast">
+         <short>Permitir allanciar los descansos</short>
+         <long>Indica si la pantalla de descansu de tecliar puede allanciase o non.</long>
+      </locale>
+
+      <locale name="az">
+         <short>Fasilələrin təxirə salınmasına icazə ver</short>
+         <long>Yazma fasiləsi ekranının təxirə salına bilməsi.</long>
+      </locale>
+
+      <locale name="be">
+         <short>Дазволіць адтэрміноўку перапынкаў</short>
+         <long>Ці можа перапынак у наборы тэксту быць адтэрмінаваны.</long>
+      </locale>
+
+      <locale name="bg">
+         <short>Позволяване отлагането на почивките</short>
+         <long>Дали почивката може или не може да се отлага.</long>
+      </locale>
+
+      <locale name="bn">
+         <short>বিরতিকাল মুলতুবি করার সুবিধা উপলব্ধ করা হবে</short>
+         <long>টাইপের বিরতিকালে ষ্ক্রীন প্রদর্শনে বিরতি দেয়া হবে কি না।</long>
+      </locale>
+
+      <locale name="bn_IN">
+         <short>বিরতিকাল মুলতুবি করার সুবিধা উপলব্ধ করা হবে</short>
+         <long>টাইপের বিরতিকালের পর্দা প্রদর্শন মুলতুবি করা হবে কি না।</long>
+      </locale>
+
+      <locale name="bs">
+         <short>Dopusti odgađanje pauza</short>
+         <long>Da li ekran za pauzu od kucanja može biti odgođen.</long>
+      </locale>
+
+      <locale name="ca">
+         <short>Permet retardar els descansos</short>
+         <long>Si es pot retardar el descans.</long>
+      </locale>
+
+      <locale name="ca@valencia">
+         <short>Permet retardar els descansos</short>
+         <long>Si es pot retardar el descans.</long>
+      </locale>
+
+      <locale name="crh">
+         <short>Teneffüslerniñ keçiktirilüvine izin ber</short>
+         <long>Basuv teneffüsi ekranınıñ keçiktirile bilip bilmeycegi.</long>
+      </locale>
+
+      <locale name="cs">
+         <short>Povolit odkládání přestávek</short>
+         <long>Jestli může být obrazovka přestávky ve psaní odložena.</long>
+      </locale>
+
+      <locale name="cy">
+         <short>Caniatáu gohirio seibiau</short>
+         <long>A ellir gohirio&apos;r sgrin gorffwys teipio ai peidio</long>
+      </locale>
+
+      <locale name="da">
+         <short>Tillad udsættelse af pauser</short>
+         <long>Om tastepause-skærmen kan udsættes.</long>
+      </locale>
+
+      <locale name="de">
+         <short>Verschieben von Pausen zulassen</short>
+         <long>Soll der Benutzer die Eingabepause verschieben können?</long>
+      </locale>
+
+      <locale name="dz">
+         <short>བར་མཚམས་ཚུ་ ཕར་འགྱངས་འབད་བཅུག</short>
+         <long>ཡིག་དཔར་བརྐྱབ་ནིའི་བར་མཚམས་ གསལ་གཞི་དེ་ ཕར་འགྱངས་འབད་ཚུགས་ག་མི་ཚུགས།</long>
+      </locale>
+
+      <locale name="el">
+         <short>Να επιτρέπεται η αναβολή διαλειμμάτων</short>
+         <long>Αν θα αναβάλλεται ή όχι η οθόνη διαλείμματος πληκτρολόγησης.</long>
+      </locale>
+
+      <locale name="en@shaw">
+         <short>𐑩𐑤𐑬 𐑐𐑴𐑕𐑑𐑐𐑴𐑯𐑦𐑙 𐑝 𐑚𐑮𐑱𐑒𐑕</short>
+         <long>𐑢𐑧𐑞𐑼 𐑹 𐑯𐑪𐑑 𐑞 𐑑𐑲𐑐𐑦𐑙 𐑚𐑮𐑱𐑒 𐑕𐑒𐑮𐑰𐑯 𐑒𐑨𐑯 𐑚𐑰 𐑐𐑴𐑕𐑑𐑐𐑴𐑯𐑛.</long>
+      </locale>
+
+      <locale name="en_CA">
+         <short>Allow postponing of breaks</short>
+         <long>Whether or not the typing break screen can be postponed.</long>
+      </locale>
+
+      <locale name="en_GB">
+         <short>Allow postponing of breaks</short>
+         <long>Whether or not the typing break screen can be postponed.</long>
+      </locale>
+
+      <locale name="eo">
+         <short>Permesi prokrastadon de paŭzoj</short>
+         <long>Ĉu aŭ ĉu ne la ekrano de tajpa paŭzo estas prokrastebla.</long>
+      </locale>
+
+      <locale name="es">
+         <short>Permitir la postergación de los descansos</short>
+         <long>Indica si la pantalla de descanso de tecleo puede o no ser pospuesta.</long>
+      </locale>
+
+      <locale name="et">
+         <short>Puhkepauside edasilükkamine on lubatud</short>
+         <long>Kas puhkepausi on võimalik edasi lükata või mitte.</long>
+      </locale>
+
+      <locale name="eu">
+         <short>Baimendu atsedenak atzeratzea</short>
+         <long>Idazteko atsedenaldiaren pantaila atzeratu daitekeen ala ez adierazten du.</long>
+      </locale>
+
+      <locale name="fa">
+         <short>اجازه‌ی تعویق استراحت‌ها</short>
+         <long>این که آیا بشود صفحه‌ی استراحت تایپ را به تعویق انداخت یا نه.</long>
+      </locale>
+
+      <locale name="fi">
+         <short>Salli taukojen lykkääminen</short>
+         <long>Voiko kirjoitustaukoja lykätä.</long>
+      </locale>
+
+      <locale name="fr">
+         <short>Autoriser le report des pauses</short>
+         <long>Indique si l&apos;écran de pause peut être reporté ou non.</long>
+      </locale>
+
+      <locale name="gl">
+         <short>Permitir a posposición das interrupcións</short>
+         <long>Indica se a pantalla de interrupción da dixitación pode posporse ou non.</long>
+      </locale>
+
+      <locale name="gu">
+         <short>અટકણોને મુલતવી કરવાની પરવાનગી આપો</short>
+         <long>શું પછી લખવાની અટકણો માટેની સ્ક્રીનને મુલતવી રખાઈ છે કે નહિ.</long>
+      </locale>
+
+      <locale name="he">
+         <short>Allow postponing of breaks</short>
+         <long>Whether or not the typing break screen can be postponed.</long>
+      </locale>
+
+      <locale name="hi">
+         <short>ब्रेक स्थगित करना स्वीकारें</short>
+         <long>टाइपिंग ब्रेक स्क्रीन स्थगित किया जाए या नहीं.</long>
+      </locale>
+
+      <locale name="hr">
+         <short>Omogući odgađanje pauza</short>
+         <long>Bilo da može ili ne zaslon prekida pisanja biti odgođen.</long>
+      </locale>
+
+      <locale name="hu">
+         <short>Szünetek felfüggeszthetők</short>
+         <long>A gépelési szünet felfüggeszthető legyen-e?</long>
+      </locale>
+
+      <locale name="id">
+         <short>Boleh menunda jeda</short>
+         <long>Apakah jeda pengetikan dapat ditunda.</long>
+      </locale>
+
+      <locale name="is">
+         <short>Leyfa frestun pásu</short>
+         <long>Hvort fresta megi pásugluggunum eða ekki.</long>
+      </locale>
+
+      <locale name="it">
+         <short>Consenti posposizione delle pause</short>
+         <long>Indica se la schermata di pausa nella scrittura può essere posposta.</long>
+      </locale>
+
+      <locale name="ja">
+         <short>一休みする時間を延長できるようにする</short>
+         <long>一休みする時間を延長できるかどうかです。</long>
+      </locale>
+
+      <locale name="ka">
+         <short>წყვეტის გადადების დაშვება</short>
+         <long>შეიძლება თუ არა ტეასტის შეტანის წყვეტის ეკრანის გადავადება</long>
+      </locale>
+
+      <locale name="kn">
+         <short>ವಿರಾಮಗಳನ್ನು ಮುಂದಕ್ಕೆ ಹಾಕುವುದನ್ನು ಅನುಮತಿಸು</short>
+         <long>ತೆರೆಯ ವಿರಾಮವನ್ನು ನಮೂದಿಸುವುದನ್ನು ಮುಂದೂಡಬೇಕೆ ಅಥವ ಬೇಡವೆ.</long>
+      </locale>
+
+      <locale name="ko">
+         <short>휴식 시간 뒤로 미루기 허용</short>
+         <long>타이핑 휴식 스크린을 뒤로 미룰 수 있는 지 여부.</long>
+      </locale>
+
+      <locale name="ku">
+         <short>Destûre bide bila bêhnvedan taloq bibin</short>
+         <long>Bê ka wê dîmendera bêhnvedanê taloq bibe yan na.</long>
+      </locale>
+
+      <locale name="lt">
+         <short>Leisti atidėti pertraukėles</short>
+         <long>Ar spausdinimo pertraukėlės ekranas gali būti atidėtas.</long>
+      </locale>
+
+      <locale name="lv">
+         <short>Ļaut pārcelt rakstīšanas pārtraukumus</short>
+         <long>Vai rakstīšanas pauzes ekrānu var pārcelt uz vēlāku laiku.</long>
+      </locale>
+
+      <locale name="mai">
+         <short>ब्रेक स्थगित कएनाइ स्वीकारू</short>
+         <long>टाइपिंग ब्रेक स्क्रीन स्थगित कएल जाएनाइ अछि अथवा नहि.</long>
+      </locale>
+
+      <locale name="mg">
+         <short>Ekeo ny fanemorana ny fiatoana</short>
+         <long>Raha azo ahemotra ny fisehon&apos;ny efijerin&apos;ny fiatoana fanoratana.</long>
+      </locale>
+
+      <locale name="mk">
+         <short>Дозволи одложување на паузи</short>
+         <long>Дали може да се одложи екранот на паузата за чекање.</long>
+      </locale>
+
+      <locale name="ml">
+         <short>ഇടവേളകള്‍ നീട്ടിവയ്ക്കാന്‍ അനുവദിയ്ക്കുക</short>
+         <long>ടൈപ്പ് ചെയ്യുന്നതിനുള്ള ഇടവേളയ്ക്കുള്ള സ്ക്രീന്‍ മാറ്റി വയ്ക്കാമോ എന്നു്</long>
+      </locale>
+
+      <locale name="mn">
+         <short>Түр зогсолт зөөхийг зөвшөөрөх</short>
+         <long>Хэрэглэгч оруулах үеийн түр зогсолтыг зөөж болох эсэх.</long>
+      </locale>
+
+      <locale name="mr">
+         <short>विश्राम प्रलंबीत करायला परवानगी द्या</short>
+         <long>टायपिंग अवकाश पडदा स्थगित करता येतो का.</long>
+      </locale>
+
+      <locale name="nb">
+         <short>Tillat utsetting av pauser</short>
+         <long>Om skrivepausen kan utsettes eller ikke.</long>
+      </locale>
+
+      <locale name="ne">
+         <short>विच्छेदको स्थगनलाई अनुमति दिनुहोस्</short>
+         <long>टाइपिङ विच्छेद पर्दा स्थगर्न सकिन्छ या सकिँदैन ।</long>
+      </locale>
+
+      <locale name="nl">
+         <short>Uitstellen van pauzes toestaan</short>
+         <long>Of het tikpauze-scherm al dan niet kan worden uitgesteld.</long>
+      </locale>
+
+      <locale name="nn">
+         <short>Tillat utsetjing av pausar</short>
+         <long>Om skrivepausen kan utsetjast eller ikkje.</long>
+      </locale>
+
+      <locale name="or">
+         <short>ବିରତିକୁ ପଛକୁ ଘୁଞ୍ଚାଇବା ପାଇଁ ଅନୁମତି ଦିଅନ୍ତୁ</short>
+         <long>ଟାଇପିଙ୍ଗ ବିରତି ପରଦା ପଛକୁ ଘୁଞ୍ଚାଯାଇପାରିବ କି.</long>
+      </locale>
+
+      <locale name="pa">
+         <short>ਅੰਤਰਾਲ ਨੂੰ ਟਾਲਣ ਦੀ ਇਜ਼ਾਜਤ ਦਿਓ</short>
+         <long>ਕੀ ਟਾਇਪਇੰਗ ਬਰੇਕ ਸਕਰੀਨ ਨੂੰ ਟਾਲਿਆ ਜਾ ਸਕੇ।</long>
+      </locale>
+
+      <locale name="pl">
+         <short>Zezwolenie odroczenia przerwy</short>
+         <long>Określa, czy ekran przerwy pisania może być odroczony.</long>
+      </locale>
+
+      <locale name="pt">
+         <short>Permitir adiar intervalos</short>
+         <long>Se o ecrã de intervalo pode ou não ser adiado.</long>
+      </locale>
+
+      <locale name="pt_BR">
+         <short>Permitir adiamento de intervalo</short>
+         <long>Permitir ou não adiamento da tela de tempo de intervalo.</long>
+      </locale>
+
+      <locale name="ro">
+         <short>Permite amânarea pauzelor</short>
+         <long>Specifică dacă ecranul pauzei de tastare permite amânarea acesteia.</long>
+      </locale>
+
+      <locale name="ru">
+         <short>Разрешить откладывание перерыва</short>
+         <long>Возможно ли отложить перерыв.</long>
+      </locale>
+
+      <locale name="sk">
+         <short>Umožniť odloženie prestávok</short>
+         <long>Či môže byť alebo nemôže byť odložená obrazovka prestávky v písaní.</long>
+      </locale>
+
+      <locale name="sl">
+         <short>Dovoli odlašanje premorov</short>
+         <long>Ali je lahko zaslon za premor tipkanja preložen</long>
+      </locale>
+
+      <locale name="sq">
+         <short>Lejo shtyrjen e pushimeve</short>
+         <long>Tregon nëse ekrani i bllokimit të shkrimit mund të shtyhet.</long>
+      </locale>
+
+      <locale name="sr">
+         <short>Допусти одлагање одмора</short>
+         <long>Да ли се може одложити екран за одмор од куцања.</long>
+      </locale>
+
+      <locale name="sr@ije">
+         <short>Допусти одлагање одмора</short>
+         <long>Да ли се може одложити екран за одмор од куцања.</long>
+      </locale>
+
+      <locale name="sr@latin">
+         <short>Dopusti odlaganje odmora</short>
+         <long>Da li se može odložiti ekran za odmor od kucanja.</long>
+      </locale>
+
+      <locale name="sv">
+         <short>Tillåt senareläggning av pauser</short>
+         <long>Huruvida skrivpausskärmen kan senareläggas.</long>
+      </locale>
+
+      <locale name="ta">
+         <short>நிறுத்ததை தாமதிக்க அனுமதி</short>
+         <long>விசைப்பலகை நிறுத்த திரையை தாமதிக்க முடியுமா</long>
+      </locale>
+
+      <locale name="te">
+         <short>విరామా(బ్రేకు)లయొక్క పొడిగింపును అనుమతించుము</short>
+         <long>టైపింగ్ విరామం తెర ముందుకు పొడిగించినా పొడిగించకపోయినా.</long>
+      </locale>
+
+      <locale name="th">
+         <short>ยอมให้เลื่อนการพักออกไป</short>
+         <long>จะให้เลื่อนการพักพิมพ์ออกไปได้หรือไม่</long>
+      </locale>
+
+      <locale name="tr">
+         <short>Molaların erkelenmesine izin ver</short>
+         <long>Mola ekranının ertelenip ertelenemeyeceği.</long>
+      </locale>
+
+      <locale name="ug">
+         <short>ئۈزۈشنى كېچىكتۈرۈشكە يول قوي</short>
+         <long>خەت ئۇرۇشنى ئۈزۈش ئېكرانىنى كېچىكتۈرۈشكە بولامدۇ يوق.</long>
+      </locale>
+
+      <locale name="uk">
+         <short>Дозволити відкладання перерви</short>
+         <long>Чи дозволяється відкладати перерву.</long>
+      </locale>
+
+      <locale name="vi">
+         <short>Cho phép hoãn thư giãn</short>
+         <long>Có cho phép hoãn thư giãn nhập liệu hay không.</long>
+      </locale>
+
+      <locale name="xh">
+         <short>Vumela ukumiswa kwekhefu</short>
+         <long>Nokuba ngaba okanye iskrini sekhefu lokuchwetheza singamiswa okanye akunjalo.</long>
+      </locale>
+
+      <locale name="zh_CN">
+         <short>允许推迟间断</short>
+         <long>是否可推迟打字间断屏幕。</long>
+      </locale>
+
+      <locale name="zh_HK">
+         <short>允許暫時放棄休息</short>
+         <long>可否暫時延後進入休息畫面的時間。</long>
+      </locale>
+
+      <locale name="zh_TW">
+         <short>允許暫時放棄休息</short>
+         <long>可否暫時延後進入休息畫面的時間。</long>
+      </locale>
+   </schema>
+
+   <schema>
+      <key>/schemas/desktop/gnome/typing_break/enabled</key>
+      <applyto>/desktop/gnome/typing_break/enabled</applyto>
+      <owner>gnome</owner>
+      <type>bool</type>
+      <default>false</default>
+      <locale name="C">
+         <short>Whether or not keyboard locking is enabled</short>
+         <long>
+	  Whether or not keyboard locking is enabled.
+         </long>
+      </locale>
+
+      <locale name="ar">
+         <short>فيما إذا كان قفل لوحة المفاتيح مفعّلا أم لا</short>
+         <long>فيما إذا كان قفل لوحة المفاتيح مفعّلا أم لا.</long>
+      </locale>
+
+      <locale name="as">
+         <short>চাবিৰ ফলকৰ লক কৰাৰ সুবিধা সক্ৰিয় আছে নে নাই</short>
+         <long>চাবিৰ ফলকৰ লক কৰাৰ সুবিধা সক্ৰিয় আছে নে নাই ।</long>
+      </locale>
+
+      <locale name="ast">
+         <short>Indica si ta activáu el bloquéu del tecláu</short>
+         <long>Indica si ta activáu el bloquéu del tecláu.</long>
+      </locale>
+
+      <locale name="az">
+         <short>Klaviyatura qıfıllamasının fəal olması</short>
+         <long>Klaviyatura qıfıllamasının fəal olması.</long>
+      </locale>
+
+      <locale name="be">
+         <short>Ці ўключана магчымасьць блякаваньня клявіятуры</short>
+         <long>Ці ўключана магчымасьць блякаваньня клявіятуры.</long>
+      </locale>
+
+      <locale name="bg">
+         <short>Дали заключването на клавиатурата е включено</short>
+         <long>Дали заключването на клавиатурата е включено.</long>
+      </locale>
+
+      <locale name="bn">
+         <short>কীবোর্ড আবদ্ধ করার সুবিধা সক্রিয় রয়েছে কি না</short>
+         <long>কীবোর্ড আবদ্ধ করার সুবিধা সক্রিয় রয়েছে কি না।</long>
+      </locale>
+
+      <locale name="bn_IN">
+         <short>কি-বোর্ড লক করার সুবিধা সক্রিয় রয়েছে কি না</short>
+         <long>কি-বোর্ড লক করার সুবিধা সক্রিয় রয়েছে কি না।</long>
+      </locale>
+
+      <locale name="bs">
+         <short>Da li je omogućeno zaključavanje tastature</short>
+         <long>Da li je omogućeno zaključavanje tastature.</long>
+      </locale>
+
+      <locale name="ca">
+         <short>Si està habilitat el bloqueig de teclat</short>
+         <long>Si està habilitat el bloqueig de teclat.</long>
+      </locale>
+
+      <locale name="ca@valencia">
+         <short>Si està habilitat el bloqueig de teclat</short>
+         <long>Si està habilitat el bloqueig de teclat.</long>
+      </locale>
+
+      <locale name="crh">
+         <short>Klavye kilitleviniñ qabilleştirilgen olıp olmağanı</short>
+         <long>Klavye kilitleviniñ qabilleştirilgen olıp olmağanı.</long>
+      </locale>
+
+      <locale name="cs">
+         <short>Jestli je povoleno zamknutí klávesnice</short>
+         <long>Jestli je povoleno zamknutí klávesnice.</long>
+      </locale>
+
+      <locale name="cy">
+         <short>A ydy cloi&apos;r bysellfwrdd wedi ei alluogi</short>
+         <long>A ydy cloi&apos;r bysellfwrdd wedi ei alluogi ai peidio.</long>
+      </locale>
+
+      <locale name="da">
+         <short>Om tastaturlås er aktiveret</short>
+         <long>Om tastaturlås er aktiveret.</long>
+      </locale>
+
+      <locale name="de">
+         <short>Soll die Tastatur gesperrt werden?</short>
+         <long>Soll die Tastatur gesperrt werden?</long>
+      </locale>
+
+      <locale name="dz">
+         <short>ལྡེ་སྒྲོམ་ལྡེ་མིག་བརྐྱབ་ནི་ ལྕོགས་ཅན་ཨིན་ན་མེན།</short>
+         <long>ལྡེ་སྒྲོམ་ལྡེ་མིག་བརྐྱབ་ནི་ ལྕོགས་ཅན་ཨིན་ན་མེན།</long>
+      </locale>
+
+      <locale name="el">
+         <short>Αν το κλείδωμα πληκτρολογίου θα είναι ενεργοποιημένο ή όχι</short>
+         <long>Αν το κλείδωμα πληκτρολογίου θα είναι ενεργοποιημένο ή όχι.</long>
+      </locale>
+
+      <locale name="en@shaw">
+         <short>𐑢𐑧𐑞𐑼 𐑹 𐑯𐑪𐑑 𐑒𐑰𐑚𐑪𐑮𐑛 𐑤𐑪𐑒𐑦𐑙 𐑦𐑟 𐑦𐑯𐑱𐑚𐑩𐑤𐑛</short>
+         <long>𐑢𐑧𐑞𐑼 𐑹 𐑯𐑪𐑑 𐑒𐑰𐑚𐑪𐑮𐑛 𐑤𐑪𐑒𐑦𐑙 𐑦𐑟 𐑦𐑯𐑱𐑚𐑩𐑤𐑛.</long>
+      </locale>
+
+      <locale name="en_CA">
+         <short>Whether or not keyboard locking is enabled</short>
+         <long>Whether or not keyboard locking is enabled.</long>
+      </locale>
+
+      <locale name="en_GB">
+         <short>Whether or not keyboard locking is enabled</short>
+         <long>Whether or not keyboard locking is enabled.</long>
+      </locale>
+
+      <locale name="eo">
+         <short>Ĉu aŭ ĉu ne klavara ŝlosado estas enŝaltita</short>
+         <long>Ĉu aŭ ĉu ne klavara ŝlosado estas enŝaltita.</long>
+      </locale>
+
+      <locale name="es">
+         <short>Indica si el bloqueo del teclado está activado</short>
+         <long>Indica si el bloqueo del teclado está activado.</long>
+      </locale>
+
+      <locale name="et">
+         <short>Kas klaviatuuri lukustamine on lubatud või mitte</short>
+         <long>Kas klaviatuuri lukustamine on lubatud või mitte.</long>
+      </locale>
+
+      <locale name="eu">
+         <short>Teklatuaren blokeoa gaituta dagoen ala ez adierazten du</short>
+         <long>Teklatuaren blokeoa gaituta dagoen ala ez adierazten du.</long>
+      </locale>
+
+      <locale name="fa">
+         <short>این که آیا قفل صفحه کلید به کار انداخته شود یا نه.</short>
+         <long>این که آیا قفل صفحه کلید به کار انداخته شود یا نه.</long>
+      </locale>
+
+      <locale name="fi">
+         <short>Lukkiutuuko näppäimistö</short>
+         <long>Lukkiutuuko näppäimistö.</long>
+      </locale>
+
+      <locale name="fr">
+         <short>Indique si le verrouillage du clavier est activé ou non</short>
+         <long>Indique si le verrouillage du clavier est activé ou non.</long>
+      </locale>
+
+      <locale name="gl">
+         <short>Indica se o bloqueo do teclado está activado ou non</short>
+         <long>Indica se o bloqueo do teclado está activado ou non.</long>
+      </locale>
+
+      <locale name="gu">
+         <short>શું પછી કીબોર્ડને તાળુ લગાવવાનું સક્રિય છે કે નથી</short>
+         <long>શું પછી કીબોર્ડને તાળુ લગાવવાનું સક્રિય છે કે નથી.</long>
+      </locale>
+
+      <locale name="he">
+         <short>Whether or not keyboard locking is enabled</short>
+         <long>Whether or not keyboard locking is enabled.</long>
+      </locale>
+
+      <locale name="hi">
+         <short>कुंजीपटल तालाबंद सक्षम किया जाए या नहीं</short>
+         <long>कुंजीपटल तालाबंद सक्षम किया जाए या नहीं.</long>
+      </locale>
+
+      <locale name="hr">
+         <short>Bilo da je ili ne zaključavanje tipkovnice omogućeno</short>
+         <long>Bilo da je ili ne zaključavanje tipkovnice omogućeno.</long>
+      </locale>
+
+      <locale name="hu">
+         <short>Engedélyezve legyen-e a billentyűzetzárolás vagy sem</short>
+         <long>Engedélyezve legyen-e a billentyűzetzárolás vagy sem?</long>
+      </locale>
+
+      <locale name="id">
+         <short>Apakah penguncian keyboard dilakukan</short>
+         <long>Apakah penguncian keyboard dilakukan.</long>
+      </locale>
+
+      <locale name="is">
+         <short>Hvort lyklaborðslæsing sé virk eða ekki</short>
+         <long>Hvort lyklaborðslæsing sé virk eða ekki.</long>
+      </locale>
+
+      <locale name="it">
+         <short>Indica se il blocco della tastiera è attivato</short>
+         <long>Indica se il blocco della tastiera è attivato.</long>
+      </locale>
+
+      <locale name="ja">
+         <short>キーボードのロックを有効にする</short>
+         <long>キーボードのロックを有効にするかどうかです。</long>
+      </locale>
+
+      <locale name="ka">
+         <short>დაიბლოკოს თუ არა კლავიატურა</short>
+         <long>დაიბლოკოს თუ არა კლავიატურა.</long>
+      </locale>
+
+      <locale name="kn">
+         <short>ಕೀಲಿಮಣೆಯನ್ನು ಲಾಕ್‌ ಮಾಡುವುದನ್ನು ಶಕ್ತಗೊಳಿಸಲಾಗಿದೆ ಅಥವ ಇಲ್ಲವೆ</short>
+         <long>ಕೀಲಿಮಣೆಯನ್ನು ಲಾಕ್‌ ಮಾಡುವುದನ್ನು ಶಕ್ತಗೊಳಿಸಲಾಗಿದೆ ಅಥವ ಇಲ್ಲವೆ.</long>
+      </locale>
+
+      <locale name="ko">
+         <short>키보드를 쓰지 못하게 할 지 여부</short>
+         <long>키보드를 쓰지 못하게 할 지 여부.</long>
+      </locale>
+
+      <locale name="ku">
+         <short>Çalakiya quflekirina klavyeyê</short>
+         <long>Çalakiya quflekirina klavyeyê.</long>
+      </locale>
+
+      <locale name="lt">
+         <short>Ar naudojamas klaviatūros blokavimas</short>
+         <long>Ar naudojamas klaviatūros blokavimas.</long>
+      </locale>
+
+      <locale name="lv">
+         <short>Vai tastatūras noslēgšana ir ieslēgta</short>
+         <long>Vai tastatūras noslēgšana ir ieslēgta.</long>
+      </locale>
+
+      <locale name="mai">
+         <short>कुंजीपटल तालाबन्न सक्षम कएल जाएनाइ अछि अथवा नहि</short>
+         <long>कुंजीपटल तालाबन्न सक्षम कएल जाएनाइ अछि अथवा नहि.</long>
+      </locale>
+
+      <locale name="mg">
+         <short>Raha alefa na tsia ny fangejana ny fafana</short>
+         <long>Raha alefa na tsia ny fangejana ny fafana.</long>
+      </locale>
+
+      <locale name="mk">
+         <short>Дали е овозможено заклучување на тастатурата</short>
+         <long>Дали е овозможено заклучување на тастатурата.</long>
+      </locale>
+
+      <locale name="ml">
+         <short>കീബോര്‍ഡ് പൂട്ടുന്ന സംവിധാനം പ്രവര്‍ത്തന സജ്ജമാക്കുവാന്‍ സാധ്യമോ എന്ന്</short>
+         <long>കീബോര്‍ഡ് പൂട്ടുന്ന സംവിധാനം പ്രവര്‍ത്തന സജ്ജമാക്കുവാന്‍ സാധ്യമോ എന്ന്.</long>
+      </locale>
+
+      <locale name="mn">
+         <short>Гар түгжих эсэх?</short>
+         <long>Гар түгжих эсэх?</long>
+      </locale>
+
+      <locale name="mr">
+         <short>कळफलक कुलुप बंद करण्याची सुविधा उपलब्ध आहे का</short>
+         <long>कळफलक कुलुप बंद करण्याची सुविधा उपलब्ध आहे का.</long>
+      </locale>
+
+      <locale name="nb">
+         <short>Om låsing av tastaturet er aktivert</short>
+         <long>Om låsing av tastaturet er aktivert.</long>
+      </locale>
+
+      <locale name="ne">
+         <short>कुञ्जीपाटी ताल्चा मार्ने काम सक्षम पारिएको छ वा छैन</short>
+         <long>कुञ्जीपाटी ताल्चा मार्ने काम सक्षम पारिएको छ वा छैन ।</long>
+      </locale>
+
+      <locale name="nl">
+         <short>Of het op slot zetten van het toetsenbord is ingeschakeld</short>
+         <long>Of het op slot zetten van het toetsenbord is ingeschakeld</long>
+      </locale>
+
+      <locale name="nn">
+         <short>Om tastaturlåsing er slått på</short>
+         <long>Om tastaturlåsing er slått på.</long>
+      </locale>
+
+      <locale name="or">
+         <short>ଚାବି ପଟି ତାଲା ବନ୍ଦ କରିବା ସକ୍ରିୟ କି</short>
+         <long>ଚାବି ପଟି ତାଲା ବନ୍ଦ କରିବା ସକ୍ରିୟ କି.</long>
+      </locale>
+
+      <locale name="pa">
+         <short>ਕੀ ਕੀ-ਬੋਰਡ ਨੂੰ ਲਾਕ ਕਰਨ ਨੂੰ ਯੋਗ ਕਰਨਾ ਹੈ</short>
+         <long>ਕੀ ਕੀ-ਬੋਰਡ ਨੂੰ ਲਾਕ ਕਰਨ ਨੂੰ ਯੋਗ ਕਰਨਾ ਹੈ।</long>
+      </locale>
+
+      <locale name="pl">
+         <short>Okresla czy blokowanie klawiatury jest włączone</short>
+         <long>Okresla czy blokowanie klawiatury jest włączone.</long>
+      </locale>
+
+      <locale name="pt">
+         <short>Se está ou não activo o trancar do teclado</short>
+         <long>Se está ou não activo o trancar do teclado.</long>
+      </locale>
+
+      <locale name="pt_BR">
+         <short>Habilitar ou não o bloqueio de teclado</short>
+         <long>Habilitar ou não o bloqueio de teclado.</long>
+      </locale>
+
+      <locale name="ro">
+         <short>Specifică dacă blocarea tastaturii este activată sau nu</short>
+         <long>Specifică dacă blocarea tastaturii este activată sau nu.</long>
+      </locale>
+
+      <locale name="ru">
+         <short>Включено ли блокирование клавиатуры</short>
+         <long>Включено ли блокирование клавиатуры.</long>
+      </locale>
+
+      <locale name="sk">
+         <short>Či je alebo nie je povolené uzamykanie klávesnice</short>
+         <long>Či je alebo nie je povolené uzamykanie klávesnice.</long>
+      </locale>
+
+      <locale name="sl">
+         <short>Ali naj bo omogočeno zaklepanje tipkovnice</short>
+         <long>Ali naj bo omogočeno zaklepanje tipkovnice.</long>
+      </locale>
+
+      <locale name="sq">
+         <short>Tregon nëse bllokimi i tastierës është aktiv </short>
+         <long>Tregon nëse bllokimi i tastierës është aktiv.</long>
+      </locale>
+
+      <locale name="sr">
+         <short>Да ли је или није укључено закључавање тастатуре</short>
+         <long>Да ли је или није укључено закључавање тастатуре.</long>
+      </locale>
+
+      <locale name="sr@ije">
+         <short>Да ли је или није укључено закључавање тастатуре</short>
+         <long>Да ли је или није укључено закључавање тастатуре.</long>
+      </locale>
+
+      <locale name="sr@latin">
+         <short>Da li je ili nije uključeno zaključavanje tastature</short>
+         <long>Da li je ili nije uključeno zaključavanje tastature.</long>
+      </locale>
+
+      <locale name="sv">
+         <short>Huruvida tangentbordslåsning är aktiverat</short>
+         <long>Huruvida tangentbordslåsning är aktiverat.</long>
+      </locale>
+
+      <locale name="ta">
+         <short>விசைப்பலகை பூட்டு செயல்படுத்தப்பட்டதா</short>
+         <long>விசைப்பலகை பூட்டு செயல்படுத்தப்பட்டதா</long>
+      </locale>
+
+      <locale name="te">
+         <short>కీబోర్డు లాకింగ్ చేతనపరిచిన పరచకపోయినా</short>
+         <long>కీబోర్డు లాకింగ్ చేతనపరిచిన పరచకపోయినా</long>
+      </locale>
+
+      <locale name="th">
+         <short>จะล็อคแป้นพิมพ์หรือไม่</short>
+         <long>จะล็อคแป้นพิมพ์หรือไม่</long>
+      </locale>
+
+      <locale name="tr">
+         <short>Klavye kilitlemesinin etkinliği</short>
+         <long>Klavye kilitlemesinin etkinliği.</long>
+      </locale>
+
+      <locale name="ug">
+         <short>ھەرپتاختا قۇلۇپلاشنى قوزغىتىشقا يول قويامدۇ يوق</short>
+         <long>ھەرپتاختا قۇلۇپلاشنى قوزغىتىشقا يول قويامدۇ يوق.</long>
+      </locale>
+
+      <locale name="uk">
+         <short>Чи дозволяється блокування клавіатури</short>
+         <long>Чи дозволяється блокування клавіатури.</long>
+      </locale>
+
+      <locale name="vi">
+         <short>Có khoá bàn phím hay không.</short>
+         <long>Có khoá bàn phím hay không.</long>
+      </locale>
+
+      <locale name="xh">
+         <short>Nokuba ngaba okanye utshixo lwekeyboard luvuliwe okanye akunjalo</short>
+         <long>Noba okanye utshixo lwekeyboard luvuliwe.</long>
+      </locale>
+
+      <locale name="zh_CN">
+         <short>是否允许键盘锁定</short>
+         <long>是否允许键盘锁定。</long>
+      </locale>
+
+      <locale name="zh_HK">
+         <short>是否鎖定鍵盤</short>
+         <long>是否鎖定鍵盤</long>
+      </locale>
+
+      <locale name="zh_TW">
+         <short>是否鎖定鍵盤</short>
+         <long>是否鎖定鍵盤</long>
+      </locale>
+    </schema>
+  </schemalist>
+</gconfschemafile>
+

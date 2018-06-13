@@ -1,0 +1,402 @@
+#!/usr/bin/python
+
+import gzip, os.path, re
+
+from os import environ, popen, walk
+from optparse import OptionParser
+from sys import stderr
+
+from xml.sax import ContentHandler, make_parser
+from xml.sax.handler import feature_external_ges
+
+default_books = ['atk', 'gdk', 'gdk-pixbuf', 'glib', 'gio', 'gobject', 'gtk', 'pango']
+
+__comment_regex = re.compile(r'/\*.*?\*/', re.DOTALL)
+__word_regex = re.compile(r'\b[A-Za-z_][A-Za-z0-9_]*\b')
+
+u2a_table = { 0x2018:0x27, 0x2019:0x27, 0x201C:0x22, 0x201D:0x22 }
+
+class Book(object):
+    def __init__(self, name, folders, version=None):
+        self.__catalog   = None
+        self.__name      = name
+        self.__symbols   = None
+        self.__timestamp = 0
+        self.__title     = None
+        self.__version   = version
+
+        for f in folders:
+            catalogs = map(
+                lambda n: os.path.join(f, name, n % name),
+                ['%s.devhelp2', '%s.devhelp2.gz'])
+            catalogs = map(
+                lambda n: (os.path.getmtime(n), n),
+                filter(os.path.isfile, catalogs))
+
+            catalogs.sort()
+
+            if catalogs:
+                self.__catalog = catalogs[-1][1]
+                break
+
+        if not self.__catalog:
+            raise IOError, 'No devhelp book found for "%s"' % name
+
+    def __cmp__(self, other):
+        if isinstance(other, Book):
+            return cmp(self.name, other.name)
+
+        return 0
+
+    def __repr__(self):
+        return '<Book name="%s">' % self.__name
+
+    def parse(self):
+        timestamp = os.path.getmtime(self.__catalog)
+
+        if not self.__symbols or timestamp > self.__timestamp:
+            class DevhelpContentHandler(ContentHandler):
+                def __init__(self, book, symbols):
+                    self.__book = book
+                    self.__symbols = symbols
+
+                def startElement(self, name, attrs):
+                    if 'book' == name:
+                        self.title = attrs.get('title')
+                        return
+
+                    if 'keyword' == name:
+                        symbol = Symbol.from_xml(self.__book, attrs)
+                        if symbol: self.__symbols[symbol.name] = symbol
+                        return
+
+            self.__symbols, self.__timestamp = dict(), timestamp
+            handler = DevhelpContentHandler(self, self.__symbols)
+
+            parser = make_parser()
+            parser.setFeature(feature_external_ges, False)
+            parser.setContentHandler(handler)
+
+            if self.__catalog.endswith('.gz'):
+                parser.parse(gzip.open(self.__catalog))
+
+            else:
+                parser.parse(open(self.__catalog))
+
+            self.__title = handler.title
+
+    def _get_symbols(self):
+        self.parse(); return self.__symbols
+    def _get_title(self):
+        self.parse(); return self.__title
+
+    def find_requirements(self):
+        requirements = dict()
+
+        for symbol in self.symbols.values():
+            if not symbol.matches:
+                continue
+
+            if symbol.since and symbol.since > self.version:
+                symbol_list = requirements.get(symbol.since, [])
+                requirements[symbol.since] = symbol_list
+                symbol_list.append(symbol)
+
+        return requirements
+
+    catalog = property(lambda self: self.__catalog)
+    name    = property(lambda self: self.__name)
+    version = property(lambda self: self.__version)
+
+    symbols = property(_get_symbols)
+    title   = property(_get_title)
+
+class Symbol(object):
+    known_attributes = ('name', 'type', 'link', 'deprecated', 'since')
+
+    class DeprecationInfo(object):
+        def __init__(self, text):
+            if text.count(':'):
+                pair = text.split(':', 1)
+
+                self.__version = Symbol.VersionInfo(pair[0])
+                self.__details = pair[1].strip()
+
+            else:
+                self.__version = None
+                self.__details = text.strip()
+
+        def __cmp__(self, other):
+            if isinstance(other, Symbol.DeprecationInfo):
+                return cmp(self.version, other.version)
+
+            if isinstance(other, Symbol.VersionInfo):
+                return cmp(self.version, other)
+
+            return 1
+
+        def __str__(self):
+            if not self.__version:
+                return self.__details and str(self.__details) or 'Deprecated'
+
+            if self.__details:
+                return 'Since %s: %s' % (self.__version, self.__details)
+
+            return 'Since %s' % self.__version
+
+        details = property(lambda self: self.__details)
+        version = property(lambda self: self.__version)
+
+    class VersionInfo(object):
+        def __init__(self, text):
+            match = re.match(r'^\w*\s*((?:\d+\.)*\d+)', text)
+
+            self.__numbers = map(int, match.group(1).split('.'))
+            self.__hash = reduce(lambda x, y: x * 1000 + y, reversed(self.__numbers))
+            self.__text = text.strip()
+
+        def __get_number(self, index):
+            if len(self.__numbers) > index:
+                return self.__numbers[index]
+
+            return 0
+
+        def __cmp__(self, other):
+            if isinstance(other, Symbol.VersionInfo):
+                return cmp(self.numbers, other.numbers)
+
+            return 1
+
+        def __hash__(self):
+            return self.__hash
+
+        def __repr__(self):
+            return '.'.join(map(str, self.__numbers))
+
+        major   = property(lambda self: self.__get_number(0))
+        minor   = property(lambda self: self.__get_number(1))
+        patch   = property(lambda self: self.__get_number(2))
+        numbers = property(lambda self: self.__numbers)
+        text    = property(lambda self: self.__text)
+
+    @classmethod
+    def from_xml(cls, book, attrs):
+        name, type, link, deprecated, since = map(attrs.get, Symbol.known_attributes)
+
+        name = name.strip().translate(u2a_table)
+
+        if name.endswith('()'):
+            if not type in ('function', 'macro'):
+                type = (name[0].islower() and 'function' or 'macro')
+
+            name = name[:-2].strip()
+
+        words = name.split(' ')
+
+        if len(words) > 1:
+            if words[0] in ('enum', 'struct', 'union'):
+                if not type: type = words[0]
+                name = name[len(words[0]):].strip()
+            elif 'property' == words[-1]:
+                assert('The' == words[0])
+                owner = link.split('#', 1)[1].split('-', 1)[0]
+                type, name = 'property', '%s::%s' % (owner, name.split('"')[1])
+            elif 'signal' == words[-1]:
+                assert('The' == words[0])
+                owner = link.split('#', 1)[1].split('-', 1)[0]
+                type, name = 'signal', '%s:%s' % (owner, name.split('"')[1])
+
+        if not type: return None
+
+        if None != deprecated: deprecated = Symbol.DeprecationInfo(deprecated)
+        if since: since = Symbol.VersionInfo(since)
+
+        if name.count(' '):
+            print >>stderr, (
+                'WARNING: Malformed symbol name: "%s" (type=%s) in %s.' % (
+                name, type, book.name))
+
+        return Symbol(book, name, type, link, deprecated, since)
+
+    def __init__(self, book, name, type, link=None, deprecated=None, since=None):
+        self.__book       = book
+        self.__name       = name
+        self.__type       = type
+        self.__link       = link
+        self.__deprecated = deprecated
+        self.__since      = since
+        self.__matches    = []
+
+    def __repr__(self):
+        return (
+            '<Symbol: %s, type=%s, since=%s, deprecated=%s>' % (
+            self.name, self.type, self.since, self.deprecated))
+
+
+    book       = property(lambda self: self.__book)
+    name       = property(lambda self: self.__name)
+    type       = property(lambda self: self.__type)
+    link       = property(lambda self: self.__link)
+    deprecated = property(lambda self: self.__deprecated)
+    matches    = property(lambda self: self.__matches)
+    since      = property(lambda self: self.__since)
+
+def parse_cmdline():
+    options = OptionParser(version="1.24")
+
+    options.add_option('-b', '--book', dest='books',
+                       help='name of a devhelp book to consider',
+                       default=[], action='append')
+    options.add_option('-d', '--html-dir', metavar='PATH', dest='dirs',
+                       help='path of additional folders with devhelp books',
+                       default=[], action='append')
+    options.add_option('-s', '--summarize', action='store_true', default=False,
+                       help='print only a brief summary', dest='summarize')
+    options.add_option('-u', '--list-unknown', action='store_true', default=False,
+                       help='list symbols not found in any book', dest='unknown')
+    options.add_option('-v', '--verbose', action='store_true', default=False,
+                       help='print additional information')
+
+    return options.parse_args()
+
+def merge_gnome_path(options):
+    path = environ.get('GNOME2_PATH')
+    path = path and path.split(':') or []
+
+    prefix = popen(
+        'pkg-config --variable=prefix glib-2.0'
+        ).readline().rstrip()
+
+    path.insert(0, prefix)
+    path = filter(None, [p.strip() for p in path])
+
+    path = [[
+        os.path.join(p, 'share', 'devhelp', 'books'),
+        os.path.join(p, 'share', 'gtk-doc', 'html')]
+        for p in path]
+
+    path = reduce(list.__add__, path)
+    path = filter(os.path.isdir, path)
+
+    options.dirs += path
+
+def summarize_matches(matches):
+    counts = {}
+    for filename, lineno, symbol in matches:
+        if not isinstance(symbol, Symbol):
+            if options.verbose:
+                print '%s:%d: unknown symbol %s' % (filename, lineno, symbol)
+            continue
+
+        since = '%s-%s' % (symbol.book.name, symbol.since)
+        name = symbol.name
+        if since not in counts:
+            counts[since] = {}
+        counts[since][name] = counts[since].get(name, 0) + 1
+
+    for since, stats in counts.items():
+        counts[since] = list(sorted(stats.items(), key=lambda x: -x[1]))
+
+    return counts
+
+if '__main__' == __name__:
+    options, args = parse_cmdline()
+
+    merge_gnome_path(options)
+
+    if not options.books:
+        options.books = default_books
+
+    def trace(message, *args):
+        if options.verbose: print message % args
+
+    def parse_book(name):
+        try:
+            match = re.match(r'^(.*?)(?::(\d+(?:\.\d+)*))?$', name)
+            name, version = match.groups()
+            trace('reading book: %s', name)
+
+            version = version and Symbol.VersionInfo(version)
+            return name, Book(name, options.dirs, version)
+
+        except IOError, e:
+            print >>stderr, 'WARNING: %s.' % e
+
+    def scan_source_file(name):
+        contents = None
+
+        try:
+            contents = __comment_regex.sub('', file(name).read())
+
+        except IOError, e:
+            print >>stderr, e
+
+        if contents:
+            trace('scanning: %s', name)
+            lines = contents.split('\n')
+
+            for lineno in range(len(lines)):
+                for word in __word_regex.findall(lines[lineno]):
+                    symbol = symbols.get(word)
+
+                    if symbol:
+                        symbol.matches.append((name, lineno, symbol))
+
+                    elif options.unknown and word.find('_') > 0:
+                        unknown_symbols.append((name, lineno, word))
+
+    unknown_symbols = []
+    matches, symbols = dict(), dict()
+    books = dict(filter(None, map(parse_book, set(options.books))))
+
+    for book in books.values():
+        symbols.update(book.symbols)
+
+    for name in args:
+        if os.path.isdir(name):
+            for path, dirs, files in walk(name):
+                for f in files:
+                    if f.endswith('.c'):
+                        scan_source_file(os.path.join(path, f))
+
+        else:
+            scan_source_file(name)
+
+    matches = []
+
+    for book in books.values():
+        requirements = book.find_requirements().items()
+        requirements.sort()
+
+        if requirements:
+            for symbol in requirements[-1][1]:
+                matches += symbol.matches
+
+    if options.unknown:
+        matches += unknown_symbols
+
+    matches.sort()
+
+    if options.summarize:
+        summary = summarize_matches(matches)
+        for since in sorted(summary.keys()):
+            print '%s required for' % since
+            for x in summary[since]:
+                print '    %u %s' % (x[1], x[0])
+    else:
+        for filename, lineno, symbol in matches:
+            if isinstance(symbol, Symbol):
+                args = filename, lineno, symbol.book.name, symbol.since, symbol.name
+                print '%s:%d: %s-%s required for %s' % args
+
+            elif options.verbose:
+                print '%s:%d: unknown symbol %s' % (filename, lineno, symbol)
+
+    if options.unknown:
+        unknown = [m[2].split('_')[0].lower() for m in unknown_symbols]
+        unknown = list(set(unknown))
+        unknown.sort()
+
+        print 'unknown prefixes: %s' % ', '.join(unknown)
+
+    raise SystemExit(matches and 1 or 0)

@@ -1,0 +1,48 @@
+#!/bin/sh
+
+prefix=/usr
+exec_prefix=/usr
+
+usage()
+{
+    cat <<EOF
+Usage: ming-config [OPTIONS]
+Options:
+     [--help]
+     [--version]
+     [--libs]
+     [--cflags]
+     [--bindir]
+EOF
+    exit $1
+}
+if test $# -eq 0; then
+  usage 1 1>&2
+fi
+
+while test $# -gt 0; do
+
+	case $1 in
+	    --help)
+		usage 0
+		;;
+	    --version)
+		echo "0.4.7"
+		;;
+	    --cflags)
+		echo -I${prefix}/include
+		;;
+	    --libs)
+		echo -L${exec_prefix}/lib -lz  -lgif -lpng -lming
+		;;
+	    --bindir)
+		echo ${exec_prefix}/bin
+		;;
+	    *)
+		usage 1 1>&2
+		;;
+	esac
+	shift
+
+done
+

@@ -1,0 +1,412 @@
+#! /usr/bin/perl -w
+
+# cvsdo - simulate some CVS commands even for readonly or disconnected
+# CVS repositories.
+#
+# Copyright (C) 2000-2005  Pavel Roskin <proski@gnu.org>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+# 02111-1307, USA.
+
+
+require 5.004;
+use Time::Local;
+use Getopt::Long;
+use strict;
+
+use vars qw($force_mode $entries_tmp);
+
+use constant CMD_ADD_PATTERN => qr/^(add?|new)$/o;
+use constant CMD_REMOVE_PATTERN => qr/^(remove|rm|delete)$/o;
+use constant CMD_DIFF_PATTERN => qr/^(di(ff?)?)$/o;
+
+# Print message and exit (like "die", but without raising an exception).
+# Newline is added at the end.
+sub error ($)
+{
+	print STDERR "cvsdo: ERROR: " . shift(@_) . "\n";
+	cleanup ();
+	exit 1;
+}
+
+# Print a warning message.
+# Newline is added at the end.
+sub warning ($)
+{
+	print STDERR "cvsdo: WARNING: " . shift(@_) . "\n";
+}
+
+# Print message and force UNIX-style newline. Useful for diffs.
+sub unix_print ($)
+{
+	my $msg = shift(@_);
+	chomp $msg;
+	print $msg . "\012";
+}
+
+# Add new directory.
+# Argument: direcotry name.
+sub add_dir ($)
+{
+	my $dir = shift (@_);
+	my $cvsdir = "$dir/CVS";
+	(my $cvsupdir = $dir) =~ s{^(([^ ]+/)?)([^/ ]+)/?$}{${1}CVS};
+	(my $shortdir = $dir) =~ s{^(([^ ]+/)?)([^/ ]+)/?$}{${3}};
+
+	-d $cvsupdir || error ("$cvsupdir is not a directory");
+	mkdir $cvsdir || error ("Cannot create $cvsdir");
+
+	open (FILE, "< $cvsupdir/Root") ||
+		error ("Cannot open $cvsupdir/Root: $!");
+	my $root = <FILE>;
+	chomp $root;
+	close (FILE);
+	open (FILE, " > $cvsdir/Root") ||
+		error ("Cannot open $cvsdir/Root: $!");
+	print FILE "$root\n";
+	close (FILE);
+
+	open (FILE, "< $cvsupdir/Repository") ||
+		error ("Cannot open $cvsupdir/Repository: $!");
+	my $repo = <FILE>;
+	chomp $repo;
+	close (FILE);
+	open (FILE, " > $cvsdir/Repository") ||
+		error ("Cannot open $cvsdir/Repository: $!");
+	print FILE "$repo/$shortdir\n";
+	close (FILE);
+
+	open (FILE, " > $cvsdir/Entries") ||
+		error ("Cannot open $cvsdir/Entries: $!");
+	print FILE "D\n";
+	close (FILE);
+}
+
+# Handle add and remove commands for a single file.
+# Arguments: file, command (1 for "add", 0 for "remove").
+sub handle_add_remove ($$)
+{
+	my $short_file;
+	my $entries;
+	my $file_exists = 0;
+	my $file_listed = 0;
+
+	my $file = shift (@_);
+	my $cmd_add = shift (@_);
+	my $cmd_remove = !$cmd_add;
+
+	if ($cmd_add && -d $file) {
+		add_dir ($file);
+		return;
+	}
+
+	if (-e $file) {
+		unless (-f $file) {
+			error ("File $file is not a plain file");
+		}
+		$file_exists = 1;
+	}
+
+	if ( $cmd_add && ! $file_exists && ! $force_mode ) {
+		error ("File $file doesn't exist");
+	} elsif ( $cmd_remove && $file_exists && ! $force_mode ) {
+		error ("Won't remove existing file $file");
+	}
+
+	$entries = $file;
+	$entries =~ s{^(([^ ]+/)?)([^/ ]+)$}{${1}CVS/Entries};
+	$short_file = $3;
+
+	unless ($entries) {
+		error("Wrong filename $file");
+	}
+
+	$entries_tmp = $entries . ".tmp";
+
+	my $tag = "";
+	my $tagfile = $file;
+	$tagfile =~ s{^(([^ ]+/)?)([^/ ]+)$}{${1}CVS/Tag};
+	if ($cmd_add && -f $tagfile) {
+		open(TAG, "< $tagfile") ||
+			error ("Cannot open $tagfile for reading");
+		$tag = <TAG>;
+		if (!defined $tag) {
+			error ("Cannot read tag from $tagfile");
+		}
+		chomp $tag;
+
+		error ("Directory has sticky date revision; cannot add file $file")
+			if $tag =~ /^D/;
+
+		error ("Directory has sticky non-branch tag; cannot add file $file")
+			if $tag =~ /^N/;
+
+		error ("Unrecognized tag in $tagfile: $tag")
+			if ($tag !~ /^T/);
+
+		close TAG;
+	}
+
+	open(NEW_ENTRIES, "> $entries_tmp") ||
+		error("Cannot open $entries_tmp for writing");
+
+	open(ENTRIES, "< $entries") ||
+		error("Cannot open $entries for reading");
+
+	while(<ENTRIES>) {
+		if ( m{^(/([^/]+)/)([^/])(.*$)} && $2 eq $short_file ) {
+			$file_listed = 1;
+			last if $cmd_add;
+			if ( $3 eq '-' ) {
+				error("File $file is already removed");
+			} else {
+				print NEW_ENTRIES "$1-$3$4\n";
+			}
+		} else {
+			print NEW_ENTRIES $_;
+		}
+	}
+
+	if ( $cmd_add && $file_listed ) {
+		error("File $file is already listed in $entries");
+	}
+
+	if ( $cmd_remove && ! $file_listed ) {
+		error("File $file is not listed in $entries");
+	}
+
+	if ( $cmd_add ) {
+		print NEW_ENTRIES "/$short_file/0/dummy timestamp//$tag\n";
+	}
+
+	close (ENTRIES);
+	close (NEW_ENTRIES);
+
+	rename $entries_tmp, $entries ||
+		error ("Cannot rename $entries_tmp to $entries");
+
+	$cmd_remove && $file_exists &&
+		( unlink $file || error ("Cannot delete file $file") );
+}
+
+# Handle added files (diff).
+sub handle_added ($)
+{
+	my $file = shift(@_);
+	open(DIFFOUT, "diff -u -L /dev/null -L $file /dev/null $file |") ||
+		error ("Cannot read output of diff: $!");
+	unless (eof(DIFFOUT)) {
+		unix_print ("Index: $file");
+	}
+	while (<DIFFOUT>) {
+		unix_print ($_);
+	}
+}
+
+# Handle removed files (diff).
+sub handle_removed ($)
+{
+	my $file = shift(@_);
+	# FIXME: scan for backup copies, as in handle_modified()
+	# Any ideas about how to make `patch' erase that file?
+	unix_print ("File $file should be removed!\n");
+}
+
+# Handle modified files (diff)
+sub handle_modified ($)
+{
+	my $file = shift(@_);
+	# split into directory and file name
+	$file =~ m{^((.*/)?)([^/]+)};
+	my $short_file = $3;
+	my $dir = $1;
+	my %months = (
+		"Jan" => 0,
+		"Feb" => 1,
+		"Mar" => 2,
+		"Apr" => 3,
+		"May" => 4,
+		"Jun" => 5,
+		"Jul" => 6,
+		"Aug" => 7,
+		"Sep" => 8,
+		"Oct" => 9,
+		"Nov" => 10,
+		"Dec" => 11
+	);
+
+	# Lookup the original timestamp in CVS/Entries.
+	open (ENTRIES, "< ${dir}CVS/Entries")
+		|| error ("couldn't open ${dir}CVS/Entries: $!");
+	my $date_str;
+	while (<ENTRIES>) {
+		if ( m{^/$short_file/[^/]*/([^/]+)/} ) {
+			$date_str = $1;
+			last;
+		}
+	}
+	unless (defined $date_str) {
+		error ("$file is not listed in ${dir}CVS/Entries");
+	}
+	close (ENTRIES);
+
+	unless ($date_str =~ m{^(...) (...) (..) (..):(..):(..) (....)$}) {
+		error ("Invalid timestamp for $file: $date_str");
+	}
+
+	my $basetime = timegm($6, $5, $4, $3, $months{$2}, $7 - 1900);
+
+	# Scan the directory for similar files.
+	my $backup_file;
+	opendir (DIR, $dir eq "" ? "." : $dir) ||
+		error ("Cannot open directory $dir: $!");
+	foreach (readdir (DIR)) {
+		m{$short_file} || next;;
+		my $candidate = $dir . $_;
+		stat ($candidate) || next;
+		if ($basetime == (stat _) [9]) {
+			$backup_file = $candidate;
+			last;
+		}
+	}
+	closedir (DIR);
+
+	unless (defined $backup_file) {
+		warning ("Backup file for $file not found");
+		return;
+	}
+
+	my $diff_opts = "-u";
+	if ($short_file eq "ChangeLog") {
+		$diff_opts = "-U 1";
+	}
+
+	open(DIFFOUT,
+	     "diff $diff_opts -L $file -L $file $backup_file $file |") ||
+		error ("Cannot read output of diff: $!");
+	unless (eof(DIFFOUT)) {
+		unix_print ("Index: $file");
+	}
+	while (<DIFFOUT>) {
+		unix_print ($_);
+	}
+}
+
+# Handle `diff' command.
+sub handle_diff ()
+{
+	my $args = join (' ', @ARGV);
+
+	open(CVSADM, "cvsu --ignore --types AMRO $args |") ||
+		error ("Cannot read output of cvsu: $!");
+
+	while (<CVSADM>) {
+		chomp;
+		if ($_ !~ m{^([AMRO]) (.*)$}) {
+			error ("Unrecognized output from cvsu");
+		}
+		my $type = $1;
+		my $file = $2;
+		if ($type eq "A") {
+			handle_added ($file);
+		}
+		elsif ($type eq "R") {
+			handle_removed ($file);
+		}
+		else {
+			handle_modified ($file);
+		}
+	}
+}
+
+# Print usage information and exit.
+sub usage ()
+{
+	print "Usage: cvsdo COMMAND FLAGS FILES\n" .
+	"Simulate cvs commands without accessing the CVS server\n" .
+	"Commands supported:\n" .
+	"	add		Add a new file\n" .
+	"	  -f | --force	  Don't check whether the file exists\n" .
+	"	remove		Remove a file\n" .
+	"	  -f | --force	  Delete existing files\n" .
+	"	diff		Create a diff\n" .
+	"	--help		Show usage info\n" .
+	"	--version	Show version info\n" .
+	"Standard CVS command synonyms also accepted.\n";
+	exit 1;
+}
+
+# Print version information and exit.
+sub version ()
+{
+	print "cvsdo - CVS Disconnected Operation, version 0.2.6\n";
+	exit 0;
+}
+
+# Remove temporary files.
+sub cleanup ()
+{
+	(defined $entries_tmp) && (-e $entries_tmp) &&
+		( unlink $entries_tmp ||
+			error ("Cannot delete file $entries_tmp") );
+}
+
+# Parse command line.
+sub Main ()
+{
+	$force_mode = 0;	# Forced operation
+	my $want_help = 0;	# Print help and exit
+	my $want_ver = 0;	# Print version and exit
+
+	my %options = (
+		"force"	   => \$force_mode,
+		"help"     => \$want_help,
+		"version"  => \$want_ver
+	);
+
+	GetOptions(%options);
+
+	usage() if $want_help;
+	version() if $want_ver;
+
+	my $command = shift (@ARGV);
+
+	usage() if ( !$command );
+
+	my $cmd_add = ( $command =~ CMD_ADD_PATTERN );
+	my $cmd_remove = ( $command =~ CMD_REMOVE_PATTERN );
+	my $cmd_diff = ( $command =~ CMD_DIFF_PATTERN );
+
+	if ( !$cmd_add && !$cmd_remove && !$cmd_diff ) {
+		error ('Unrecognized command "' . $command . '"');
+	}
+
+	if ($cmd_diff) {
+		handle_diff ();
+	} else {
+		if ( $#ARGV < 0 ) {
+			error ("No files specified");
+		}
+
+		foreach (@ARGV) {
+			handle_add_remove ($_, $cmd_add);
+		}
+	}
+
+	cleanup();
+}
+
+Main ();
+

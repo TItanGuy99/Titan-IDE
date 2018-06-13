@@ -1,0 +1,579 @@
+#! /bin/sh -e
+
+INCDIR=/usr/include
+SHRDIR=/usr/share/libustr
+VERS=1.0
+VERS_FULL=1.0.4
+autoconf_64b=0
+autoconf_vsnprintf=0
+
+dbg=false
+fulldbg=false
+cfiles=false
+defbytes=1
+exact=0
+usesz=0
+
+cmdname="`basename $0`"
+
+usage()
+{
+  echo " Format: $cmdname [-d][d] [-c] [-b b] [-e 1|0] [-s 1|0] gdb|all|<section> ..."
+  echo "     List of options:"
+  echo "         -d    = Turn debugging on, assert() trigger etc."
+  echo "         -d    = Turn extra debugging on"
+  echo "         -c    = Import/use .c files, instead of headers only"
+  echo "         -b    = Specify default ref. bytes size: 0, 1, 2, 4 or 8"
+  echo "         -e    = Exact allocations used by default"
+  echo "         -s    = Sized value included by default"
+  echo "     List of sections:"
+  echo "         all   = All of the following"
+  echo "         b     = Working with binary numbers in NBO format"
+  echo "         cmp   = Comparing, strcmp() for Ustr's"
+  echo "         cntl  = Control options dynamically"
+  echo "         fmt   = Formatted output, sprintf() for Ustr's"
+  echo "         gdb   = Copy just the .gdbinit file to the local dir"
+  echo "         ins   = Inserting data"
+  echo "         io    = Input Output"
+  echo "         main  = The core, strcat() and delete for Ustr's"
+  echo "         parse = Parsing integers, Ie. Nice versions of strtol()"
+  echo "         pool  = A bundled memory pool API"
+  echo "         replace = Replacing all occurances of data"
+  echo "         sc    = Shortcut functions for Ustr's"
+  echo "         set   = Setting data, strcpy() for Ustr's"
+  echo "         split = Slit the data, strtok() / strsep() for Ustr's"
+  echo "         spn   = Spanning, strspn() / strcspn() for Ustr's"
+  echo "         srch  = Searching, strchr() / strstr() for Ustr's"
+  echo "         sub   = Substituting data"
+  echo "         utf8  = Working with UTF8"
+  echo ""
+  echo "     Ustr Version: $VERS_FULL"
+  exit $1
+}
+
+if [ "x$1" = "x--help" ]; then
+  usage 0
+fi
+
+if [ "x$1" = "x-dd" ]; then
+  dbg=true
+  fulldbg=true
+  shift
+else
+if [ "x$1" = "x-d" ]; then
+  dbg=true
+  shift
+fi
+
+if [ "x$1" = "x-d" ]; then
+  fulldbg=true
+  shift
+fi
+fi
+
+if [ "x$1" = "x-c" ]; then
+  cfiles=true
+  shift
+fi
+
+if [ "x$1" = "x-b" ]; then
+  shift
+  defbytes="$1"
+  shift
+fi
+
+if [ "x$1" = "x-e" ]; then
+  shift
+  exact="$1"
+  shift
+fi
+
+if [ "x$1" = "x-s" ]; then
+  shift
+  usesz="$1"
+  shift
+fi
+
+all=false
+b=false
+cmp=false
+cntl=false
+fmt=false
+ins=false
+io=false
+main=false
+parse=false
+pool=false
+repl=false
+sc=false
+set=false
+split=false
+spn=false
+srch=false
+sub=false
+utf8=false
+
+gdb=false
+
+for i in $@; do
+  case "$i" in
+    all)     all=true              ;;
+    b)       b=true;     main=true ;;
+    cmp)     cmp=true;   main=true ;;
+    cntl)    cntl=true   main=true ;;
+    fmt)     fmt=true;   main=true ;;
+    gdb)     gdb=true;             ;;
+    ins)     ins=true;   main=true ;;
+    io)      io=true;    main=true ;;
+    main)                main=true ;;
+    parse)   parse=true; main=true ;;
+    pool)    pool=true;  main=true ;;
+    replace) repl=true;  main=true ;;
+    sc)      sc=true;    main=true ;;
+    set)     set=true;   main=true ;;
+    split)   split=true; main=true ;;
+    spn)     spn=true;   main=true ;;
+    srch)    srch=true;  main=true ;;
+    sub)     sub=true;   main=true ;;
+    utf8)    utf8=true;  main=true ;;
+    *)
+      exec 1>&2
+      usage 1
+      ;;
+  esac
+done
+
+if $all; then
+  b=true
+  cmp=true
+  cntl=true
+  fmt=true
+  gdb=true
+  ins=true
+  io=true
+  main=true
+  parse=true
+  pool=true
+  repl=true
+  sc=true
+  set=true
+  spn=true
+  srch=true
+  split=true
+  sub=true
+  utf8=true
+else
+  if $split; then
+    set=true
+    spn=true
+    srch=true
+  fi
+  if $repl; then
+    set=true
+    spn=true
+    srch=true
+    sub=true
+  fi
+  if $sub; then
+    ins=true
+    srch=true
+  fi
+  if $sc; then
+    spn=true
+  fi
+  if $spn; then
+    srch=true
+    utf8=true
+  fi
+  if $srch; then
+    cmp=true
+  fi
+
+  # *.c requires file to compile...
+  if $sc && $cfiles; then
+    utf8=true
+  fi
+  if $sub && $cfiles; then
+    fmt=true
+  fi
+  if $set && $cfiles; then
+    fmt=true
+  fi
+  if $ins && $cfiles; then
+    fmt=true
+  fi
+fi
+
+if $gdb; then
+  cp "$SHRDIR/.gdbinit" .
+  if ! $main; then
+    exit;
+  fi
+else
+  if ! $main; then
+    exec 1>&2
+    usage 1
+  fi
+  cp "$SHRDIR/.gdbinit" .
+fi
+
+if $cntl && ! $cfiles; then
+ cntl=false
+ echo "Warn: Can't do dynamic configuration without cfiles." 1>&2
+fi
+
+# ---------------------------------------------
+# Copy all the files locally...
+# ---------------------------------------------
+copy()
+{
+  name="$1"
+  cp "$INCDIR/ustr-$name.h" .
+  if test -f "$SHRDIR/ustr-$name-internal.h"; then
+    cp "$SHRDIR/ustr-$name-internal.h" .
+  fi
+
+  if test -f "$SHRDIR/ustr-$name-code.h"; then
+    cp "$SHRDIR/ustr-$name-code.h" .
+  fi
+
+  if $cfiles && test -f "$SHRDIR/ustr-$name-opt-code.c"; then
+    if $dbg; then
+      cp "$SHRDIR/ustr-$name-dbg-code.c" .
+    else
+      cp "$SHRDIR/ustr-$name-opt-code.c" .
+    fi
+  fi
+}
+
+if $b; then
+  copy b
+fi
+
+if $cmp; then
+  copy cmp
+fi
+
+if $cntl; then
+  copy cntl
+  cp "$SHRDIR/malloc-check.h" .
+fi
+
+# conf is generated from scratch
+copy compiler
+
+if $fmt; then
+  copy fmt
+fi
+
+if $ins; then
+  copy ins
+fi
+
+if $io; then
+  copy io
+fi
+
+copy main
+
+if $parse; then
+  copy parse
+fi
+
+if $pool; then
+  copy pool
+fi
+
+if $repl; then
+  copy replace
+fi
+
+if $sc; then
+  copy sc
+fi
+
+if $set; then
+  copy set
+fi
+
+if $split; then
+  copy split
+fi
+
+if $spn; then
+  copy spn
+fi
+
+if $srch; then
+  copy srch
+fi
+
+if $sub; then
+  copy sub
+fi
+
+if $utf8; then
+  copy utf8
+fi
+
+# ---------------------------------
+# Generate a valid ustr-conf.h file
+# ---------------------------------
+outname=ustr-conf.h
+if $dbg; then
+  outname=ustr-conf-debug.h
+fi
+
+echo "/* This file is auto generated from $cmdname */" > $outname
+echo >> $outname
+echo >> $outname
+echo '#ifndef USTR_CONF_H'   >> $outname
+echo '#define USTR_CONF_H 1' >> $outname
+echo >> $outname
+echo >> $outname
+
+if $cfiles; then
+  # So they can still override, just change the default
+  echo "/* The default is now to link against libc. */" >> $outname
+  echo "#ifndef USTR_CONF_INCLUDE_CODEONLY_HEADERS"     >> $outname
+  echo '#define USTR_CONF_INCLUDE_CODEONLY_HEADERS 0'   >> $outname
+  echo "#endif" >> $outname
+  echo >> $outname
+else
+  echo "/* Same default, newer position. */"            >> $outname
+  echo "#ifndef USTR_CONF_INCLUDE_CODEONLY_HEADERS"     >> $outname
+  echo '#define USTR_CONF_INCLUDE_CODEONLY_HEADERS 1'   >> $outname
+  echo "#endif" >> $outname
+  echo >> $outname
+fi
+
+  echo "/* We can't: if defined(__GLIBC__) && (!defined(_GNU_SOURCE) || !_GNU_SOURCE)" >> $outname
+  echo " *  because by the time we've included a libc header it's too late. */ " >> $outname
+  echo "#ifndef _GNU_SOURCE" >> $outname
+  echo "#define _GNU_SOURCE 1" >> $outname
+  echo "#endif" >> $outname
+  echo >> $outname
+  echo >> $outname
+
+if $cfiles; then
+  echo "#if ! USTR_CONF_INCLUDE_CODEONLY_HEADERS" >> $outname
+  echo "/* If you aren't just using the headers, these should match the .c's */" >> $outname
+  echo >> $outname
+  echo "# define USTR_CONF_HAVE_64bit_SIZE_MAX $autoconf_64b" >> $outname
+  echo "# define USTR_CONF_HAVE_RETARDED_VSNPRINTF $autoconf_vsnprintf" >> $outname
+if [ -f "/usr/include/stdint.h" ]; then
+  echo "# define USTR_CONF_HAVE_STDINT_H 1" >> $outname
+else
+  echo "# define USTR_CONF_HAVE_STDINT_H 0" >> $outname
+fi
+
+if $cntl; then
+  echo "# define USTR_CONF_HAVE_DYNAMIC_CONF 1" >> $outname
+else
+  echo "# define USTR_CONF_HAVE_DYNAMIC_CONF 0" >> $outname
+fi
+  echo >> $outname
+  echo "# define USTR_CONF_USE_DYNAMIC_CONF  USTR_CONF_HAVE_DYNAMIC_CONF" >> $outname
+
+
+  echo >> $outname
+  echo "# define USTR_CONF_REF_BYTES   $defbytes" >> $outname
+  echo "# define USTR_CONF_EXACT_BYTES $exact"    >> $outname
+  echo "# define USTR_CONF_USE_SIZE    $usesz"    >> $outname
+
+  echo >> $outname
+if $dbg; then
+  echo '# define USTR_CONF_USE_ASSERT 1' >> $outname
+else
+  echo '# define USTR_CONF_USE_ASSERT 0' >> $outname
+fi
+
+if $fulldbg; then
+  echo '# define USTR_CONF_USE_EOS_MARK 1' >> $outname
+else
+  echo '# define USTR_CONF_USE_EOS_MARK 0' >> $outname
+fi
+
+  echo >> $outname
+
+  echo "#else" >> $outname
+fi
+
+  echo "/* Same defaults, but can be altered at will. */" >> $outname
+  echo "/* Note that you really shouldn't alter the _HAVE_* ones. */" >> $outname
+  echo >> $outname
+  echo "# ifndef USTR_CONF_HAVE_64bit_SIZE_MAX"               >> $outname
+  echo "# define USTR_CONF_HAVE_64bit_SIZE_MAX $autoconf_64b" >> $outname
+  echo "# endif" >> $outname
+  echo "# ifndef USTR_CONF_HAVE_RETARDED_VSNPRINTF"           >> $outname
+  echo "# define USTR_CONF_HAVE_RETARDED_VSNPRINTF $autoconf_vsnprintf" >> $outname
+  echo "# endif" >> $outname
+  echo "# ifndef USTR_CONF_HAVE_STDINT_H" >> $outname
+if [ -f "/usr/include/stdint.h" ]; then
+  echo "# define USTR_CONF_HAVE_STDINT_H 1" >> $outname
+else
+  echo "# define USTR_CONF_HAVE_STDINT_H 0" >> $outname
+fi
+  echo "# endif" >> $outname
+  echo "# ifndef USTR_CONF_HAVE_DYNAMIC_CONF" >> $outname
+if $cntl; then
+  echo "# define USTR_CONF_HAVE_DYNAMIC_CONF 1" >> $outname
+else
+  echo "# define USTR_CONF_HAVE_DYNAMIC_CONF 0" >> $outname
+fi
+  echo "# endif" >> $outname
+  echo >> $outname
+  echo "/* no USE_DYNAMIC_CONF ... leave as default */" >> $outname
+  echo >> $outname
+  echo "# ifndef USTR_CONF_REF_BYTES"           >> $outname
+  echo "# define USTR_CONF_REF_BYTES $defbytes" >> $outname
+  echo "# endif" >> $outname
+  echo "# ifndef USTR_CONF_EXACT_BYTES"         >> $outname
+  echo "# define USTR_CONF_EXACT_BYTES $exact"  >> $outname
+  echo "# endif" >> $outname
+  echo "# ifndef USTR_CONF_USE_SIZE"            >> $outname
+  echo "# define USTR_CONF_USE_SIZE    $usesz"  >> $outname
+  echo "# endif" >> $outname
+
+  echo >> $outname
+  echo "# ifndef USTR_CONF_USE_ASSERT"          >> $outname
+if $dbg; then
+  echo '# define USTR_CONF_USE_ASSERT 1'        >> $outname
+else
+  echo '# define USTR_CONF_USE_ASSERT 0'        >> $outname
+fi
+  echo "# endif" >> $outname
+
+  echo "# ifndef USTR_CONF_USE_EOS_MARK"   >> $outname
+if $fulldbg; then
+  echo '# define USTR_CONF_USE_EOS_MARK 1' >> $outname
+else
+  echo '# define USTR_CONF_USE_EOS_MARK 0' >> $outname
+fi
+  echo "# endif" >> $outname
+
+if $cfiles; then
+  echo >> $outname
+  echo "#endif" >> $outname
+  echo >> $outname
+fi
+
+echo >> $outname
+echo >> $outname
+echo '#endif' >> $outname
+
+# ----------------------------
+# Generate a valid ustr.h file
+# ----------------------------
+outname=ustr.h
+if $dbg; then
+  outname=ustr-debug.h
+fi
+
+
+echo "/* This file is auto generated from $cmdname */" > $outname
+echo >> $outname
+echo >> $outname
+echo '#ifndef USTR_H'   >> $outname
+echo '#define USTR_H 1' >> $outname
+echo >> $outname
+echo >> $outname
+
+if $cfiles; then
+  # So they can still override, just change the default
+  echo "#ifndef USTR_CONF_INCLUDE_CODEONLY_HEADERS" >> $outname
+  echo '#define USTR_CONF_INCLUDE_CODEONLY_HEADERS 0' >> $outname
+  echo "#endif" >> $outname
+  echo >> $outname
+fi
+
+echo >> $outname
+
+echo "#ifndef USTR_DEBUG"   >> $outname
+if $dbg; then
+echo "#define USTR_DEBUG 1" >> $outname
+else
+echo "#define USTR_DEBUG 0" >> $outname
+fi
+echo "#endif"               >> $outname
+
+echo >> $outname
+echo >> $outname
+
+# Everything deps. on CONF
+echo "#if USTR_DEBUG" >> $outname
+echo '# include "ustr-conf-debug.h"' >> $outname
+echo "#else" >> $outname
+echo '# include "ustr-conf.h"' >> $outname
+echo "#endif" >> $outname
+
+echo >> $outname
+
+# Everything deps. on MAIN
+echo '#include "ustr-main.h"'   >> $outname
+
+if $b; then
+  echo '#include "ustr-b.h"' >> $outname
+fi
+
+if $cmp; then
+  echo '#include "ustr-cmp.h"'  >> $outname
+fi
+
+# ustr-cntl is hacked into ustr-main.h ... for various reasons.
+
+if $fmt; then
+  echo '#include "ustr-fmt.h"'  >> $outname
+fi
+
+if $io; then
+  echo '#include "ustr-io.h"' >> $outname
+fi
+
+if $ins; then # INS weak deps. on FMT
+  echo '#include "ustr-ins.h"' >> $outname
+fi
+
+if $parse; then
+  echo '#include "ustr-parse.h"'  >> $outname
+fi
+
+if $pool; then
+  echo '#include "ustr-pool.h"'  >> $outname
+fi
+
+if $set; then # SET weak deps. on FMT
+  echo '#include "ustr-set.h"'  >> $outname
+fi
+
+if $srch; then
+  echo '#include "ustr-srch.h"' >> $outname
+fi
+
+if $spn; then # SPN deps. on SRCH and weak deps. on UTF8
+  echo '#include "ustr-spn.h"'  >> $outname
+fi
+
+if $split; then # SPLIT hard deps. on set, spn, srch
+  echo '#include "ustr-split.h"' >> $outname
+fi
+
+if $sub; then # SUB hard deps. on ins, srch, weak dep. on FMT
+  echo '#include "ustr-sub.h"' >> $outname
+fi
+
+if $repl; then # REPLACE hard deps. on set, spn, srch, sub
+  echo '#include "ustr-replace.h"' >> $outname
+fi
+
+if $utf8; then
+  echo '#include "ustr-utf8.h"' >> $outname
+fi
+
+if $sc; then
+  echo '#include "ustr-sc.h"' >> $outname
+fi
+
+echo >> $outname
+echo >> $outname
+echo '#endif' >> $outname

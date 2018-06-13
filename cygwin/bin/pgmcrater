@@ -1,0 +1,114 @@
+#!/bin/sh
+
+##############################################################################
+# This is essentially a Perl program.  We exec the Perl interpreter specifying
+# this same file as the Perl program and use the -x option to cause the Perl
+# interpreter to skip down to the Perl code.  The reason we do this instead of
+# just making /usr/bin/perl the script interpreter (instead of /bin/sh) is
+# that the user may have multiple Perl interpreters and the one he wants to
+# use is properly located in the PATH.  The user's choice of Perl interpreter
+# may be crucial, such as when the user also has a PERL5LIB environment
+# variable and it selects modules that work with only a certain main
+# interpreter program.
+#
+# An alternative some people use is to have /usr/bin/env as the script
+# interpreter.  We don't do that because we think the existence and
+# compatibility of /bin/sh is more reliable.
+#
+# Note that we aren't concerned about efficiency because the user who needs
+# high efficiency can use directly the programs that this program invokes.
+#
+##############################################################################
+
+exec perl -w -x -S -- "$0" "$@"
+
+#!/usr/bin/perl
+##############################################################################
+#  This is nothing but a compatibility interface for
+#  Pamcrater/Pamshadedrelief.  An old program coded to call Pgmcrater will
+#  continue working because this interface exists.  All new (or newly
+#  modified) programs should call Pamcrater and Pamshadedrelief instead.
+#
+#  In days past, Pamcrater and Pamshadedrelief did not exist.  Pgmcrater did
+#  both jobs together, with PGM output.
+##############################################################################
+
+use strict;
+
+use Getopt::Long;
+
+sub doVersionHack($) {
+    my ($argvR) = @_;
+
+    my $arg1 = $argvR->[0];
+
+    if (defined($arg1) && (($arg1 eq "--version") || ($arg1 eq "-version"))) {
+        my $termStatus = system('pamcrater', '--version');
+        exit($termStatus == 0 ? 0 : 1);
+    }
+}
+
+
+##############################################################################
+#
+#  MAINLINE
+#
+##############################################################################
+
+doVersionHack(\@ARGV);
+
+my @pgmcraterArgv = @ARGV;
+
+my $validOptions = GetOptions(
+    'number=i'     => \my $numberOpt,
+    'height=i'     => \my $heightOpt,
+    'ysize=i'      => \my $ysizeOpt,
+    'width=i'      => \my $widthOpt,
+    'xsize=i'      => \my $xsizeOpt,
+    'gamma=i'      => \my $gammaOpt,
+    'randomseed=i' => \my $randomseedOpt);
+
+if (!$validOptions) {
+    print STDERR "Invalid syntax\n";
+    exit(100);
+}
+
+my $pamcraterArgs;
+
+$pamcraterArgs = '';  # initial value
+
+if (defined($numberOpt)) {
+    $pamcraterArgs .= "'-number=$numberOpt' ";
+}
+
+if (defined($heightOpt)) {
+    $pamcraterArgs .= "'-height=$heightOpt' ";
+} elsif (defined($ysizeOpt)) {
+    $pamcraterArgs .= "'-height=$ysizeOpt' ";
+}
+
+if (defined($widthOpt)) {
+    $pamcraterArgs .= "'-width=$widthOpt' ";
+} elsif (defined($xsizeOpt)) {
+    $pamcraterArgs .= "'-width=$xsizeOpt' ";
+}
+
+if (defined($randomseedOpt)) {
+    $pamcraterArgs .= "'-randomseed=$randomseedOpt' ";
+}
+
+my $pamshadedreliefArgs;
+
+$pamshadedreliefArgs = '';  # initial value
+
+if (defined($gammaOpt)) {
+    $pamshadedreliefArgs .= "'-gamma=$gammaOpt' ";
+}
+
+my $termStatus =
+    system(
+        "pamcrater $pamcraterArgs | " .
+        "pamshadedrelief $pamshadedreliefArgs |" .
+        "pamtopnm");
+
+exit($termStatus == 0 ? 0 : 1);

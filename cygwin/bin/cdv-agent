@@ -1,0 +1,217 @@
+#!/bin/python
+
+# Written by Ross Cohen
+# See LICENSE.txt for license information.
+
+try:
+    import Codeville.db
+except ImportError:
+    import sys, os.path
+    from os.path import dirname, abspath, join
+    pypath = "lib/python%d.%d/site-packages" % \
+                (sys.version_info[0], sys.version_info[1])
+    base   = dirname(dirname(abspath(sys.argv[0])))
+    sys.path[0:0] = [ join(base, pypath) ]  # first place to look
+
+from Codeville.agent import Agent
+from getopt import getopt, GetoptError
+import os
+from os import path
+from resource import setrlimit, RLIMIT_CORE
+from signal import alarm, signal
+from signal import SIGALRM, SIGHUP, SIGPIPE, SIGINT, SIGTERM, SIG_IGN
+import socket
+import sys
+from tempfile import mkdtemp
+
+ppid = None
+agent = None
+
+def cleanup_handler(signum, foo):
+    agent.cleanup()
+    sys.exit(2)
+    return
+
+def check_parent_exists(signum, foo):
+    if ppid is not None:
+        try:
+            os.kill(ppid, 0)
+        except OSError:
+            cleanup_handler(signum, foo)
+
+    alarm(10)
+    return
+
+def usage():
+    stderr = sys.stderr
+    print >> stderr, "Usage: %s [options] [command [args ...]]" % sys.argv[0]
+    print >> stderr, "Options:"
+    print >> stderr, "  -c          Generate C-shell commands on stdout."
+    print >> stderr, "  -s          Generate Bourne shell commands on stdout"
+    print >> stderr, "  -k          Kill the current agent."
+    print >> stderr, "  -d          Debug mode."
+    print >> stderr, "  -a socket   Bind agent socket to given name."
+    print >> stderr, "  -t life     Default identity lifetime (seconds) (ignored)."
+    sys.exit(1)
+
+def fork_stuff(agent, sock, args, c_flag):
+    pid = os.fork()
+    if pid != 0:
+        sock.close()
+
+        if len(args) == 0:
+            if c_flag:
+                print 'setenv %s %s' % ('CDV_AGENT_PID', pid)
+                print 'setenv %s %s' % ('CDV_AUTH_SOCK', agent.auth_file)
+            else:
+                print '%s=%s; export %s;' % ('CDV_AGENT_PID', pid,
+                                             'CDV_AGENT_PID')
+                print '%s=%s; export %s;' % ('CDV_AUTH_SOCK', agent.auth_file,
+                                             'CDV_AUTH_SOCK')
+                print "echo Agent pid %d;" % (pid)
+            sys.exit(0)
+
+        os.environ['CDV_AGENT_PID'] = str(pid)
+        os.environ['CDV_AUTH_SOCK'] = agent.auth_file
+
+        try:
+            os.execvp(args[0], args)
+        except OSError, msg:
+            print msg
+        sys.exit(1)
+
+    os.setsid()
+
+    os.chdir('/')
+    fd = open('/dev/null', 'r+')
+    os.dup2(fd.fileno(), sys.stdin.fileno())
+    os.dup2(fd.fileno(), sys.stdout.fileno())
+    os.dup2(fd.fileno(), sys.stderr.fileno())
+
+    # set rlimit to prevent core dumping
+    setrlimit(RLIMIT_CORE, (0, 0))
+    return
+
+def run(args):
+    global ppid
+    global agent
+
+    auth_path = None
+    auth_file = None
+
+    os.setegid(os.getgid())
+    os.setgid(os.getgid())
+
+    try:
+        optlist, args = getopt(args, 'a:cdkst:')
+    except GetoptError:
+        usage()
+
+    c_flag, d_flag, k_flag, s_flag = 0, 0, 0, 0
+
+    for (opt, arg) in optlist:
+        if   opt == '-a':
+            auth_file = arg
+
+        elif opt == '-c':
+            if s_flag:
+                usage()
+            c_flag += 1
+
+        elif opt == '-d':
+            if d_flag:
+                usage()
+            d_flag += 1
+
+        elif opt == '-k':
+            k_flag += 1
+
+        elif opt == '-s':
+            if c_flag:
+                usage()
+            s_flag += 1
+
+        elif opt == '-t':
+            # XXX: for compatibility
+            pass
+
+    if len(args) and (c_flag or k_flag or s_flag or d_flag):
+        usage()
+
+    if len(args) and not c_flag and not s_flag:
+        try:
+            shell = os.environ['SHELL']
+        except KeyError:
+            pass
+        else:
+            if shell.endswith('csh'):
+                c_flag = 1
+
+    if k_flag:
+        try:
+            kpid = int(os.environ['CDV_AGENT_PID'])
+        except KeyError:
+            'CDV_AGENT_PID is not set, cannot kill agent'
+            sys.exit(1)
+
+        if kpid < 1:
+            print 'CDV_AGENT_PID=%d, which is not a good PID' % (kpid)
+            sys.exit(1)
+
+        try:
+            os.kill(kpid, SIGTERM)
+        except OSError, msg:
+            print msg
+            sys.exit(1)
+
+        if c_flag:
+            print 'unsetenv %s;' % ('CDV_AUTH_SOCK')
+            print 'unsetenv %s;' % ('CDV_AGENT_PID')
+        else:
+            print 'unset %s;' % ('CDV_AUTH_SOCK')
+            print 'unset %s;' % ('CDV_AGENT_PID')
+        print 'echo Agent pid %d killed;' % (kpid)
+        sys.exit(0)
+
+    agent = Agent()
+    ppid = os.getpid()
+
+    if auth_file is None:
+        auth_path = mkdtemp('', 'cdv-')
+        auth_file = path.join(auth_path, 'agent.' + str(ppid))
+
+    try:
+        sock = agent.listen_sock(auth_path, auth_file)
+        if sock is None:
+            sys.exit(1)
+    except socket.error, reason:
+        print reason[1]
+        sys.exit(1)
+
+    if d_flag:
+        if c_flag:
+            print 'setenv %s %s' % ('CDV_AUTH_SOCK', agent.auth_file)
+        else:
+            print '%s=%s; export %s;' % ('CDV_AUTH_SOCK', agent.auth_file,
+                                         'CDV_AUTH_SOCK')
+            print "echo Agent pid %d;" % (ppid)
+
+    else:
+        fork_stuff(agent, sock, args, c_flag)
+
+    # periodically check that parent exists
+    if len(args):
+        signal(SIGALRM, check_parent_exists)
+        alarm(10)
+
+    if not d_flag:
+        signal(SIGINT,  SIG_IGN)
+    signal(SIGPIPE,     SIG_IGN)
+    signal(SIGHUP,      cleanup_handler)
+    signal(SIGTERM,     cleanup_handler)
+
+    agent.listen()
+    return
+
+if __name__ == '__main__':
+    sys.exit(run(sys.argv[1:]))

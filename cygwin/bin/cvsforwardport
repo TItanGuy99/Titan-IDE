@@ -1,0 +1,32 @@
+#!/bin/sh
+# Forwardport the last change in a branch to HEAD
+# Usage: cvsforwardport <files>
+# WARNING: the branch tag is hardcoded into the script, make sure to check it!
+#
+# Initial author: Dirk Mueller
+# Support for multiple command-line arguments: David Faure
+
+BRANCH=KDE_3_4_BRANCH
+echo "Forwardporting to HEAD"
+TMPFILE=`mktemp cvsforwardport.XXXXXX` || exit 1
+files=$*
+until test $# -eq 0; do
+
+  echo "looking for last change to $1..."
+  CVSLASTCHANGE_KEEP_WHITESPACE=1 cvslastchange $1 > $TMPFILE
+  echo "browsing last change to $1..."
+  less $TMPFILE
+  cvs up -A $1
+  patch < $TMPFILE
+  rm -f $TMPFILE
+  echo "showing diff for $1..."
+  cvs diff $1 | less
+
+  shift
+done
+
+echo "Press ENTER now to commit ($files) or Ctrl+C to abort"
+read confirm
+
+cvs commit $files
+cvs up -r $BRANCH $files

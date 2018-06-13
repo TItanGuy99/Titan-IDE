@@ -1,0 +1,6 @@
+_cdecl
+_fastcall
+_stdcall
+_thiscall
+i386
+unix

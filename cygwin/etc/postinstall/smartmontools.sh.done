@@ -1,0 +1,12 @@
+if [ ! -f /etc/smartd.conf ]
+then
+    /usr/bin/mkdir -p /etc
+    /usr/bin/cp /etc/defaults/etc/smartd.conf /etc/smartd.conf
+fi
+
+if [ ! -f /etc/smartd_warning.sh ]
+then
+    /usr/bin/mkdir -p /etc
+    /usr/bin/cp /etc/defaults/etc/smartd_warning.sh /etc/smartd_warning.sh
+fi
+

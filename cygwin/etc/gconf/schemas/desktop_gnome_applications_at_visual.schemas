@@ -1,0 +1,716 @@
+<gconfschemafile>
+    <schemalist>
+      <schema>
+         <key>/schemas/desktop/gnome/applications/at/visual/exec</key>
+         <applyto>/desktop/gnome/applications/at/visual/exec</applyto>
+         <owner>gnome</owner>
+	 <type>string</type>
+         <default>orca</default>
+         <locale name="C">
+            <short>Preferred Visual assistive technology application</short>
+            <long>Preferred Visual assistive technology application be used for login, menu, or command line.</long>
+         </locale>
+
+         <locale name="ar">
+            <short>تطبيق تقانة إعانة الرؤية المفضّل</short>
+            <long>تطبيق تقانة إعانة الرؤية المفضّل ليستخدم في الولوج، أو القائمة، أو سطر الأوامر.</long>
+         </locale>
+
+         <locale name="as">
+            <short>প্ৰদৰ্শন সহায়ক পছন্দ প্ৰযুক্তিগত অনুপ্ৰয়োগ</short>
+            <long>প্ৰৱেশ, তালিকা আৰু আদেশ-লাইনত ব্যৱহাৰযোগ্য প্ৰদৰ্শন সহায়ক পছন্দ প্ৰযুক্তিগত অনুপ্ৰয়োগ</long>
+         </locale>
+
+         <locale name="ast">
+            <short>Aplicación preferida de teunoloxía d&apos;asistencia visual</short>
+            <long>Aplicación preferida de teunoloxía d&apos;asistencia visual a usar nel entamu, menú o llinia d&apos;ordes.</long>
+         </locale>
+
+         <locale name="bg">
+            <short>Предпочитана програма за достъпност за хора със зрителни увреждания</short>
+            <long>Предпочитана програма за достъпност за хората със зрителни увреждания за влизане, отваряне на менюто и ползване на команден ред.</long>
+         </locale>
+
+         <locale name="bn">
+            <short>প্রদর্শনে সহায়ক পছন্দসই প্রযুক্তিগত অ্যাপ্লিকেশন</short>
+            <long>লগ-ইন, মেনু ও কমান্ড-লাইনে ব্যবহারযোগ্য প্রদর্শনে সহায়ক পছন্দসই প্রযুক্তিগত অ্যাপ্লিকেশন।</long>
+         </locale>
+
+         <locale name="bn_IN">
+            <short>প্রদর্শনে সহায়ক পছন্দসই প্রযুক্তিগত অ্যাপ্লিকেশন</short>
+            <long>লগ-ইন, মেনু ও কমান্ড-লাইনে ব্যবহারযোগ্য প্রদর্শনে সহায়ক পছন্দসই প্রযুক্তিগত অ্যাপ্লিকেশন।</long>
+         </locale>
+
+         <locale name="ca">
+            <short>Aplicació de tecnologia assistiva visual preferida</short>
+            <long>Aplicació de tecnologia assistiva visual preferida utilitzada a l&apos;entrada, al menú i a la línia d&apos;ordres.</long>
+         </locale>
+
+         <locale name="ca@valencia">
+            <short>Aplicació de tecnologia assistiva visual preferida</short>
+            <long>Aplicació de tecnologia assistiva visual preferida utilitzada a l&apos;entrada, al menú i a la línia d&apos;ordes.</long>
+         </locale>
+
+         <locale name="crh">
+            <short>Tercih etilgen Körüş yardımcıl tehnologiya uyğulaması</short>
+            <long>İçeri-imzalanma, menü yaki buyruq satrı içün qullanılacaq tercih etilgen Körsel yardımcıl tehnologiya uyğulaması.</long>
+         </locale>
+
+         <locale name="cs">
+            <short>Preferovaná aplikace technologie usnadnění v oblasti zobrazování</short>
+            <long>Preferovaná aplikace technologie usnadnění v oblasti zobrazování k použití při přihlášení, v nabídce či příkazovém řádku.</long>
+         </locale>
+
+         <locale name="cy">
+            <short>Hoff Raglen Dechnoleg Gynorthwyol Weledol</short>
+            <long>Pa raglen dechnoleg gynorthwyol Weledol i&apos;w defnyddio ar gyfer mewngofnodi, dewislen, neu&apos;r llinell orchymyn.</long>
+         </locale>
+
+         <locale name="da">
+            <short>Foretrukne program til visuelt-assisterende teknologier</short>
+            <long>Foretrukne program til visuelt-assisterende teknologier som bruges til login, menu eller kommandolinje.</long>
+         </locale>
+
+         <locale name="de">
+            <short>Bevorzugte Anwendung für visuelle Hilfstechnologie</short>
+            <long>Die bevorzugte Anwendung für visuelle Hilfstechnologie, die beim Anmelden, in Menüs oder der Kommandozeile verwendet wird.</long>
+         </locale>
+
+         <locale name="dz">
+            <short>མཐོང་བའི་ཕན་ཐབས་འཕྲུལ་རིག་གི་གློག་རིམ་དགའ་མི་</short>
+            
+         </locale>
+
+         <locale name="el">
+            <short>Προτεινόμενη εφαρμογή βοηθητικής τεχνολογίας όρασης</short>
+            <long>Προτεινόμενη εφαρμογή βοηθητικής τεχνολογίας όρασης για χρήση στη σύνδεση στο σύστημα, σε μενού ή στη γραμμή εντολής</long>
+         </locale>
+
+         <locale name="en_CA">
+            <short>Preferred Visual assistive technology application</short>
+            
+         </locale>
+
+         <locale name="en_GB">
+            <short>Preferred Visual assistive technology application</short>
+            <long>Preferred Visual assistive technology application be used for login, menu, or command line.</long>
+         </locale>
+
+         <locale name="eo">
+            <short>Preferita vidasista teknologia aplikaĵo</short>
+            <long>Preferita Vida asista teknologia aplikaĵo uzenda por ensaluto, menuo, aŭ komanda linio.</long>
+         </locale>
+
+         <locale name="es">
+            <short>Aplicación de tecnología de asistencia visual preferida</short>
+            <long>Aplicación de tecnología de asistencia visual preferida para ser usada al inicio, menú, o línea de comandos.</long>
+         </locale>
+
+         <locale name="et">
+            <short>Eelistatud rakendus visuaalse abistava tehnika toe jaoks</short>
+            <long>Eelistatud rakendus visuaalse abistava tehnika toe jaoks sisselogimisel, menüüdes ja käsureal.</long>
+         </locale>
+
+         <locale name="eu">
+            <short>Teknologia bisualen aplikazio hobetsia</short>
+            <long>Teknologia bisualen aplikazio hobetsia saio-hasieran, menuan edo komando-lerroan erabiltzeko.</long>
+         </locale>
+
+         <locale name="fi">
+            <short>Ensisijainen esteettömyyssovellus näkörajoitteisille</short>
+            <long>Ensisijainen näkörajoitteisten esteettömyyssovellus käytettäväksi kirjautumiseen, valikoille ja komentoriville.</long>
+         </locale>
+
+         <locale name="fr">
+            <short>Application d&apos;aide technique visuelle préférée</short>
+            <long>Application d&apos;aide technique visuelle préférée utilisée pour la connexion, les menus ou la ligne de commande.</long>
+         </locale>
+
+         <locale name="fur">
+            <short>Aplicazion di tecnologjie assistive par video-disabî predefinide</short>
+            
+         </locale>
+
+         <locale name="gl">
+            <short>Aplicativo preferido de tecnoloxía adaptada visual</short>
+            <long>Aplicativo preferido de tecnoloxía adaptada visual para ser usada no inicio, menú, ou liña de ordes.</long>
+         </locale>
+
+         <locale name="gu">
+            <short>પ્રાધાન્યવાળો દેખીતો સહાયક ટેક્નોલોજી કાર્યક્રમ</short>
+            <long>પ્રવેશ, મેનુ, અથવા આદેશ વાક્ય માટે વાપરવાનો પ્રાધાન્યવાળો દેખીતો સહાયક ટેક્નોલોજી કાર્યક્રમ.</long>
+         </locale>
+
+         <locale name="he">
+            <short>Preferred Visual assistive technology application</short>
+            <long>Preferred Visual assistive technology application be used for login, menu, or command line.</long>
+         </locale>
+
+         <locale name="hi">
+            <short>पसंदीदा दृष्टि मददगार तकनीक अनुप्रयोग</short>
+            <long>लॉगिन, मेन्यू, या कमांड लाइन के लिए प्रयोग किए जाने के लिए पसंदीदा दृष्टि मददगार तकनीक अनुप्रयोग.</long>
+         </locale>
+
+         <locale name="hr">
+            <short>Preferirana aplikacija vizualne tehnologije za pomaganje</short>
+            
+         </locale>
+
+         <locale name="hu">
+            <short>Előnyben részesített vizuális akadálymentesítő alkalmazás</short>
+            <long>Előnyben részesített vizuális akadálymentesítő alkalmazás a bejelentkezéshez, menükhöz vagy parancssorhoz.</long>
+         </locale>
+
+         <locale name="id">
+            <short>Aplikasi teknologi bantu Visual yang disukai</short>
+            <long>Aplikasi teknologi bantu Visual yang dipakai untuk log masuk, menu, atau baris perintah.</long>
+         </locale>
+
+         <locale name="it">
+            <short>Applicazione di tecnologia assistiva per disabilità visive preferita</short>
+            <long>Applicazione preferita di tecnologia assistiva per disabilità visive preferita da usare per l&apos;accesso, i menù o la riga di comando.</long>
+         </locale>
+
+         <locale name="ja">
+            <short>起動する視覚支援技術のアプリケーション</short>
+            <long>ログインやメニュー、あるいはコマンドラインで利用する視覚支援技術 (Visual Assistive Technology) をサポートしたアプリケーションです。</long>
+         </locale>
+
+         <locale name="ka">
+            <short>სასურველი მხედველობის დამხმარე ტექნოლოგიური პროგრამა</short>
+            
+         </locale>
+
+         <locale name="kn">
+            <short>ಇಚ್ಛೆಯ ದೃಶ್ಯರೂಪದ ಸಹಾಯಕ ತಂತ್ರಜ್ಞಾನ ಅನ್ವಯ</short>
+            <long>ಪ್ರವೇಶ, ಮೆನು, ಅಥವ ಆಜ್ಞಾಸಾಲಿನಲ್ಲಿ ಬಳಸಬೇಕಿರುವ ಇಚ್ಛೆಯ ದೃಶ್ಯರೂಪದ ಸಹಾಯಕ ತಂತ್ರಜ್ಞಾನ ಅನ್ವಯ.</long>
+         </locale>
+
+         <locale name="ko">
+            <short>선택한 시각 보조 기술 프로그램</short>
+            <long>로그인, 메뉴, 명령행에 사용할 시각 보조 기술 프로그램.</long>
+         </locale>
+
+         <locale name="lt">
+            <short>Pageidaujama Vizualių pagalbinių technologijų programa</short>
+            <long>Pageidaujama Vizualių pagalbinių technologijų programa naudotina prisijungimui, meniu ar komandų eilutei.</long>
+         </locale>
+
+         <locale name="lv">
+            <short>Vēlamā vizuālās palīdzības lietotne</short>
+            <long>Vēlamā vizuālās palīdzības lietotne, ko lietot piesakoties, izvēlnē vai komandrindā.</long>
+         </locale>
+
+         <locale name="mk">
+            <short>Преферираната програма за визуелна помошна технологија</short>
+            <long>Преферираната програма за визуелна помошна технологија да биде користена за најава, мени или командна линија.</long>
+         </locale>
+
+         <locale name="ml">
+            <short>ആവശ്യമനുസരിച്ചുളള വിഷ്വല്‍ അസ്സിസ്റ്റീവ് ടെക്നോളജി പ്രയോഗങ്ങള്‍ </short>
+            <long>അകത്തുകയറുന്നതിനോ മെനുവിനോ അല്ലെങ്കില്‍ ആജ്ഞാസ്ഥാനത്തിനോ ഉപയോഗിയ്ക്കേണ്ട ഇഷ്ടപ്പെട്ട വിഷ്വല്‍  അസ്സിസ്റ്റീവ് ടെക്നോളജി പ്രയോഗങ്ങള്‍.</long>
+         </locale>
+
+         <locale name="mn">
+            <short>Эрхэмлэсэн харааны тусламж технологийн програм</short>
+            <long>Нэвтрэлт, цэс эсвэл тушаалын мөрөнд хэрэглэгдэх эрхэмлэсэн харааны тусламж технологийн програм.</long>
+         </locale>
+
+         <locale name="mr">
+            <short>अधिमान्यता दृश्य संयुक्त तंत्रज्ञाण अनुप्रयोग</short>
+            <long>दाखलन, मेन्यु, किंवा आदेश ओळकरीता अधिमान्यता दृश्य संयुक्त तंत्रज्ञाण अनुप्रयोग वापरा.</long>
+         </locale>
+
+         <locale name="nb">
+            <short>Foretrukket program med hjelpeteknologi for tilgjengelighet for svaksynte</short>
+            <long>Foretrukket hjelpeteknologi for synshemmede som skal brukes ved innlogging, meny, eller kommandolinje.</long>
+         </locale>
+
+         <locale name="ne">
+            <short>रुचाइएका दृश्य सहयोगी प्रविधि अनुप्रयोग</short>
+            
+         </locale>
+
+         <locale name="nl">
+            <short>Geprefereerde assisterende technologie-toepassing voor visuele hulp</short>
+            <long>Geprefereerde assisterende technologie-toepassing voor visuele hulp die bij inloggen, het menu en de opdrachtregel gebruikt moet worden.</long>
+         </locale>
+
+         <locale name="nn">
+            <short>Foretrukne visuelle hjelpeprogram</short>
+            <long>Foretrukne visuelle hjelpeprogram som vert brukt til innlogging, meny eller kommandolinje.</long>
+         </locale>
+
+         <locale name="or">
+            <short>ପସନ୍ଦୀୟ ଆଭାସୀ ସହକାରୀ ପ୍ରଯୁକ୍ତି ଜ୍ଞାନ ପ୍ରୟୋଗ</short>
+            <long>ଲଗଇନ, ମେନୁ, କିମ୍ବା ପାଠ୍ଯ ନିର୍ଦ୍ଦେଶ ପାଇଁ ବ୍ଯବହାର କରାଯିବା ପସନ୍ଦୀୟ ଆଭାସୀ ସହକାରୀ ପ୍ରଯୁକ୍ତି ଜ୍ଞାନ ପ୍ରୟୋଗ</long>
+         </locale>
+
+         <locale name="pa">
+            <short>ਪਸੰਦੀਦਾ ਦਿੱਖ ਅਸੈਸਟਿਵ ਤਕਨੀਕੀ ਕਾਰਜ</short>
+            <long>ਲਾਗਇਨ, ਮੇਨੂ ਜਾਂ ਕਮਾਂਡ ਲਾਇਨ ਵਾਸਤੇ ਪਸੰਦੀਦਾ ਦਿੱਖ ਅਸੈਸਟਿਵ ਤਕਨੀਕੀ ਕਾਰਜ</long>
+         </locale>
+
+         <locale name="pl">
+            <short>Preferowany program technologii wspierających widzenie</short>
+            <long>Preferowany program technologii wspierających widzenie używana do logowania, menu lub wiersza poleceń.</long>
+         </locale>
+
+         <locale name="pt">
+            <short>Aplicação preferida de tecnologia de assistência Visual</short>
+            <long>Aplicação preferida de tecnologia de assistência Visual a ser utilizada para iniciar sessão, menu ou linha de comando.</long>
+         </locale>
+
+         <locale name="pt_BR">
+            <short>Aplicativo preferencial de tecnologia assistiva visual</short>
+            <long>Aplicativo preferencial de tecnologia assistiva visual a ser usado ao iniciar sessões, no menu ou linha de comando.</long>
+         </locale>
+
+         <locale name="ro">
+            <short>Aplicația preferată a tehnologiilor de asistență vizuală</short>
+            <long>Aplicația preferată a tehnologiilor de asistență vizuală de utilizat la autentificare, în meniu și în linia de comandă.</long>
+         </locale>
+
+         <locale name="ru">
+            <short>Предпочтительное приложение помощи зрению</short>
+            <long>Предпочтительное приложение помощи зрению, которое следует использовать при входе в систему, в меню или в командной строке.</long>
+         </locale>
+
+         <locale name="sk">
+            <short>Uprednostňovaná aplikácia zrakových pomocných technológií</short>
+            <long>Uprednostňovaná aplikácia zrakových pomocných technológií bude použitá pre prihlásenie, ponuky, alebo príkazový riadok.</long>
+         </locale>
+
+         <locale name="sl">
+            <short>Prednostni program pomožnih tehnologij predočenja</short>
+            <long>Prednostni program pomožnih tehnologij predočenja za prijavo, meni in ukazno vrstico.</long>
+         </locale>
+
+         <locale name="sq">
+            <short>Aplikativi i preferuar i teknollogjisë asistuese Visual</short>
+            <long>Aplikativi i preferuar i teknollogjisë asistuese Visual përdorur për identifikimin, menunë ose rreshtin e komandave.</long>
+         </locale>
+
+         <locale name="sr">
+            <short>Омиљени програм за визуелну испомоћ</short>
+            <long>Омиљени програм за визуелну испомоћ који се користи за пријаву, мени или рад у командној линији.</long>
+         </locale>
+
+         <locale name="sr@latin">
+            <short>Omiljeni program za vizuelnu ispomoć</short>
+            <long>Omiljeni program za vizuelnu ispomoć koji se koristi za prijavu, meni ili rad u komandnoj liniji.</long>
+         </locale>
+
+         <locale name="sv">
+            <short>Föredraget program för hjälpmedelstekniker för synskadade</short>
+            <long>Föredraget program för hjälpmedelstekniker för synskadade att använda för inloggning, meny eller kommandorad.</long>
+         </locale>
+
+         <locale name="ta">
+            <short>விருப்பப்பட்ட விஷுவல் உதவி தொழில்நுட்ப பயன்பாடுகள்</short>
+            <long>விருப்பப்பட்ட விஷுவல் உதவி தொழில்நுட்ப பயன்பாடுகள் புகுபதிவி, மெனு அல்லது கட்டளைவரியில் பயன்படுத்தப்படும்.</long>
+         </locale>
+
+         <locale name="te">
+            <short>అభీష్ట దృశ్య సహాయక సాంకేతిక అనువర్తనము</short>
+            <long>లాగిన్‌కు, మెనూకు, లేదా అదేశ వరుసకు వుపయోగించిన, అభీష్ట దృశ్య సహాయక సాంకేతిక అనువర్తనము.</long>
+         </locale>
+
+         <locale name="th">
+            <short>โปรแกรมเทคโนโลยีสิ่งอำนวยความสะดวกสำหรับสายตาที่เลือกใช้</short>
+            <long>โปรแกรมเทคโนโลยีสิ่งอำนวยความสะดวกสำหรับสายตาที่เลือกใช้ สำหรับการเข้าระบบ เมนู หรือบรรทัดคำสั่ง</long>
+         </locale>
+
+         <locale name="tr">
+            <short>Tercih edilen Sanal yardımcı teknoloji uygulaması</short>
+            <long>Giriş, menü ya da komut satırında kullanılacak tercih edilen Sanal yardımcı teknoloji uygulaması.</long>
+         </locale>
+
+         <locale name="ug">
+            <short>ئالدىن قوزغىتىدىغان كۆرۈنۈشچان ياردەمچى تېخنىكىلىق قوللىنىشچان پروگرامما</short>
+            <long>تىزىمغا كىرىش، تىزىملىك ياكى بۇيرۇق قۇرىدا ئىشلىتىلىدىغان ئالدىن قوزغىتىدىغان كۆرۈنۈشچان ياردەمچى تېخنىكىلىق قوللىنىشچان پروگرامما</long>
+         </locale>
+
+         <locale name="uk">
+            <short>Програма Visual для спеціальних можливостей</short>
+            <long>Програма Visual для спеціальних можливостей, що використовується для входу у сеанс, роботи з меню та у командному рядку.</long>
+         </locale>
+
+         <locale name="vi">
+            <short>Ứng dụng công nghệ trợ giúp khả năng nhìn ưa thích</short>
+            <long>Ứng dụng công nghệ trợ giúp khả năng nhìn ưa thích cần dùng để đăng nhập, cho trình đơn hay dòng lệnh.</long>
+         </locale>
+
+         <locale name="zh_CN">
+            <short>首选的视觉辅助技术应用程序</short>
+            <long>为登录、菜单或命令行使用的首选视觉辅助技术应用程序。</long>
+         </locale>
+
+         <locale name="zh_HK">
+            <short>偏好的視覺輔助科技程式</short>
+            <long>用於登入、選單及命令列的偏好視覺輔助科技。</long>
+         </locale>
+
+         <locale name="zh_TW">
+            <short>偏好的視覺輔助科技程式</short>
+            <long>用於登入、選單及命令列的偏好視覺輔助科技。</long>
+         </locale>
+      </schema>    
+      <schema>
+         <key>/schemas/desktop/gnome/applications/at/visual/startup</key>
+         <applyto>/desktop/gnome/applications/at/visual/startup</applyto>
+         <owner>gnome</owner>
+	 <type>bool</type>
+         <default>false</default>
+         <locale name="C">
+            <short>Start preferred Visual assistive technology application</short>
+            <long>GNOME to start preferred Visual assistive technology application during login.</long>
+         </locale>
+
+         <locale name="ar">
+            <short>ابدأ تطبيق تقانة إعانة الرؤية المفضّل</short>
+            <long>ستبدأ جنوم تطبيق تقانة إعانة الرؤية المفضّل أثناء الولوج.</long>
+         </locale>
+
+         <locale name="as">
+            <short>প্ৰদৰ্শন সহায়ক প্ৰযুক্তিগত অনুপ্ৰয়োগসমূহ আৰম্ভ কৰা হ&apos;ব</short>
+            <long>প্ৰৱেশৰ সময়ত GNOME দ্বাৰা চলাচল সহায়ক পছন্দ প্ৰযুক্তিগত অনুপ্ৰয়োগ আৰম্ভ কৰা হ&apos;ব</long>
+         </locale>
+
+         <locale name="ast">
+            <short>Entamar l&apos;aplicación preferida de teunoloxía d&apos;asistencia visual</short>
+            <long>GNOME va arrancar l&apos;aplicación preferida de teunoloxía d&apos;asistencia visual durante l&apos;entamu.</long>
+         </locale>
+
+         <locale name="bg">
+            <short>Стартиране на програмите за достъпност за хора със зрителни увреждания</short>
+            <long>GNOME да стартира по време на влизане в сесията предпочитаната програма за достъпност за хората със зрителни увреждания.</long>
+         </locale>
+
+         <locale name="bn">
+            <short>প্রদর্শনে সহায়ক প্রযুক্তিগত অ্যাপ্লিকেশনগুলি আরম্ভ করা হবে</short>
+            <long>লগ-ইনের সময় GNOME দ্বারা চলাচলে সহায়ক পছন্দসই প্রযুক্তিগত অ্যাপ্লিকেশন আরম্ভ করা হবে।</long>
+         </locale>
+
+         <locale name="bn_IN">
+            <short>প্রদর্শনে সহায়ক প্রযুক্তিগত অ্যাপ্লিকেশনগুলি আরম্ভ করা হবে</short>
+            <long>লগ-ইনের সময় GNOME দ্বারা চলাচলে সহায়ক পছন্দসই প্রযুক্তিগত অ্যাপ্লিকেশন আরম্ভ করা হবে।</long>
+         </locale>
+
+         <locale name="ca">
+            <short>Inicia l&apos;aplicació de tecnologia assistiva visual preferida</short>
+            <long>Si el GNOME ha d&apos;iniciar l&apos;aplicació de tecnologia assistiva visual preferida en entrar.</long>
+         </locale>
+
+         <locale name="ca@valencia">
+            <short>Inicia l&apos;aplicació de tecnologia assistiva visual preferida</short>
+            <long>Si el GNOME ha d&apos;iniciar l&apos;aplicació de tecnologia assistiva visual preferida en entrar.</long>
+         </locale>
+
+         <locale name="crh">
+            <short>Tercih etilgen Körüş yardımcıl tehnologiya uyğulamasını başlat</short>
+            <long>GNOME tercih etilgen Körüş yardımcıl tehnologiya uyğulamasını içeri imzalanğanda başlatır.</long>
+         </locale>
+
+         <locale name="cs">
+            <short>Spustit preferovanou aplikaci technologie usnadnění v oblasti zobrazování</short>
+            <long>GNOME spustí preferovanou aplikaci technologie usnadnění v oblasti zobrazování během přihlášení.</long>
+         </locale>
+
+         <locale name="cy">
+            <short>Cychwyn yr hoff raglen dechnoleg gynorthwyol Weledol</short>
+            <long>Yn ystod y mewngofnodi, dylai GNOME gychwyn yr hoff rhaglen dechnoleg gynorthwyol Weledol.</long>
+         </locale>
+
+         <locale name="da">
+            <short>Start foretrukne program til visuelt-assisterende teknologier</short>
+            <long>GNOME skal starte foretrukne program til visuelt-assisterende teknologier under logind.</long>
+         </locale>
+
+         <locale name="de">
+            <short>Bevorzugte Anwendung für visuelle Hilfstechnologie starten</short>
+            <long>Bevorzugte Anwendung für visuelle Hilfstechnologie beim Anmelden starten.</long>
+         </locale>
+
+         <locale name="dz">
+            <short>མཐོང་བའི་ཕན་ཐབས་འཕྲུལ་རིག་གི་གློག་རིམ་དགའ་མི་འགོ་བཙུགས་</short>
+            
+         </locale>
+
+         <locale name="el">
+            <short>Εκκίνηση της προτεινόμενης εφαρμογής βοηθητικής τεχνολογίας όρασης</short>
+            <long>Να εκκινήσει το GNOME την προτεινόμενη εφαρμογή βοηθητικής τεχνολογίας όρασης κατά τη σύνδεση στο σύστημα</long>
+         </locale>
+
+         <locale name="en_CA">
+            <short>Start preferred Visual assistive technology application</short>
+            
+         </locale>
+
+         <locale name="en_GB">
+            <short>Start preferred Visual assistive technology application</short>
+            <long>GNOME to start preferred Visual assistive technology application during login.</long>
+         </locale>
+
+         <locale name="eo">
+            <short>Lanĉi preferitan vidasistan teknologian aplikaĵon</short>
+            <long>Ĉu GNOME lanĉas preferitan Vidan asistan teknologian aplikaĵon dum ensaluto.</long>
+         </locale>
+
+         <locale name="es">
+            <short>Iniciar aplicación de tecnología de asistencia visual preferida</short>
+            <long>Si GNOME ha de iniciar la aplicación de tecnología de asistencia visual preferida durante el inicio.</long>
+         </locale>
+
+         <locale name="et">
+            <short>Eelistatud visuaalse abistava tehnika rakenduse käivitamine</short>
+            <long>Kas GNOME käivitab sisselogimisel eelistatud rakenduse visuaalse abistava tehnika toe jaoks.</long>
+         </locale>
+
+         <locale name="eu">
+            <short>Abiarazi teknologia bisualen aplikazio hobetsia</short>
+            <long>GNOMEk abiaraziko duen teknologia bisualen aplikazio hobetsia saio-hasieran.</long>
+         </locale>
+
+         <locale name="fi">
+            <short>Käynnistä ensisijainen näkörajoitteisten esteettömyyssovellus</short>
+            <long>Gnome käynnistää ensisijaisen näkörajoitteisten esteettömyyssovelluksen sisäänkirjauduttaessa.</long>
+         </locale>
+
+         <locale name="fr">
+            <short>Démarrer l&apos;application d&apos;aide technique visuelle préférée</short>
+            <long>GNOME démarrera l&apos;application d&apos;aide technique visuelle préférée lors de la connexion.</long>
+         </locale>
+
+         <locale name="fur">
+            <short>Inviament aplicazion di tecnologjie assistive par video-disabî preferide</short>
+            
+         </locale>
+
+         <locale name="gl">
+            <short>Iniciar aplicativo preferido de tecnoloxía adaptada visual</short>
+            <long>Se GNOME ha de iniciar o aplicativo preferido de tecnoloxía adaptada visual durante o inicio.</long>
+         </locale>
+
+         <locale name="gu">
+            <short>પ્રાધાન્યવાળા દેખીતા સહાયક ટેક્નોલોજી કાર્યક્રમને શરૂ કરો</short>
+            <long>પ્રવેશ દરમ્યાન પ્રાધાન્યવાળો દેખીતો સહાયક ટેક્નોલોજી કાર્યક્રમ શરૂ કરવા માટે જીનોમ.</long>
+         </locale>
+
+         <locale name="he">
+            <short>Start preferred Visual assistive technology application</short>
+            <long>GNOME to start preferred Visual assistive technology application during login.</long>
+         </locale>
+
+         <locale name="hi">
+            <short>पसंदीदा दृष्टि मददगार तकनीक अनुप्रयोग आरंभ करें</short>
+            <long>लॉगिन के दौरान पसंदीदा दृष्टि मददगार तकनीक अनुप्रयोग आरंभ करने के लिए गनोम.</long>
+         </locale>
+
+         <locale name="hr">
+            <short>Pokreni prefereiranu aplikaciju vizualne tehnologije za pomaganje</short>
+            
+         </locale>
+
+         <locale name="hu">
+            <short>Az előnyben részesített mobilitási akadálymentesítő alkalmazás elindítása</short>
+            <long>A GNOME elindítsa-e bejelentkezéskor az előnyben részesített vizuális akadálymentesítő alkalmazást?</long>
+         </locale>
+
+         <locale name="id">
+            <short>Memulai aplikasi teknologi bantu Visual yang disukai</short>
+            <long>GNOME akan memulai aplikasi teknologi bantu Visual yang disukai selama log masuk.</long>
+         </locale>
+
+         <locale name="it">
+            <short>Avvio applicazione di tecnologia assistiva per disabilità visive preferita</short>
+            <long>GNONE avvierà l&apos;applicazione di tecnologia assistiva per disabilità visive predefinita durante l&apos;accesso.</long>
+         </locale>
+
+         <locale name="ja">
+            <short>視覚支援技術をサポートしたアプリケーションを起動する</short>
+            <long>ログインしたら視覚支援技術 (Visual Assistive Technology) をサポートするアプリケーションを優先して起動するかどうかです。</long>
+         </locale>
+
+         <locale name="ka">
+            <short>ამორჩეული ვიზუალური დამხმარე ტექნოლოგის პროგრამის გაშვება</short>
+            
+         </locale>
+
+         <locale name="kn">
+            <short>ಇಚ್ಛೆಯ ದೃಶ್ಯರೂಪದ ಸಹಾಯಕ ತಂತ್ರಜ್ಞಾನ ಅನ್ವಯವನ್ನು ಆರಂಭಿಸು</short>
+            <long>ಪ್ರವೇಶದ ಸಮಯದಲ್ಲಿ GNOME ಆರಂಭಿಸಬೇಕಿರುವ ಇಚ್ಛೆಯ ದೃಶ್ಯರೂಪದ ಸಹಾಯಕ ತಂತ್ರಜ್ಞಾನ ಅನ್ವಯ.</long>
+         </locale>
+
+         <locale name="ko">
+            <short>선택한 시각 보조 기술 프로그램 시작</short>
+            <long>그놈에 로그인할 때 선택한 시각 보조 기술 프로그램을 시작합니다.</long>
+         </locale>
+
+         <locale name="lt">
+            <short>Paleisti pageidaujamą Vizualinių pagalbinių technologijų programą</short>
+            <long>GNOME paleidžia Vizualių pagalbinių technologijų programą prisijungimo metu.</long>
+         </locale>
+
+         <locale name="lv">
+            <short>Palaist vēlamo vizuālās palīdzības lietotni</short>
+            <long>GNOME palaidīs vēlamās vizuālās palīgtehnoloģiju lietones piesakoties.</long>
+         </locale>
+
+         <locale name="mk">
+            <short>Подигни ја преферираната програма за визуелна помошна технологија</short>
+            <long>GNOME да ја подигне преферираната програма за визуелна помошна технологија при најава.</long>
+         </locale>
+
+         <locale name="ml">
+            <short>ആവശ്യമനുസരിച്ചുളള വിഷ്വല്‍ അസ്സിസ്റ്റീവ് ടെക്നോളജി പ്രയോഗങ്ങള്‍ തുടങ്ങുക</short>
+            <long>ആവശ്യമനുസരിച്ചുളള വിഷ്വല്‍ അസ്സിസ്റ്റീവ് ടെക്നോളജി പ്രയോഗങ്ങള്‍ അകത്തുകയറുമ്പോള്‍ ഗ്നോം തന്നെ തുടങ്ങുക.</long>
+         </locale>
+
+         <locale name="mn">
+            <short>Эрхэмлэсэн харааны тусламж технологийн програм эхлүүлэх</short>
+            <long>Нэвтрэх үед GNOME-н эхлүүлэх эрхэмлэсэн харааны тусламж технологийн програм.</long>
+         </locale>
+
+         <locale name="mr">
+            <short>अधिमान्यता दृश्य संयुक्त तंत्रज्ञाण अनुप्रयोग सुरू करा</short>
+            <long>GNOME अधिमान्यता दृश्य संयुक्त तंत्रज्ञाण अनुप्रयोग दाखलनवेळी सुरू करणार आहे.</long>
+         </locale>
+
+         <locale name="nb">
+            <short>Oppstart av programmer med hjelpeteknologi</short>
+            <long>Om foretrukket hjelpeteknologi for tilgjengelighet for svaksynte skal startes av GNOME ved innlogging.</long>
+         </locale>
+
+         <locale name="ne">
+            <short>रुचाइएका दृश्यात्मक सहयोगी प्रविधि अनुप्रयोग सुरु गर्नुहोस्</short>
+            
+         </locale>
+
+         <locale name="nl">
+            <short>Opstarten van assisterende technologie-toepassing voor visuele hulp</short>
+            <long>Of Gnome de assisterende technologie-toepassing voor visuele hulp moet starten na inloggen.</long>
+         </locale>
+
+         <locale name="nn">
+            <short>Start foretrukne visuelle hjelpeprogram</short>
+            <long>GNOME skal starta foretrukne visuelle hjelpeprogram under innlogging.</long>
+         </locale>
+
+         <locale name="or">
+            <short>ପସନ୍ଦୀୟ ଆଭାସୀ ସହକାରୀ ପ୍ରଯୁକ୍ତି ଜ୍ଞାନ ପ୍ରୟୋଗ ଆରମ୍ଭ କରନ୍ତୁ</short>
+            <long>ଲଗଇନ ସମୟରେ ପସନ୍ଦୀୟ ଆଭାସୀ ସହକାରୀ ପ୍ରଯୁକ୍ତି ଜ୍ଞାନ ପ୍ରୟୋଗକୁ ପ୍ରାରମ୍ଭ କରିବା ପାଇଁ GNOME</long>
+         </locale>
+
+         <locale name="pa">
+            <short>ਪਸੰਦੀਦਾ ਦਿੱਖ ਅਸੈਸਟਿਵ ਤਕਨੀਕੀ ਕਾਰਜ ਚਾਲੂ</short>
+            <long>ਲਾਗਇਨ ਦੌਰਾਨ ਪਸੰਦੀਦਾ ਦਿੱਖ ਅਸੈਸਟਿਵ ਤਕਨੀਕੀ ਕਾਰਜ ਗਨੋਮ ਵਲੋਂ ਸ਼ੁਰੂ ਕਰਨ ਲਈ</long>
+         </locale>
+
+         <locale name="pl">
+            <short>Uruchamianie preferowanego programu technologii wspierających widzenie</short>
+            <long>Określa, czy GNOME ma uruchamiać preferowany program technologii wspierających widzenie podczas logowania.</long>
+         </locale>
+
+         <locale name="pt">
+            <short>Iniciar a aplicação preferida de tecnologia de assistência Visual</short>
+            <long>GNOME deverá iniciar a aplicação preferida de tecnologia de assistência Visual ao iniciar sessão.</long>
+         </locale>
+
+         <locale name="pt_BR">
+            <short>Iniciar aplicativo preferencial de tecnologia assistiva Visual</short>
+            <long>Iniciar aplicativo preferencial de tecnologia assistiva visual quando o usuário estiver iniciando uma sessão.</long>
+         </locale>
+
+         <locale name="ro">
+            <short>Pornește aplicația preferată a tehnologiilor de asistență vizuală</short>
+            <long>De pornit la autentificare aplicația tehnologiilor de asistență vizuală.</long>
+         </locale>
+
+         <locale name="ru">
+            <short>Запускать предпочтительное приложение помощи зрению</short>
+            <long>Нужно ли запускать предпочтительное приложение помощи зрению при входе в среду.</long>
+         </locale>
+
+         <locale name="sk">
+            <short>Spustiť uprednostňovanú aplikáciu zrakových pomocných technológií</short>
+            <long>GNOME má spustiť uprednostňovanú aplikáciu zrakových pomocných technológií počas prihlásenia.</long>
+         </locale>
+
+         <locale name="sl">
+            <short>Zagon prednostnih programov pomožnih tehnologij</short>
+            <long>Zagon GNOME pomožne tehnologije predočenja med prijavo.</long>
+         </locale>
+
+         <locale name="sq">
+            <short>Nis aplikativin e preferuar të teknollogjisë asistuese Visual</short>
+            <long>GNOME për të nisur aplikativin e dëshiruar të teknollogjisë asistuese Visual gjatë hyrjes.</long>
+         </locale>
+
+         <locale name="sr">
+            <short>Покрени омиљени програм за визуелну испомоћ</short>
+            <long>Да ли Гном треба да покрене омиљени програм за визуелну испомоћ при пријави у окружење.</long>
+         </locale>
+
+         <locale name="sr@latin">
+            <short>Pokreni omiljeni program za vizuelnu ispomoć</short>
+            <long>Da li Gnom treba da pokrene omiljeni program za vizuelnu ispomoć pri prijavi u okruženje.</long>
+         </locale>
+
+         <locale name="sv">
+            <short>Starta föredraget program för hjälpmedelstekniker för synskadade</short>
+            <long>GNOME ska starta föredraget program för hjälpmedelstekniker för synskadade under inloggning.</long>
+         </locale>
+
+         <locale name="ta">
+            <short>விருப்பப்பட்ட விஷுவல்  தொழில்நுட்ப பயன்பாடுகள் துவக்கம்</short>
+            <long>GNOME புகுபதிவின் போது விருப்பப்பட்ட விஷுவல் உதவி தொழில்நுட்ப பயன்பாட்டை துவக்குகிறது.</long>
+         </locale>
+
+         <locale name="te">
+            <short>అభీష్ట దృశ్య సహాయక సాంకేతిక అనువర్తనమును ప్రారంభించుము</short>
+            <long>లాగిన్‌నందు GNOME ప్రారంభిచవలసిన అభీష్ట దృశ్య సహాయక సాంకేతక అనువర్తనము.</long>
+         </locale>
+
+         <locale name="th">
+            <short>เรียกโปรแกรมเทคโนโลยีสิ่งอำนวยความสะดวกสำหรับสายตาที่เลือกไว้</short>
+            <long>ให้ GNOME เรียกโปรแกรมเทคโนโลยีสิ่งอำนวยความสะดวกสำหรับสายตาที่เลือกไว้ เมื่อเข้าระบบ</long>
+         </locale>
+
+         <locale name="tr">
+            <short>Tercih edilen Sanal yardımcı teknoloji uygulamasını başlat</short>
+            <long>GNOME&apos;un tercih edilen Sanal yardımcı teknoloji uygulamasını giriş sırasında başlatması.</long>
+         </locale>
+
+         <locale name="ug">
+            <short>ئالدىن قوزغىتىدىغان كۆرۈنۈشچان ياردەمچى تېخنىكىلىق پروگراممىنى قوزغات</short>
+            <long>GNOME تىزىمغا كىرگەندە ئالدىن قوزغىتىدىغان كۆرۈنۈشچان ياردەمچى تېخنىكىلىق پروگرامما.</long>
+         </locale>
+
+         <locale name="uk">
+            <short>Запускати вибрану програму Visual для спеціальних можливостей</short>
+            <long>Чи запускати під час входу у GNOME програму Visual для спеціальних можливостей.</long>
+         </locale>
+
+         <locale name="vi">
+            <short>Khởi chạy ứng dụng công nghệ trợ giúp khả năng nhìn ưa thích</short>
+            <long>GNOME sẽ khởi chạy ứng dụng công nghệ trợ giúp khả năng nhìn ưa thích.</long>
+         </locale>
+
+         <locale name="zh_CN">
+            <short>启动首选的视觉辅助技术应用程序</short>
+            <long>GNOME 将要在登录时启动的首选视觉辅助技术应用程序。</long>
+         </locale>
+
+         <locale name="zh_HK">
+            <short>執行偏好的視覺輔助科技程式</short>
+            <long>在登入時 GNOME 會執行偏好的視覺輔助科技。</long>
+         </locale>
+
+         <locale name="zh_TW">
+            <short>執行偏好的視覺輔助科技程式</short>
+            <long>在登入時 GNOME 會執行偏好的視覺輔助科技。</long>
+         </locale>
+      </schema>    
+    </schemalist>
+</gconfschemafile>

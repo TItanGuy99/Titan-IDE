@@ -1,0 +1,341 @@
+#!/bin/sh
+
+##############################################################################
+# This is essentially a Perl program.  We exec the Perl interpreter specifying
+# this same file as the Perl program and use the -x option to cause the Perl
+# interpreter to skip down to the Perl code.  The reason we do this instead of
+# just making /usr/bin/perl the script interpreter (instead of /bin/sh) is
+# that the user may have multiple Perl interpreters and the one he wants to
+# use is properly located in the PATH.  The user's choice of Perl interpreter
+# may be crucial, such as when the user also has a PERL5LIB environment
+# variable and it selects modules that work with only a certain main
+# interpreter program.
+#
+# An alternative some people use is to have /usr/bin/env as the script
+# interpreter.  We don't do that because we think the existence and
+# compatibility of /bin/sh is more reliable.
+#
+# Note that we aren't concerned about efficiency because the user who needs
+# high efficiency can use directly the programs that this program invokes.
+#
+##############################################################################
+
+exec perl -w -x -S -- "$0" "$@"
+
+#!/usr/bin/perl
+##############################################################################
+#                                  ppmfade
+##############################################################################
+#
+#  This program creates a fade (a sequence of frames) between two images.
+#
+#  By Bryan Henderson, Olympia WA; March 2000
+#
+#  Contributed to the public domain by its author.
+#
+#  Inspired by the program Pbmfade by Wesley C. Barris of AHPCRC,
+#  Minnesota Supercomputer Center, Inc. January 7, 1994.  Pbmfade does
+#  much the same thing, but handles non-Netpbm formats too, and is 
+#  implemented in a more primitive language.
+#
+##############################################################################
+use strict;
+use File::Temp "tempdir";
+
+sub doVersionHack($) {
+    my ($argvR) = @_;
+
+    my $arg1 = $argvR->[0];
+
+    if (defined($arg1) && (($arg1 eq "--version") || ($arg1 eq "-version"))) {
+        my $termStatus = system('ppmmix', '--version');
+        exit($termStatus == 0 ? 0 : 1);
+    }
+}
+
+
+
+my $SPREAD =  1;
+my $SHIFT =   2;
+my $RELIEF =  3;
+my $OIL =     4;
+my $EDGE =    5;
+my $BENTLEY = 6;
+my $BLOCK =   7;
+my $MIX =     8;
+#
+#  Set some defaults.
+#
+my $nframes = 30;			# total number of files created (1 sec)
+my $first_file = "undefined";
+my $last_file = "undefined";
+my $base_name = "fade";		# default base name of output files
+my $image = "ppm";		# default output storage format
+my $mode = $SPREAD;		# default fading mode
+
+doVersionHack(\@ARGV);
+
+my $n;  # argument number
+
+for ($n = 0; $n < @ARGV; $n++) {
+    if ("$ARGV[$n]" eq "-f") {
+        $n++;
+        $first_file = $ARGV[$n];
+        if (-e $first_file) {
+        } else {
+            print "I can't find first file '$first_file'\n";
+            exit 20;
+        }
+    } elsif ($ARGV[$n] eq "-l") {
+        $n++;
+        $last_file = $ARGV[$n];
+        if (-e $last_file) {
+        } else {
+            print "I can't find last file '$last_file'\n";
+            exit 20;
+        }
+    } elsif ($ARGV[$n] eq "-base") {
+        $n++;
+        $base_name = $ARGV[$n];
+    } elsif ($ARGV[$n] eq "-spread") {
+        $mode = $SPREAD;
+    } elsif ($ARGV[$n] eq "-shift") {
+        $mode = $SHIFT;
+    } elsif ($ARGV[$n] eq "-relief") {
+        $mode = $RELIEF;
+    } elsif ($ARGV[$n] eq "-oil") {
+        $mode = $OIL;
+    } elsif ("$ARGV[$n]" eq "-edge") {
+        $mode = $EDGE;
+    } elsif ("$ARGV[$n]" eq "-bentley") {
+        $mode = $BENTLEY;
+    } elsif ("$ARGV[$n]" eq "-block") {
+        $mode = $BLOCK;
+    } elsif ("$ARGV[$n]" eq "-mix") {
+        $mode = $MIX;
+    } elsif ($ARGV[$n] eq "-help" || $ARGV[$n] eq "--help" || $ARGV[$n] eq "-h") {
+        print "ppmfade: Use 'man ppmfade' for help.\n";
+        exit 1;
+    } else {
+        print "Unknown argument: $ARGV[$n]\n";
+        exit 100;
+    } 
+}
+#
+#  Define a couple linear ramps.
+#
+# We don't use element 0 of these arrays.
+my @spline10 = (0, 0, 0.11, 0.22, 0.33, 0.44, 0.55, 0.66, 0.77, 0.88, 1.0);
+my @spline20 = (0, 0, 0.05, 0.11, 0.16, 0.21, 0.26, 0.32, 0.37, 0.42, 0.47, 
+                0.53, 0.58, 0.63, 0.69, 0.74, 0.79, 0.84, 0.89, 0.95, 1.0);
+#
+#  Just what are we supposed to do?
+#
+my ($height, $width);    # width and height of our frames
+if ($first_file ne "undefined") {
+    if ((`pnmfile $first_file` =~ m{\b(\d+)\sby\s(\d+)} )) { 
+        $width = $1; $height = $2;
+    } else {
+        print("Unrecognized results from pnmfile on $first_file.\n");
+        exit(50);
+    }
+} elsif ($last_file ne "undefined") {
+    if ((`pnmfile $last_file` =~ m{\b(\d+)\sby\s(\d+)} )) { 
+        $width = $1; $height = $2;
+    } else {
+        print("Unrecognized results from pnmfile on $first_file.\n");
+        exit(50);
+    }
+} else {
+    print("ppmfade:  You must specify -f or -l (or both)\n");
+    exit(90);
+}
+
+print("Frames are " . $width . "W x " . $height . "H\n");
+
+#
+# We create a tmp-directory right here
+#
+my $tmpdir = tempdir("ppmfade.XXXXXX", CLEANUP => 1);
+
+
+if ($first_file eq "undefined") {
+    print "Fading from black to ";
+    system("ppmmake \\#000 $width $height >$tmpdir/junk1$$.ppm");
+} else {
+    print "Fading from $first_file to ";
+    system("cp", $first_file, "$tmpdir/junk1$$.ppm");
+}
+
+if ($last_file eq "undefined") {
+    print "black.\n";
+    system("ppmmake \\#000 $width $height >$tmpdir/junk2$$.ppm");
+} else {
+    print "$last_file\n";
+    system("cp", $last_file, "$tmpdir/junk2$$.ppm");
+}
+
+#
+#  Perform the fade.
+#
+
+# Here's what our temporary files are:
+#   $tmpdir/junk1$$.ppm: The original (fade-from) image
+#   $tmpdir/junk2$$.ppm: The target (fade-from) image
+#   $tmpdir/junk3$$.ppm: The frame of the fade for the current iteration of the 
+#                	 the for loop.
+#   $tmpdir/junk1a$$.ppm: If the fade involves a ppmmix sequence from one intermediate
+#                         image to another, this is the first frame of that 
+#                         sequence.
+#   $tmpdir/junk2a$$.ppm: This is the last frame of the above-mentioned ppmmix sequence
+
+my $i;    # Frame number
+for ($i = 1; $i <= $nframes; $i++) {
+    print("Creating $i of $nframes...\n");
+    if ($mode eq $SPREAD) {
+        if ($i <= 10) {
+            my $n = $spline20[$i] * 100;
+            system("ppmspread $n $tmpdir/junk1$$.ppm >$tmpdir/junk3$$.ppm");
+        } elsif ($i <= 20) {
+            my $n;
+            $n = $spline20[$i] * 100;
+            system("ppmspread $n $tmpdir/junk1$$.ppm >$tmpdir/junk1a$$.ppm");
+            $n = (1-$spline20[$i-10]) * 100;
+            system("ppmspread $n $tmpdir/junk2$$.ppm >$tmpdir/junk2a$$.ppm");
+            $n = $spline10[$i-10];
+            system("ppmmix $n $tmpdir/junk1a$$.ppm $tmpdir/junk2a$$.ppm >$tmpdir/junk3$$.ppm");
+        } else {
+            my $n = (1-$spline20[$i-10])*100;
+            system("ppmspread $n $tmpdir/junk2$$.ppm >$tmpdir/junk3$$.ppm");
+        }
+    } elsif ($mode eq $SHIFT) {
+        if ($i <= 10) {
+            my $n = $spline20[$i] * 100;
+            system("ppmshift $n $tmpdir/junk1$$.ppm >$tmpdir/junk3$$.ppm");
+        } elsif ($i <= 20) {
+            my $n;
+            $n = $spline20[$i] * 100;
+            system("ppmshift $n $tmpdir/junk1$$.ppm >$tmpdir/junk1a$$.ppm");
+            $n = (1-$spline20[$i-10])*100;
+            system("ppmshift $n $tmpdir/junk2$$.ppm >$tmpdir/junk2a$$.ppm");
+            $n = $spline10[$i-10];
+            system("ppmmix $n $tmpdir/junk1a$$.ppm $tmpdir/junk2a$$.ppm >$tmpdir/junk3$$.ppm");
+        } else {
+            my $n = (1-$spline20[$i-10]) * 100;
+            system("ppmshift $n $tmpdir/junk2$$.ppm >$tmpdir/junk3$$.ppm");
+        }
+    } elsif ($mode eq $RELIEF) {
+        if ($i == 1) {
+            system("ppmrelief $tmpdir/junk1$$.ppm >$tmpdir/junk1r$$.ppm");
+        }
+        if ($i <= 10) {
+            my $n = $spline10[$i];
+            system("ppmmix $n $tmpdir/junk1$$.ppm $tmpdir/junk1r$$.ppm >$tmpdir/junk3$$.ppm");
+        } elsif ($i <= 20) {
+            my $n = $spline10[$i-10];
+            system("ppmmix $n $tmpdir/junk1r$$.ppm $tmpdir/junk2r$$.ppm >$tmpdir/junk3$$.ppm");
+        } else {
+            my $n = $spline10[$i-20];
+            system("ppmmix $n $tmpdir/junk2r$$.ppm $tmpdir/junk2$$.ppm >$tmpdir/junk3$$.ppm");
+        }
+        if ($i == 10) {
+            system("ppmrelief $tmpdir/junk2$$.ppm >$tmpdir/junk2r$$.ppm");
+        }
+    } elsif ($mode eq $OIL) {
+        if ($i == 1) {
+            system("ppmtopgm $tmpdir/junk1$$.ppm | pgmoil >$tmpdir/junko$$.ppm");
+            system("rgb3toppm $tmpdir/junko$$.ppm $tmpdir/junko$$.ppm $tmpdir/junko$$.ppm " .
+                   ">$tmpdir/junk1o$$.ppm");
+        }
+        if ($i <= 10) {
+            my $n = $spline10[$i];
+            system("ppmmix $n $tmpdir/junk1$$.ppm $tmpdir/junk1o$$.ppm >$tmpdir/junk3$$.ppm");
+        } elsif ($i <= 20) {
+            my $n = $spline10[$i-10];
+            system("ppmmix $n $tmpdir/junk1o$$.ppm $tmpdir/junk2o$$.ppm >$tmpdir/junk3$$.ppm");
+        } else {
+            my $n = $spline10[$i-20];
+            system("ppmmix $n $tmpdir/junk2o$$.ppm $tmpdir/junk2$$.ppm >$tmpdir/junk3$$.ppm");
+        }
+        if ($i == 10) {
+            system("ppmtopgm $tmpdir/junk2$$.ppm | pgmoil >$tmpdir/junko$$.ppm");
+            system("rgb3toppm $tmpdir/junko$$.ppm $tmpdir/junko$$.ppm $tmpdir/junko$$.ppm " .
+                   ">$tmpdir/junk2o$$.ppm");
+        }
+    } elsif ($mode eq $EDGE) {
+        if ($i == 1) {
+            system("ppmtopgm $tmpdir/junk1$$.ppm | pgmedge >$tmpdir/junko$$.ppm");
+            system("rgb3toppm $tmpdir/junko$$.ppm $tmpdir/junko$$.ppm $tmpdir/junko$$.ppm " .
+                   ">$tmpdir/junk1o$$.ppm");
+        }
+        if ($i <= 10) {
+            my $n = $spline10[$i];
+            system("ppmmix $n $tmpdir/junk1$$.ppm $tmpdir/junk1o$$.ppm >$tmpdir/junk3$$.ppm");
+        } elsif ($i <= 20) {
+            my $n = $spline10[$i-10];
+            system("ppmmix $n $tmpdir/junk1o$$.ppm $tmpdir/junk2o$$.ppm >$tmpdir/junk3$$.ppm");
+        } else {
+            my $n = $spline10[$i-20];
+            system("ppmmix $n $tmpdir/junk2o$$.ppm $tmpdir/junk2$$.ppm >$tmpdir/junk3$$.ppm");
+        }
+        if ($i == 10) {
+            system("ppmtopgm $tmpdir/junk2$$.ppm | pgmedge >$tmpdir/junko$$.ppm");
+            system("rgb3toppm $tmpdir/junko$$.ppm $tmpdir/junko$$.ppm $tmpdir/junko$$.ppm " .
+                   ">$tmpdir/junk2o$$.ppm");
+        } 
+    } elsif ($mode eq $BENTLEY) {
+        if ($i == 1) {
+            system("ppmtopgm $tmpdir/junk1$$.ppm | pgmbentley >$tmpdir/junko$$.ppm");
+            system("rgb3toppm $tmpdir/junko$$.ppm $tmpdir/junko$$.ppm $tmpdir/junko$$.ppm " .
+                   ">$tmpdir/junk1o$$.ppm");
+        }
+        if ($i <= 10) {
+            my $n = $spline10[$i];
+            system("ppmmix $n $tmpdir/junk1$$.ppm $tmpdir/junk1o$$.ppm >$tmpdir/junk3$$.ppm");
+        } elsif ($i <= 20) {
+            my $n = $spline10[$i-10];
+            system("ppmmix $n $tmpdir/junk1o$$.ppm $tmpdir/junk2o$$.ppm >$tmpdir/junk3$$.ppm");
+        } else {
+            my $n = $spline10[$i-20];
+            system("ppmmix $n $tmpdir/junk2o$$.ppm $tmpdir/junk2$$.ppm >$tmpdir/junk3$$.ppm");
+        }
+        if ($i == 10) {
+            system("ppmtopgm $tmpdir/junk2$$.ppm | pgmbentley >$tmpdir/junko$$.ppm");
+            system("rgb3toppm $tmpdir/junko$$.ppm $tmpdir/junko$$.ppm $tmpdir/junko$$.ppm " .
+                   ">$tmpdir/junk2o$$.ppm");
+        }
+    } elsif ($mode eq $BLOCK) {
+        if ($i <= 10) {
+            my $n = 1 - 1.9*$spline20[$i];
+            system("pamscale $n $tmpdir/junk1$$.ppm | " .
+                   "pamscale -width $width -height $height >$tmpdir/junk3$$.ppm");
+        } elsif ($i <= 20) {
+            my $n = $spline10[$i-10];
+            system("ppmmix $n $tmpdir/junk1a$$.ppm $tmpdir/junk2a$$.ppm >$tmpdir/junk3$$.ppm");
+        } else {
+            my $n = 1 - 1.9*$spline20[31-$i];
+            system("pamscale $n $tmpdir/junk2$$.ppm | " .
+                   "pamscale -width $width -height $height >$tmpdir/junk3$$.ppm");
+        }
+        if ($i == 10) {
+            system("cp", "$tmpdir/junk3$$.ppm", "$tmpdir/junk1a$$.ppm");
+            system("pamscale $n $tmpdir/junk2$$.ppm | " .
+                   "pamscale -width $width -height $height >$tmpdir/junk2a$$.ppm");
+        }    
+    } elsif ($mode eq $MIX) {
+        my $fade_factor = sqrt(1/($nframes-$i+1));
+        system("ppmmix $fade_factor $tmpdir/junk1$$.ppm $tmpdir/junk2$$.ppm >$tmpdir/junk3$$.ppm");
+    } else {
+        print("Internal error: impossible mode value '$mode'\n");
+    }
+
+    my $outfile = sprintf("%s.%04d.ppm", $base_name, $i);
+    system("cp", "$tmpdir/junk3$$.ppm", $outfile);
+}
+
+#
+#  Clean up shop.
+#
+system("rm $tmpdir/junk*$$.ppm");
+
+exit(0);

@@ -1,0 +1,124 @@
+#! /usr/bin/perl -w
+
+# cvschroot - change CVS Root of CVS working directory to given value
+# Copyright (C) 2000-2005  Pavel Roskin <proski@gnu.org>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+# 02111-1307, USA.
+
+require 5.004;
+use strict;
+
+sub Main ()
+{
+	if (!$ARGV[0] || ($ARGV[0] eq '--help') || ($#ARGV > 0))
+	{
+		usage ();
+	}
+
+	my $root = $ARGV[0];
+	my $cvspath = split_root($root, "New CVS Root");
+	my $old_root = $ENV{"CVSROOT"};
+	my $fixed_root = defined ($old_root);
+
+	open(CVSADM, "cvsu --ignore --find --types C |") ||
+		error ("Cannot read output of cvsu");
+
+	while (<CVSADM>) {
+		chomp;
+		my $dir = $_;
+		unless ( $dir =~ m{/$} ) {
+			$dir .= "/";
+		}
+		if ($dir =~ "^\./(.*)") {
+			$dir = $1;
+		}
+
+		unless ($fixed_root) {
+			$old_root = get_line($dir . "Root");
+		}
+
+		my $old_cvspath = split_root($old_root, "Old CVS Root");
+
+		my $repo = get_line($dir . "Repository");
+
+		# if $repo is relative path, leave it as is
+		if ( $repo =~ m{^/} ) {
+			unless ( $repo =~ s{^$old_cvspath}{$cvspath} ) {
+				error ("${dir}Repository doesn't match ${dir}Root");
+			}
+
+			put_line ($dir . "Repository", $repo);
+		}
+		put_line ($dir . "Root", $root);
+	}
+}
+
+# Print message and exit (like "die", but without raising an exception).
+# Newline is added at the end.
+sub error ($)
+{
+	print STDERR "cvschroot: ERROR: " . shift(@_) . "\n";
+	exit 1;
+}
+
+# print usage information and exit
+sub usage ()
+{
+	print "Usage: cvschroot ROOT\n" .
+	"ROOT is the CVS Root to be written to CVS/Root\n" .
+	"CVS/Repository is also modified if necessary\n";
+	exit 1;
+}
+
+
+# Split CVSROOT into path and everything before it.
+sub split_root ($)
+{
+	my $res;
+	if ( shift(@_) =~ m{^([^ ]+:([0-9]+)?)?(/[^:@ ]+)$} ) {
+		$res = $3;
+	} else {
+		error shift(@_) . " not recognized";
+	}
+	return $res;
+}
+
+# Read one line from file.
+sub get_line ($)
+{
+	my $file = shift(@_);
+	open (FILE, "< $file")
+		|| error ("Couldn't open $file for reading: $!");
+	if ($_ = <FILE>) {
+		chomp;
+	} else {
+		error ("Couldn't read $file");
+	}
+	close (FILE);
+	return $_;
+}
+
+# Write one line to file.
+sub put_line ($)
+{
+	my $file = shift(@_);
+	open (FILE, "> $file")
+		|| error ("Couldn't open $file for writing: $!");
+	print FILE shift(@_) . "\n";
+	close (FILE);
+}
+
+Main();

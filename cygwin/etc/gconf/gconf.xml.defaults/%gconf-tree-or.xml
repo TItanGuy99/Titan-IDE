@@ -1,0 +1,626 @@
+<?xml version="1.0"?>
+<gconf>
+	<dir name="schemas">
+		<dir name="system">
+			<dir name="smb">
+				<entry name="workgroup">
+					<local_schema short_desc="ଏସ୍.ଏମ୍.ବି. କାର୍ଯ୍ଯଦଳ">
+						<longdesc>ବ୍ଯବହରକାରୀର ୱିଣ୍ଡୋଜ କାର୍ଯ୍ଯସମୂହ ବା ପରିସର. ନୂଆ କାର୍ଯ୍ଯସମୂହ ସମ୍ପୂର୍ଣ୍ଣ ପ୍ରଭାବ ଦେଖିବା ପାଇଁ ବ୍ଯବହରକାରୀକୁ ଲଗ ଆଉଟ କରି ପୁଣି ଲଗଇନ କରିବାକୁ ପଡ଼ିପାରେ.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="proxy">
+				<entry name="autoconfig_url">
+					<local_schema short_desc="ସ୍ବଂୟ ଛାୟା ବିନ୍ଯାସ ୟୁ.ଆର.ଏଲ.">
+						<longdesc>ଛାୟା ବିନ୍ଯାସ ମୂଲ୍ଯଗୁଡ଼ିକ ପାଇଁ ୟୁ.ଆର.ଏଲ.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="socks_port">
+					<local_schema short_desc="ଏସ୍.ଓ.ସି.କେ.ଏସ୍. ଛାୟା ସଂଯୋଗିକୀ">
+						<longdesc>&quot;/system/proxy/socks_host&quot; ଦ୍ବାରା ଉଲ୍ଲେଖିତ ଯନ୍ତ୍ରର ସଂଯୋଗିକୀ ଯେଉଁଟାକି ଛାୟାକରଣ ପାଇଁ ବ୍ଯବହାର କରାଯାଏ.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="socks_host">
+					<local_schema short_desc="ଏସ୍.ଓ.ସି.କେ.ଏସ୍.  ଛାୟା ଆଧାର ନାମ">
+						<longdesc>ଏସ୍.ଓ.ସି.କେ.ଏସ୍. ଛାୟା ପାଇଁ ଯନ୍ତ୍ରର ନାମ.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="ftp_port">
+					<local_schema short_desc="ଏଫ୍.ଟି.ପି. ଛାୟା ସଂଯୋଗିକୀ">
+						<longdesc>&quot;/system/ftp_proxy/host&quot; ଦ୍ବାରା ଉଲ୍ଲେଖିତ ଯନ୍ତ୍ରର ସଂଯୋଗିକୀ ଯେଉଁଟାକି ଛାୟାକରଣ ପାଇଁ ବ୍ଯବହାର କରାଯାଏ.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="ftp_host">
+					<local_schema short_desc="ଏଫ୍.ଟି.ପି. ଛାୟା ଆଧାର ନାମ">
+						<longdesc>ଏଫ୍.ଟି.ପି. ଛାୟା ପାଇଁ ଯନ୍ତ୍ରର ନାମ.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="secure_port">
+					<local_schema short_desc="ସୁରକ୍ଷିତ ଏଚ୍.ଟି.ଟି.ପି. ଛାୟା ଆଧାର ସଂଯୋଗିକୀ">
+						<longdesc>&quot;/system/proxy/secure_host&quot; ଦ୍ବାରା ଉଲ୍ଲେଖିତ ଯନ୍ତ୍ରର ସଂଯୋଗିକୀ ଯେଉଁଟାକି ଛାୟାକରଣ ପାଇଁ ବ୍ଯବହାର କରାଯାଏ.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="secure_host">
+					<local_schema short_desc="ସୁରକ୍ଷିତ ଏଚ୍.ଟି.ଟି.ପି. ଛାୟା ଆଧାର ନାମ">
+						<longdesc>ସୁରକ୍ଷିତ ଏଚ୍.ଟି.ଟି.ପି. ଛାୟା ପାଇଁ ଯନ୍ତ୍ରର ନାମ.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="mode">
+					<local_schema short_desc="ଛାୟା ବିନ୍ଯାସ ଅବସ୍ଥା">
+						<longdesc>ଛାୟା ବିନ୍ଯାସ ଅବସ୍ଥା ବାଛନ୍ତୁ. ସମ୍ଭବତଃ ମୂଲ୍ଯଗୁଡି଼କ ହେଲା &quot;none&quot;, &quot;manual&quot; ଓ &quot;auto&quot;.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="http_proxy">
+				<entry name="ignore_hosts">
+					<local_schema short_desc="ଅଣଛାୟା ଆଧାର">
+						<longdesc>ଛାୟା ବଦଳରେ ସିଧାସଳଖ ଭାବରେ ସଂଯୁକ୍ତ ଆଧାରଗୁଡ଼ିକର ତାଲିକା ଏହି ଚାବିରେ ରଖାଯାଇଛି. ସମ୍ଭବତଃ ମୂଲ୍ଯଗୁଡି଼କ ହେଲା ଆଧାର ନାମ, ପରିସର (*.foo.com ଭଳି ପ୍ରାରମ୍ଭିକ ୱାଇଲ୍ଡ କାର୍ଡ ବ୍ଯବହାର କରି), ଆଇ.ପି. ଆଧାର ଠିକିଣା (ଆଇ.ପି.ଭି.୪ ଓ ଆଇ.ପି.ଭି.୬) ଓ ଜାଲକ ମୁଖା ସହିତ ଜାଲକ ଠିକଣା (୧୯୨.୧୬୮.୦.୦/୨୪ ଭଳି କିଛି).</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="authentication_password">
+					<local_schema short_desc="ଏଚ୍.ଟି.ଟି.ପି. ଛାୟା ପ୍ରବେଶ ସଂକେତ">
+						<longdesc>ଏଚ୍.ଟି.ଟି.ପି. ଛାୟାକରଣ ବେଳେ ବୈଧିକରଣ ପାଇଁ ପ୍ରବେଶ ସଂକେତ </longdesc>
+					</local_schema>
+				</entry>
+				<entry name="authentication_user">
+					<local_schema short_desc="ଏଚ୍.ଟି.ଟି.ପି. ଛାୟା ଚାଳକନାମ">
+						<longdesc>ଏଚ୍.ଟି.ଟି.ପି. ଛାୟାକରଣ ବେଳେ ବୈଧିକରଣ ପାଇଁ ଚାଳକ ନାମ.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="use_authentication">
+					<local_schema short_desc="ଛାୟା ସେବକ ସଂଯୋଗଗୁଡି଼କ ବୈଧ କରନ୍ତୁ">
+						<longdesc>ସତ ହେଲେ, ଛାୟା ସେବକ ସହିତ ସଂଯୋଗ ପାଇଁ ବୈଧିକରଣ ଆବଶ୍ଯକ. ଚାଳକ ନାମ / ପ୍ରବେଶ ସଂକେତ &quot;/system/http_proxy/authentication_user&quot; ଓ &quot;/system/http_proxy/authentication_password&quot; ଦ୍ବାରା ଉଲ୍ଲେଖିତ.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="port">
+					<local_schema short_desc="ଏଚ୍.ଟି.ଟି.ପି. ଛାୟା ସଂଯୋଗିକୀ">
+						<longdesc>&quot;/system/http_proxy/host&quot; ଦ୍ବାରା ଉଲ୍ଲେଖିତ ଯନ୍ତ୍ରର ସଂଯୋଗିକୀ ଯେଉଁଟାକି ଛାୟାକରଣ ପାଇଁ ବ୍ଯବହାର କରାଯାଏ.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="host">
+					<local_schema short_desc="ଏଚ୍.ଟି.ଟି.ପି. ଛାୟା ଆଧାର ନାମ">
+						<longdesc>ଏଚ୍.ଟି.ଟି.ପି. ଛାୟା ପାଇଁ ଯନ୍ତ୍ରର ନାମ.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="use_http_proxy">
+					<local_schema short_desc="ଏଚ୍.ଟି.ଟି.ପି. ଛାୟା ବ୍ଯବହାର କରନ୍ତୁ">
+						<longdesc>ଇଣ୍ଟରନେଟରେ ଏଚ୍.ଟି.ଟି.ପି. ଚଳାଇଲା ବେଳେ ଛାୟା ବିନ୍ଯାସକୁ ସମର୍ଥ କରେ.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="dns_sd">
+				<entry name="extra_domains">
+					<local_schema short_desc="ଡି.ଏନ୍.ଏସ୍-ଏସ୍.ଡି ସେବା ଖୋଜି ପାଇବା ପାଇଁ ଅଧିକ ପରିସର">
+						<longdesc>କମା ଦ୍ବାରା ବିଭାଜିତ ଡି.ଏନ୍.ଏସ୍-ଏସ୍.ଡି ପରିସରର ଯାହାକି &quot;network:///&quot; ଅବସ୍ଥାନରେ ଦ୍ରୁଶ୍ଯମାନ ହେବା ଉଚିତ.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="display_local">
+					<local_schema short_desc="ସ୍ଥାନୀୟ ଡି.ଏନ୍.ଏସ୍.-ଏସ୍.ଡି. ସେବାକୁ କିପରି ପ୍ରଦର୍ଶିତ କରାଯିବ">
+						<longdesc>ସମ୍ଭବ ମୂଲ୍ଯଗୁଡି଼କ ହେଲା &quot;merged&quot;, &quot;separate&quot; ଓ &quot;disabled&quot;.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+		</dir>
+		<dir name="desktop">
+			<dir name="gnome">
+				<dir name="typing_break">
+					<entry name="enabled">
+						<local_schema short_desc="ଚାବି ପଟି ତାଲା ବନ୍ଦ କରିବା ସକ୍ରିୟ କି">
+							<longdesc>ଚାବି ପଟି ତାଲା ବନ୍ଦ କରିବା ସକ୍ରିୟ କି.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="allow_postpone">
+						<local_schema short_desc="ବିରତିକୁ ପଛକୁ ଘୁଞ୍ଚାଇବା ପାଇଁ ଅନୁମତି ଦିଅନ୍ତୁ">
+							<longdesc>ଟାଇପିଙ୍ଗ ବିରତି ପରଦା ପଛକୁ ଘୁଞ୍ଚାଯାଇପାରିବ କି.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="break_time">
+						<local_schema short_desc="ବିରତି ସମୟ">
+							<longdesc>ଟାଇପିଙ୍ଗ ବିରତିର ସମୟ, ମିନିଟରେ.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="type_time">
+						<local_schema short_desc="ଟାଇପ ସମୟ">
+							<longdesc>ବିରତି ଅବସ୍ଥା ଆରମ୍ଭ ହେବା ପୂର୍ବରୁ ଟାଇପିଙ୍ଗର ସମୟ, ମିନିଟରେ.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="thumbnailers">
+					<entry name="disable_all">
+						<local_schema short_desc="ସବୁ ବାହ୍ଯ କ୍ଷୁଦ୍ର ଚିତ୍ରଣକୁ ନିଷ୍କ୍ରିୟ କରନ୍ତୁ">
+							<longdesc>ସବୁ ବାହ୍ଯ କ୍ଷୁଦ୍ର ଚିତ୍ରଣକୁ ନିଷ୍କ୍ରିୟ କରିବା ପାଇଁ ସତ ବିନ୍ଯାସ କରନ୍ତୁ, ସେହିଗୁଡ଼ିକ ସ୍ବତନ୍ତ୍ର ଭାବରେ ନିଷ୍କ୍ରିୟ/ସକ୍ରିୟ କରାଯାଇଛନ୍ତି କି ନାହିଁ.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="thumbnail_cache">
+					<entry name="maximum_size">
+						<local_schema>
+							<longdesc>କ୍ୟାଶରେ ଥିବା କ୍ଷୁଦ୍ର ଚିତ୍ର ପାଇଁ ସର୍ବାଧିକ ବୟସ, ମେଗାବାଇଟରେରେ. ସଫାକରିବାକୁ ନିଷ୍କ୍ରିୟ କରିବା ପାଇଁ -1ବିନ୍ୟାସ କରନ୍ତୁ.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="maximum_age">
+						<local_schema>
+							<longdesc>କ୍ୟାଶରେ ଥିବା କ୍ଷୁଦ୍ର ଚିତ୍ର ପାଇଁ ସର୍ବାଧିକ ବୟସ, ଦିନରେ. ସଫାକରିବାକୁ ନିଷ୍କ୍ରିୟ କରିବା ପାଇଁ -1ବିନ୍ୟାସ କରନ୍ତୁ.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="sound">
+					<entry name="input_feedback_sounds">
+						<local_schema short_desc="ନିବେଶ ପ୍ରତିକ୍ରିୟା ଧ୍ୱନୀ">
+							<longdesc>ନିବେଶ ଘଟଣାରେ ଧ୍ବନି ବଜାଯିବ କି.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="theme_name">
+						<local_schema short_desc="ଧ୍ୱନୀ ପ୍ରସଙ୍ଗ ନାମ">
+							<longdesc>ଘଟଣା ଧ୍ଵନୀରେ ବ୍ଯବହାର ାଇଁ ବଥିବା XDG ଧ୍ୱନୀ ପ୍ରସଙ୍ଗ</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="event_sounds">
+						<local_schema short_desc="ଘଟଣା ପାଇଁ ଧ୍ବନି.">
+							<longdesc>ବ୍ଯବହାରକାରୀ ଘଟଣାରେ ଧ୍ବନି ବଜାଯିବ କି</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="enable_esd">
+						<local_schema short_desc="ଇ.ଓସ.ଡି. ସକ୍ରିୟ କରନ୍ତୁ">
+							<longdesc>ଧ୍ବନି ସେବକ ପ୍ରାରମ୍ଭ ସକ୍ରିୟ କରନ୍ତୁ.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="default_mixer_tracks">
+						<local_schema short_desc="ପୂର୍ବନିର୍ଦ୍ଧାରିତ ମିଶ୍ରଣ ଟ୍ରାକ">
+							<longdesc>ବହୁମାଧ୍ଯମ କି-ବାଇଣ୍ଡିଙ୍ଗ ଦ୍ବାରା ବ୍ଯବହୃତ ପୂର୍ବନିର୍ଦ୍ଧାରିତ ମିଶ୍ରଣ ଟ୍ରାକ।</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="default_mixer_device">
+						<local_schema short_desc="ପୂର୍ବନିର୍ଦ୍ଧାରିତ ମିଶ୍ରଣ ଉପକରଣ">
+							<longdesc>ବହୁମାଧ୍ଯମ କି-ବାଇଣ୍ଡିଙ୍ଗ ଦ୍ବାରା ବ୍ଯବହୃତ ପୂର୍ବନିର୍ଦ୍ଧାରିତ ମିଶ୍ରଣ ଉପକରଣ।</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="peripherals">
+					<dir name="mouse">
+						<entry name="cursor_size">
+							<local_schema short_desc="ଦର୍ଶିକା ଆକାର">
+								<longdesc>ଦର୍ଶିକା_ପ୍ରସଙ୍ଗ ଦ୍ବାରା ସୂତିତ ଦର୍ଶିକାର ଆକାର</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="cursor_theme">
+							<local_schema short_desc="ଦର୍ଶିକା ପ୍ରସଙ୍ଗ">
+								<longdesc>ଦର୍ଶିକା ପ୍ରସଙ୍ଗର ନାମ. କେବଳ ଏକ୍ସଦର୍ଶିକା ସହାୟକ ଏକ୍ସସେବକ ଦ୍ବାରା ବ୍ଯବହୃତ, ଯେପରିକି  ଏକ୍ସଫ୍ରୀ86 4.3 ବା ତାହାଠାରୁ ନୂଆ.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="cursor_font">
+							<local_schema short_desc="ଦର୍ଶିକା ଅକ୍ଷରରୂପ">
+								<longdesc>ଦର୍ଶିକା ଅକ୍ଷରରୂପର ନାମ. ବିନ୍ଯାସ ନ ହୋଇଥିଲେ, ପୂର୍ବନିର୍ଦ୍ଧାରିତ ଅକ୍ଷରରୂପ ବ୍ଯବହାର କରାଯିବ. ଏହି  ମୂଲ୍ଯଟି ଏକ୍ସସେବକକୁ କେବଳ ପ୍ରତି ଅଧିବେଶନର ଆରମ୍ଭରେ ପ୍ରସାରିତ ହୁଏ, ତେଣୁ ଅଧିବେଶନ ମଝିରେ ଏହାକୁ ବଦଳାଇଲେ, ତାହାର ପ୍ରଭାବ କେବଳ ପର ଲଗଇନରେ ହେବ.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="locate_pointer">
+							<local_schema short_desc="ସୂଚକ ଖୋଜି ଦେଖାନ୍ତୁ">
+								<longdesc>କଣ୍ଟ୍ରୋଲ କି ଦବାଇ ଛାଡିଲେ ସୂଚକର ସାମ୍ପ୍ରତିକ ଅବସ୍ଥିତି ବିଶେଷଦର୍ଶିତ କରେ.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="double_click">
+							<local_schema short_desc="ଦୁଇଥର ଦବାଇବାର ସମୟ">
+								<longdesc>ଦୁଇଥର ଦବାଇବାର ସମୟ.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="drag_threshold">
+							<local_schema short_desc="ଟଣାର ପ୍ରଭାବସୀମା">
+								<longdesc>ଟଣା ପ୍ରାରମ୍ଭ କରାଯିବା ପୂର୍ବରୁ ଦୂରତ୍ବ.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="motion_threshold">
+							<local_schema short_desc="ଘୁଞ୍ଚାଉବାର ପ୍ରଭାବସୀମା">
+								<longdesc>ମାଉସ୍ ତ୍ବରଣ ସକ୍ରିୟ କରାଯିବା ପୂର୍ବରୁ ସୂଚକ ଘୁଞ୍ଚିବାର ଦୂରତ୍ବ, ପିକ୍ସେଲରେ. ତନ୍ତ୍ରର ପୂର୍ବନିର୍ଦ୍ଧାରିତ ମୂଲ୍ଯ ହେଲା -1.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="motion_acceleration">
+							<local_schema short_desc="ଥରେ ଦବାନ୍ତ">
+								<longdesc>ମାଉସ୍ ଘୁଞ୍ଚାଇବାରେ ତ୍ବରଣ ଗୁଣିତକ. ତନ୍ତ୍ରର ପୂର୍ବନିର୍ଦ୍ଧାରିତ ମୂଲ୍ଯ ହେଲା -1.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="single_click">
+							<local_schema short_desc="ଥରେ ଦବାନ୍ତ">
+								<longdesc>ଚିତ୍ରସଙ୍କେତ ଖୋଲିବା ପାଇଁ ଥରେ ଦବାନ୍ତୁ.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="left_handed">
+							<local_schema short_desc="ମାଉସ୍ ଚାବି ଅନୁସ୍ଥାପନ">
+								<longdesc>ବାମ ହାତି ମାଉସ ପାଇଁ ବାମ ଓ ଡାହାଣ ମାଉସ ବଟନବି ଅଦଳ ବଦଳ କରନ୍.ତୁ</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="keyboard">
+						<entry name="remember_numlock_state">
+							<local_schema short_desc="ନ୍ଯୁମଲକ ଚାବିର ଅବସ୍ଥା ମନେ ରଖମ୍ତୁ">
+								<longdesc>ସତ ବିନ୍ଯାସ କରାଯାଇଥିଲେ, ନୋମ ବିଭିନ୍ନ ଅଧିବେଶନ ମଧ୍ଯରେ ନ୍ଯୁମଲକ ଚାବିର ଅବସ୍ଥା ମନେ ରଖିବ</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bell_custom_file">
+							<local_schema short_desc="କି ବୋର୍ଡ ଘଣ୍ଟିର ଇଚ୍ଛାରୂପ ଫାଇଲର ନାମ">
+								<longdesc>ଚଲାଇବାକୁ ଥିବା ଘଣ୍ଟି ଶବ୍ଦର ଫାଇଲର ନାମ</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bell_mode">
+							<local_schema>
+								<longdesc>ସମ୍ଭାବ୍ଯ ମୂଲ୍ଯଗୁଡ଼ିକ ହେଲା &quot;on&quot;, &quot;off&quot;, and &quot;custom&quot;</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+				<dir name="lockdown">
+					<entry name="disable_application_handlers">
+						<local_schema short_desc="URL ଏବଂ MIME ପ୍ରକାର ନିୟନ୍ତ୍ରକକୁ ନିଷ୍ଟ୍ରିୟ କରନ୍ତୁ">
+							<longdesc>କୌଣସି URL ଏବଂ MIME ପ୍ରକାର ନିୟନ୍ତ୍ରକ ପ୍ରୟୋଗକୁ ଚାଲିବାରୁ ପ୍ରତିରୋଧ କରନ୍ତୁ.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_lock_screen">
+						<local_schema short_desc="ପରଦା ତାଳକନ ପ୍ରକ୍ରିୟାକୁ ନିଷ୍କ୍ରିୟ କରନ୍ତୁ">
+							<longdesc>ଏହି ପରଦାକୁ ତାଳକନ କରିବାରୁ ଚାଳକକୁ ଅଟକାନ୍ତୁ।</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_user_switching">
+						<local_schema short_desc="ଚାଳକ ପରିବର୍ତ୍ତନ ପ୍ରକ୍ରିୟାକୁ ନିଷ୍କ୍ରିୟ କରନ୍ତୁ">
+							<longdesc>ଚାଳକର ଅଧିବେଶନ ସକ୍ରିୟ ଥିବା ସମୟରେ ତାହାକୁ ଅନ୍ଯ ଗୋଟିଏ ଖାତାକୁ ପରିବର୍ତ୍ତନ କରିବାରୁ ଅଟକାନ୍ତୁ।</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_print_setup">
+						<local_schema short_desc="ମୂଦ୍ରଣ ବ୍ଯବସ୍ଥାକୁ ନିଷ୍କ୍ରିୟ କରନ୍ତୁ">
+							<longdesc>ବ୍ଯବହାରକାରୀକୁ ମୂଦ୍ରଣ ବିନ୍ଯାସ ବଦଳାଇବାରୁ ଅଟକାନ୍ତୁ. ଉଦାହରଣ ସ୍ବରୂପ, ଏହା ସବୁ ପ୍ରୟୋଗର &quot;ମୂଦ୍ରଣ ବ୍ଯବସ୍ଥା&quot; ସଂଳାପ ପାଇଁ ପ୍ରବେଶାନୂମତି ନିଷ୍କ୍ରିୟ କରିଦେବ.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_printing">
+						<local_schema short_desc="ମୂଦ୍ରଣ ନିଷ୍କ୍ରିୟ କରନ୍ତୁ">
+							<longdesc>ବ୍ଯବହାରକାରୀକୁ ମୂଦ୍ରଣ କରିବାରୁ ଅଟକାନ୍ତୁ. ଉଦାହରଣ ସ୍ବରୂପ, ଏହା ସବୁ ପ୍ରୟୋଗର &quot;ମୂଦ୍ରଣ&quot; ସଂଳାପ ପାଇଁ ପ୍ରବେଶାନୂମତି ନିଷ୍କ୍ରିୟ କରିଦେବ.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_save_to_disk">
+						<local_schema short_desc="ଡିସ୍କରେ ଫାଇଲ ସଂରକ୍ଷଣ ନିଷ୍କ୍ରିୟ କରନ୍ତୁ">
+							<longdesc>ବ୍ଯବହାରକାରୀକୁ ଡିସ୍କରେ ଫାଇଲ ସଂରକ୍ଷଣ କରିବାରୁ ଅଟକାନ୍ତୁ. ଉଦାହରଣ ସ୍ବରୂପ, ଏହା ସବୁ ପ୍ରୟୋଗର &quot;ନୂଆ ନାଁରେ ସଂରକ୍ଷଣ&quot; ସଂଳାପ ପାଇଁ ପ୍ରବେଶାନୂମତି ନିଷ୍କ୍ରିୟ କରିଦେବ.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_command_line">
+						<local_schema short_desc="ପାଠ୍ଯ ନିର୍ଦ୍ଦେଶକୁ ନିଷ୍କ୍ରିୟ କରନ୍ତୁ">
+							<longdesc>ବ୍ଯବହାରକାରୀକୁ ଟର୍ମିନାଲ ଖୋଲିବା ବା ନିଷ୍ପାଦନ ପାଇଁ ପାଠ୍ଯ ନିର୍ଦ୍ଦେଶ ଉଲ୍ଲେଖିତ କରିବାରୁ ଅଟକାନ୍ତୁ. ଉଦାହରଣ ସ୍ବରୂପ, ଏହା ଫଲକର &quot;ପ୍ରୟୋଗ ଚଳାନ୍ତୁ&quot; ସଂଳାପ ପାଇଁ ପ୍ରବେଶାନୂମତି ନିଷ୍କ୍ରିୟ କରିଦେବ.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="interface">
+					<entry name="show_unicode_menu">
+						<local_schema short_desc="&apos;ୟୁନିକୋଡ୍ ନିୟନ୍ତ୍ରଣ ଅକ୍ଷର&apos; ମେନୁ ପ୍ରଦର୍ଶିତ କରନ୍ତୁ">
+							<longdesc>ଭରଣ ଓ ପାଠ୍ଯ ଦୃଶ୍ଯର ପ୍ରସଙ୍ଗ ତାଲିକାନୁଗୁଡ଼ିକ ନିୟନ୍ତ୍ରଣ ଅକ୍ଷର ଯୋଡ଼ିବାର ସମ୍ଭାବନା ଦେବ  ଉଚିତ .କି</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="show_input_method_menu">
+						<local_schema short_desc="&apos;ନିବେଶ ପ୍ରକ୍ରିୟା&apos; ମେନୁ ପ୍ରଦର୍ଶିତ କରନ୍ତୁ">
+							<longdesc>ଭରଣ ଓ ପାଠ୍ଯ ଦୃଶ୍ଯର ପ୍ରସଙ୍ଗ ତାଲିକାଗୁଡ଼ିକ ନିବେଶ ଧାରା ବଦଳାଇବାର ସମ୍ଭାବନା ଦେବା ଉଚିତ କି.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menubar_accel">
+						<local_schema short_desc="ମେନୁ ପଟି ତ୍ବରକ">
+							<longdesc>ମେନୁ ପଟି ଖୋଲିବା ପାଇଁ  ଚାବି ପଟି ସଂକ୍ଷିପ୍ତ ପଥ.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="file_chooser_backend">
+						<local_schema short_desc="ଜି.ଟି.କେ ଫାଇଲ ଚୟକ ପାଇଁ ଏକକାଂଶ">
+							<longdesc>GtkFileChooser ୱିଜେଟର ଫାଇଲ ତନ୍ତ୍ର ମଡେଲ ପାଇଁ ବ୍ଯବହୃତ ଏକକାଂଶ,ସମ୍ଭାବ୍ଯ ମୂଲ୍ଯଗୁଡ଼ିକ ହେଲା &quot;gio&quot;,&quot;gnome-vfs&quot; ଏବଂ &quot;gtk+&quot;.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="status_bar_meter_on_right">
+						<local_schema short_desc="ଅବସ୍ଥିତି ପଟି ଡାହାଣକୁ">
+							<longdesc>ଡାହାଣକୁ ସାଧନ ପଟି ମାପକ ପ୍ରଦର୍ଶିତ କରାଯିବ କି.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="use_custom_font">
+						<local_schema short_desc="ଇଚ୍ଛାରୂପ ଅକ୍ଷରରୂପ ବ୍ଯବହାର କରନ୍ତୁ">
+							<longdesc>ଡି.ଟି.କେ.+ ପ୍ରୟୋଗରେ ଇଚ୍ଛାପୂପ ଅକ୍ଷରରୂପ ବ୍ଯବହାର କରାଯିବ କି</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="monospace_font_name">
+						<local_schema short_desc="ଏକମାପ ଅକ୍ଷରରୂପ">
+							<longdesc>ଟର୍ମିନାଲ ଭଳି ଅବସ୍ଥାନରେ ବ୍ଯବହୃତ ଏକମାପ (ସ୍ଥିର-ଓସାର) ଅକ୍ଷରରୂପର ନାମ.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="document_font_name">
+						<local_schema short_desc="ଦଲିଲର ଅକ୍ଷରରୂପ">
+							<longdesc>ଦଲିଲ ପଢ଼ିବା ପାଇଁ ବ୍ଯବହୃତ ପୂର୍ବନିର୍ଦ୍ଧାରିତ ଅକ୍ଷରରୂପର ନାମ.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-module">
+						<local_schema short_desc="GTK IM ଏକକାଂଶ">
+							<longdesc>GTK+ ଦ୍ବାରା ବ୍ଯବହୃତ ନିବେଶ ଧାରାର ଅବସ୍ଥିତି ଶୈଳୀର ନାମ.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-status-style">
+						<local_schema short_desc="ଜି.ଟି.କେ. ଆଇ.ଏମ. ଅବସ୍ଥିତ ଶୈଳୀ">
+							<longdesc>ଜି.ଟି.କେ.+ ଦ୍ବାରା ବ୍ଯବହୃତ ଜି.ଟି.କେ.+ ନିବେଶ ଧାରାର ଅବସ୍ଥିତି ଶୈଳୀର ନାମ.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-preedit-style">
+						<local_schema short_desc="ଜି.ଟି.କେ. ଆଇ.ଏମ. ଉପସମ୍ପାଦନ ଶୈଳୀ">
+							<longdesc>ଜି.ଟି.କେ.+ ଦ୍ବାରା ବ୍ଯବହୃତ ଜି.ଟି.କେ.+ ନିବେଶ ଧାରାର ଉପସମ୍ପାଦନ ଶୈଳୀର ନାମ.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="font_name">
+						<local_schema short_desc="ପୂର୍ବନିର୍ଦ୍ଧାରିତ ଅକ୍ଷରରୂପ">
+							<longdesc>ଜି.ଟି.କେ.+ ଦ୍ବାରା ବ୍ଯବହୃତ ପୂର୍ବନିର୍ଦ୍ଧାରିତ ଅକ୍ଷରରୂପର ନାମ.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_key_theme">
+						<local_schema short_desc="ଜି.ଟି.କେ.+ ପ୍ରସଙ୍ଗ">
+							<longdesc>ଜି.ଟି.କେ.+ ଦ୍ବାରା ବ୍ଯବହୃତ ପୂର୍ବନିର୍ଦ୍ଧାରିତ ପ୍ରସଙ୍ଗର ଆଧାର ନାମ</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_theme">
+						<local_schema short_desc="ଜି.ଟି.କେ.+ ପ୍ରସଙ୍ଗ">
+							<longdesc>ଜି.ଟି.କେ.+ ଦ୍ବାରା ବ୍ଯବହୃତ ପୂର୍ବନିର୍ଦ୍ଧାରିତ ପ୍ରସଙ୍ଗର ଆଧାର ନାମ</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="icon_theme">
+						<local_schema short_desc="ଚିତ୍ରସଂଙ୍କେତ ପ୍ରସଙ୍ଗ">
+							<longdesc>ଫଳକ, ନଟିଲସ୍ ଇତ୍ଯାଦି ପାଇଁ ବ୍ଯବହୃତ ଚିତ୍ରସଂଙ୍କେତ ପ୍ରସଙ୍ଗ</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink_time">
+						<local_schema short_desc="ଦର୍ଶିକା ମିଟିମିଟିକରଣ ସମୟ">
+							<longdesc>ଦର୍ଶିକା ମିଟିମିଟିକରଣର ଚକ୍ରର ଲମ୍ବ, ମିଲିସେକେଣ୍ଡରେ.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink">
+						<local_schema short_desc="ଦର୍ଶିକା ମିଟିମିଟିକରଣ">
+							<longdesc>ଦର୍ଶିକା ମିଟିମିଟି କରିବା ଉଚିତ କି.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_icons_size">
+						<local_schema short_desc="ସାଧନ ପଟି ଟିତ୍ରସଂଙ୍କେତର ଆକାର">
+							<longdesc>ସାଧନପଟିରେ ଥିବା &quot;small-toolbar&quot; ରେ ଅଥବା &quot;large-toolbar&quot;ର ଆକାର.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_detachable">
+						<local_schema short_desc="ପ୍ରତ୍ଯାଶିତ ସାଧନ ପଟି">
+							<longdesc>ଚାଳକ ସାଧନ ପଟିକୁ ପ୍ରତ୍ଯାଶିତ କରି ଚାରିପଟେ ଘୁଞ୍ଚାଇପାରିବ କି.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menubar_detachable">
+						<local_schema short_desc="ପ୍ରତ୍ଯାଶିତ ମେନୁ ପଟି">
+							<longdesc>ଚାଳକ ତାଲିକା ପଟିକୁ ପ୍ରତ୍ଯାଶିତ ଚାରିପଟେ ଘୁଞ୍ଚାଇ ପାରିବେ କି।</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="buttons_have_icons">
+						<local_schema short_desc="ବଟନଗୁଡ଼ିକରେ ଚିତ୍ରସଂଙ୍କେତ ଅଛି">
+							<longdesc>ବଟନଗୁଡ଼ିକ ବଟନ ପାଠ୍ୟ ସହିତ ଚିତ୍ରସଂଙ୍କେତକୁ ପ୍ରଦର୍ଶନ କରିପାରିବେ କି।</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menus_have_icons">
+						<local_schema short_desc="ମେନୁରେ ଚିତ୍ରସଂଙ୍କେତ ଅଛି">
+							<longdesc>ତାଲିକାଗୁଡ଼ିକ ତାଲିକା ଭରଣ ପରବର୍ତ୍ତି ଚିତ୍ରସଂଙ୍କେତକୁ ପ୍ରଦର୍ଶନ କରିପାରିବେ କି.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_style">
+						<local_schema short_desc="ସାଧନ ପଟି ଶୈଳୀ">
+							<longdesc>ସାଧନ ପଟି ଶୈଳୀ. ବୈଧ ମୂଲ୍ଯ ଗୁଡ଼ିକ ହେଲା &quot;both&quot;, &quot;both-horiz&quot;, &quot;icons&quot;, ଏବଂ &quot;text&quot;.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="can_change_accels">
+						<local_schema short_desc="ତ୍ବରକ ପରିବର୍ତନ କରି ପାରେ">
+							<longdesc>ତାଲିକାରେ ଥିବା ଗୋଟିଏ ସକ୍ରିୟ ବସ୍ତୁ ଉପରେ ଅବସ୍ଥିତ ଗୋଟିଏ ନୂତନ ତ୍ବରକକୁ ଚାଳକଟି ଗତିଶୀଳ ଭାବରେ ଟାଇପ କରିପାରିବ କି.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menus_have_tearoff">
+						<local_schema short_desc="ମେନୁରେ ଛିଣ୍ଡାରେଖା ଅଛି">
+							<longdesc>ତାଲିକାନୁର ଛିଣ୍ଡାରେଖା ରହିବା ଉଚିତ .କି</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="enable_animations">
+						<local_schema short_desc="ଜୀବନାୟନ ସକ୍ରିୟ କରନ୍ତୁ">
+							<longdesc>ଜୀବନାୟନ ପ୍ରଦର୍ଶିତ କରାଯିବ କି. ଲକ୍ଷ୍ଯ କରନ୍ତୁ: ଏହା ଏକ ଜାଗତିକ ଚାବି, ଏହା ୱିଣ୍ଡୋ ପରିଚାଳକ, ଫଳକ ଇତ୍ଯାଦିର ଆଚରଣ ବଦଳାଏ.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="accessibility">
+						<local_schema short_desc="ବ୍ଯବହାରସରଳତା ସକ୍ରିୟ କରନ୍ତୁ">
+							<longdesc>ପ୍ରୟୋଗଗୁଡ଼ିକର ବ୍ଯବହାରସରଳତା ସହାୟତା ପ୍ରାପ୍ତ ହୋଇଛି କି. କି</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="file-views">
+					<entry name="icon_theme">
+						<local_schema short_desc="ଫାଇଲ ଚିତ୍ରସଂକେତ ପ୍ରସଙ୍ଗ">
+							<longdesc>ଫାଇଲ ଚିତ୍ରସଂକେତ ପ୍ରଦର୍ଶନ ପାଇଁ ବ୍ଯବହୃତ ପ୍ରସଙ୍ଗ.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="background">
+					<entry name="color_shading_type">
+						<local_schema short_desc="ରଙ୍ଗ ଛାୟଙ୍କନ ପ୍ରକାର">
+							<longdesc>ପୃଷ୍ଠଭୂମି ରଙ୍ଗ କିପରି ଛାୟଙ୍କନ କରାଯିବ. ସମ୍ଭାବ୍ଯ ମୂଲ୍ଯଗୁଡ଼ିକ ହେଲା &quot;horizontal-gradient&quot;, &quot;vertical-gradient&quot;, ଏବଂ &quot;solid&quot;.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="secondary_color">
+						<local_schema short_desc="ଦ୍ବିତୀୟକ ରଙ୍ଗ">
+							<longdesc>କ୍ରମାନତ ରଙ୍ଗ ଅଙ୍କନରେ, ଡାହାଣ ବା ତଳ ରଙ୍ଗ, ଉର୍ଦ୍ଧ ରଙ୍ଗ ପାଇଁ ବ୍ଯବହୃତ ନୁହେଁ.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="primary_color">
+						<local_schema short_desc="ମୌଳିକ ରଙ୍ଗ">
+							<longdesc>କ୍ରମାନତ ବା ଉର୍ଦ୍ଧ ରଙ୍ଗ ଅଙ୍କନରେ, ବାମ ବା ଉପର ରଙ୍ଗ</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_opacity">
+						<local_schema short_desc="ଚିତ୍ରର ସ୍ବଚ୍ଛତା">
+							<longdesc>ପୃଷ୍ଠଭୂମି ଚିତ୍ର ଅଙ୍କନ ପାଇଁ ସ୍ବଚ୍ଛତା.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_filename">
+						<local_schema short_desc="ଚିତ୍ର ଫାଇଲ ନାମ">
+							<longdesc>ପ୍ରୁଷ୍ଠଭୂମି ଚିତ୍ର ପାଇଁ ବ୍ଯବହୃତ ଫାଇଲ.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_options">
+						<local_schema short_desc="ଚିତ୍ର ପସନ୍ଦ">
+						</local_schema>
+					</entry>
+					<entry name="draw_background">
+						<local_schema short_desc="ଡେସ୍କଟପ୍  ପୃଷ୍ଠଭୂମି ଅଙ୍କନ କରନ୍ତୁ">
+							<longdesc>GNOMEମ ଡେସ୍କଟପ ପୃଷ୍ଠଭୂମି ଅଙ୍କନ କରିବେ କି।</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="applications">
+					<dir name="component_viewer">
+						<entry name="exec">
+							<local_schema short_desc="ପୂର୍ବନିର୍ଦ୍ଧାରିତ ଯନ୍ତ୍ରାଶଂ ଦର୍ଶକ ପ୍ରୟୋଗ">
+								<longdesc>ଯେଉଁ ଫାଇଲଗୁଡିକ ଦେଖିବା ପାଇଁ ଗୋଟିଏ ଯନ୍ତ୍ରାଂଶ ଆବଶ୍ଯକ, ସେମାନଙ୍କ ପାଇଁ କେଉଁ ପ୍ରୟୋଗ ବ୍ଯବହାର କରାଯିବ। ପ୍ରାଚଳ %s ଫାଇଲର ୟୁ.ଆର୍.ଆଇ. ଦ୍ବାରା ବଦଳ ହେବ, ପ୍ରାଚଳ %c ଯନ୍ତ୍ରାସଂର ଆଇ.ଆଇ.ଡି. ଦ୍ବାରା ବଦଳ ହେବ।</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="window_manager">
+						<entry name="workspace_names">
+							<local_schema short_desc="କାର୍ଯ୍ଯକ୍ଷେତ୍ରଗୁଡ଼ିକର ନାମ (ଅପସନ୍ଦ)">
+								<longdesc>ପ୍ରଥମ ୱିଣ୍ଡୋ ପରିଚାଳକ କାର୍ଯ୍ଯକ୍ଷେତ୍ରଗୁଡ଼ିକର ନାମର ତାଲିକା.ଏହି ଚାବି ନୋମର 2.12 ସଂସ୍କରଣଠାରୁ ଅପସନ୍ଦ କରାଯାଇଛି.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="number_of_workspaces">
+							<local_schema short_desc="କାର୍ଯ୍ଯକ୍ଷେତ୍ରର ସଂଖ୍ଯା (ଅପସନ୍ଦ)">
+								<longdesc>ୱିଣ୍ଡୋ ପରିଚାଳକ ଦ୍ବାରା ବ୍ଯବହୃତ କାର୍ଯ୍ଯକ୍ଷେତ୍ରର ସଂଖ୍ଯାଏହି ଚାବି ନୋମର 2.12 ସଂସ୍କରଣଠାରୁ ଅପସନ୍ଦ କରାଯାଇଛି.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="current">
+							<local_schema short_desc="ବ୍ଯବହାରକାରୀ ୱିଣ୍ଡୋ ପରିଚାଳକ (ଅପସନ୍ଦ)">
+								<longdesc>ବ୍ଯବହାର ପାଇଁ ପ୍ରଥମ ଖୋଜାଯିବା ୱିଣ୍ଡୋ ପରିଚାଳକ.ଏହି ଚାବି ନୋମର 2.12 ସଂସ୍କରଣଠାରୁ ଅପସନ୍ଦ କରାଯାଇଛି.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="default">
+							<local_schema short_desc="ଶେଷ ଅବଲମ୍ବିତ ୱିଣ୍ଡୋ ପରିଚାଳକ (ଅପସନ୍ଦ)">
+								<longdesc>ଶେଷ ଅବଲମ୍ବିତ ୱିଣ୍ଡୋ ପରିଚାଳକ, ଯଦି ୱିଣ୍ଡୋ ପରିଚାଳକ ମିଳିଲା ନାହିଁ.ଏହି ଚାବି ନୋମର 2.12 ସଂସ୍କରଣଠାରୁ ଅପସନ୍ଦ କରାଯାଇଛି.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="terminal">
+						<entry name="exec_arg">
+							<local_schema short_desc="ପୂର୍ବନିର୍ଦ୍ଧାରିତ ଟର୍ମିନାଲ୍ ପାଇଁ  ନିଷ୍ପାଦନ ସ୍ବତନ୍ତ୍ରଚର">
+								<longdesc>ପୂର୍ବନିର୍ଦ୍ଧାରିତ ଟର୍ମିନାଲ୍ ପ୍ରୟୋଗ ପାଇଁ ନିଷ୍ପାଦନ ସ୍ବତନ୍ତ୍ରଚର।</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="ପୂର୍ବନିର୍ଦ୍ଧାରିତ ଟର୍ମିନାଲ୍ ପ୍ରୟୋଗ">
+								<longdesc>ଯେଉଁ ପ୍ରୟୋଗଗୁଡିକ ପାଇଁ ଟର୍ମିନାଲ୍ ଆବଶ୍ଯକ ସେମାନଙ୍କ ପାଇଁ ପୂର୍ବନିର୍ଦ୍ଧାରିତ ଟର୍ମିନାଲ୍ ପ୍ରୟୋଗ।</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="tasks">
+						<entry name="needs_term">
+							<local_schema short_desc="କାର୍ଯ୍ୟଗୁଡ଼ିକାଳି ପାଇଁ ଟର୍ମିନାଲ ଆବଶ୍ଯକ">
+								<longdesc>ପୂର୍ବନିର୍ଦ୍ଧାରିତ କାର୍ଯ୍ୟ ପ୍ରୟୋଗ ଚାଲିବା ପାଇଁ ଟର୍ମିନାଲ ଆବଶ୍ଯକ କରେ କି</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="ପୂର୍ବନିର୍ଦ୍ଧାରିତ କାର୍ଯ୍ୟଗୁଡ଼ିକ">
+								<longdesc>ପୂର୍ବନିର୍ଦ୍ଧାରିତ କାର୍ଯ୍ୟର ପ୍ରୟୋଗ</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="calendar">
+						<entry name="needs_term">
+							<local_schema short_desc="କାଲେଣ୍ଡର ପାଇଁ ଟର୍ମିନାଲ ଆବଶ୍ଯକ">
+								<longdesc>ପୂର୍ବନିର୍ଦ୍ଧାରିତ କାଲେଣ୍ଡର ପ୍ରୟୋଗ ଚାଲିବା ଳି ପାଇଁ ଟର୍ମିନାଲ ଆବଶ କରେ୍ଯକ କି</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="ପୂର୍ବନିର୍ଦ୍ଧାରିତ କାଲେଣ୍ଡର">
+								<longdesc>ପୂର୍ବନିର୍ଦ୍ଧାରିତ କାଲେଣ୍ଡର ପ୍ରୟୋଗ ପ୍ରୟୋଗ</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="browser">
+						<entry name="nremote">
+							<local_schema short_desc="ଖୋଜାଳି ଦୂର ତନ୍ତ୍ରକୁ ବୁଝି ପାରେ">
+								<longdesc>ପୂର୍ବନିର୍ଦ୍ଧାରିତ ଖୋଜାଳି ନେଟସ୍କେପ୍ ଦୂରତ୍ବକୁ ବୁଝିପାରେ କି.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="needs_term">
+							<local_schema short_desc="ଖୋଜାଳି ପାଇଁ ଟର୍ମିନାଲ ଆବଶ୍ଯକ">
+								<longdesc>ପୂର୍ବନିର୍ଦ୍ଧାରିତ ବ୍ରାଉଡର ଚାଲିବା ପାଇଁ ଟର୍ମିନାଲ ଆବଶ୍ଯକ କରେ କି.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="ପୂର୍ବନିର୍ଦ୍ଧାରିତ ଖୋଜାଳି">
+								<longdesc>ସମସ୍ତ URL ପାଇଁ ପୂର୍ବନିର୍ଦ୍ଧାବ୍ରାଉଜର ଖୋଜାଳି.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="at">
+						<dir name="visual">
+							<entry name="startup">
+								<local_schema short_desc="ପସନ୍ଦୀୟ ଆଭାସୀ ସହକାରୀ ପ୍ରଯୁକ୍ତି ଜ୍ଞାନ ପ୍ରୟୋଗ ଆରମ୍ଭ କରନ୍ତୁ">
+									<longdesc>ଲଗଇନ ସମୟରେ ପସନ୍ଦୀୟ ଆଭାସୀ ସହକାରୀ ପ୍ରଯୁକ୍ତି ଜ୍ଞାନ ପ୍ରୟୋଗକୁ ପ୍ରାରମ୍ଭ କରିବା ପାଇଁ GNOME</longdesc>
+								</local_schema>
+							</entry>
+							<entry name="exec">
+								<local_schema short_desc="ପସନ୍ଦୀୟ ଆଭାସୀ ସହକାରୀ ପ୍ରଯୁକ୍ତି ଜ୍ଞାନ ପ୍ରୟୋଗ">
+									<longdesc>ଲଗଇନ, ମେନୁ, କିମ୍ବା ପାଠ୍ଯ ନିର୍ଦ୍ଦେଶ ପାଇଁ ବ୍ଯବହାର କରାଯିବା ପସନ୍ଦୀୟ ଆଭାସୀ ସହକାରୀ ପ୍ରଯୁକ୍ତି ଜ୍ଞାନ ପ୍ରୟୋଗ</longdesc>
+								</local_schema>
+							</entry>
+						</dir>
+						<dir name="mobility">
+							<entry name="startup">
+								<local_schema short_desc="ପସନ୍ଦୀୟ ଗତିଶୀଳ ସହକାରୀ ପ୍ରଯୁକ୍ତି ଜ୍ଞାନ ପ୍ରୟୋଗ ଆରମ୍ଭ କରନ୍ତୁ">
+									<longdesc>ଲଗଇନ ସମୟରେ ପସନ୍ଦୀୟ ଗତିଶୀଳ ସହକାରୀ ପ୍ରଯୁକ୍ତି ଜ୍ଞାନ ପ୍ରୟୋଗକୁ ପ୍ରାରମ୍ଭ କରିବା ପାଇଁ GNOME</longdesc>
+								</local_schema>
+							</entry>
+							<entry name="exec">
+								<local_schema short_desc="ପସନ୍ଦୀୟ ଗତିଶୀଳ ସହକାରୀ ପ୍ରଯୁକ୍ତି ଜ୍ଞାନ ପ୍ରୟୋଗ">
+									<longdesc>ଲଗଇନ, ମେନୁ, କିମ୍ବା ପାଠ୍ଯ ନିର୍ଦ୍ଦେଶ ପାଇଁ ବ୍ଯବହାର କରାଯିବା ପସନ୍ଦୀୟ ଗତିଶୀଳ ସହକାରୀ ପ୍ରଯୁକ୍ତି ଜ୍ଞାନ ପ୍ରୟୋଗ</longdesc>
+								</local_schema>
+							</entry>
+						</dir>
+					</dir>
+				</dir>
+				<dir name="accessibility">
+					<dir name="startup">
+						<entry name="exec_ats">
+							<local_schema short_desc="ପ୍ରାରମ୍ଭିକ ସହାୟକ ପ୍ରଯୁକ୍ତି ପ୍ରୟୋଗ">
+								<longdesc>GNOME ଡେସ୍କଟପକୁ ଲଗଇନ୍ ସମୟରେ ଆରମ୍ଭ କରାଯିବା ସହାୟକ ପ୍ରଯୁକ୍ତି ପ୍ରୟୋଗର ତାଲିକା</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="keyboard">
+						<entry name="stickykeys_modifier_beep">
+							<local_schema>
+								<longdesc>ରୂପାନ୍ତରକଟି ଦବାଇଲେ ବିପ୍ କରନ୍ତୁ</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="stickykeys_two_key_off">
+							<local_schema>
+								<longdesc>ଦୁଇଟି ଚାବି ଏକାସଙ୍ଗେ ଦବାଇଲେ ନିଷ୍କ୍ରିୟ କରନ୍ତୁ.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="slowkeys_delay">
+							<local_schema short_desc="ସର୍ବନିମ୍ନ ବିରତି, ମିଲିସେକେଣ୍ଡରେ">
+								<longdesc>@delay ମିଲିସେକେଣ୍ଡ ବିଳମ୍ବ ପର୍ଯ୍ଯନ୍ତ ଚାବି ଦବା ନ ଯାଇଥିଲେ ଅଗ୍ରାହ୍ଯ କରନ୍ତୁ</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_init_delay">
+							<local_schema short_desc="ପ୍ରାରମ୍ଭିକ ବିଳମ୍ବ, ମିଲିସେକେଣ୍ଡରେ">
+								<longdesc>ମାଉସ୍ ଘୁଞ୍ଚା ଚାବି ଚଳାଇବା ପୂର୍ବରୁ କେତେ ମିଲିସେକେଣ୍ଡ ଅପେକ୍ଷା କରିବାକୁ ପଡିଥାଏ</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_accel_time">
+							<local_schema short_desc="କେତେ ସମୟ ତ୍ବରଣ କରିବ, ମିଲିସେକେଣ୍ଡରେ">
+								<longdesc>0ରୁ ସର୍ବାଧିକ ଗତି ପର୍ଯ୍ଯନ୍ତ ଯିବା ପାଇଁ କେତେ ମିଲିସେକେଣ୍ଡ ଲାଗେ</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_max_speed">
+							<local_schema short_desc="ସେକେଣ୍ଡ ପ୍ରତି ପିକ୍ସେଲ">
+								<longdesc>ସର୍ବାଧିକ ଗତିରେ ପ୍ରତି ସେକେଣ୍ଡରେ କେତେ ପିକ୍ସେଲ ଘୁଞ୍ଚାଯିବ</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bouncekeys_delay">
+							<local_schema short_desc="ସର୍ବନିମ୍ନ ବିରତି, ମିଲିସେକେଣ୍ଡରେ">
+								<longdesc>@delay ମିଲିସେକେଣ୍ଡ ବିଳମ୍ବ ମଧ୍ଯରେ ଗୋଟିଏ ଚାବି ଏକାଧିକ ଥର ଦବାଯାଇଥିଲେ ଅଗ୍ରାହ୍ଯ କରନ୍ତୁ</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+			</dir>
+		</dir>
+	</dir>
+</gconf>

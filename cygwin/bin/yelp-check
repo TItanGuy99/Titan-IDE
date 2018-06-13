@@ -1,0 +1,1055 @@
+#!/bin/sh
+# -*- indent-tabs-mode: nil -*-
+#
+# yelp-check
+# Copyright (C) 2011-2015 Shaun McCance <shaunm@gnome.org>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
+xsl_mal_link='/usr/share/yelp-xsl/xslt/mallard/common/mal-link.xsl'
+xsl_mal_license='/usr/share/yelp-tools/xslt/mal-license.xsl'
+xsl_mal_status='/usr/share/yelp-tools/xslt/mal-status.xsl'
+xsl_mal_rng='/usr/share/yelp-tools/xslt/mal-rng.xsl'
+xsl_comments='/usr/share/yelp-tools/xslt/comments.xsl'
+xsl_media='/usr/share/yelp-tools/xslt/media.xsl'
+
+yelp_check_retval="0"
+
+urlencode () {
+    # We usually don't want to urlencode slashes, because we're
+    # usually converting file paths to URIs. But we do want to
+    # urlencode slases for names of RNG files in validate_page.
+    if [ "x$2" = "x/" ]; then
+        urlencode_slash=''
+    else
+        urlencode_slash='\/'
+    fi
+    echo "$1" | LC_ALL=C awk '
+BEGIN {
+  for (i = 1; i <= 255; i++) chars[sprintf("%c", i)] = i;
+}
+{
+  ret = "";
+  for (i = 1; i <= length($0); i++) {
+    c = substr($0, i, 1);
+    if (c ~ /['$urlencode_slash'a-zA-Z0-9._-]/)
+      ret = ret c;
+    else
+      ret = ret sprintf("%%%X%X", int(chars[c] / 16), chars[c] % 16);
+  }
+  print ret;
+}'
+}
+
+urldecode () {
+    echo "$1" | LC_ALL=C awk '
+BEGIN {
+  for(i = 0; i < 10; i++) hex[i] = i;
+  hex["A"] = hex["a"] = 10;
+  hex["B"] = hex["b"] = 11;
+  hex["C"] = hex["c"] = 12;
+  hex["D"] = hex["d"] = 13;
+  hex["E"] = hex["e"] = 14;
+  hex["F"] = hex["f"] = 15;
+}
+{
+  ret = "";
+  for (i = 1; i <= length($0); i++) {
+    c = substr($0, i, 1);
+    if (c == "+") {
+      ret = ret " ";
+    }
+    else if (c == "%") {
+      c = sprintf("%c", hex[substr($0, i + 1, 1)] * 16 + hex[substr($0, i + 2, 1)]);
+      ret = ret c;
+      i += 2;
+    }
+    else {
+      ret = ret c;
+    }
+  }
+  print ret;
+}'
+}
+
+docbook_version='
+<xsl:stylesheet
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:db="http://docbook.org/ns/docbook"
+    version="1.0">
+<xsl:output method="text"/>
+<xsl:template match="/">
+  <xsl:choose>
+    <xsl:when test="/db:*/@version">
+      <xsl:value-of select="/db:*/@version"/>
+    </xsl:when>
+    <xsl:when test="/db:*">
+      <xsl:text>5.0</xsl:text>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:text>4</xsl:text>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+</xsl:stylesheet>
+'
+
+yelp_usage() {
+    (
+        echo "Usage: yelp-check <COMMAND> [OPTIONS] [FILES]"
+        echo ""
+        echo "Commands:"
+        echo "  comments      Print the editorial comments in a document"
+        echo "  hrefs         Find broken external links in a document"
+        echo "  ids           Find Mallard page IDs that do not match file names"
+        echo "  license       Report the license of Mallard pages"
+        echo "  links         Find broken xref or linkend links in a document"
+        echo "  media         Find broken references to media files"
+        echo "  orphans       Find orphaned pages in a Mallard document"
+        echo "  status        Report the status of Mallard pages"
+        echo "  validate      Validate files against a DTD or RNG"
+    ) 1>&2
+}
+yelp_usage_hrefs () {
+    (
+        echo "Usage: yelp-check hrefs <FILES>"
+        echo ""
+        echo "  Find broken href links in FILES in a Mallard document, or"
+        echo "  broken ulink or XLink links in FILES in a DocBook document."
+        echo ""
+        echo "Options:"
+        echo "  -s            Treat pages as belonging to a Mallard site"
+    ) 1>&2
+}
+yelp_usage_ids () {
+    (
+        echo "Usage: yelp-check ids <FILES>"
+        echo ""
+        echo "  Find pages in a Mallard document whose page ID does not match"
+        echo "  the base file name of the page file."
+        echo ""
+        echo "Options:"
+        echo "  -s            Treat pages as belonging to a Mallard site"
+    ) 1>&2
+}
+yelp_usage_links () {
+    (
+        echo "Usage: yelp-check links <FILES>"
+        echo ""
+        echo "  Find broken xref links in FILES in a Mallard document,"
+        echo "  or broken linkend links in FILES in a DocBook document."
+        echo ""
+        echo "Options:"
+        echo "  -c CACHE      Use the existing Mallard cache CACHE"
+        echo "  -s            Treat pages as belonging to a Mallard site"
+        echo "  -i            Ignore xrefs where href is present"
+    ) 1>&2
+}
+yelp_usage_media () {
+    (
+        echo "Usage: yelp-check media <FILES>"
+        echo ""
+        echo "  Find broken references to media files. In Mallard, this"
+        echo "  checks media and thumb elements. In DocBook, this checks"
+        echo "  audiodata, imagedata, and videodata elements."
+        echo ""
+        echo "Options:"
+        echo "  -s            Treat pages as belonging to a Mallard site"
+    ) 1>&2
+}
+yelp_usage_orphans () {
+    (
+        echo "Usage: yelp-check orphans <FILES>"
+        echo ""
+        echo "  Locate orphaned pages among FILES in a Mallard document."
+        echo "  Orphaned pages are any pages that cannot be reached by"
+        echo "  topic links alone from the index page."
+        echo ""
+        echo "Options:"
+        echo "  -c CACHE      Use the existing Mallard cache CACHE"
+        echo "  -s            Treat pages as belonging to a Mallard site"
+    ) 1>&2
+}
+yelp_usage_comments () {
+    (
+        echo "Usage: yelp-check comments <FILES>"
+        echo ""
+        echo "  Print the editorial comments in the files FILES, using the"
+        echo "  comment element in Mallard and the remark element in DocBook."
+        echo ""
+        echo "Options:"
+        echo "  -s            Treat pages as belonging to a Mallard site"
+    ) 1>&2
+}
+yelp_usage_license () {
+    (
+        echo "Usage: yelp-check license <FILES>"
+        echo ""
+        echo "  Report the license of the Mallard page files FILES. Each"
+        echo "  matching page is reporting along with its license, reported"
+        echo "  based on the href attribute of the license element. Common"
+        echo "  licenses use a shortened identifier. Pages with multiple"
+        echo "  licenses have the identifiers separated by spaces. Pages"
+        echo "  with no license element report 'none'. Licenses with no"
+        echo "  href attribute are reported as 'unknown'."
+        echo ""
+        echo "Options:"
+        echo "  -s                  Treat pages as belonging to a Mallard site"
+        echo "  --only LICENSES     Only show pages whose license is in LICENSES"
+        echo "  --except LICENSES   Exclude pages whose license is in LICENSES"
+        echo "  --totals            Show total counts for each license"
+        echo "LICENSES may be a comma- and/or space-separated list."
+    ) 1>&2
+}
+yelp_usage_status () {
+    (
+        echo "Usage: yelp-check status <FILES>"
+        echo ""
+        echo "  Report the status of the Mallard page files FILES. Each"
+        echo "  matching page is reporting along with its status."
+        echo ""
+        echo "Options:"
+        echo "  -s                  Treat pages as belonging to a Mallard site"
+        echo "  --version VER       Select revisions with the version attribute VER"
+        echo "  --docversion VER    Select revisions with the docversion attribute VER"
+        echo "  --pkgversion VER    Select revisions with the pkgversion attribute VER"
+        echo "  --older DATE        Only show pages older than DATE"
+        echo "  --newer DATE        Only show pages newer than DATE"
+        echo "  --only STATUSES     Only show pages whose status is in STATUSES"
+        echo "  --except STATUSES   Exclude pages whose status is in STATUSES"
+        echo "  --totals            Show total counts for each status"
+        echo "VER and STATUSES may be comma- and/or space-separated lists."
+    ) 1>&2
+}
+yelp_usage_validate () {
+    (
+        echo "Usage: yelp-check validate <FILES>"
+        echo ""
+        echo "  Validate FILES against the appropriate DTD or RNG."
+        echo "  For Mallard pages, perform automatic RNG merging"
+        echo "  based on the version attribute."
+        echo ""
+        echo "Options:"
+        echo "  -s                  Treat pages as belonging to a Mallard site"
+        echo "  --strict            Disallow unknown namespaces"
+        echo "  --allow NS          Explicitly allow namespace NS in strict mode"
+    ) 1>&2
+}
+
+if [ $# = 0 ]; then
+    yelp_usage
+    exit 1
+fi
+
+yelp_check_iter_site () {
+    for dir in "$1"/*; do
+        if [ -d "$dir" ]; then
+            if [ $(basename "$dir") != "__pintail__" ]; then
+                yelp_check_iter_site "$dir"
+            fi
+        fi
+    done
+    for page in "$1"/*.page; do
+        if [ -e "$page" ]; then
+            $check_page "$page" || yelp_check_retval="$?"
+        fi
+    done
+}
+
+yelp_check_iter_args () {
+    for arg in "$@"; do
+        ext=$(echo "$arg" | sed -e 's/.*\.//')
+        if [ -d "$arg" ]; then
+            if [ "x$check_site" = "x1" ]; then
+                yelp_check_iter_site "$arg" 
+            else
+                for page in "${arg%%/}"/*.page; do
+                    if [ -e "$page" ]; then
+                        $check_page "$page"
+                    fi
+                done
+            fi
+        elif [ "x$ext" = "xpage" -o "x$ext" = "xstub" -o "x$ext" = "xcache" ]; then
+            $check_page "$arg" || yelp_check_retval="$?"
+	elif [ "x$check_db" != "x" -a \( "x$ext" = "xdocbook" -o "x$ext" = "xxml" \) ]; then
+	    $check_db "$arg" || yelp_check_retval="$?"
+        else
+            echo "Unrecognized page $arg" 1>&2
+            exit 1
+        fi
+    done
+    return $yelp_check_retval
+}
+
+yelp_hrefs_page () {
+    base=$(dirname "$1")
+    if [ "x$check_site" = "x1" ]; then
+        sdir=$(cd $(dirname "$1") && pwd)
+        sdir=${sdir##${check_site_root}}/
+    fi
+    (
+        echo '<xsl:stylesheet'
+        echo ' xmlns:xsl="http://www.w3.org/1999/XSL/Transform"'
+        echo ' xmlns:mal="http://projectmallard.org/1.0/"'
+        echo ' xmlns:db="http://docbook.org/ns/docbook"'
+        echo ' xmlns:xlink="www.w3.org/1999/xlink"'
+        echo ' version="1.0">'
+        echo '<xsl:output method="text"/>'
+        echo '<xsl:template match="/mal:page">'
+        echo ' <xsl:for-each select="//*[@href]">'
+        echo '  <xsl:if test="not(starts-with(@href, '\''mailto:'\''))">'
+        echo '   <xsl:value-of select="/mal:page/@id"/>'
+        echo '   <xsl:text> </xsl:text>'
+        echo '   <xsl:value-of select="@href"/>'
+        echo '   <xsl:text>&#x000A;</xsl:text>'
+        echo '  </xsl:if>'
+        echo ' </xsl:for-each>'
+        echo '</xsl:template>'
+        echo '<xsl:template match="/*[namespace-uri(.) = '\'\''] | /db:*">'
+        echo ' <xsl:for-each select="//ulink/@url | //*/xlink:href">'
+        echo '  <xsl:if test="not(starts-with(string(.), '\''mailto:'\''))">'
+        echo '   <xsl:value-of select="(ancestor-or-self::*/@id | ancestor-or-self::*/@xml:id)[last()]"/>'
+        echo '   <xsl:text> </xsl:text>'
+        echo '   <xsl:value-of select="string(.)"/>'
+        echo '   <xsl:text>&#x000A;</xsl:text>'
+        echo '  </xsl:if>'
+        echo ' </xsl:for-each>'
+        echo '</xsl:template>'
+        echo '</xsl:stylesheet>'
+    ) | xsltproc --xinclude - "$1" | sort | uniq | \
+        while read id url; do
+            colon=`echo "$url" | cut -d: -f1`
+            if [ "x$colon" = "x$url" ]; then
+                test -f "$base/"$(urldecode "$url") || echo "$sdir$id: $url"
+            else
+                (curl -s -I -L "$url" | \
+                        grep '^HTTP/' | tail -n 1 | head -n 1 | \
+                        grep -q 'HTTP/.\.. 200 .*') || \
+                    echo "$sdir$id: $url"
+            fi
+        done
+}
+
+yelp_hrefs () {
+    if [ "$#" = "0" -o "x$1" = "x--help" -o "x$1" = "x-h" ]; then
+        yelp_usage_hrefs
+        exit 1
+    fi
+    while [ "$#" != "0" ]; do
+        case "$1" in
+            "-s")
+                check_site="1"
+                check_site_root=$(pwd)
+                shift
+                ;;
+            *)
+                break
+                ;;
+        esac
+    done
+    if [ "$#" = "0" -o "x$1" = "x--help" -o "x$1" = "x-h" ]; then
+        yelp_usage_hrefs
+        exit 1
+    fi
+    check_out_file=`mktemp "${TMPDIR:-/tmp}"/yelp-XXXXXXXX`
+    check_db=yelp_hrefs_page
+    check_page=yelp_hrefs_page
+    yelp_check_iter_args "$@" > "$check_out_file"
+    yelp_check_retval=$(wc -l < "$check_out_file")
+    if test "x$yelp_check_retval" != "x0"; then
+        yelp_check_retval=1
+    fi
+    cat "$check_out_file"
+    rm "$check_out_file"
+    exit $yelp_check_retval
+}
+
+yelp_ids_page () {
+    pageid=$(
+    (
+        echo '<xsl:stylesheet'
+        echo ' xmlns:xsl="http://www.w3.org/1999/XSL/Transform"'
+        echo ' xmlns:mal="http://projectmallard.org/1.0/"'
+        echo ' version="1.0">'
+        echo '<xsl:output method="text"/>'
+        echo '<xsl:template match="/mal:page">'
+        echo '<xsl:value-of select="@id"/>'
+        echo '</xsl:template>'
+        echo '</xsl:stylesheet>'
+    ) | xsltproc --xinclude - "$1")
+    dname=$(dirname "$1")
+    bname=$(basename "$1")
+    if [ "x$pageid.page" != "x$bname" ]; then
+	if [ "x$check_site" = "x1" ]; then
+            sdir=$(cd $(dirname "$1") && pwd)
+            sdir=${sdir##${check_site_root}}/
+            echo $sdir$(basename "$1")": $pageid"
+	elif [ "x$dname" = 'x.' ]; then
+            echo "$bname: $pageid"
+        else
+            echo "$1: $pageid"
+        fi
+        yelp_check_retval=1
+    fi
+}
+
+yelp_ids () {
+    if [ "$#" = "0" -o "x$1" = "x--help" -o "x$1" = "x-h" ]; then
+        yelp_usage_ids
+        exit 1
+    fi
+    while [ "$#" != "0" ]; do
+        case "$1" in
+            "-s")
+                check_site="1"
+                check_site_root=$(pwd)
+                shift
+                ;;
+            *)
+                break
+                ;;
+        esac
+    done
+    if [ "$#" = "0" -o "x$1" = "x--help" -o "x$1" = "x-h" ]; then
+        yelp_usage_ids
+        exit 1
+    fi
+    check_db=
+    check_page=yelp_ids_page
+    yelp_check_iter_args "$@"
+    exit $yelp_check_retval
+}
+
+yelp_links_db () {
+    (
+        echo '<xsl:stylesheet'
+        echo ' xmlns:xsl="http://www.w3.org/1999/XSL/Transform"'
+        echo ' xmlns:db="http://docbook.org/ns/docbook"'
+        echo ' xmlns:exsl="http://exslt.org/common"'
+        echo ' extension-element-prefixes="exsl"'
+        echo ' version="1.0">'
+        echo '<xsl:output method="text"/>'
+        echo '<xsl:key name="idkey" match="*[@id or @xml:id]" use="@id | @xml:id"/>'
+        echo '<xsl:template match="/">'
+        echo ' <xsl:for-each select="//*[@linkend]">'
+        echo '  <xsl:if test="not(key('"'idkey'"', @linkend))">'
+        echo '   <xsl:value-of select="(ancestor-or-self::*/@id | ancestor-or-self::*/@xml:id)[last()]"/>'
+        echo '   <xsl:text>: </xsl:text>'
+        echo '   <xsl:value-of select="@linkend"/>'
+        echo '   <xsl:text>&#x000A;</xsl:text>'
+        echo '  </xsl:if>'
+        echo ' </xsl:for-each>'
+        echo '</xsl:template>'
+        echo '</xsl:stylesheet>'
+    ) | xsltproc --xinclude - "$1"
+}
+
+yelp_links_page () {
+    if [ "x$check_site" = "x1" ]; then
+        sdir=$(cd $(dirname "$1") && pwd)
+        sdir=${sdir##${check_site_root}}/
+    fi
+    (
+        echo '<xsl:stylesheet'
+        echo ' xmlns:xsl="http://www.w3.org/1999/XSL/Transform"'
+        echo ' xmlns:mal="http://projectmallard.org/1.0/"'
+        echo ' xmlns:site="http://projectmallard.org/site/1.0/"'
+        echo ' xmlns:exsl="http://exslt.org/common"'
+        echo ' extension-element-prefixes="exsl"'
+        echo ' version="1.0">'
+        xsl='file://'`urlencode "$xsl_mal_link"`
+        echo '<xsl:import href="'"$xsl"'"/>'
+        check_cache_url='file://'`urlencode "$check_cache_file"`
+        echo '<xsl:param name="mal.cache.file" select="'"'$check_cache_url'"'"/>'
+        echo '<xsl:variable name="site.dir" select="'"'$sdir'"'"/>'
+        echo '<xsl:output method="text"/>'
+        echo '<xsl:key name="__site.cache.key" match="mal:page | mal:section"'
+        echo '         use="concat(ancestor-or-self::mal:page/@site:dir, @id)"/>'
+        echo '<xsl:template match="/mal:page">'
+        echo ' <xsl:variable name="page" select="@id"/>'
+        if [ "x$check_links_ignore" = "x1" ]; then
+            echo ' <xsl:for-each select="//*[@xref][not(@href)]">'
+        else
+            echo ' <xsl:for-each select="//*[@xref]">'
+        fi
+        echo '  <xsl:variable name="xref" select="@xref"/>'
+        echo '  <xsl:variable name="linkid">'
+        echo '   <xsl:call-template name="mal.link.xref.linkid"/>'
+        echo '  </xsl:variable>'
+        echo '  <xsl:for-each select="$mal.cache">'
+        echo '   <xsl:if test="count(key('"'mal.cache.key'"', $linkid) | '
+        echo '                       key('"'__site.cache.key'"', $linkid)) = 0">'
+        echo '    <xsl:value-of select="$site.dir"/>'
+        echo '    <xsl:value-of select="$page"/>'
+        echo '    <xsl:text>: </xsl:text>'
+        echo '    <xsl:value-of select="$xref"/>'
+        echo '    <xsl:text>&#x000A;</xsl:text>'
+        echo '   </xsl:if>'
+        echo '  </xsl:for-each>'
+        echo ' </xsl:for-each>'
+        echo '</xsl:template>'
+        echo '</xsl:stylesheet>'
+    ) | xsltproc --xinclude - "$1"
+}
+
+yelp_links () {
+    if [ "$#" = "0" -o "x$1" = "x--help" -o "x$1" = "x-h" ]; then
+        yelp_usage_links
+        exit 1
+    fi
+    while [ "$#" != "0" ]; do
+        case "$1" in
+            "-c")
+                shift
+                check_cache_file="$1"
+                shift
+                ;;
+            "-s")
+                check_site="1"
+                check_site_root=$(pwd)
+                shift
+                ;;
+            "-i")
+                shift
+                check_links_ignore="1"
+                ;;
+            *)
+                break
+                ;;
+        esac
+    done
+    if [ "$#" = "0" -o "x$1" = "x--help" -o "x$1" = "x-h" ]; then
+        yelp_usage_links
+        exit 1
+    fi
+    if [ "x$check_cache_file" != "x" ]; then
+        check_cache_dir=$(dirname "$check_cache_file")
+        check_cache_dir=$(cd "$check_cache_dir" && pwd)
+        check_cache_file="$check_cache_dir/"$(basename "$check_cache_file")
+    elif [ -d "$1" ]; then
+        check_cache_file=1
+    else
+        case "$1" in
+            *.page | *.stub | *.cache)
+                check_cache_file=1
+                ;;
+            *)
+                break
+                ;;
+        esac
+    fi
+    if [ "x$check_cache_file" = "x1" ]; then
+        check_cache_file_is_tmp="yes"
+        check_cache_file=$(mktemp "${TMPDIR:-/tmp}"/yelp-XXXXXXXX)
+        if [ "x$check_site" = "x1" ]; then
+            yelp-build cache -s -o "$check_cache_file" "$@"
+        else
+            yelp-build cache -o "$check_cache_file" "$@"
+        fi
+    fi
+
+    check_out_file=`mktemp "${TMPDIR:-/tmp}"/yelp-XXXXXXXX`
+    check_db=yelp_links_db
+    check_page=yelp_links_page
+    yelp_check_iter_args "$@" > "$check_out_file"
+    yelp_check_retval=$(wc -l < "$check_out_file")
+    if test "x$yelp_check_retval" != "x0"; then
+        yelp_check_retval=1
+    fi
+    cat "$check_out_file"
+    rm "$check_out_file"
+    if [ "x$check_cache_file_is_tmp" = "xyes" ]; then
+        rm "$check_cache_file"
+    fi
+    exit $yelp_check_retval
+}
+
+yelp_media_page () {
+    ext=$(echo "$1" | sed -e 's/.*\.//')
+    bname=$(basename "$1" ".$ext")
+    dname=$(dirname "$1")
+    if [ "x$dname" = "x." ]; then
+        dname=""
+    else
+        dname="$dname"/
+    fi;
+    if [ "x$check_site" = "x1" ]; then
+        sdir=$(cd "$dname" && pwd)
+        sdir=${sdir##${check_site_root}}/
+    else
+        sdir="$dname"
+    fi
+    xsltproc "$xsl_media" "$1" | \
+        sort | uniq | \
+        while read line; do
+            src=$(urldecode "$line")
+            if [ ! -f "$dname$src" ]; then
+                echo "$sdir$bname: $line"
+            fi
+        done
+}
+
+yelp_media () {
+    if [ "$#" = "0" -o "x$1" = "x--help" -o "x$1" = "x-h" ]; then
+        yelp_usage_media
+        exit 1
+    fi
+    while [ "$#" != "0" ]; do
+        case "$1" in
+            "-s")
+                check_site="1"
+                check_site_root=$(pwd)
+                shift
+                ;;
+            *)
+                break
+                ;;
+        esac
+    done
+    if [ "$#" = "0" -o "x$1" = "x--help" -o "x$1" = "x-h" ]; then
+        yelp_usage_media
+        exit 1
+    fi
+    check_out_file=`mktemp "${TMPDIR:-/tmp}"/yelp-XXXXXXXX`
+    check_db=yelp_media_page
+    check_page=yelp_media_page
+    yelp_check_iter_args "$@" > "$check_out_file"
+    yelp_check_retval=$(wc -l < "$check_out_file")
+    if test "x$yelp_check_retval" != "x0"; then
+        yelp_check_retval=1
+    fi
+    cat "$check_out_file"
+    rm "$check_out_file"
+    exit $yelp_check_retval
+}
+
+yelp_orphans_page () {
+    if [ "x$check_site" = "x1" ]; then
+        sdir=$(cd $(dirname "$1") && pwd)
+        sdir=${sdir##${check_site_root}}/
+    fi
+    (
+        echo '<xsl:stylesheet'
+        echo ' xmlns:xsl="http://www.w3.org/1999/XSL/Transform"'
+        echo ' xmlns:mal="http://projectmallard.org/1.0/"'
+        echo ' xmlns:exsl="http://exslt.org/common"'
+        echo ' extension-element-prefixes="exsl"'
+        echo ' version="1.0">'
+        xsl='file://'`urlencode "$xsl_mal_link"`
+        echo '<xsl:import href="'"$xsl"'"/>'
+        check_cache_url='file://'`urlencode "$check_cache_file"`
+        echo '<xsl:param name="mal.cache.file" select="'"'$check_cache_url'"'"/>'
+        echo '<xsl:variable name="site.dir" select="'"'$sdir'"'"/>'
+        echo '<xsl:output method="text"/>'
+        echo '<xsl:template match="/mal:page">'
+        echo ' <xsl:variable name="trails">'
+        echo '  <xsl:call-template name="mal.link.linktrails"/>'
+        echo ' </xsl:variable>'
+        echo ' <xsl:if test="@id != '"'index'"' and count(exsl:node-set($trails)/*) = 0">'
+        echo '  <xsl:value-of select="$site.dir"/>'
+        echo '  <xsl:value-of select="@id"/>'
+        echo '  <xsl:text>&#x000A;</xsl:text>'
+        echo ' </xsl:if>'
+        echo '</xsl:template>'
+        echo '</xsl:stylesheet>'
+    ) | xsltproc --xinclude - "$1"
+}
+
+yelp_orphans () {
+    if [ "$#" = "0" -o "x$1" = "x--help" -o "x$1" = "x-h" ]; then
+        yelp_usage_orphans
+        exit 1
+    fi
+    while [ "$#" != "0" ]; do
+        case "$1" in
+            "-s")
+                check_site="1"
+                check_site_root=$(pwd)
+                shift
+                ;;
+            "-c")
+                shift
+                check_cache_file="$1"
+                shift
+                ;;
+            *)
+                break
+                ;;
+        esac
+    done
+    if [ "$#" = "0" -o "x$1" = "x--help" -o "x$1" = "x-h" ]; then
+        yelp_usage_orphans
+        exit 1
+    fi
+    if [ "x$check_cache_file" != "x" ]; then
+        check_cache_dir=$(dirname "$check_cache_file")
+        check_cache_dir=$(cd "$check_cache_dir" && pwd)
+        check_cache_file="$check_cache_dir/"$(basename "$check_cache_file")
+    elif [ -d "$1" ]; then
+        check_cache_file=1
+    else
+        case "$1" in
+            *.page | *.stub | *.cache)
+                check_cache_file=1
+                ;;
+            *)
+                break
+                ;;
+        esac
+    fi
+    if [ "x$check_cache_file" = "x1" ]; then
+        check_cache_file_is_tmp="yes"
+        check_cache_file=$(mktemp "${TMPDIR:-/tmp}"/yelp-XXXXXXXX)
+        if [ "x$check_site" = "x1" ]; then
+            yelp-build cache -s -o "$check_cache_file" "$@"
+        else
+            yelp-build cache -o "$check_cache_file" "$@"
+        fi
+    fi
+
+    check_out_file=`mktemp "${TMPDIR:-/tmp}"/yelp-XXXXXXXX`
+    check_db=
+    check_page=yelp_orphans_page
+    yelp_check_iter_args "$@" > "$check_out_file"
+    yelp_check_retval=$(wc -l < "$check_out_file")
+    if test "x$yelp_check_retval" != "x0"; then
+        yelp_check_retval=1
+    fi
+    cat "$check_out_file"
+    rm "$check_out_file"
+    if [ "x$check_cache_file_is_tmp" = "xyes" ]; then
+        rm "$check_cache_file"
+    fi
+    exit $yelp_check_retval
+}
+
+yelp_comments_page () {
+    ext=$(echo "$1" | sed -e 's/.*\.//')
+    bname=$(basename "$1" ".$ext")
+    if [ "x$check_site" = "x1" ]; then
+        sdir=$(cd $(dirname "$1") && pwd)
+        sdir=${sdir##${check_site_root}}/
+    fi
+    xsltproc --stringparam basename "$bname" \
+             --stringparam site.dir "$sdir" \
+             "$xsl_comments" "$1"
+}
+
+yelp_comments () {
+    if [ "$#" = "0" -o "x$1" = "x--help" -o "x$1" = "x-h" ]; then
+        yelp_usage_comments
+        exit 1
+    fi
+    while [ "$#" != "0" ]; do
+        case "$1" in
+            "-s")
+                check_site="1"
+                check_site_root=$(pwd)
+                shift
+                ;;
+            *)
+                break
+                ;;
+        esac
+    done
+    if [ "$#" = "0" -o "x$1" = "x--help" -o "x$1" = "x-h" ]; then
+        yelp_usage_comments
+        exit 1
+    fi
+    check_db=yelp_comments_page
+    check_page=yelp_comments_page
+    yelp_check_iter_args "$@"
+    exit $yelp_check_retval
+}
+
+yelp_license_page () {
+    if [ "x$check_site" = "x1" ]; then
+        sdir=$(cd $(dirname "$1") && pwd)
+        sdir=${sdir##${check_site_root}}/
+    fi
+    xsltproc --xinclude \
+        --stringparam only "$check_only" \
+        --stringparam except "$check_except" \
+        --stringparam totals "$check_totals" \
+        --stringparam site.dir "$sdir" \
+        "$xsl_mal_license" "$1"
+}
+
+yelp_license () {
+    if [ "$#" = "0" -o "x$1" = "x--help" -o "x$1" = "x-h" ]; then
+        yelp_usage_license
+        exit 1
+    fi
+    while [ "$#" != "0" ]; do
+        case "$1" in
+            "-s")
+                check_site="1"
+                check_site_root=$(pwd)
+                shift
+                ;;
+            "--only")
+                shift
+                check_only="$1"
+                shift
+                ;;
+            "--except")
+                shift
+                check_except="$1"
+                shift
+                ;;
+            "--totals")
+                check_totals="1"
+                shift
+                ;;
+            *)
+                break
+                ;;
+        esac
+    done
+    if [ "$#" = "0" -o "x$1" = "x--help" -o "x$1" = "x-h" ]; then
+        yelp_usage_license
+        exit 1
+    fi
+    check_db=
+    check_page=yelp_license_page
+    if [ "x$check_totals" = "x1" ]; then
+        yelp_check_iter_args "$@" | \
+            sort | uniq -c | sed -e 's/^ *//' | awk '{print $2 ": " $1}'
+    else
+        yelp_check_iter_args "$@" | sort
+    fi
+}
+
+yelp_status () {
+    if [ "$#" = "0" -o "x$1" = "x--help" -o "x$1" = "x-h" ]; then
+        yelp_usage_status
+        exit 1
+    fi
+    while [ "$#" != "0" ]; do
+        case "$1" in
+            "-s")
+                check_site="1"
+                check_site_root=$(pwd)
+                shift
+                ;;
+            "--version")
+                shift
+                check_version="$1"
+                shift
+                ;;
+            "--docversion")
+                shift
+                check_docversion="$1"
+                shift
+                ;;
+            "--pkgversion")
+                shift
+                check_pkgversion="$1"
+                shift
+                ;;
+            "--older")
+                shift
+                check_older="$1"
+                shift
+                ;;
+            "--newer")
+                shift
+                check_newer="$1"
+                shift
+                ;;
+            "--only")
+                shift
+                check_only="$1"
+                shift
+                ;;
+            "--except")
+                shift
+                check_except="$1"
+                shift
+                ;;
+            "--totals")
+                check_totals="1"
+                shift
+                ;;
+            *)
+                break
+                ;;
+        esac
+    done
+    if [ "$#" = "0" -o "x$1" = "x--help" -o "x$1" = "x-h" ]; then
+        yelp_usage_status
+        exit 1
+    fi
+    check_cache_file=`mktemp "${TMPDIR:-/tmp}"/yelp-XXXXXXXX`
+    if [ "x$check_site" = "x1" ]; then
+        yelp-build cache -s -o "$check_cache_file" "$@"
+    else
+        yelp-build cache -o "$check_cache_file" "$@"
+    fi
+    xsltproc \
+        --stringparam version "$check_version" \
+        --stringparam docversion "$check_docversion" \
+        --stringparam pkgversion "$check_pkgversion" \
+        --stringparam newer "$check_newer" \
+        --stringparam older "$check_older" \
+        --stringparam only "$check_only" \
+        --stringparam except "$check_except" \
+        --stringparam totals "$check_totals" \
+        "$xsl_mal_status" "$check_cache_file"
+    rm "$check_cache_file"
+    return 0
+}
+
+yelp_validate_db () {
+    version=$(echo "$docbook_version" | xsltproc - "$1")
+    major=$(echo "$version" | cut -c1)
+    if [ "x$major" = "x5" ]; then
+        check_out_file=`mktemp "${TMPDIR:-/tmp}"/yelp-XXXXXXXX`
+        rng_uri="http://docbook.org/xml/$version/rng/docbook.rng"
+        xmllint --noout --xinclude --noent --relaxng "$rng_uri" "$1" > "$check_out_file" 2>&1
+        yelp_check_retval="$?"
+        cat "$check_out_file" | grep -v 'validates$'
+        rm "$check_out_file"
+    elif xmllint --nocdata "$1" | grep -q '<!DOCTYPE'; then
+        xmllint --noout --xinclude --noent --postvalid "$1" || yelp_check_retval="$?"
+    else
+        dtd_uri='http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd'
+        xmllint --noout --xinclude --noent --dtdvalid "$dtd_uri" "$1" || yelp_check_retval="$?"
+    fi
+}
+
+yelp_validate_page () {
+    # Using temp files because pipes create subshells, making it really
+    # hard to return the right exit status in a portable way.
+    if [ "x$check_rng_dir" = "x" ]; then
+        check_rng_dir=`mktemp -d "${TMPDIR:-/tmp}"/yelp-XXXXXXXX`
+    fi
+    check_out_file=`mktemp "${TMPDIR:-/tmp}"/yelp-XXXXXXXX`
+    check_rng_file=`(
+            echo '<xsl:stylesheet'
+            echo ' xmlns:cache="http://projectmallard.org/cache/1.0/"'
+            echo ' xmlns:xsl="http://www.w3.org/1999/XSL/Transform"'
+            echo ' version="1.0">'
+            echo '<xsl:output method="text"/>'
+            echo '<xsl:template match="/*">'
+            echo '<xsl:choose>'
+            echo '<xsl:when test="string(@version) != '"''"'">'
+            echo '<xsl:value-of select="@version"/>'
+            echo '</xsl:when>'
+            echo '<xsl:when test="/cache:cache">'
+            echo '<xsl:text>cache/1.0 1.0</xsl:text>'
+            echo '</xsl:when>'
+            echo '<xsl:otherwise>'
+            echo '<xsl:text>1.0</xsl:text>'
+            echo '</xsl:otherwise>'
+            echo '</xsl:choose>'
+            echo '</xsl:template>'
+            echo '</xsl:stylesheet>'
+            ) | xsltproc - "$1"`
+    check_rng_file=`urlencode "$check_rng_file" /`.rng
+    if [ ! -f "$check_rng_dir/$check_rng_file" ]; then
+        # If we've already made an RNG file for this version string, don't
+        # do it again. We've urlencoded the file name + slashes, because
+        # version strings often contain slashes. But xsltproc treats the
+        # -o option as a URL and urldecodes, so doubly urlencode, because
+        # we want the urlencoded string to be the on-disk name.
+        xsltproc -o "$check_rng_dir/"`urlencode "$check_rng_file"` \
+            --param rng.strict "$check_strict" \
+            --stringparam rng.strict.allow "$check_strict_allow" \
+            "$xsl_mal_rng" "$1"
+    fi
+    xmllint --noout --xinclude --noent --relaxng "$check_rng_dir/$check_rng_file" "$1" > "$check_out_file" 2>&1
+    ret="$?"
+    cat "$check_out_file" | grep -v 'validates$'
+    rm "$check_out_file"
+    return $ret;
+}
+
+yelp_validate () {
+    if [ "$#" = "0" -o "x$1" = "x--help" -o "x$1" = "x-h" ]; then
+        yelp_usage_validate
+        exit 1
+    fi
+    check_strict="false()"
+    check_strict_allow=""
+    while [ "$#" != "0" ]; do
+        case "$1" in
+            "-s")
+                check_site="1"
+                check_site_root=$(pwd)
+                shift
+                ;;
+            "--strict")
+                check_strict="true()"
+                shift
+                ;;
+            "--allow")
+                shift
+                check_strict_allow="$check_strict_allow $1"
+                shift
+                ;;
+            *)
+                break
+                ;;
+        esac
+    done
+    if [ "$#" = "0" -o "x$1" = "x--help" -o "x$1" = "x-h" ]; then
+        yelp_usage_validate
+        exit 1
+    fi
+    check_db=yelp_validate_db
+    check_page=yelp_validate_page
+    yelp_check_iter_args "$@"
+    if [ "x$check_rng_dir" != "x" ]; then
+        rm "$check_rng_dir"/*.rng
+        rmdir "$check_rng_dir"
+    fi
+    exit $yelp_check_retval
+}
+
+cmd="$1"
+shift
+case "x$cmd" in
+    "xcomments")
+        yelp_comments "$@"
+        ;;
+    "xhrefs")
+        yelp_hrefs "$@"
+        ;;
+    "xids")
+        yelp_ids "$@"
+        ;;
+    "xlinks")
+        yelp_links "$@"
+        ;;
+    "xorphans")
+        yelp_orphans "$@"
+        ;;
+    "xlicense")
+        yelp_license "$@"
+        ;;
+    "xmedia")
+        yelp_media "$@"
+        ;;
+    "xstatus")
+        yelp_status "$@"
+        ;;
+    "xvalidate")
+        yelp_validate "$@"
+        ;;
+    *)
+        yelp_usage
+        ;;
+esac

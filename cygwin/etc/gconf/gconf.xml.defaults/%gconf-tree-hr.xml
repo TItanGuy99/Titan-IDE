@@ -1,0 +1,450 @@
+<?xml version="1.0"?>
+<gconf>
+	<dir name="schemas">
+		<dir name="system">
+			<dir name="smb">
+				<entry name="workgroup">
+					<local_schema short_desc="Radna grupa SMB">
+						<longdesc>Radna grupa ili domena Windows umrežavanja, koje je korisnik član. Kako bi nova radna grupa došla do izražaja korisnik će se možda morati odjaviti i ponovno prijaviti u sustav.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="proxy">
+				<entry name="autoconfig_url">
+					<local_schema short_desc="Automatska po postavljanje proxy URL-a">
+						<longdesc>URL koji omogućuje postavljanje vrijednosti proxy-a</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="socks_port">
+					<local_schema short_desc="Spaja proxy port">
+						<longdesc>Port na računalu je određen u datoteci /system/proxy/socks_host računala s proxy-em.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="socks_host">
+					<local_schema short_desc="Spaja ime proxy računala">
+						<longdesc>Naziv računala s proxy utičnicama.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="ftp_port">
+					<local_schema short_desc="FTP proxy port">
+						<longdesc>Port na računalu je određen u datoteci /system/proxy/ftp_host računala s proxy-em.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="ftp_host">
+					<local_schema short_desc="Ime FTP proxy računala">
+						<longdesc>Naziv računala s FTP proxy-em.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="secure_port">
+					<local_schema short_desc="Port sigurnog http proxy-a">
+						<longdesc>Port na računalu je određen u datoteci /system/proxy/secure_host računala s proxy-em.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="secure_host">
+					<local_schema short_desc="Ime računala sigurnog http proxy-a">
+						<longdesc>Naziv računala sa sigurnim HTTP proxy-em.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="mode">
+					<local_schema short_desc="Način postavljanja proxy-a">
+						<longdesc>Označite način postavljanja proxy-a. Podržane vrijednosti su &quot;bez&quot;, &quot;ručno&quot;, &quot;automatsko&quot;</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="http_proxy">
+				<entry name="ignore_hosts">
+					<local_schema short_desc="Računala bez proxy-a">
+						<longdesc>Ovaj ključ sadrži popis računala koji su direktno povezani, radije nego pomoću proxy-a (ako je uopće uključen). Vrijednosti mogu biti nazivi računala, domene (koristeći početne zamjenske znakove kao *.foo.com), IP adrese računala (obje IPv4 i IPv6) i mrežne adrese s mrežnim maskama (npr. 192.168.0.0/24).</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="authentication_password">
+					<local_schema short_desc="Lozinka za HTTP proxy">
+						<longdesc>Lozinka za prolazak provjere vjerodostojnosti kod korištenja http proxy-a.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="authentication_user">
+					<local_schema short_desc="Ime korisnika HTTP proxy-a">
+						<longdesc>Korisničko ime koje treba proći provjeru vjerodostojnosti kod http proxy-a.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="use_authentication">
+					<local_schema short_desc="Provjerite vjerodostojnost veze prema proxy poslužitelju">
+						<longdesc>Ako je &quot;točno&quot;, tada veze na proxy poslužitelj zahtijevaju provjeru vjerodostojnosti. Kombinacija ime_korisnika/lozinka je definirana u datotekama &quot;/system/http_proxy/authentication_user&quot; i &quot;/system/http_proxy/authentication_password&quot;.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="port">
+					<local_schema short_desc="HTTP proxy port">
+						<longdesc>Port na računalu je određen u datoteci /system/http_proxy/host računala s proxy-em.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="host">
+					<local_schema short_desc="Ime HTTP proxy računala">
+						<longdesc>Naziv računala s HTTP proxy-em.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="use_http_proxy">
+					<local_schema short_desc="Koristi HTTP proxy">
+						<longdesc>Omogućava postavljanje proxy-a kod pristupa http protokolom prema internetu.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="dns_sd">
+				<entry name="extra_domains">
+					<local_schema short_desc="Dodatne domene u kojima se traže DNS-SD usluge">
+						<longdesc>Zarezima odvojena lista DNS-SD domena koje trebaju biti vidljive u &quot;network:///&quot; lokaciji.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="display_local">
+					<local_schema short_desc="Kako prikazati lokalne DNS-SD usluge">
+						<longdesc>Ispravne vrijednosti su &quot;spojeno&quot;, &quot;odvojeno&quot; i &quot;onemogućeno&quot;.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+		</dir>
+		<dir name="desktop">
+			<dir name="gnome">
+				<dir name="typing_break">
+					<entry name="enabled">
+						<local_schema short_desc="Bilo da je ili ne zaključavanje tipkovnice omogućeno">
+							<longdesc>Bilo da je ili ne zaključavanje tipkovnice omogućeno.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="allow_postpone">
+						<local_schema short_desc="Omogući odgađanje pauza">
+							<longdesc>Bilo da može ili ne zaslon prekida pisanja biti odgođen.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="break_time">
+						<local_schema short_desc="Pauza">
+							<longdesc>Broj minuta koliko treba trajati pauza pisanja.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="type_time">
+						<local_schema short_desc="Vrsta vremena">
+							<longdesc>Broj minuta vremena pisanja prije početka predaha.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="thumbnailers">
+					<entry name="disable_all">
+						<local_schema short_desc="Isključuje sve vanjske sličice">
+							<longdesc>Postavi potvrdno za isključivanje svih vanjskih programa za prikazivanje sličica, neovisno o tome dali su nezavisno uključeni ili isključeni.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="sound">
+					<entry name="event_sounds">
+						<local_schema short_desc="Zvuci za događaje">
+							<longdesc>Koji zvukovi se trebaju svirati na korisničke događaje.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="enable_esd">
+						<local_schema short_desc="Omogući ESD">
+							<longdesc>Omogući poslužitelj zvukova na početku.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="default_mixer_tracks">
+						<local_schema short_desc="Uobičajene mixer trake">
+							<longdesc>Mikser izlaz koji će se koristiti za multimedijske tipke.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="default_mixer_device">
+						<local_schema short_desc="Uobičajeni mixer uređaj">
+							<longdesc>Mikser uređaj koji će se koristiti za multimedijske tipke.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="peripherals">
+					<dir name="mouse">
+						<entry name="cursor_size">
+							<local_schema short_desc="Veličina pokazivača">
+								<longdesc>Veličina pokazivača povezano sa cursor_theme.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="cursor_theme">
+							<local_schema short_desc="Tema pokazivača">
+								<longdesc>Naziv teme pokazivača. Koristi se samo od strane Xservera koji podržava Xcursor, kao što je XFree86 4.3 ili noviji.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="cursor_font">
+							<local_schema short_desc="Pismo pokazivača">
+								<longdesc>Ime pisma pokazivača. Ako nije postavljeno, koristi se uobičajeno pismo. Ova vrijednost se prenosi samo kad poslužitelj X-a pokreće kod svake sesije, stoga promjene unutar sesije neće imati utjecaja sve dok se ponovo prijavite u sustav.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="locate_pointer">
+							<local_schema short_desc="Odredi položaj pokazivača">
+							</local_schema>
+						</entry>
+						<entry name="double_click">
+							<local_schema short_desc="Vrijeme dvostrukog pritiska">
+							</local_schema>
+						</entry>
+						<entry name="drag_threshold">
+							<local_schema short_desc="Granica prevlačenja">
+							</local_schema>
+						</entry>
+						<entry name="motion_threshold">
+							<local_schema short_desc="Granica pomaka">
+								<longdesc>Udaljenost u točkama koje pokazivač miša mora preći prije nego se uključi ubrzano pokretanje miša. Postavke sustava su -1.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="motion_acceleration">
+							<local_schema short_desc="Jednostruki pritisak">
+								<longdesc>Množitelj ubrzanja pomaka miša. Vrijednost -1 je zadana vrijednost sustava.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="single_click">
+							<local_schema short_desc="Jednostruki pritisak">
+							</local_schema>
+						</entry>
+						<entry name="left_handed">
+							<local_schema short_desc="Orijnetacija tipki miša">
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="keyboard">
+						<entry name="remember_numlock_state">
+							<local_schema short_desc="Zapamti NumLock stanje">
+								<longdesc>Kada se namjesti na &quot;istinito&quot;, GNOME će zapamtiti stanje NumLock LED između prijava.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bell_custom_file">
+							<local_schema short_desc="Prilagođena datoteka zvukova tipkovnice">
+							</local_schema>
+						</entry>
+						<entry name="bell_mode">
+							<local_schema>
+								<longdesc>moguće vrijednosti su &quot;uključeno&quot;, &quot;isključeno&quot;, i &quot;vlastito&quot;.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+				<dir name="lockdown">
+					<entry name="disable_lock_screen">
+						<local_schema short_desc="Onemogući zaključavanje zaslona">
+							<longdesc>Spriječi korisnika za zzaključa zaslon.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_user_switching">
+						<local_schema short_desc="Onemogući promjenu korisnika">
+							<longdesc>Spriječi promjenu korisnika dok je njegova prijava aktivna.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_print_setup">
+						<local_schema short_desc="Onemogući postavljanje pisača">
+							<longdesc>Onemogući korisnika u mijenjanju postavki pisača. Na primjer, ovo će onemogućiti pristup svim dijalozima programa &quot;Postavke pisača&quot;.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_printing">
+						<local_schema short_desc="Onemogući ispisivanje">
+							<longdesc>Onemogući korisniku ispis na pisaču. Na primjer, ovo će onemogućiti pristup svim dijalozima programa &quot;Ispis&quot;.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_save_to_disk">
+						<local_schema short_desc="Onemogući spremanje datoteka na disk">
+							<longdesc>Onemogući korisniku spremanje datoteka na disk. Na primjer, ovo će onemogućiti pristup svim dijalozima programa &quot;Spremi kao&quot;.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_command_line">
+						<local_schema short_desc="Onemogući naredbeni redak">
+							<longdesc>Onemogući korisniku pristup terminalu ili određivanje naredbe za izvršavanje u naredbenom retku. Na primjer, ovo će onemogućiti pristup dijalogu ploče &quot;Pokreni program&quot;.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="interface">
+					<entry name="show_unicode_menu">
+						<local_schema short_desc="Prikaži &apos;Unicode Control Character&apos; izbornik">
+						</local_schema>
+					</entry>
+					<entry name="show_input_method_menu">
+						<local_schema short_desc="Naziv uobičajenog pisma korištenog za čitanje dokumenta">
+						</local_schema>
+					</entry>
+					<entry name="menubar_accel">
+						<local_schema short_desc="Ubrzivač izborničke trake">
+							<longdesc>Tipkovnička kratica za otvaranje izborničkih traka.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="file_chooser_backend">
+						<local_schema short_desc="Modul za GtkFileChooser">
+						</local_schema>
+					</entry>
+					<entry name="status_bar_meter_on_right">
+						<local_schema short_desc="Statusna traka s desna">
+						</local_schema>
+					</entry>
+					<entry name="use_custom_font">
+						<local_schema short_desc="Koristi vlastita pisma">
+							<longdesc>Da li da koristiti vlastito pismo u gtk+ programima.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="monospace_font_name">
+						<local_schema short_desc="Monospace pismo">
+							<longdesc>Ime monospaced (nepromjenjive širine) pisma za korištenje na položajima kao što su treminali.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="document_font_name">
+						<local_schema short_desc="Pismo dokumenta">
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-status-style">
+						<local_schema short_desc="GTK IM Status stil">
+							<longdesc>Ime GTK+ ulaznih metode Status stil koju koristi gtk+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-preedit-style">
+						<local_schema short_desc="GTK IM Preedit stil">
+							<longdesc>Ime GTK+ ulaznih metode Preedit stil koju koristi gtk+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="font_name">
+						<local_schema short_desc="Uobičajeno pismo">
+							<longdesc>Ime uobičajenog pisma koje koristi gtk+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_key_theme">
+						<local_schema short_desc="Tema Gtk+">
+							<longdesc>Osnovno ime uobičajene teme koju koristi gtk+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_theme">
+						<local_schema short_desc="Tema Gtk+">
+							<longdesc>Osnovno ime uobičajene teme koju koristi gtk+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="icon_theme">
+						<local_schema short_desc="Tema sličica">
+							<longdesc>Tema sličica za korištenje za ploču, nautilus itd.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink_time">
+						<local_schema short_desc="Vrijeme treperenja kursora">
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink">
+						<local_schema short_desc="Treperenje kursora">
+						</local_schema>
+					</entry>
+					<entry name="toolbar_icons_size">
+						<local_schema short_desc="Veličina sličica trake s alatima">
+						</local_schema>
+					</entry>
+					<entry name="toolbar_detachable">
+						<local_schema short_desc="Traka s alatima se može odvajati">
+						</local_schema>
+					</entry>
+					<entry name="menubar_detachable">
+						<local_schema short_desc="Odvojiva traka izbornika">
+						</local_schema>
+					</entry>
+					<entry name="menus_have_icons">
+						<local_schema short_desc="Izbornici imaju sličice">
+						</local_schema>
+					</entry>
+					<entry name="toolbar_style">
+						<local_schema short_desc="Stil trake s alatima">
+						</local_schema>
+					</entry>
+					<entry name="can_change_accels">
+						<local_schema short_desc="Možete promijeniti Accele">
+						</local_schema>
+					</entry>
+					<entry name="menus_have_tearoff">
+						<local_schema short_desc="Izbornici imaju odmake">
+						</local_schema>
+					</entry>
+					<entry name="enable_animations">
+						<local_schema short_desc="Omogući animacije">
+							<longdesc>Koje animacije trebaju biti prikazane. Napomena: ovo je globalna tipka, ona mijenja ponašanje upravitelja prozora, ploča itd.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="accessibility">
+						<local_schema short_desc="Omogući dostupnost">
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="file-views">
+					<entry name="icon_theme">
+						<local_schema short_desc="Tema datotečnih sličica">
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="background">
+					<entry name="color_shading_type">
+						<local_schema short_desc="Vrsta boje sjenčanja">
+						</local_schema>
+					</entry>
+					<entry name="secondary_color">
+						<local_schema short_desc="Sekundarna boja">
+							<longdesc>Desna ili donja boja gdje počinje prijelaz crtanja, ne koristi se za pune boje.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="primary_color">
+						<local_schema short_desc="Osnovna boja">
+							<longdesc>Lijeva ili gornja boja kod crtanja prijelaza ili pune boje.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_opacity">
+						<local_schema short_desc="Prozirnost slike">
+						</local_schema>
+					</entry>
+					<entry name="picture_filename">
+						<local_schema short_desc="Ime datoteke s slikom">
+						</local_schema>
+					</entry>
+					<entry name="picture_options">
+						<local_schema short_desc="Opcije slike">
+						</local_schema>
+					</entry>
+					<entry name="draw_background">
+						<local_schema short_desc="Crtaj pozadinu radne površine">
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="applications">
+					<dir name="component_viewer">
+						<entry name="exec">
+							<local_schema short_desc="Uobičajeni program za pregled komponenti">
+								<longdesc>Program koji se koristi za pregled datoteka, te koji zahtjeva komponentu za pregledavanje istih. Parametar %s će biti zamijenjen s URI datoteke, a parametar %c će biti zamijenjen s IID komponente.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="window_manager">
+						<entry name="workspace_names">
+							<local_schema short_desc="Imena radnih površina (zastarjelo)">
+								<longdesc>Popis imena prvih radnih površina upravitelja prozorima. Ovaj ključ je zastario od GNOME-a verzije 2.12.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="number_of_workspaces">
+							<local_schema short_desc="Broj radnih površina (zastarjelo)">
+								<longdesc>Broj radnih površina koji bi upravitelj prozorima trebao koristiti. Ovaj ključ je zastario od GNOME verzije 2.12.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="current">
+							<local_schema short_desc="Korisnički upravitelj prozorima (zastarjelo)">
+								<longdesc>Upravitelj prozorima koji će se prvi koristiti. Ovaj ključ je zastario od GNOME-a verzije 2.12.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="default">
+							<local_schema short_desc="Rezervni upravitelj prozorima (zastarjelo)">
+								<longdesc>Rezervni upravitelj prozorima ako korisnički upravitelj prozorima ne može biti nađen. Ovaj ključ je zastario od GNOME-a verzije 2.12.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="terminal">
+						<entry name="exec_arg">
+							<local_schema short_desc="Izvršni argument za uobičajeni terminal">
+								<longdesc>Izvršni argument koji se koristi za uobičajeni terminalni program.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Uobičajen terminalni program">
+								<longdesc>Uobičajeni terminalni program koji se koristi za programe koji zahtijevaju terminal.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+			</dir>
+		</dir>
+	</dir>
+</gconf>

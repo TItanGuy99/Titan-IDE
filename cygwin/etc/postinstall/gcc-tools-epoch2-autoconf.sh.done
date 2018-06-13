@@ -1,0 +1,15 @@
+#!/bin/sh
+sbindir=/usr/sbin
+e=2
+rbindir=/opt/gcc-tools/epoch${e}/bin
+lbindir=/opt/gcc-tools/bin
+
+${sbindir}/update-alternatives \
+	--install ${lbindir}/autoconf    gcc-tools-autoconf    ${rbindir}/autoconf-2.64 20 \
+	--slave   ${lbindir}/autoheader  gcc-tools-autoheader  ${rbindir}/autoheader-2.64 \
+	--slave   ${lbindir}/autom4te    gcc-tools-autom4te    ${rbindir}/autom4te-2.64 \
+	--slave   ${lbindir}/autoreconf  gcc-tools-autoreconf  ${rbindir}/autoreconf-2.64 \
+	--slave   ${lbindir}/autoscan    gcc-tools-autoscan    ${rbindir}/autoscan-2.64 \
+	--slave   ${lbindir}/autoupdate  gcc-tools-autoupdate  ${rbindir}/autoupdate-2.64 \
+	--slave   ${lbindir}/ifnames     gcc-tools-ifnames     ${rbindir}/ifnames-2.64
+

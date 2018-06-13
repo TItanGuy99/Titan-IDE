@@ -1,0 +1,627 @@
+<?xml version="1.0"?>
+<gconf>
+	<dir name="schemas">
+		<dir name="system">
+			<dir name="smb">
+				<entry name="workgroup">
+					<local_schema short_desc="Pracovná skupina SMB">
+						<longdesc>Sieťová pracovná skupina alebo doména Windows, do ktorej patrí používateľ. Aby sa nová pracovná skupina úplne prejavila, použivateľ sa možno bude musieť odhlásiť a prihlásiť.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="proxy">
+				<entry name="autoconfig_url">
+					<local_schema short_desc="URL pre automatické nastavenie proxy">
+						<longdesc>URL, ktoré poskytuje hodnoty konfigurácie proxy.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="socks_port">
+					<local_schema short_desc="Port proxy pre SOCKS">
+						<longdesc>Port počítača definovaného v &quot;/system/proxy/socks_host&quot;, ktorý používate ako proxy.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="socks_host">
+					<local_schema short_desc="Hostiteľ proxy pre SOCKS">
+						<longdesc>Názov počítača, ktorý používať ako proxy pre socks.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="ftp_port">
+					<local_schema short_desc="Port pre FTP proxy">
+						<longdesc>Port počítača definovaného v &quot;/system/proxy/ftp_host&quot;, ktorý používate ako proxy.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="ftp_host">
+					<local_schema short_desc="Hostiteľ pre FTP proxy">
+						<longdesc>Názov počítača, ktorý používať ako proxy pre FTP.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="secure_port">
+					<local_schema short_desc="Port proxy pre zabezpečené HTTP">
+						<longdesc>Port počítača definovaného v &quot;/system/proxy/secure_host&quot;, ktorý používate ako proxy.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="secure_host">
+					<local_schema short_desc="Hostiteľ proxy pre zabezpečené HTTP">
+						<longdesc>Názov počítača, ktorý používať ako proxy pre zabezpečené HTTP.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="mode">
+					<local_schema short_desc="Režim nastavenia proxy">
+						<longdesc>Výber režimu nastavenia proxy. Podporované hodnoty sú &quot;none&quot;, &quot;manual&quot;, &quot;auto&quot;.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="http_proxy">
+				<entry name="ignore_hosts">
+					<local_schema short_desc="Hostitelia bez použitia proxy">
+						<longdesc>Tento kľúč obsahuje zoznam hostiteľov, ku ktorým sa radšej pripojiť priamo a nie cez proxy (ak je atívne). Hodnoty môžu byť názvy hostiteľov, domény (pomocou počiatočných žolíkov, napr. *.foo.com), IP adresy (IPv4 aj IPv6) a sieťové adresy s maskou (napr. 192.168.0.0/24).</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="authentication_password">
+					<local_schema short_desc="Heslo pre HTTP proxy">
+						<longdesc>Heslo používané pre prihlásenie k proxy HTTP.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="authentication_user">
+					<local_schema short_desc="Meno používateľa pre HTTP proxy">
+						<longdesc>Používateľ poskytnutý pri overení totožnosti počas proxy HTTP.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="use_authentication">
+					<local_schema short_desc="Overovať totožnosť spojení s proxy serverom">
+						<longdesc>Ak je true, pripojenia k proxy serveru vyžadujú overenie totožnosti. Kombinácia používateľ/heslo je definovaná v &quot;/system/http_proxy/authentication_user&quot; a &quot;/system/http_proxy/authentication_password&quot;.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="port">
+					<local_schema short_desc="Port pre HTTP proxy">
+						<longdesc>Port počítača definovaného v &quot;/system/http_proxy/host&quot;, ktorý používate ako proxy.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="host">
+					<local_schema short_desc="Hostiteľ pre HTTP proxy">
+						<longdesc>Názov počítača, ktorý používať ako proxy pre HTTP.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="use_http_proxy">
+					<local_schema short_desc="Použiť proxy HTTP">
+						<longdesc>Povolí nastavenie proxy pri prístupe pomocou HTTP na Internet.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="dns_sd">
+				<entry name="extra_domains">
+					<local_schema short_desc="Ďalšie domény, v ktorých sa majú hľadať služby DNS-SD">
+						<longdesc>Čiarkou oddelený zoznam DNS-SD domén, ktoré majú byť viditeľné v umiestnení &quot;network:///&quot;.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="display_local">
+					<local_schema short_desc="Ako sa má zobraziť miestna služba DNS-SD">
+						<longdesc>Prípustné hodnoty sú &quot;merged&quot;, &quot;separate&quot; a &quot;disabled&quot;.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+		</dir>
+		<dir name="desktop">
+			<dir name="gnome">
+				<dir name="typing_break">
+					<entry name="enabled">
+						<local_schema short_desc="Či je alebo nie je povolené uzamykanie klávesnice">
+							<longdesc>Či je alebo nie je povolené uzamykanie klávesnice.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="allow_postpone">
+						<local_schema short_desc="Umožniť odloženie prestávok">
+							<longdesc>Či môže byť alebo nemôže byť odložená obrazovka prestávky v písaní.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="break_time">
+						<local_schema short_desc="Trvanie prestávky">
+							<longdesc>Počet minút, po ktoré ma trvať prestávka v písaní.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="type_time">
+						<local_schema short_desc="Trvanie písania">
+							<longdesc>Dĺžka trvania písania (v minútach) pred spustením režimu prestávky.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="thumbnailers">
+					<entry name="disable_all">
+						<local_schema short_desc="Deaktivovať všetky externé vytvárače náhľadov">
+							<longdesc>Nastaviť na true, aby sa deaktivovali všetky externé programy na tvorbu náhľadov, nezávisle od toho, či sú jednotlivo deaktivované/aktivované.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="thumbnail_cache">
+					<entry name="maximum_size">
+						<local_schema>
+							<longdesc>Maximálna veľkosť vyrovnávacej pamäti náhľadov v megabajtoch. Nastavením na -1 vypnete čistenie.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="maximum_age">
+						<local_schema>
+							<longdesc>Maximálny vek náhľadov vo vyrovnávacej pamäti v dňoch. Nastavením na -1 vypnete čistenie.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="sound">
+					<entry name="input_feedback_sounds">
+						<local_schema short_desc="Zvuky spätnej väzby vstupu">
+							<longdesc>Či zahrať zvuky pri udalostiach vstupu.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="theme_name">
+						<local_schema short_desc="Názov zvukovej témy">
+							<longdesc>Téma zvuku XDG, ktorú použiť pre zvuky udalostí.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="event_sounds">
+						<local_schema short_desc="Zvuky pre udalosti">
+							<longdesc>Či zahrať zvuky pri používateľských udalostiach.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="enable_esd">
+						<local_schema short_desc="Povoliť ESD">
+							<longdesc>Povoliť štart zvukového servera.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="default_mixer_tracks">
+						<local_schema short_desc="Predvolené stopy mixéra">
+							<longdesc>Predvolené stopy mixéra použitého multimediálnym priradením kláves.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="default_mixer_device">
+						<local_schema short_desc="Predvolené zariadenie mixéra">
+							<longdesc>Predvolené zariadenie mixéra použitého multimediálnym priradením kláves.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="peripherals">
+					<dir name="mouse">
+						<entry name="cursor_size">
+							<local_schema short_desc="Veľkosť kurzora">
+								<longdesc>Veľkosť kurzora odkazovaného v cursor_theme.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="cursor_theme">
+							<local_schema short_desc="Téma kurzora">
+								<longdesc>Názov témy kurzora. Použité len Xservermi, ktoré podporujú Xcursor, ako sú XFree86 4.3 a novšie.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="cursor_font">
+							<local_schema short_desc="Písmo kurzora">
+								<longdesc>Názov písma pre kurzor. Ak je nenastavené, použije sa štandardné písmo. Táto hodnota je len odovzdaná X serveru pri štarte každého sedenia. Jej zmena počas sedenia sa prejaví až pri vašom ďalšom prihlásení.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="locate_pointer">
+							<local_schema short_desc="Nájsť ukazovateľ">
+								<longdesc>Zvýrazní aktuálnu polohu ukazovateľa pri stlačení a uvoľnení klávesy Control.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="double_click">
+							<local_schema short_desc="Čas dvojitého kliknutia">
+								<longdesc>Dĺžka dvojitého kliknutia.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="drag_threshold">
+							<local_schema short_desc="Hranica ťahania">
+								<longdesc>Vzdialenosť pred začatím ťahania.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="motion_threshold">
+							<local_schema short_desc="Hranica pohybu">
+								<longdesc>Vzdialenosť v bodoch, o ktorú sa musí ukazovateľ posunúť, kým bude aktivovaný zrýchlený posun. Hodnota -1 nastaví systémom predvolenú hodnotu.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="motion_acceleration">
+							<local_schema short_desc="Jednoduché kliknutie">
+								<longdesc>Urýchľovací násobič pre pohyb myši. Hodnota -1 nastaví systémom predvolenú hodnotu</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="single_click">
+							<local_schema short_desc="Jednoduché kliknutie">
+								<longdesc>Jednoduché kliknutie na otvorenie ikon.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="left_handed">
+							<local_schema short_desc="Orientícia tlačidiel myši">
+								<longdesc>Prehodiť ľavé a pravé tlačidlá myši pre ľavákov.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="keyboard">
+						<entry name="remember_numlock_state">
+							<local_schema short_desc="Zapamätať stav Numlock">
+								<longdesc>Ak je nastavené na true, GNOME si zapamätá stav NumLock LED medzi sedeniami.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bell_custom_file">
+							<local_schema short_desc="Názov súboru používateľského zvukového návestia klávesnice">
+								<longdesc>Názov súboru zvukového návestia, ktorý má byť prehratý.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bell_mode">
+							<local_schema>
+								<longdesc>možné hodnoty sú: &quot;on&quot;, &quot;off&quot; a &quot;custom&quot;.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+				<dir name="lockdown">
+					<entry name="disable_application_handlers">
+						<local_schema short_desc="Deaktivovať ovládače URL a MIME typu">
+							<longdesc>Zabráni spusteniu ovládacej aplikácie pre URL alebo MIME typ.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_lock_screen">
+						<local_schema short_desc="Zakázať uzamykaciu obrazovku">
+							<longdesc>Zamedziť používateľovi uzamknúž obrazovku.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_user_switching">
+						<local_schema short_desc="Deaktivovať prepínanie používateľov">
+							<longdesc>Zamedziť používateľovi prepnúť na iný účet, kým je jeho sedenie aktívne.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_print_setup">
+						<local_schema short_desc="Deaktivovať nastavenie tlače">
+							<longdesc>Nepovoliť používateľovi upravovať nastavenia tlače. Napríklad, toto by deaktivovalo prístup k dialógovým oknám &quot;Nastavenie tlače&quot; všetkých aplikácií.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_printing">
+						<local_schema short_desc="Deaktivovať tlač">
+							<longdesc>Zamedziť používateľovi tlačiť. Napríklad, toto by znemožnilo prístup k dialógovým oknám &quot;Tlačiť&quot; všetkých aplikácií.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_save_to_disk">
+						<local_schema short_desc="Deaktivovať ukladanie súborov na disk">
+							<longdesc>Zamedziť používateľovi ukladať súbory na disk. Napríklad, toto by znemožnilo prístup k dialógovým oknám &quot;Uložiť ako&quot; všetkých aplikácií.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_command_line">
+						<local_schema short_desc="Deaktivovať príkazový riadok">
+							<longdesc>Nepovoliť používateľovi prístup k terminálu alebo zadať príkazový riadok na spustenie. Napríklad, toto by deaktivovalo prístup k dialógovému oknu panela &quot;Spustiť aplikáciu&quot;.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="interface">
+					<entry name="show_unicode_menu">
+						<local_schema short_desc="Zobraziť ponuku &apos;Riadiace znaky Unicode&apos;">
+							<longdesc>Či majú kontextové ponuky vstupov a textových pohľadov ponúkať vloženie riadiacich znakov.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="show_input_method_menu">
+						<local_schema short_desc="Zobraziť ponuku &apos;Metódy vstupu&apos;">
+							<longdesc>Či majú kontextové ponuky vstupov a textových pohľadov ponúkať zmenu metódy vstupu.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menubar_accel">
+						<local_schema short_desc="Akcelerátor lišty ponuky">
+							<longdesc>Klávesová skratka pre otvorenie lišty ponuky.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="file_chooser_backend">
+						<local_schema short_desc="Modul pre GtkFileChooser">
+							<longdesc>Modul, ktorý použiť ako model súborového systému pre nástroj GtkFileChooser. Možné hodnoty sú &quot;gio&quot;, &quot;gnome-vfs&quot; a &quot;gtk+&quot;.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="status_bar_meter_on_right">
+						<local_schema short_desc="Stavová lišta vpravo">
+							<longdesc>Či zobraziť merač stavového riadku vpravo.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="use_custom_font">
+						<local_schema short_desc="Použiť používateľské písmo">
+							<longdesc>Či použiť používateľské písmo v gtk+ aplikáciách.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="monospace_font_name">
+						<local_schema short_desc="Písmo s rovnakým odstupom">
+							<longdesc>Názov písma s rovnakým odstupom (s konštantnou šírkou) pre použitie na miestach ako terminál.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="document_font_name">
+						<local_schema short_desc="Písmo dokumentu">
+							<longdesc>Názov predvoleného písma používaného pre čítanie dokumentov.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-module">
+						<local_schema short_desc="Modul GTK VM">
+							<longdesc>Názov modulu vstupnej metódy používaného GTK+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-status-style">
+						<local_schema short_desc="Stavový štýl GTK VM">
+							<longdesc>Názov Stavového štýlu vstupnej metódy GTK+ použitého gtk+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-preedit-style">
+						<local_schema short_desc="Prededitovací štýl GTK VM">
+							<longdesc>Názov Prededitovacieho štýlu vstupnej metódy GTK+ použitého gtk+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="font_name">
+						<local_schema short_desc="Predvolené písmo">
+							<longdesc>Názov predvoleného písma používaného gtk+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_key_theme">
+						<local_schema short_desc="Téma Gtk+">
+							<longdesc>Základné meno predvolenej témy použitej gtk+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_theme">
+						<local_schema short_desc="Téma Gtk+">
+							<longdesc>Základné meno predvolenej témy použitej gtk+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="icon_theme">
+						<local_schema short_desc="Téma ikon">
+							<longdesc>Téma ikon, ktorú používa panel, nautilus atď.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink_time">
+						<local_schema short_desc="Čas blikania kurzora">
+							<longdesc>Dĺžka cyklu blikania kurzora v milisekundách.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink">
+						<local_schema short_desc="Blikanie kurzora">
+							<longdesc>Či by mal kurzor blikať.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_icons_size">
+						<local_schema short_desc="Veľkosť ikon v lište nástrojov">
+							<longdesc>Veľkosť ikon v lištách nástrojov, buď &quot;small-toolbar&quot; alebo &quot;large-toolbar&quot;.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_detachable">
+						<local_schema short_desc="Odpojiteľná lišta nástrojov">
+							<longdesc>Či používateľ može odpojiť lišty nástrojov a pohybovať nimi.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menubar_detachable">
+						<local_schema short_desc="Odpojiteľná lišta ponuky">
+							<longdesc>Či používateľ môže odpojiť lišty ponuky a pohybovať nimi.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="buttons_have_icons">
+						<local_schema short_desc="Tlačidlá majú ikony">
+							<longdesc>Či sa na tlačidlách môžu okrem textu tlačidla zobrazovať aj ikony.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menus_have_icons">
+						<local_schema short_desc="Položky ponuky majú ikony">
+							<longdesc>Či sa v ponukách môžu zobrazovať ikony vedľa položiek menu.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_style">
+						<local_schema short_desc="Štýl lišty nástrojov">
+							<longdesc>Štýl lišty nástrojov. Platné hodnoty sú &quot;both&quot;, &quot;both-horiz&quot;, &quot;icons&quot; a &quot;text&quot;.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="can_change_accels">
+						<local_schema short_desc="Možnosť zmeniť akcelerátory">
+							<longdesc>Či môže používateľ dynamicky zadať nový akcelerátor keď je jeho pozícia nad aktívnou položkou ponuky.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menus_have_tearoff">
+						<local_schema short_desc="Ponuky majú odtrhovátko">
+							<longdesc>Či by ponuky mali mať odtrhovátko.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="enable_animations">
+						<local_schema short_desc="Povoliť animácie">
+							<longdesc>Či majú byť zobrazované animácie. Poznámka: Toto je globálne nastavenie a zmení správanie správcu okien, panelu atď.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="accessibility">
+						<local_schema short_desc="Povoliť dostupnosť">
+							<longdesc>Či aplikácie majú mať podporu pre postihnutých.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="file-views">
+					<entry name="icon_theme">
+						<local_schema short_desc="Téma ikony súboru">
+							<longdesc>Téma použitá pri zobrazovaní ikon súboru.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="background">
+					<entry name="color_shading_type">
+						<local_schema short_desc="Typ farebného tieňovania">
+							<longdesc>Ako tieňovať farbu pozadia. Možné hodnoty sú &quot;horizontal-gradient&quot;, &quot;vertical-gradient&quot; a &quot;solid&quot;.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="secondary_color">
+						<local_schema short_desc="Sekundárna farba">
+							<longdesc>Pravá alebo dolná farba pri kreslení prechodov, nepoužité pre jednoliatu farbu.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="primary_color">
+						<local_schema short_desc="Primárna farba">
+							<longdesc>Ľavá alebo horná farba pri kreslení prechodov alebo jednoliata farba.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_opacity">
+						<local_schema short_desc="Priehľadnosť obrázka">
+							<longdesc>Priehľadnosť, pomocou ktorej vykresliť obrázok pozadia.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_filename">
+						<local_schema short_desc="Názov súboru obrázka">
+							<longdesc>Súbor, ktorý použiť ako obrázok pozadia.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_options">
+						<local_schema short_desc="Voľby obrázka">
+							<longdesc>Určuje, ako je vykreslený obrázok nastavený cez wallpaper_filename. Možné hodnoty sú &quot;none&quot;, &quot;wallpaper&quot;, &quot;centered&quot;, &quot;scaled&quot;, &quot;stretched&quot;, &quot;zoom&quot;, &quot;spanned&quot;.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="draw_background">
+						<local_schema short_desc="Vykresliť pozadie pracovnej plochy">
+							<longdesc>Má GNOME vykresliť pozadie pracovnej plochy.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="applications">
+					<dir name="component_viewer">
+						<entry name="exec">
+							<local_schema short_desc="Štandardná aplikácia prehliadača súčastí">
+								<longdesc>Aplikácia používaná pre zobrazenie súborov, ktoré vyžadujú nejakú súčasť pre zobrazenie. Parameter %s bude nahradený URI súborov, parameter %c bude nahradený IID súčasti.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="window_manager">
+						<entry name="workspace_names">
+							<local_schema short_desc="Mená pracovných plôch (zastaralé)">
+								<longdesc>Zoznam mien prvých pracovných plôch správcu okien. Tento kľúč je zastaralý od GNOME 2.12.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="number_of_workspaces">
+							<local_schema short_desc="Počet pracovných plôch (zastaralé)">
+								<longdesc>Počet pracovných plôch, ktoré má použiť správca okien. Tento kľúč je zastaralý od GNOME 2.12.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="current">
+							<local_schema short_desc="Správca okien používateľa (zastaralé)">
+								<longdesc>Správca okien, ktorý skúsiť najskôr. Tento kľúč je zastaralý od GNOME 2.12.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="default">
+							<local_schema short_desc="Predvolený správca okien (zastaralé)">
+								<longdesc>Predvolený správca okien, ak správca okien zvolený používateľom nebol nájdený. Tento kľúč je zastaralý od GNOME 2.12.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="terminal">
+						<entry name="exec_arg">
+							<local_schema short_desc="Argument spustenia pre štandardný terminál">
+								<longdesc>Parameter používaný pri spúšťaní štandardnej aplikácie terminálu.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Štandardná aplikácia terminálu">
+								<longdesc>Štandardná aplikácia terminálu používaná pre aplikácie, ktoré vyžadujú terminál.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="tasks">
+						<entry name="needs_term">
+							<local_schema short_desc="Úlohy potrebujú terminál">
+								<longdesc>Či predvolená aplikácia úloh potrebuje terminál pre svoj beh</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Predvolené úlohy">
+								<longdesc>Predvolená aplikácia úloh</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="calendar">
+						<entry name="needs_term">
+							<local_schema short_desc="Kalendár potrebuje terminál">
+								<longdesc>Či predvolená aplikácia kalendára potrebuje terminál pre svoj beh</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Predvolený kalendár">
+								<longdesc>Predvolená kalendárová aplikácia</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="browser">
+						<entry name="nremote">
+							<local_schema short_desc="Prehliadač vie pracovať vzdialene">
+								<longdesc>Či predvolený prehliadač ovláda netscape remote.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="needs_term">
+							<local_schema short_desc="Prehliadač potrebuje terminál">
+								<longdesc>Či predvolený prehliadač potrebuje terminál pre svoj beh.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Predvolený prehliadač">
+								<longdesc>Predvolený prehliadač pre všetky URL.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="at">
+						<dir name="visual">
+							<entry name="startup">
+								<local_schema short_desc="Spustiť uprednostňovanú aplikáciu zrakových pomocných technológií">
+									<longdesc>GNOME má spustiť uprednostňovanú aplikáciu zrakových pomocných technológií počas prihlásenia.</longdesc>
+								</local_schema>
+							</entry>
+							<entry name="exec">
+								<local_schema short_desc="Uprednostňovaná aplikácia zrakových pomocných technológií">
+									<longdesc>Uprednostňovaná aplikácia zrakových pomocných technológií bude použitá pre prihlásenie, ponuky, alebo príkazový riadok.</longdesc>
+								</local_schema>
+							</entry>
+						</dir>
+						<dir name="mobility">
+							<entry name="startup">
+								<local_schema short_desc="Spustiť uprednostňovanú aplikáciu pomocných technológií pohyblivosti">
+									<longdesc>GNOME má spustiť uprednostňovanú aplikáciu pomocných technológií pohyblivosti počas prihlásenia.</longdesc>
+								</local_schema>
+							</entry>
+							<entry name="exec">
+								<local_schema short_desc="Uprednostňovaná aplikácia pomocných technológií pohyblivosti">
+									<longdesc>Uprednostňovaná aplikácia pomocných technológií pohyblivosti, ktorá bude použitá pre prihlásenie, ponuky, alebo príkazový riadok.</longdesc>
+								</local_schema>
+							</entry>
+						</dir>
+					</dir>
+				</dir>
+				<dir name="accessibility">
+					<dir name="startup">
+						<entry name="exec_ats">
+							<local_schema short_desc="Štartovacie aplikácie pomocných technológií">
+								<longdesc>Zoznam aplikácií pomocných technológií, ktoré sa majú spustiť pri prihlásení do pracovného prostredia GNOME.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="keyboard">
+						<entry name="stickykeys_modifier_beep">
+							<local_schema>
+								<longdesc>Pípnuť pri stlačení modifikátora.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="stickykeys_two_key_off">
+							<local_schema>
+								<longdesc>Deaktivovať ak sú dve klávesy stlačené naraz.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="slowkeys_delay">
+							<local_schema short_desc="Minimálny interval v milisekundách">
+								<longdesc>Neakceptovať kláves ako stlačený, kým nie je stlačený aspoň @delay milisekúnd.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_init_delay">
+							<local_schema short_desc="Počiatočné oneskorenie v milisekundách">
+								<longdesc>Koľko milisekúnd čakať pred začiatkom fungovania kláves na presúvanie myši.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_accel_time">
+							<local_schema short_desc="Ako dlho urýchľovať v milisekundách">
+								<longdesc>Koľko milisekúnd trvá zrýchlenie z 0 na maximálnu rýchlosť.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_max_speed">
+							<local_schema short_desc="Bodov za sekundu">
+								<longdesc>Koľko bodov za sekundu posúvať pri maximálnej rýchlosti.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bouncekeys_delay">
+							<local_schema short_desc="minimálny interval v milisekundách">
+								<longdesc>Ignorovať viacnásobné stlačenia _rovnakého_ klávesu v intervale @delay milisekúnd.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+			</dir>
+		</dir>
+	</dir>
+</gconf>

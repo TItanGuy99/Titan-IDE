@@ -1,0 +1,13 @@
+cd dc
+cd kos
+chmod u+x environ.sh
+source environ.sh
+make
+cd Projects
+cd my_game
+make clean
+make
+sh-elf-objcopy -R .stack -O binary main.elf output.bin
+scramble output.bin 1st_read.bin
+exit
+exit

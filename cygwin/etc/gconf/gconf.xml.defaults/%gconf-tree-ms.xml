@@ -1,0 +1,227 @@
+<?xml version="1.0"?>
+<gconf>
+	<dir name="schemas">
+		<dir name="desktop">
+			<dir name="gnome">
+				<dir name="typing_break">
+					<entry name="break_time">
+						<local_schema short_desc="Masa rehat">
+						</local_schema>
+					</entry>
+					<entry name="type_time">
+						<local_schema short_desc="Masa menaip">
+							<longdesc>Bilangan minit oleh masa menaip sebelum mod rehat bermula.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="sound">
+					<entry name="event_sounds">
+						<local_schema short_desc="Bunyi bagi acara">
+							<longdesc>Samada memainkan bunyi pada acara pengguna.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="enable_esd">
+						<local_schema short_desc="Hidupkan ESD">
+							<longdesc>Hidupkan permulaan pelayan bunyi.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="peripherals">
+					<dir name="mouse">
+						<entry name="cursor_size">
+							<local_schema short_desc="Saiz Kursor">
+							</local_schema>
+						</entry>
+						<entry name="cursor_theme">
+							<local_schema short_desc="Tema kursor">
+							</local_schema>
+						</entry>
+						<entry name="cursor_font">
+							<local_schema short_desc="Font kursor">
+							</local_schema>
+						</entry>
+						<entry name="locate_pointer">
+							<local_schema short_desc="Cari Pentuding">
+							</local_schema>
+						</entry>
+						<entry name="double_click">
+							<local_schema short_desc="Masa Dwi-Klik">
+							</local_schema>
+						</entry>
+						<entry name="motion_threshold">
+							<local_schema>
+								<longdesc>Jarak dalam piksel dimana pentuding mesti gerak sebelum pergerakan tetikus dipecut diaktifkan. Nilai -1 adalah default sistem</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="motion_acceleration">
+							<local_schema short_desc="Klik Tunggal">
+								<longdesc>Pendarab pemecut bagi pergerakan tetikus. Nilai -1 adalah default sistem.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="single_click">
+							<local_schema short_desc="Klik Tunggal">
+							</local_schema>
+						</entry>
+						<entry name="left_handed">
+							<local_schema short_desc="Orientasi butang tetikus">
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="keyboard">
+						<entry name="bell_custom_file">
+							<local_schema short_desc="Namafail Loceng tersendiri Papankekunci">
+							</local_schema>
+						</entry>
+						<entry name="bell_mode">
+							<local_schema>
+								<longdesc>nilai yang boleh adalah &quot;on&quot;, &quot;off&quot; dan &quot;custom&quot;.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+				<dir name="interface">
+					<entry name="status_bar_meter_on_right">
+						<local_schema short_desc="Bar Status pada Kanan">
+						</local_schema>
+					</entry>
+					<entry name="use_custom_font">
+						<local_schema short_desc="Guna Font Tersendiri">
+							<longdesc>Samada untuk menggunakan font sendiri pada aplikasi gtk+</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="monospace_font_name">
+						<local_schema short_desc="Font monoruang">
+							<longdesc>Nama bagi font monoruang (lebar-tetap) untuk digunakan pada lokasi seperti terminal.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-status-style">
+						<local_schema short_desc="Gaya Status IM GTK">
+							<longdesc>Nama bagi Gaya Status kaedah input GTK+ digunakan oleh gtk+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-preedit-style">
+						<local_schema short_desc="Gaya Preedit Im GTK">
+							<longdesc>Nama Gaya Preedit kaedah input GTK+ digunakan oleh gtk+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="font_name">
+						<local_schema short_desc="Font default">
+							<longdesc>Nama fonr default digunakan oleh gtk+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_key_theme">
+						<local_schema short_desc="Tema GTK">
+							<longdesc>Nama dasar bagi tema default digunakan oleh gtk+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_theme">
+						<local_schema short_desc="Tema GTK">
+							<longdesc>Nama dasar bagi tema default digunakan oleh gtk+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="icon_theme">
+						<local_schema short_desc="Tema Ikon">
+							<longdesc>Tema ikon untuk digunakan pada panel, nautilus dll.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink_time">
+						<local_schema short_desc="Masa Kelipan Kursor">
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink">
+						<local_schema short_desc="Kelipan Kursor">
+						</local_schema>
+					</entry>
+					<entry name="toolbar_icons_size">
+						<local_schema short_desc="Saiz Ikon Toolbar">
+						</local_schema>
+					</entry>
+					<entry name="toolbar_detachable">
+						<local_schema short_desc="Toolbar bolehdilerai">
+						</local_schema>
+					</entry>
+					<entry name="menubar_detachable">
+						<local_schema short_desc="Bar Menu bolehdilerai">
+						</local_schema>
+					</entry>
+					<entry name="menus_have_icons">
+						<local_schema short_desc="Menu Mempunyai Ikon">
+						</local_schema>
+					</entry>
+					<entry name="toolbar_style">
+						<local_schema short_desc="Gaya Toolbar">
+						</local_schema>
+					</entry>
+					<entry name="can_change_accels">
+						<local_schema short_desc="Boleh Tukar Pemecut">
+						</local_schema>
+					</entry>
+					<entry name="menus_have_tearoff">
+						<local_schema short_desc="Menu mempunyai pengoyak">
+						</local_schema>
+					</entry>
+					<entry name="enable_animations">
+						<local_schema short_desc="Hidupkan animasi">
+							<longdesc>Samada animasi patut dipaparkan. Nota: Ini adalah kekunci global, ia menukar kelakuan bagi pengurus tetingkap, panel dll.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="accessibility">
+						<local_schema short_desc="Hidupkan kebolehcapaian">
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="file-views">
+					<entry name="icon_theme">
+						<local_schema short_desc="Tema Ikon Fail">
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="background">
+					<entry name="color_shading_type">
+						<local_schema short_desc="Jenis Kesuraman Warna">
+						</local_schema>
+					</entry>
+					<entry name="secondary_color">
+						<local_schema short_desc="Warna Sekunder">
+							<longdesc>warna Kanan atau Bawah bila melukis gradien, tak digunakan untuk warna tegar.Warna Kanan atau Bawah bila melukis gradien, tidak digunakan untuk warna tegar.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="primary_color">
+						<local_schema short_desc="Warna Utama">
+							<longdesc>Warna kiri atau atas bila melukis gradien, atau warna tegar.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_opacity">
+						<local_schema short_desc="Opacity Gambar">
+						</local_schema>
+					</entry>
+					<entry name="picture_filename">
+						<local_schema short_desc="Namafail Gambar">
+						</local_schema>
+					</entry>
+					<entry name="picture_options">
+						<local_schema short_desc="Opsyen Gambar">
+						</local_schema>
+					</entry>
+					<entry name="draw_background">
+						<local_schema short_desc="Lukis LatarBelakang Desktop">
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="applications">
+					<dir name="terminal">
+						<entry name="exec_arg">
+							<local_schema short_desc="Hujah Exec">
+								<longdesc>Hujah digunakan untuk melaksanakan program pada terminal ditakrifkan dengan kekunci &apos;exec&apos;</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Aplikasi terminal">
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+			</dir>
+		</dir>
+	</dir>
+</gconf>

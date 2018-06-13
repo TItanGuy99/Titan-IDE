@@ -1,0 +1,231 @@
+#!/usr/bin/perl -w
+
+# Simple Source metrics for C++
+# Started by Taj Sun Apr 26 03:31:00 EST 1998
+# $Id$
+
+use strict;
+
+our $bigblank = 0;
+our $bigcommt = 0;
+our $bigstrcount = 0;
+our $bigstrsize = 0;
+our $bigtotal = 0;
+our $numfiles = 0;
+
+our $blocklen = 0;
+our $numblocks = 0;
+our $blockdepth = 0;
+our $blockstart = 0;
+our $blockmin = -1;
+our $blockmax = 0;
+our @blenlist = ();
+our @extensions = ( ".cpp", ".cc", ".c", ".cxx", ".c++", ".h", ".hh", ".hpp", ".hxx", ".tcc" );
+our %byExt = ();
+
+sub processFile
+{
+	our ( $file ) = @_;
+	our $blank  = 0;
+	our $comment  = 0;
+	our $total  = 0;
+	our $incomment  = 0;
+	our $strcount = 0;
+	our $strsize = 0;
+
+	open( SOURCE, "$file" ) || 
+		die "cxxmetric: Couldn't read from $file.\n";
+
+	while( <SOURCE> ) {
+		$total++;
+
+		if ( /^\s*$/ ) {
+			$blank++;
+			next;
+		}
+
+		if ( m#^\s*//# ) {
+			$comment++;
+			next;
+		}
+
+		if ( /{/ ) {
+			# block start
+			$blockdepth += s/{/{/g;
+
+			$blockstart = $. if $blockdepth  == 1;
+		}
+
+		if ( /}/ ) {
+			# block end
+
+			$blockdepth -= s/}/}/g;
+
+			if( $blockdepth == 0 ) {
+				my $thisblocklen = $. - $blockstart;
+				push @blenlist, $thisblocklen;
+				
+				$blocklen += $thisblocklen;
+				$numblocks++;
+
+				if( $blockmax < $thisblocklen ) {
+					$blockmax = $thisblocklen;
+				}
+
+				if ( $blockmin == -1 
+					|| $blockmin > $thisblocklen ) {
+					$blockmin = $thisblocklen;
+				}
+			}
+		}	
+
+		my $start = 0;
+		my $stop  = 0;
+
+		if ( m#/\*# ) {
+			$start = 1;
+		}
+		
+		if( m#\*/# ) {
+			$stop = 1;
+		}
+
+		if( $start ) {
+			$incomment = 1 unless $stop;
+			$comment++;
+		}
+		elsif ( $stop ) {
+			$comment++;
+			$incomment = 0;
+		}
+		elsif ( $incomment ) {
+				$comment++;
+		}
+		else {
+				my $line = $_;
+				countStrings( $line );
+		}
+	}
+
+	our $code = $total - ($comment + $blank );
+	$bigtotal += $total;
+	$bigcommt += $comment;
+	$bigblank += $blank;
+	$bigstrcount += $strcount;
+	$bigstrsize += $strsize;
+	
+	our $stravglen = $strcount ? ($strsize / $strcount) : 0;
+
+	write;
+}
+
+sub buildFileList {
+  my ( $dir ) = @_;
+  my @fileList = glob( "$dir/*" );
+  my @cxxList;
+
+  foreach my $file (@fileList) {
+
+    if( -d $file ) {
+      push @cxxList, buildFileList( $file );
+    }
+    else {
+      foreach my $extension (@extensions) {
+        # Case-insensitive "endsWith"
+        if( uc( substr( $file, length( $file ) - length( $extension ) ) ) eq uc ( $extension ) ) {
+           $byExt{$extension} += 1;
+           push @cxxList, $file;
+        }
+      }
+    }
+  }
+
+  return @cxxList;
+}
+
+sub countStrings
+{
+		my $line = shift;
+
+		foreach my $string ( split( /("[^"]*)\"/, $line ) ) {
+				next unless $string =~ /^\"/;
+
+				our $strcount++;
+				our $strsize += length( $string ) - 1;
+		}
+}
+
+sub pct
+{
+	my( $top, $bottom ) = @_;
+
+	return 0 if $bottom == 0;
+
+	return int(( $top * 100 ) / $bottom);
+}
+
+our @files;
+
+if( @ARGV == 0 ) {
+  @files = buildFileList(".");
+}
+else {
+  @files = @ARGV;
+}
+
+foreach my $file ( @files ) {
+	processFile( $file );
+	++$numfiles;
+}
+
+our $total =  $bigtotal;
+our $comment = $bigcommt;
+our $blank = $bigblank;
+our $code  = $bigtotal - ($bigcommt + $bigblank );
+our $file = "Total";
+
+print "\n";
+write;
+
+print "\nPercentage Code:\t" , pct( $code, $total ),"%\n";
+print "Percentage Comment:\t" , pct( $comment, $total ),"%\n";
+print "Percentage Blank:\t" , pct( $blank, $total ),"%\n";
+print "Ratio Comment/Code:\t" , pct( $comment, $code + $comment ),"% Comment\n";
+print "Average Code/File:\t" , int($code/$numfiles)," lines\n" 
+	unless $numfiles == 0;
+
+if ( $numblocks > 0 ) {
+	my $avg = int( $blocklen / $numblocks );
+	@blenlist = sort @blenlist;
+	my $median = $blenlist[ int( $numblocks / 2 )];
+print<<EOF;
+
+Blocks:\t$numblocks
+\tLengths (lines):\tmin: $blockmin\tmax: $blockmax\tmed: $median\taverage: $avg
+EOF
+}
+
+our $bigstravglen = $bigstrcount ? int($bigstrsize / $bigstrcount) : 0;
+
+print<<EOF;
+Strings:\t$bigstrcount
+\tSize (bytes):\ttotal: $bigstrsize\taverage: $bigstravglen
+EOF
+
+print "Counts by file extension:\n";
+foreach my $ext (keys %byExt) {
+  print "\t$ext\t" . $byExt{$ext} . "\n";
+}
+
+exit;
+
+format STDOUT_TOP =
+ Lines	Code	Comment	 Blank	Strs   AvgLen File
+ ------	-------	-------- ------	------ ------ ------
+
+.
+
+format STDOUT =
+@######	@######	@######	@######	@######	@######	@*
+$total, $code, $comment, $blank, our $strcount, our $stravglen, $file
+.

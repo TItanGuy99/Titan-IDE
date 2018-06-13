@@ -1,0 +1,5 @@
+/usr/bin/fmtutil-sys --enablefmt amstex/pdftex
+if [ ! -f /var/lib/texmf/postinstall/texlive.rebuild_all_fmts ]
+then
+/usr/bin/fmtutil-sys --byfmt amstex
+fi

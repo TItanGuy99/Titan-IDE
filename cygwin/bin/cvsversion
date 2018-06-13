@@ -1,0 +1,30 @@
+#!/bin/sh
+exec awk -F / "{ if (\$2 == \"`basename $1`\") print \$3 }" < `dirname $1`/CVS/Entries
+
+=head1 NAME
+
+cvsversion -- Displays version of the file passed as argument.
+
+=head1 SYNOPSIS
+
+    cvsversion <file>
+
+=head1 DESCRIPTION
+
+cvsversion displays the version in CVS of a file, as known by the local
+checked out directory. No connection is required to the CVS server.
+It can be used in other scripts, or simply to ask 
+for diffs using
+
+cvs diff -r <version> [-r <version>] <file>
+
+=head1 EXAMPLES
+
+    cd baseline/kdelibs ; cvsversion configure.in
+    cvsversion baseline/kdelibs/configure.in
+
+=head1 AUTHOR
+
+David Faure <faure@kde.org>
+
+=cut

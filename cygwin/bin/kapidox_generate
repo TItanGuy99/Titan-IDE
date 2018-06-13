@@ -1,0 +1,194 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+#
+# Copyright 2014  Alex Merry <alex.merry@kdemail.net>
+# Copyright 2014  Aurélien Gâteau <agateau@kde.org>
+# Copyright 2014  Alex Turbov <i.zaufi@gmail.com>
+# Copyright 2016  Olivier Churlaud <olivier@churlaud.com>
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+#
+# 1. Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in the
+#    documentation and/or other materials provided with the distribution.
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+# IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+# OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+# IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+# INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+# NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+# THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+# Python 2/3 compatibility (NB: we require at least 2.7)
+from __future__ import division, absolute_import, print_function, unicode_literals
+
+import logging
+import codecs
+import os
+import shutil
+import sys
+import tempfile
+import time
+import datetime
+
+if sys.version_info.major < 3:
+    from urllib import urlretrieve
+else:
+    from urllib.request import urlretrieve
+
+from kapidox import generator, utils, argparserutils, preprocessing
+
+try:
+    from kapidox import depdiagram
+    DEPDIAGRAM_AVAILABLE = True
+except ImportError:
+    DEPDIAGRAM_AVAILABLE = False
+
+
+def find_dot_files(dot_dir):
+    """Returns a list of path to files ending with .dot in subdirs of `dot_dir`."""
+    lst = []
+    for (root, dirs, files) in os.walk(dot_dir):
+        lst.extend([os.path.join(root, x) for x in files if x.endswith('.dot')])
+    return lst
+
+
+def download_kde_identities():
+    """Download the "accounts" file on the KDE SVN repository in order to get
+       the KDE identities with their name and e-mail address
+    """
+    cache_file = os.path.join(utils.cache_dir(), 'kde-accounts')
+    needs_download = True
+    if os.path.exists(cache_file):
+        logging.debug("Found cached identities file at %s", cache_file)
+        # not quite a day, so that generation on api.kde.org gets a fresh
+        # copy every time the daily cron job runs it
+        yesterday = time.time() - (23.5 * 3600)
+        if os.path.getmtime(cache_file) > yesterday:
+            needs_download = False
+        else:
+            logging.debug("Cached file too old; updating")
+    if needs_download:
+        logging.info("Downloading KDE identities")
+        try:
+            if not utils.svn_export(
+                    'svn://anonsvn.kde.org/home/kde/trunk/kde-common/accounts',
+                    cache_file,
+                    overwrite=True):
+                logging.debug("Falling back to using websvn to fetch "
+                              "identities file")
+                urlretrieve('http://websvn.kde.org/*checkout*/trunk/kde-common/accounts',
+                            cache_file)
+        except Exception as e:
+            if os.path.exists(cache_file):
+                logging.error('Failed to update KDE identities: %s', e)
+            else:
+                logging.error('Failed to fetch KDE identities: %s', e)
+                return None
+
+    maintainers = {}
+
+    with codecs.open(cache_file, 'r', encoding='utf8') as f:
+        for line in f:
+            parts = line.strip().split()
+            if len(parts) >= 3:
+                maintainers[parts[0]] = {
+                    'name': ' '.join(parts[1:-1]),
+                    'email': parts[-1]
+                    }
+
+    return maintainers
+
+
+def main():
+    kde_copyright = '1996-' + str(datetime.date.today().year) + ' The KDE developers'
+    utils.setup_logging()
+    args = argparserutils.parse_args(DEPDIAGRAM_AVAILABLE)
+
+    tagfiles = generator.search_for_tagfiles(
+        suggestion=args.qtdoc_dir,
+        doclink=args.qtdoc_link,
+        flattenlinks=args.qtdoc_flatten_links,
+        searchpaths=['/usr/share/doc/qt5', '/usr/share/doc/qt'])
+
+    maintainers = download_kde_identities()
+    rootdir = args.sourcesdir
+
+    metalist = preprocessing.parse_tree(rootdir)
+    products, groups, libraries, available_platforms = preprocessing.sort_metainfo(metalist, maintainers)
+
+    dirsrc = os.path.join(args.doxdatadir, 'htmlresource')
+    dirdest = 'resources'
+    if os.path.isdir(dirdest):
+        shutil.rmtree(dirdest)
+    shutil.copytree(dirsrc, dirdest)
+    os.rename(dirdest+'/favicon.ico', './favicon.ico')
+
+    generator.process_toplevel_html_file('index.html',
+                               args.doxdatadir,
+                               title=args.title,
+                               products=products,
+                               api_searchbox=args.api_searchbox
+                               )
+    generator.process_subgroup_html_files('index.html',
+                                args.doxdatadir,
+                                title=args.title,
+                                groups=groups,
+                                available_platforms=available_platforms,
+                                api_searchbox=args.api_searchbox
+                                )
+    tmp_dir = tempfile.mkdtemp(prefix='kapidox-')
+
+    try:
+        if args.depdiagram_dot_dir:
+            dot_files = find_dot_files(args.depdiagram_dot_dir)
+            assert(dot_files)
+
+        for lib in libraries:
+            logging.info('# Generating doc for {}'.format(lib.fancyname))
+            if args.depdiagram_dot_dir:
+                png_path = os.path.join(tmp_dir, lib.name) + '.png'
+                ok = generator.generate_diagram(png_path, lib.fancyname,
+                                      dot_files, tmp_dir)
+                if ok:
+                    lib.dependency_diagram = png_path
+            ctx = generator.create_fw_context(args, lib, tagfiles)
+            generator.gen_fw_apidocs(ctx, tmp_dir)
+            tagfiles.append(generator.create_fw_tagfile_tuple(lib))
+
+        # Rebuild for interdependencies
+        for lib in libraries:
+            logging.info('# Rebuilding {} for interdependencies'
+                         .format(lib.fancyname))
+            shutil.rmtree(lib.outputdir)
+            ctx = generator.create_fw_context(args, lib, tagfiles, kde_copyright)
+            generator.gen_fw_apidocs(ctx, tmp_dir)
+            generator.finish_fw_apidocs(ctx, None)
+            logging.info('# Generate indexing files')
+            generator.indexer(lib)
+        logging.info('# Done')
+        for product in products:
+            generator.create_product_index(product)
+            if product.logo_url is not None:
+                logodir = os.path.dirname(product.logo_url)
+                if not os.path.isdir(logodir):
+                    os.mkdir(logodir)
+                shutil.copy(product.logo_url_src, product.logo_url)
+        generator.create_global_index(products)
+    finally:
+        if args.keep_temp_dirs:
+            logging.info('Kept temp dir at {}'.format(tmp_dir))
+        else:
+            shutil.rmtree(tmp_dir)
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<gconf>
+	<dir name="schemas">
+		<dir name="system">
+			<dir name="smb">
+				<entry name="workgroup">
+					<local_schema short_desc="SMB-werkgroep">
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="proxy">
+				<entry name="autoconfig_url">
+					<local_schema short_desc="Outomatiese instaanopstelling-URL">
+						<longdesc>URL wat instaanopstellingswaardes verskaf.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="socks_port">
+					<local_schema short_desc="SOCKS-instaanpoort">
+						<longdesc>Die poort op die masjien gedefinieer deur &quot;/system/proxy/socks_host&quot; waardeur jy &apos;n instaanverbinding kry.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="socks_host">
+					<local_schema short_desc="SOCKS-instaangasheernaam">
+						<longdesc>Die masjiennaam waardeur SOCKS ingestaan moet word.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="ftp_port">
+					<local_schema short_desc="FTP-instaanpoort">
+						<longdesc>Die poort op die masjien gedefinieer deur &quot;/system/proxy/ftp_host&quot; waardeur jy &apos;n instaanverbinding kry.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="ftp_host">
+					<local_schema short_desc="FTP-instaangasheernaam">
+						<longdesc>Die masjiennaam waardeur FTP ingestaan moet word.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="secure_port">
+					<local_schema short_desc="Veilige-HTTP-instaanpoort">
+						<longdesc>Die poort op die masjien gedefinieer deur &quot;/system/proxy/secure_host&quot; waardeur jy &apos;n instaanverbinding kry.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="secure_host">
+					<local_schema short_desc="Veilige-HTTP-instaangasheernaam">
+						<longdesc>Die masjiennaam waardeur veilige HTTP ingestaan moet word.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="mode">
+					<local_schema short_desc="Instaanopstelling-modus">
+						<longdesc>Selekteer die instaanopstelling-modus. Waardes wat werk is &quot;geen&quot;, &quot;handmatig&quot;, &quot;outo&quot;.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="http_proxy">
+				<entry name="ignore_hosts">
+					<local_schema short_desc="Nie-instaangashere">
+						<longdesc>Hierdie sleutel bevat &apos;n lys gashere wat direk in plaas van deur die instaanbediener (indien dit aktief is) gekoppel is. Die waardes kan gasheername, domeine (met &apos;n aanvanklike instaankarakter soos *.foo.com), IP-gasheeradresse (beide IPv4 en IPv6) en netwerkadresse met &apos;n netmasker (iets soos 192.168.0.0/24) wees.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="authentication_password">
+					<local_schema short_desc="HTTP-instaanwagwoord">
+						<longdesc>Wagwoord wat as geldigheidsvasstelling gevoer moet word wanneer HTTP-instanery gedoen word.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="authentication_user">
+					<local_schema short_desc="HTTP-instaangebruikernaam">
+						<longdesc>Gebruikernaam wat as geldigheidsvasstelling gevoer moet word wanneer HTTP-instanery gedoen word.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="use_authentication">
+					<local_schema short_desc="Verifieer instaanbedienerverbindings">
+					</local_schema>
+				</entry>
+				<entry name="port">
+					<local_schema short_desc="HTTP-instaanpoort">
+						<longdesc>Die poort op die masjien gedefinieer deur &quot;/system/http_proxy/host&quot; waardeur jy &apos;n instaanverbinding kry.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="host">
+					<local_schema short_desc="HTTP-instaangasheernaam">
+						<longdesc>Die masjiennaam waardeur HTTP ingestaan moet word.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="use_http_proxy">
+					<local_schema short_desc="Gebruik HTTP-instaanbediener">
+						<longdesc>Aktiveer die instaanopstelling wanneer toegang tot HTTP oor die internet verkry word.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+		</dir>
+		<dir name="desktop">
+			<dir name="gnome">
+				<dir name="applications">
+					<dir name="component_viewer">
+						<entry name="exec">
+							<local_schema short_desc="Verstekkomponentbekyker-toepassing">
+								<longdesc>Die toepassing waarmee lêers bekyk wat &apos;n komponent vereis om hulle te bekyk. Die parameter %s sal deur die lêer se URI&apos;s vervang word, die parameter %c sal deur die komponent-IID vervang word.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="terminal">
+						<entry name="exec_arg">
+							<local_schema short_desc="Exec-argument vir verstekterminaal">
+								<longdesc>Die exec-argument wat gebruik moet word vir die verstekterminaaltoepassing.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Verstekterminaaltoepassing">
+								<longdesc>Die verstekterminaaltoepassing wat gebruik moet word vir toepassings wat &apos;n terminaal vereis.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+			</dir>
+		</dir>
+	</dir>
+</gconf>

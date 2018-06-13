@@ -1,0 +1,51 @@
+#!/bin/sh
+# Cleans up a local CVS/SVN tree, by removing directories containing
+# remanants of old stuff which has been removed from CVS/SVN
+# Those stale dirs often break compilation...
+
+# Works better with srcdir!=builddir (since it will not remove directories
+# containing the old executable...)
+
+# NOTE: by default the script doesn't remove anything, just prints what to do
+# Copy and paste, or use eval in scripts.
+# Use '-f' to force it to happen (use with care, no warranties, etc.!)
+
+# David Faure <faure@kde.org>, script under public domain
+
+force=0;
+if [ "$1" = "-f" ]; then force=1; fi
+
+# Look for toplevel dirs
+dirs=`find . -type d | grep -v CVS\$ | grep -v admin\$ | grep -v .libs\$ | fgrep -v .svn`
+toremove="rm -rf";
+for i in $dirs; do if test -d $i; then
+  # Short way out, to avoid a full recursive listing from a toplevel module
+  if [ -f $i/configure.in.in -o -f $i/Makefile.am ]; then
+     :
+  else 
+    # List their contents and filter out generated files
+    realfiles=`find $i -type f | egrep -v  'CVS/|Makefile$|Makefile.in$|Makefile.rules.in$|Makefile.calls.in$|\.o$|\.lo$|\.rpo$|\.la$|\.moc|/\.#' `
+    if [ -z "$realfiles" ]; then
+      toremove="$toremove $i"
+    fi
+  fi
+fi; done
+
+if [ "$toremove" != "rm -rf" ]; then
+  # Do the same in the builddir, if srcdir != builddir
+  if [ -n "$OBJ_REPLACEMENT" ]; then
+    bdir=`echo $PWD | sed -e "$OBJ_REPLACEMENT"`
+    if test -d $bdir; then
+      bdcmd="( cd $bdir ; $toremove )"
+    fi
+  fi
+  # Print it or do it
+  if [ $force -eq 1 ]; then
+    eval $toremove
+    eval $bdcmd
+  else
+    echo $toremove
+    echo $bdcmd
+  fi
+fi
+

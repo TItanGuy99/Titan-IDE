@@ -1,0 +1,17 @@
+if [ ! -f /etc/openmpi-default-hostfile ]
+then
+    /usr/bin/mkdir -p /etc
+    /usr/bin/cp /etc/defaults/etc/openmpi-default-hostfile /etc/openmpi-default-hostfile
+fi
+
+if [ ! -f /etc/openmpi-mca-params.conf ]
+then
+    /usr/bin/mkdir -p /etc
+    /usr/bin/cp /etc/defaults/etc/openmpi-mca-params.conf /etc/openmpi-mca-params.conf
+fi
+
+if [ ! -f /etc/openmpi-totalview.tcl ]
+then
+    /usr/bin/mkdir -p /etc
+    /usr/bin/cp /etc/defaults/etc/openmpi-totalview.tcl /etc/openmpi-totalview.tcl
+fi

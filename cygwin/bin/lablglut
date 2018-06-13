@@ -1,0 +1,3 @@
+#!/bin/sh
+# toplevel with lablGL and LablGlut
+exec ocaml -I "/usr/lib/ocaml/lablGL" lablgl.cma lablglut.cma $*

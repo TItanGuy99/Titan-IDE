@@ -1,0 +1,627 @@
+<?xml version="1.0"?>
+<gconf>
+	<dir name="schemas">
+		<dir name="system">
+			<dir name="smb">
+				<entry name="workgroup">
+					<local_schema short_desc="SMB-munkacsoport">
+						<longdesc>A Windows hálózati munkacsoport vagy tartomány, amelynek a felhasználó része. Egy új munkacsoport teljes életbe lépéséhez a felhasználónak lehet, hogy ki-, majd újra be kell jelentkeznie.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="proxy">
+				<entry name="autoconfig_url">
+					<local_schema short_desc="Automatikus proxybeállítás URL címe">
+						<longdesc>A proxy beállításokat tartalmazó URL.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="socks_port">
+					<local_schema short_desc="SOCKS proxy port">
+						<longdesc>A „/system/proxy/socks_host” kulcsban proxyként megadott gép portja.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="socks_host">
+					<local_schema short_desc="SOCKS proxy gépnév">
+						<longdesc>A socks proxy gépneve.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="ftp_port">
+					<local_schema short_desc="FTP proxy port">
+						<longdesc>A „/system/proxy/ftp_host” kulcsban proxyként megadott gép portja.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="ftp_host">
+					<local_schema short_desc="FTP proxy gépnév">
+						<longdesc>Az FTP proxy gépneve.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="secure_port">
+					<local_schema short_desc="Biztonságos HTTP proxy port">
+						<longdesc>A „/system/proxy/secure_host” kulcsban proxyként megadott gép portja.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="secure_host">
+					<local_schema short_desc="Biztonságos HTTP proxy gépnév">
+						<longdesc>A biztonságos HTTP proxy gépneve.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="mode">
+					<local_schema short_desc="Proxybeállítás módja">
+						<longdesc>Válassza ki a proxybeállítás módját. Támogatott értékek: „none”, „manual”, „auto”.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="http_proxy">
+				<entry name="ignore_hosts">
+					<local_schema short_desc="Proxy nélkül elérhető kiszolgálók">
+						<longdesc>Ez a kulcs azon kiszolgálók listáját tartalmazza, amelyekhez közvetlenül kapcsolódik, proxy használata nélkül (ha az aktív). Az értékek lehetnek kiszolgálónevek, tartományok (kezdő helyettesítő karakterek használhatóak, pl. *.akarmi.hu), IP kiszolgálócímek (IPv4 és IPv6 egyaránt) és hálózati címek hálózati maszkkal (pl. 192.168.0.0/24).</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="authentication_password">
+					<local_schema short_desc="HTTP proxy jelszó">
+						<longdesc>HTTP proxy használatakor hitelesítéshez használandó jelszó.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="authentication_user">
+					<local_schema short_desc="HTTP proxy felhasználónév">
+						<longdesc>HTTP proxy használatakor hitelesítéshez használandó felhasználónév.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="use_authentication">
+					<local_schema short_desc="Kapcsolatok hitelesítése a proxy kiszolgálókhoz">
+						<longdesc>Ha be van kapcsolva, akkor a proxy kiszolgálóhoz történő kapcsolódásokhoz hitelesítés szükséges. A felhasználónév/jelszó párost a „/system/http_proxy/authentication_user” és a „/system/http_proxy/authentication_password” adja meg.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="port">
+					<local_schema short_desc="HTTP proxy port">
+						<longdesc>A „/system/http_proxy/host” kulcsban proxyként megadott gép portja.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="host">
+					<local_schema short_desc="HTTP proxy gépnév">
+						<longdesc>A HTTP proxy gépneve.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="use_http_proxy">
+					<local_schema short_desc="HTTP proxy használata">
+						<longdesc>Proxybeállítások bekapcsolása interneten keresztüli HTTP eléréskor.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="dns_sd">
+				<entry name="extra_domains">
+					<local_schema short_desc="Extra tartományok a DNS-SD szolgáltatások kereséséhez">
+						<longdesc>A „network:///” helyen látható DNS-SD tartományok vesszővel elválasztott listája.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="display_local">
+					<local_schema short_desc="Hogyan jelenítse meg a helyi DNS-SD szolgáltatást">
+						<longdesc>Lehetséges értékek: „merged”, „separate” és „disabled”.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+		</dir>
+		<dir name="desktop">
+			<dir name="gnome">
+				<dir name="typing_break">
+					<entry name="enabled">
+						<local_schema short_desc="Engedélyezve legyen-e a billentyűzetzárolás vagy sem">
+							<longdesc>Engedélyezve legyen-e a billentyűzetzárolás vagy sem?</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="allow_postpone">
+						<local_schema short_desc="Szünetek felfüggeszthetők">
+							<longdesc>A gépelési szünet felfüggeszthető legyen-e?</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="break_time">
+						<local_schema short_desc="Szünet ideje">
+							<longdesc>Ennyi percig tartson a gépelési szünet.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="type_time">
+						<local_schema short_desc="Gépelési idő">
+							<longdesc>Gépelési idő szünet előtt.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="thumbnailers">
+					<entry name="disable_all">
+						<local_schema short_desc="Minden külső előnézet-program kikapcsolása">
+							<longdesc>Állítsa igazra az összes külső előnézet-program kikapcsolásához, függetlenül attól, hogy ezek egyenként ki vagy be vannak-e kapcsolva.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="thumbnail_cache">
+					<entry name="maximum_size">
+						<local_schema>
+							<longdesc>Bélyegképek maximális mérete a gyorsítótárban, megabájtokban. A tisztítás letiltásához állítsa -1-re.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="maximum_age">
+						<local_schema>
+							<longdesc>Bélyegképek maximális kora a gyorsítótárban, napokban. A tisztítás letiltásához állítsa -1-re.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="sound">
+					<entry name="input_feedback_sounds">
+						<local_schema short_desc="Beviteli visszajelzés hangja">
+							<longdesc>Legyen-e hanglejátszás beviteli eseményekkor?</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="theme_name">
+						<local_schema short_desc="Hangtéma neve">
+							<longdesc>Az eseményhangokhoz használandó XDG hangtéma.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="event_sounds">
+						<local_schema short_desc="Hangok az eseményekhez">
+							<longdesc>Legyen-e hanglejátszás felhasználói eseményekkor?</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="enable_esd">
+						<local_schema short_desc="ESD engedélyezése">
+							<longdesc>Hangszerver elindításának engedélyezése.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="default_mixer_tracks">
+						<local_schema short_desc="Alapértelmezett keverősávok">
+							<longdesc>A multimédia billentyűtársítások által használandó alapértelmezett keverősávok.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="default_mixer_device">
+						<local_schema short_desc="Alapértelmezett keverőeszköz">
+							<longdesc>A multimédia billentyűtársítások által használandó alapértelmezett keverőeszköz.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="peripherals">
+					<dir name="mouse">
+						<entry name="cursor_size">
+							<local_schema short_desc="Kurzor mérete">
+								<longdesc>A cursor_theme kulcs által hivatkozott kurzor mérete.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="cursor_theme">
+							<local_schema short_desc="Kurzortéma">
+								<longdesc>A Kurzortéma neve. Csak az Xcursort támogató X kiszolgálók használják, mint például az XFree86 4.3 és újabbak.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="cursor_font">
+							<local_schema short_desc="Kurzor betűkészlete">
+								<longdesc>A kurzorbetűkészlet neve. Ha nincs beállítva, akkor az alapértelmezett betűkészletet használja. Ez az érték csak az egyes munkamenetek indításakor kerül átadásra az X-kiszolgálónak, így megváltoztatása egy munkamenet közepén semmilyen hatással sincs a következő bejelentkezésig.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="locate_pointer">
+							<local_schema short_desc="Mutató kiemelése">
+								<longdesc>Az egérmutató jelenlegi helyének kiemelése a Control billentyű lenyomásakor és felengedésekor.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="double_click">
+							<local_schema short_desc="Dupla kattintás ideje">
+								<longdesc>A dupla kattintás hossza.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="drag_threshold">
+							<local_schema short_desc="Húzás küszöbértéke">
+								<longdesc>Húzás indítása előtti távolság.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="motion_threshold">
+							<local_schema short_desc="Mozgási küszöbérték">
+								<longdesc>Az a távolság képpontokban, amit az egérnek meg kell tennie, mielőtt a gyorsított egérmozgatás aktivizálódik. A -1 érték a rendszer alapértelmezése.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="motion_acceleration">
+							<local_schema short_desc="Egyszeres kattintás">
+								<longdesc>Gyorsítási szorzó az egér mozgatásához. A -1 érték a rendszer alapértelmezése.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="single_click">
+							<local_schema short_desc="Egyszeres kattintás">
+								<longdesc>Egyszeres kattintás az ikonok megnyitásához.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="left_handed">
+							<local_schema short_desc="Egérgomb elhelyezkedése">
+								<longdesc>A bal és jobb egérgombok felcserélése balkezes egerekhez.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="keyboard">
+						<entry name="remember_numlock_state">
+							<local_schema short_desc="A NumLock állapotának megjegyzése">
+								<longdesc>Ha be van állítva, a GNOME megjegyzi a NumLock LED állapotát a munkamenetek között.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bell_custom_file">
+							<local_schema short_desc="Billentyűzetcsengő egyéni fájlneve">
+								<longdesc>A lejátszandó hangjelzés fájlneve.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bell_mode">
+							<local_schema>
+								<longdesc>lehetséges értékek: „on” (be), „off” (ki), és „custom” (egyéni).</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+				<dir name="lockdown">
+					<entry name="disable_application_handlers">
+						<local_schema short_desc="URL és MIME kezelők letiltása">
+							<longdesc>Az URL vagy MIME típuskezelő alkalmazások futtatásának megakadályozása.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_lock_screen">
+						<local_schema short_desc="Képernyő zárolásának letiltása">
+							<longdesc>A felhasználó nem zárolhatja a képernyőjét.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_user_switching">
+						<local_schema short_desc="Felhasználóváltás letiltása">
+							<longdesc>A felhasználó ne válthasson más fiókra, miközben saját munkamenete aktív.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_print_setup">
+						<local_schema short_desc="Nyomtatóbeállítás letiltása">
+							<longdesc>A felhasználó megakadályozása a nyomtatás beállításainak módosításában. Például, ez letiltja a hozzáférést az alkalmazások „Nyomtatás beállításai” párbeszédablakaihoz.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_printing">
+						<local_schema short_desc="Nyomtatás letiltása">
+							<longdesc>A felhasználó megakadályozása a nyomtatásban. Például, ez letiltja a hozzáférést az alkalmazások „Nyomtatás” párbeszédablakaihoz.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_save_to_disk">
+						<local_schema short_desc="Fájlok lemezre mentésének letiltása">
+							<longdesc>A felhasználó megakadályozása fájlok lemezre mentésében. Például, ez letiltja a hozzáférést az alkalmazások „Mentés másként” párbeszédablakaihoz.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_command_line">
+						<local_schema short_desc="Parancssor letiltása">
+							<longdesc>A felhasználó megakadályozása a terminálhoz való hozzáférésben vagy egy végrehajtandó parancssor megadásában. Például, ez letiltja a hozzáférést a panel „Alkalmazás futtatása” párbeszédablakához.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="interface">
+					<entry name="show_unicode_menu">
+						<local_schema short_desc="A „Unicode vezérlőkarakter beszúrása” menü megjelenítése">
+							<longdesc>A beviteli mezők és szövegnézetek felajánlják-e vezérlőkarakterek beszúrását?</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="show_input_method_menu">
+						<local_schema short_desc="A „Beviteli módok” menü megjelenítése">
+							<longdesc>A beviteli mezők és szövegnézetek helyi menüi felajánlják-e a beviteli módszer megváltoztatását?</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menubar_accel">
+						<local_schema short_desc="Menüsor gyorsbillentyű">
+							<longdesc>Gyorsbillentyű a menüsor megnyitásához.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="file_chooser_backend">
+						<local_schema short_desc="Modul a GtkFileChooser-hez">
+							<longdesc>A GtkFileChooser elemhez fájlrendszermodellként használandó modul. Lehetséges értékek: „gio”, „gnome-vfs” és „gtk+”.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="status_bar_meter_on_right">
+						<local_schema short_desc="Állapotsor a jobb oldalon">
+							<longdesc>Megjelenjen-e egy állapotsor a jobb oldalon?</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="use_custom_font">
+						<local_schema short_desc="Egyéni betűkészlet használata">
+							<longdesc>Használjon-e egyéni betűkészletet a gtk+ alkalmazásokban?</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="monospace_font_name">
+						<local_schema short_desc="Monospace betűkészlet">
+							<longdesc>A terminálokhoz hasonló helyeken használandó monospace (rögzített szélességű) betűkészlet neve.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="document_font_name">
+						<local_schema short_desc="Dokumentum betűkészlete">
+							<longdesc>A dokumentumok olvasásához használt alapértelmezett betűkészlet neve.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-module">
+						<local_schema short_desc="GTK beviteli mód modul">
+							<longdesc>A GTK+ által használt beviteli mód modul neve.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-status-style">
+						<local_schema short_desc="GTK beviteli mód állapot stílus">
+							<longdesc>A gtk+ által használt GTK+ beviteli mód állapotstílus neve.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-preedit-style">
+						<local_schema short_desc="GTK beviteli mód előszerkesztési stílus">
+							<longdesc>A gtk+ által használt GTK+ beviteli mód előszerkesztési stílus neve.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="font_name">
+						<local_schema short_desc="Alapértelmezett betűkészlet">
+							<longdesc>A gtk+ által használt alapértelmezett betűkészlet neve.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_key_theme">
+						<local_schema short_desc="Gtk+ téma">
+							<longdesc>A gtk+ által használt alapértelmezett téma neve.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_theme">
+						<local_schema short_desc="Gtk+ téma">
+							<longdesc>A gtk+ által használt alapértelmezett téma neve.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="icon_theme">
+						<local_schema short_desc="Ikontéma">
+							<longdesc>A panel, nautilus, stb által használandó ikontéma.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink_time">
+						<local_schema short_desc="Kurzor villogásának ideje">
+							<longdesc>A villogó kurzor ciklusának hossza ezredmásodpercben.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink">
+						<local_schema short_desc="Villogó kurzor">
+							<longdesc>A kurzor villogjon-e?</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_icons_size">
+						<local_schema short_desc="Eszköztárikonok mérete">
+							<longdesc>Az eszköztárikonok mérete, a „small-toolbar” (kicsi) vagy „large-toolbar” (nagy) egyike.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_detachable">
+						<local_schema short_desc="Eszköztár leválasztható">
+							<longdesc>A felhasználó leválaszthatja és elmozdíthatja-e az eszköztárakat?</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menubar_detachable">
+						<local_schema short_desc="Menüsor leválasztható">
+							<longdesc>A felhasználó leválaszthatja és elmozdíthatja-e a menüsorokat?</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="buttons_have_icons">
+						<local_schema short_desc="A gomboknak vannak ikonjaik">
+							<longdesc>A gombokon megjelenjenek-e ikonok a gombok szövege mellett?</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menus_have_icons">
+						<local_schema short_desc="A menükben vannak ikonok">
+							<longdesc>A menükben megjelenjenek-e ikonok a menüelemek mellett?</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_style">
+						<local_schema short_desc="Eszköztár stílusa">
+							<longdesc>Eszköztár stílusa. Lehetséges értékek: „both” (mindkettő), „both_horiz” (mindkettő vízszintesen), „icon” (ikon), és „text” (szöveg).</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="can_change_accels">
+						<local_schema short_desc="Megváltoztathatja a gyorsbillentyűket">
+							<longdesc>A felhasználó beüthet-e új gyorsbillentyűt egy aktív menüre mutatva?</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menus_have_tearoff">
+						<local_schema short_desc="A menükben van leválasztó">
+							<longdesc>A menükben legyen-e leválasztó?</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="enable_animations">
+						<local_schema short_desc="Animációk bekapcsolása">
+							<longdesc>Megjelenjenek-e az animációk. Megjegyzés: Ez egy globális kulcs, megváltoztatja az ablakkezelő, a panel, stb. viselkedését.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="accessibility">
+						<local_schema short_desc="Akadálymentesítés bekapcsolása">
+							<longdesc>Az alkalmazások támogassák-e az akadálymentesítést?</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="file-views">
+					<entry name="icon_theme">
+						<local_schema short_desc="Fájlikon téma">
+							<longdesc>A fájlikonok megjelenítéséhez használandó téma.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="background">
+					<entry name="color_shading_type">
+						<local_schema short_desc="Színárnyalat típusa">
+							<longdesc>Hogyan legyen árnyalva a háttérszín. Lehetséges értékek: „horizontal-gradient” (vízszintes színátmenet), „vertical-gradient” (függőleges színátmenet), és „solid” (egyszínű).</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="secondary_color">
+						<local_schema short_desc="Másodlagos szín">
+							<longdesc>Színátmenet rajzolásánál a jobb vagy az alsó szín, egyszínű háttér esetén nem használt.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="primary_color">
+						<local_schema short_desc="Elsődleges szín">
+							<longdesc>Színátmenet rajzolásánál a bal vagy a felső szín, vagy az egyszínű háttér színe.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_opacity">
+						<local_schema short_desc="Kép átlátszósága">
+							<longdesc>A háttérkép rajzolásához használandó átlátszatlanság.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_filename">
+						<local_schema short_desc="Kép fájlneve">
+							<longdesc>A háttérképként használandó fájl.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_options">
+						<local_schema short_desc="Kép beállításai">
+							<longdesc>Meghatározza a wallpaper_filename kulcsban beállított kép megjelenését. Lehetséges értékek: „none” (nincs) „wallpaper” (mozaik), „centered” (középre igazított), „scaled” (kifeszített), „stretched” (nyújtott), „zoom” (nagyítás), „spanned” (kiterjesztett).</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="draw_background">
+						<local_schema short_desc="Asztal hátterének megjelenítése">
+							<longdesc>A GNOME megrajzolja-e az asztal hátterét?</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="applications">
+					<dir name="component_viewer">
+						<entry name="exec">
+							<local_schema short_desc="Alapértelmezett komponensnéző alkalmazás">
+								<longdesc>Az azon fájlok megtekintésére használt alkalmazás, amelyek megtekintéséhez egy összetevő szükséges. A %s paraméter a fájl URI címére, a %c az összetevő IID-jére lesz cserélve.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="window_manager">
+						<entry name="workspace_names">
+							<local_schema short_desc="A munkaterületek nevei (elavult)">
+								<longdesc>Az első ablakkezelő munkaterületeinek neveit tartalmazó lista. Ez a kulcs a GNOME 2.12 óta elavultnak számít.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="number_of_workspaces">
+							<local_schema short_desc="A munkaterületek száma (elavult)">
+								<longdesc>Az ablakkezelő által használandó munkaterületek száma. Ez a kulcs a GNOME 2.12 óta elavultnak számít.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="current">
+							<local_schema short_desc="Felhasználói ablakkezelő (elavult)">
+								<longdesc>Az elsőként próbálandó ablakkezelő. Ez a kulcs a GNOME 2.12 óta elavultnak számít.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="default">
+							<local_schema short_desc="Tartalék ablakkezelő (elavult)">
+								<longdesc>Tartalék ablakkezelő, ha a felhasználói ablakkezelő nem használható. Ez a kulcs a GNOME 2.12 óta elavultnak számít.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="terminal">
+						<entry name="exec_arg">
+							<local_schema short_desc="Az alapértelmezett terminál exec paramétere">
+								<longdesc>Az alapértelmezett terminálalkalmazásnál használandó exec paraméter.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Alapértelmezett terminál alkalmazás">
+								<longdesc>A terminált igénylő alkalmazásokhoz használandó alapértelmezett terminál.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="tasks">
+						<entry name="needs_term">
+							<local_schema short_desc="A feladatkezelőnek szüksége van-e terminálra?">
+								<longdesc>Az alapértelmezett feladatkezelő alkalmazásnak szüksége van-e terminálra a futáshoz?</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Alapértelmezett feladatkezelő">
+								<longdesc>Alapértelmezett feladatkezelő alkalmazás</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="calendar">
+						<entry name="needs_term">
+							<local_schema short_desc="A böngészőnek szüksége van-e terminálra?">
+								<longdesc>Az alapértelmezett naptáralkalmazásnak szüksége van-e terminálra a futáshoz?</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Alapértelmezett naptár">
+								<longdesc>Alapértelmezett naptáralkalmazás</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="browser">
+						<entry name="nremote">
+							<local_schema short_desc="A böngésző távirányítható-e?">
+								<longdesc>Az alapértelmezett böngésző távirányítható-e „netscape remote” segítségével?</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="needs_term">
+							<local_schema short_desc="A böngészőnek szüksége van-e terminálra?">
+								<longdesc>Az alapértelmezett böngészőnek szüksége van-e terminálra a futáshoz?</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Alapértelmezett böngésző">
+								<longdesc>Alapértelmezett böngésző minden URL címhez.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="at">
+						<dir name="visual">
+							<entry name="startup">
+								<local_schema short_desc="Az előnyben részesített mobilitási akadálymentesítő alkalmazás elindítása">
+									<longdesc>A GNOME elindítsa-e bejelentkezéskor az előnyben részesített vizuális akadálymentesítő alkalmazást?</longdesc>
+								</local_schema>
+							</entry>
+							<entry name="exec">
+								<local_schema short_desc="Előnyben részesített vizuális akadálymentesítő alkalmazás">
+									<longdesc>Előnyben részesített vizuális akadálymentesítő alkalmazás a bejelentkezéshez, menükhöz vagy parancssorhoz.</longdesc>
+								</local_schema>
+							</entry>
+						</dir>
+						<dir name="mobility">
+							<entry name="startup">
+								<local_schema short_desc="Az előnyben részesített mobilitási akadálymentesítő alkalmazás elindítása">
+									<longdesc>A GNOME elindítsa-e bejelentkezéskor az előnyben részesített mobilitási akadálymentesítő alkalmazást?</longdesc>
+								</local_schema>
+							</entry>
+							<entry name="exec">
+								<local_schema short_desc="Előnyben részesített mobilitási akadálymentesítő alkalmazás">
+									<longdesc>Előnyben részesített mobilitási akadálymentesítő alkalmazás a bejelentkezéshez, menükhöz vagy parancssorhoz.</longdesc>
+								</local_schema>
+							</entry>
+						</dir>
+					</dir>
+				</dir>
+				<dir name="accessibility">
+					<dir name="startup">
+						<entry name="exec_ats">
+							<local_schema short_desc="Bejelentkezéskor elindítandó akadálymentesítési alkalmazások">
+								<longdesc>A GNOME asztalra bejelentkezéskor elindítandó akadálymentesítési alkalmazások listája.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="keyboard">
+						<entry name="stickykeys_modifier_beep">
+							<local_schema>
+								<longdesc>Hangjelzés egy módosító megnyomásakor.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="stickykeys_two_key_off">
+							<local_schema>
+								<longdesc>Kikapcsolás két gomb egyidejű lenyomásakor.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="slowkeys_delay">
+							<local_schema short_desc="Minimális időköz ezredmásodpercben">
+								<longdesc>Ne fogadja el a billentyű lenyomását, hacsak nincs @delay ezredmásodpercig lenyomva.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_init_delay">
+							<local_schema short_desc="Kezdő késleltetés ezredmásodpercben">
+								<longdesc>Hány másodpercet várjon mielőtt az egérmozgató billentyűk működni kezdenek.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_accel_time">
+							<local_schema short_desc="Meddig gyorsítson, ezredmásodpercben">
+								<longdesc>Hány ezredmásodpercig tart a 0-ról maximális sebességre gyorsulás.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_max_speed">
+							<local_schema short_desc="Képpont másodpercenként">
+								<longdesc>Hány képpontot mozduljon másodpercenként maximális sebességnél.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bouncekeys_delay">
+							<local_schema short_desc="minimális időköz ezredmásodpercben">
+								<longdesc>Ugyanazon billentyű többszöri lenyomásának figyelmen kívül hagyása @delay ezredmásodpercen belül.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+			</dir>
+		</dir>
+	</dir>
+</gconf>

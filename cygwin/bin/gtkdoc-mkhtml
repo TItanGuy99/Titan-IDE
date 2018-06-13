@@ -1,0 +1,123 @@
+#!/bin/sh
+#
+
+usage() {
+cat <<EOF
+gtkdoc-mkhtml version 1.24 - generate documentation in html format
+
+--verbose               Print extra output while processing
+--path=SEARCH_PATH      Extra source directories
+MODULE                  Name of the doc module being parsed
+DRIVER_FILE             File containing the toplevel DocBook file.
+--version               Print the version of this program
+--help                  Print this help
+EOF
+}
+
+# echo "args $*\n";
+
+# parse options, ignore unknown options for future extensions
+
+verbose="0"
+searchpath=
+uninstalled=no
+while true; do
+    case "X$1" in
+        X--version) echo "1.24"; exit 0;;
+        X--help) usage; exit 0;;
+        X--uninstalled) uninstalled=yes; shift;;
+        X--verbose) verbose="1"; shift;;
+        X--path=*) searchpath=`echo $1 | sed s/.*=//`; shift;;
+        X--*) shift;;
+        X*) break;;
+    esac
+done
+
+if test $# -lt 2; then
+    usage 1>&2
+    exit 1
+fi
+
+module=$1
+shift
+document=$1
+shift
+
+quiet="1"
+if test $verbose = "1"; then
+    quiet="0"
+fi
+
+if test $uninstalled = yes; then
+    # this does not work from buiddir!=srcdir
+    gtkdocdir=`dirname $0`
+	  # traditional Bourne shells may not support -e here, use -f
+    if test ! -f $gtkdocdir/gtk-doc.xsl; then
+        # try to src dir (set from makefiles) too
+        if test -f $ABS_TOP_SRCDIR/gtk-doc.xsl; then
+            gtkdocdir=$ABS_TOP_SRCDIR
+        fi
+    fi
+    styledir=$gtkdocdir/style
+    #echo "uninstalled, gtkdocdir=$gtkdocdir, cwd=$PWD"
+else
+    # the first two are needed to resolve datadir
+    prefix=/usr
+    datarootdir=${prefix}/share
+    gtkdocdir=${datarootdir}/gtk-doc/data
+    styledir=$gtkdocdir
+fi
+
+if head -n 1 $document | grep "<?xml" > /dev/null; then
+    is_xml=true
+    path_option='--path'
+else
+    is_xml=false
+    path_option='--directory'
+fi
+
+# we could do "$path_option $PWD "
+# to avoid needing rewriting entities that are copied from the header
+# into docs under xml
+if test "X$searchpath" = "X"; then
+    path_arg=
+else
+    path_arg="$path_option $searchpath"
+fi
+
+# Delete the old index.sgml file, if it exists.
+if test -f index.sgml; then
+  rm -f index.sgml
+fi
+
+if $is_xml; then
+    #echo /usr/bin/xsltproc $path_arg --nonet --xinclude \
+    #    --stringparam gtkdoc.bookname $module \
+    #    --stringparam gtkdoc.version "1.24" \
+    #    "$@" $gtkdocdir/gtk-doc.xsl $document
+    /usr/bin/xsltproc $path_arg --nonet --xinclude \
+        --stringparam gtkdoc.bookname $module \
+        --stringparam gtkdoc.version "1.24" \
+        --stringparam chunk.quietly $quiet \
+        --stringparam chunker.output.quiet $quiet \
+        "$@" $gtkdocdir/gtk-doc.xsl $document || exit $?
+else
+    echo <<EOF;
+###############################################################################
+sgml support in gtk-doc is deprecated and will be removed from one of the next
+gtk-doc release.
+Please refer to the documentation "Modernizing the documentation"/"GTK-Doc 1.9".
+###############################################################################
+EOF
+
+    /usr/bin/openjade $path_arg -t sgml-raw -w no-idref -d $gtkdocdir/gtk-doc.dsl \
+        -V "gtkdoc-bookname=$module" -V "gtkdoc-version=1.24" \
+        "$@" $gtkdocdir/gtk-doc.dcl $document || exit $?
+fi
+
+# copy navigation images and stylesheets to html directory ...
+cp -f $styledir/*.png $styledir/*.css ./
+
+
+echo "timestamp" > ../html.stamp
+

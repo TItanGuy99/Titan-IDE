@@ -1,0 +1,541 @@
+#!/usr/bin/perl -w
+# -*- cperl -*-
+#
+# gtk-doc - GTK DocBook documentation generator.
+# Copyright (C) 1998  Damon Chaplin
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+#
+
+#############################################################################
+# Script      : gtkdoc-fixxref
+# Description : This fixes cross-references in the HTML documentation.
+#############################################################################
+
+use strict;
+use bytes;
+use Getopt::Long;
+
+push @INC, '/usr/share/gtk-doc/data';
+require "gtkdoc-common.pl";
+
+# Options
+
+# name of documentation module
+my $MODULE;
+my $MODULE_DIR;
+my $HTML_DIR = "";
+my @EXTRA_DIRS;
+my $PRINT_VERSION;
+my $PRINT_HELP;
+my $SRC_LANG;
+
+my %optctl = ('module' => \$MODULE,
+              'module-dir' => \$MODULE_DIR,
+              'html-dir' => \$HTML_DIR,
+              'extra-dir' => \@EXTRA_DIRS,
+              'version' => \$PRINT_VERSION,
+              'help' => \$PRINT_HELP,
+              'src-lang' => \$SRC_LANG);
+GetOptions(\%optctl, "module=s", "module-dir=s", "html-dir:s", "extra-dir=s@",
+        "src-lang=s", "version", "help");
+
+if ($PRINT_VERSION) {
+    print "1.24\n";
+    exit 0;
+}
+
+if ($PRINT_HELP) {
+        print <<EOF;
+gtkdoc-fixxref version 1.24 - fix cross references in html files
+
+--module=MODULE_NAME    Name of the doc module being parsed
+--module-dir=MODULE_DIR The directory which contains the generated HTML
+--html-dir=HTML_DIR     The directory where gtk-doc generated documentation is
+                        installed
+--extra-dir=EXTRA_DIR   Directories to recursively scan for indices (index.sgml)
+                        in addition to HTML_DIR
+                        May be used more than once for multiple directories
+--src-lang=SRC_LANG     Programing language used for syntax highlighting. The
+                        available languages depend on the source source
+                        highlighter you use.
+--version               Print the version of this program
+--help                  Print this help
+EOF
+    exit 0;
+}
+
+if (!$SRC_LANG) {
+    $SRC_LANG="c"
+}
+
+# This contains all the entities and their relative URLs.
+my %Links;
+
+# failing link targets we don't warn about even once
+my %NoLinks = (
+    'char'  => 1,
+    'double'  => 1,
+    'float'  => 1,
+    'int'  => 1,
+    'long'  => 1,
+    'main'  => 1,
+    'signed'  => 1,
+    'unsigned'  => 1,
+    'va-list' => 1,
+    'void'  => 1,
+    'GBoxed' => 1,
+    'GEnum' => 1,
+    'GFlags' => 1,
+    'GInterface' => 1
+    );
+
+my $path_prefix="";
+if ($HTML_DIR =~ m%(.*?)/share/gtk-doc/html%) {
+    $path_prefix=$1;
+    #("Path prefix: $path_prefix");
+}
+
+if (!defined $MODULE_DIR) {
+  $MODULE_DIR="$HTML_DIR/$MODULE";
+}
+
+my $dir;
+
+# We scan the directory containing GLib and any directories in GNOME2_PATH
+# first, but these will be overriden by any later scans.
+$dir = `pkg-config --variable=prefix glib-2.0`;
+$dir =~ s/\s+$//;
+$dir = $dir . "/share/gtk-doc/html";
+if (-d $dir && $dir ne $HTML_DIR) {
+    #("Scanning GLib directory: $dir");
+
+    # Some predefined link targets to get links into type hierarchies as these
+    # have no targets. These are always absolute for now.
+    $Links{'GBoxed'} = "$dir/gobject/gobject-Boxed-Types.html";
+    $Links{'GEnum'} = "$dir/gobject/gobject-Enumeration-and-Flag-Types.html";
+    $Links{'GFlags'} = "$dir/gobject/gobject-Enumeration-and-Flag-Types.html";
+    $Links{'GInterface'} = "$dir/gobject/GTypeModule.html";
+
+    if ($dir !~ m%^\Q$path_prefix\E/%) {
+        &ScanIndices ($dir, 1);
+    } else {
+        &ScanIndices ($dir, 0);
+    }
+}
+
+if (defined ($ENV{"GNOME2_PATH"})) {
+    foreach $dir (split (/:/, $ENV{"GNOME2_PATH"})) {
+        $dir = $dir . "/share/gtk-doc/html";
+        if (-d $dir && $dir ne $HTML_DIR) {
+            #("Scanning GNOME2_PATH directory: $dir");
+            if ($dir !~ m%^\Q$path_prefix\E/%) {
+                &ScanIndices ($dir, 1);
+            } else {
+                &ScanIndices ($dir, 0);
+            }
+        }
+        # ubuntu started to compress this as index.sgml.gz :/
+        # https://bugs.launchpad.net/ubuntu/+source/gtk-doc/+bug/77138
+    }
+}
+
+#("Scanning HTML_DIR directory: $HTML_DIR");
+&ScanIndices ($HTML_DIR, 0);
+#("Scanning HTML_DIR directory: $MODULE_DIR");
+&ScanIndices ($MODULE_DIR, 0);
+
+# check all extra dirs, but skip already scanned dirs or subdirs of those
+foreach my $dir (@EXTRA_DIRS) {
+    my $vdir;
+    #("Scanning EXTRA_DIR directory: $dir");
+
+    # If the --extra-dir option is not relative and is not sharing the same
+    # prefix as the target directory of the docs, we need to use absolute
+    # directories for the links
+    if ($dir !~m/^\.\./ &&  $dir !~ m%\Q$path_prefix\E/%) {
+        &ScanIndices ($dir, 1);
+    } else {
+        &ScanIndices ($dir, 0);
+    }
+}
+
+if (defined($MODULE)) {
+    open (INPUT, "$MODULE-sections.txt")
+            || die "Can't open $MODULE-sections.txt: $!";
+    my $subsection = "";
+    while (<INPUT>) {
+        if (m/^#/) {
+            next;
+
+        } elsif (m/^<SECTION>/) {
+            $subsection = "";
+        } elsif (m/^<SUBSECTION\s*(.*)>/i) {
+            $subsection = $1;
+        } elsif (m/^<SUBSECTION>/) {
+            next;
+        } elsif (m/^<TITLE>(.*)<\/TITLE>/) {
+            next;
+        } elsif (m/^<FILE>(.*)<\/FILE>/) {
+            next;
+        } elsif (m/^<INCLUDE>(.*)<\/INCLUDE>/) {
+            next;
+        } elsif (m/^<\/SECTION>/) {
+            next;
+        } elsif (m/^(\S+)/) {
+            my $symbol=CreateValidSGMLID($1);
+
+            if ($subsection eq "Standard" || $subsection eq "Private") {
+                $NoLinks{$symbol} = 1;
+            }
+        }
+    }
+    close (INPUT);
+}
+
+&FixCrossReferences ($MODULE_DIR);
+
+sub ScanIndices {
+    my ($scan_dir, $use_absolute_links) = @_;
+    
+    #("Scanning source directory: $scan_dir absolute: $use_absolute_links");
+
+    # This array holds any subdirectories found.
+    my (@subdirs) = ();
+
+    opendir (HTMLDIR, $scan_dir) || return;
+    my $file;
+    foreach $file (readdir (HTMLDIR)) {
+        if ($file eq '.' || $file eq '..') {
+            next;
+        } elsif (-d "$scan_dir/$file") {
+            push (@subdirs, $file);
+        } elsif ($file eq "index.sgml") {
+            &ScanIndex ("$scan_dir/$file", $use_absolute_links);
+        }
+        # ubuntu started to compress this as index.sgml.gz :/
+        # https://bugs.launchpad.net/ubuntu/+source/gtk-doc/+bug/77138
+    }
+    closedir (HTMLDIR);
+
+    # Now recursively scan the subdirectories.
+    my $dir;
+    foreach $dir (sort(@subdirs)) {
+        &ScanIndices ("$scan_dir/$dir", $use_absolute_links);
+    }
+}
+
+sub ScanIndex {
+    my ($file, $use_absolute_links) = @_;
+
+    # Determine the absolute directory, to be added to links in index.sgml
+    # if we need to use an absolute link.
+    # $file will be something like /opt/gnome/share/gtk-doc/html/gtk/index.sgml
+    # We want the part up to 'html' since the links in index.sgml include
+    # the rest.
+    my $dir = "../";
+    if ($use_absolute_links) {
+        # For uninstalled index.sgml files we'd need to map the path to where it
+        # will be installed to
+        if ($file !~ /\.\//) {
+          $file =~ /(.*\/)(.*?)\/index\.sgml/;
+          $dir = $1;
+        }
+    }
+    #("Scanning index file=$file, absolute=$use_absolute_links, dir=$dir");
+
+    open (INDEXFILE, $file)
+        || die "Can't open $file: $!";
+    while (<INDEXFILE>) {
+        if (m/^<ANCHOR\s+id\s*=\s*"([^"]*)"\s+href\s*=\s*"([^"]*)"\s*>/) {
+            #("Found id: $1 href: $2");
+            $Links{$1} = "$dir$2";
+        }
+    }
+    close (INDEXFILE);
+}
+
+
+sub FixCrossReferences {
+    my ($scan_dir) = @_;
+
+    opendir (HTMLDIR, $scan_dir)
+        || die "Can't open HTML directory $scan_dir: $!";
+    my $file;
+    foreach $file (readdir (HTMLDIR)) {
+        if ($file eq '.' || $file eq '..') {
+            next;
+        } elsif ($file =~ m/.html?$/) {
+            &FixHTMLFile ("$scan_dir/$file");
+        }
+    }
+    closedir (HTMLDIR);
+}
+
+
+sub FixHTMLFile {
+    my ($file) = @_;
+    #("Fixing file: $file");
+
+    open (HTMLFILE, $file)
+        || die "Can't open $file: $!";
+    undef $/;
+    my $entire_file = <HTMLFILE>;
+    close (HTMLFILE);
+
+    if ("/usr/bin/source-highlight" ne "") {
+        # FIXME: ideally we'd pass a clue about the example language to the highligher
+        # unfortunately the "language" attribute is not appearing in the html output
+        # we could patch the customization to have <code class="xxx"> inside of <pre>
+        if ("/usr/bin/source-highlight" =~ m%/vim$%) {
+            $entire_file =~ s%<div class=\"(example-contents|informalexample)\"><pre class=\"programlisting\">(.*?)</pre></div>%&HighlightSourceVim($1,$2);%gse;
+        }
+        else {
+            $entire_file =~ s%<div class=\"(example-contents|informalexample)\"><pre class=\"programlisting\">(.*?)</pre></div>%&HighlightSource($1,$2);%gse;
+        }
+        # this just broke existing GTKDOCLINK tags
+        # &lt;GTKDOCLINK HREF=&quot;GST-PAD-SINK:CAPS&quot;&gt;GST_PAD_SINK&lt;/GTKDOCLINK&gt;
+        $entire_file =~ s%\&lt;GTKDOCLINK\s+HREF=\&quot;(.*?)\&quot;\&gt;(.*?)\&lt;/GTKDOCLINK\&gt;%\<GTKDOCLINK\ HREF=\"$1\"\>$2\</GTKDOCLINK\>%gs;
+
+        # from the highlighter we get all the functions marked up
+        # now we could turn them into GTKDOCLINK items
+        $entire_file =~ s%(<span class=\"function\">)(.*?)(</span>)%&MakeGtkDocLink($1,$2,$3);%gse;
+        # we could also try the first item in stuff marked up as 'normal'
+        $entire_file =~ s%(<span class=\"normal\">\s*)(.+?)((\s+.+?)?\s*</span>)%&MakeGtkDocLink($1,$2,$3);%gse;
+    }
+
+    my @lines = split(/\n/, $entire_file);
+    for (my $i=0; $i<$#lines; $i++) {
+        $lines[$i] =~ s%<GTKDOCLINK\s+HREF="([^"]*)"\s*>(.*?)</GTKDOCLINK\s*>% &MakeXRef($file,$i+1,$1,$2); %ge;
+        #if ($lines[$i] =~ m/GTKDOCLINK/) {
+        #    print "make xref failed for line: ",$lines[$i], "\n";
+        #}
+    }
+    $entire_file = join("\n",@lines);
+
+    open (NEWFILE, ">$file.new")
+        || die "Can't open $file: $!";
+    print NEWFILE $entire_file;
+    close (NEWFILE);
+
+    unlink ($file)
+        || die "Can't delete $file: $!";
+    rename ("$file.new", $file)
+        || die "Can't rename $file.new: $!";
+}
+
+sub MakeXRef {
+    my ($file, $line, $id, $text) = @_;
+
+    my $href = $Links{$id};
+
+    # this is a workaround for some inconsistency we have with CreateValidSGMLID
+    if (!$href && $id =~ m/:/) {
+        my $tid = $id;
+        $tid =~ s/:/--/g;
+        $href = $Links{$tid};
+    }
+    # poor mans plural support
+    if (!$href && $id =~ m/s$/) {
+        my $tid = $id;
+        $tid =~ s/s$//g;
+        $href = $Links{$tid};
+    }
+
+    if ($href) {
+        # if it is a link to same module, remove path to make it work
+        # uninstalled
+        if (defined($MODULE) && $href =~ m%^\.\./$MODULE/(.*)$%) {
+            $href=$1;
+            #("  Fixing link to uninstalled doc: $id, $href, $text");
+        } else {
+            #("  Fixing link: $id, $href, $text");
+        }
+        return "<a href=\"$href\">$text</a>";
+    } else {
+        my $warn = 1;
+        #("  no link for: $id, $text");
+
+        # don't warn multiple times and also skip blacklisted (ctypes)
+        $warn = 0 if exists $NoLinks{$id};
+        # if it's a function, don't warn if it does not contain a "_"
+        # (transformed to "-")
+        # - gnome coding style would use '_'
+        # - will avoid wrong warnings for ansi c functions
+        $warn = 0 if ($text =~ m/ class=\"function\"/ && $id !~ m/-/);
+        # if it's a 'return value', don't warn (implicitly created link)
+        $warn = 0 if ($text =~ m/ class=\"returnvalue\"/);
+        # if it's a 'type', don't warn if it starts with lowercase
+        # - gnome coding style would use CamelCase
+        $warn = 0 if ($text =~ m/ class=\"type\"/ && ($id =~ m/^[a-z]/));
+        # don't warn for self links
+        $warn = 0 if ($text eq $id);
+
+        if ($warn == 1) {
+          &LogWarning ($file, $line, "no link for: '$id' -> ($text).");
+          $NoLinks{$id} = 1;
+        }
+        return $text;
+    }
+}
+
+
+sub MakeGtkDocLink {
+    my ($pre,$symbol,$post) = @_;
+
+    my $id=CreateValidSGMLID($symbol);
+
+    # these are implicitely created links in highlighed sources
+    # we don't want warnings for those if the links cannot be resolved.
+    $NoLinks{$id} = 1;
+
+    #return "<span class=\"$type\"><GTKDOCLINK HREF=\"$id\">$symbol</GTKDOCLINK></span>";
+    return "$pre<GTKDOCLINK HREF=\"$id\">$symbol</GTKDOCLINK>$post";
+}
+
+
+sub HighlightSource {
+    my ($type, $source) = @_;
+
+    # chop of leading and trailing empty lines
+    $source =~ s/^\s*\n+//gs;
+    $source =~ s/[\s\n]+$//gs;
+    # cut common indent
+    $source =~ m/^(\s*)/;
+    $source =~ s/^$1//gms;
+    # avoid double entity replacement
+    $source =~ s/&lt;/</g;
+    $source =~ s/&gt;/>/g;
+    $source =~ s/&amp;/&/g;
+
+    # write source to a temp file
+    # FIXME: use .c for now to hint the language to the highlighter
+    my $temp_source_file="$MODULE_DIR/_temp_src.$$.c";
+    open (NEWFILE, ">$temp_source_file") || die "Can't open $temp_source_file: $!";
+    print NEWFILE $source;
+    close (NEWFILE);
+
+    #(" running /usr/bin/source-highlight -t4 -s$SRC_LANG -cstyle.css --no-doc -i$temp_source_file ");
+
+    # format source
+    my $highlighted_source=`/usr/bin/source-highlight -t4 -s$SRC_LANG -cstyle.css --no-doc -i$temp_source_file`;
+    if ("/usr/bin/source-highlight" =~ m%/source-highlight$%) {
+        $highlighted_source =~ s%^<\!-- .*? -->%%gs;
+        $highlighted_source =~ s%<pre><tt>(.*?)</tt></pre>%$1%gs;
+    }
+    elsif ("/usr/bin/source-highlight" =~ m%/highlight$%) {
+        # need to rewrite the stylesheet classes
+        $highlighted_source =~ s%<span class="gtkdoc com">%<span class="comment">%gs;
+        $highlighted_source =~ s%<span class="gtkdoc dir">%<span class="preproc">%gs;
+        $highlighted_source =~ s%<span class="gtkdoc kwd">%<span class="function">%gs;
+        $highlighted_source =~ s%<span class="gtkdoc kwa">%<span class="keyword">%gs;
+        $highlighted_source =~ s%<span class="gtkdoc line">%<span class="linenum">%gs;
+        $highlighted_source =~ s%<span class="gtkdoc num">%<span class="number">%gs;
+        $highlighted_source =~ s%<span class="gtkdoc str">%<span class="string">%gs;
+        $highlighted_source =~ s%<span class="gtkdoc sym">%<span class="symbol">%gs;
+        # maybe also do
+        # $highlighted_source =~ s%</span>(.+)<span%</span><span class="normal">$1</span><span%gs;
+    }
+    # remove temp file
+    unlink ($temp_source_file)
+        || die "Can't delete $temp_source_file: $!";
+
+    return &HighlightSourcePostprocess($type, $highlighted_source);
+}
+
+sub HighlightSourceVim {
+    my ($type, $source) = @_;
+
+    # chop of leading and trailing empty lines
+    $source =~ s/^\s*\n+//gs;
+    $source =~ s/[\s\n]+$//gs;
+    # cut common indent
+    $source =~ m/^(\s*)/;
+    $source =~ s/^$1//gms;
+    # avoid double entity replacement
+    $source =~ s/&lt;/</g;
+    $source =~ s/&gt;/>/g;
+    $source =~ s/&amp;/&/g;
+
+    # write source to a temp file
+    my $temp_source_file="$MODULE_DIR/_temp_src.$$.h";
+    open (NEWFILE, ">$temp_source_file") || die "Can't open $temp_source_file: $!";
+    print NEWFILE $source;
+    close (NEWFILE);
+
+    # format source
+    system "echo 'let html_number_lines=0|let html_use_css=1|let html_use_xhtml=1|e $temp_source_file|syn on|set syntax=$SRC_LANG|run! syntax/2html.vim|w! $temp_source_file.html|qa!' | /usr/bin/source-highlight -n -e -u NONE -T xterm >/dev/null";
+
+    my $highlighted_source;
+    {
+        local $/;
+        open (NEWFILE, "<$temp_source_file.html");
+        $highlighted_source = <NEWFILE>;
+        close (NEWFILE);
+    }
+    $highlighted_source =~ s#.*<pre\b[^>]*>\n##s;
+    $highlighted_source =~ s#</pre>.*##s;
+
+    # need to rewrite the stylesheet classes
+    # FIXME: Vim has somewhat different syntax groups
+    $highlighted_source =~ s%<span class="Comment">%<span class="comment">%gs;
+    $highlighted_source =~ s%<span class="PreProc">%<span class="preproc">%gs;
+    $highlighted_source =~ s%<span class="Statement">%<span class="keyword">%gs;
+    $highlighted_source =~ s%<span class="Identifier">%<span class="function">%gs;
+    $highlighted_source =~ s%<span class="Constant">%<span class="number">%gs;
+    $highlighted_source =~ s%<span class="Special">%<span class="symbol">%gs;
+    $highlighted_source =~ s%<span class="Type">%<span class="type">%gs;
+
+    # remove temp files
+    unlink ($temp_source_file)
+        || die "Can't delete $temp_source_file: $!";
+    unlink ("$temp_source_file.html")
+        || die "Can't delete $temp_source_file.html: $!";
+
+    return &HighlightSourcePostprocess($type, $highlighted_source);
+}
+
+sub HighlightSourcePostprocess {
+    my ($type, $highlighted_source) = @_;
+
+    # chop of leading and trailing empty lines
+    $highlighted_source =~ s/^[\s\n]+//gs;
+    $highlighted_source =~ s/[\s\n]+$//gs;
+
+    # turn common urls in comments into links
+    $highlighted_source =~ s%<span class="url">(.*?)</span>%<span class="url"><a href="$1">$1</a></span>%gs;
+
+    # we do own line-numbering
+    my $source_lines="";
+    my $line_count = () = $highlighted_source =~ /\n/gs;
+    for (my $i=1; $i < ($line_count+2); $i++) {
+        $source_lines.="$i\n";
+    }
+    $source_lines =~ s/\n\Z//;
+
+    return <<END_OF_HTML
+<div class="$type">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>$source_lines</pre></td>
+        <td class="listing_code"><pre class="programlisting">$highlighted_source</pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+END_OF_HTML
+}
+

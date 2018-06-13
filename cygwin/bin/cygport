@@ -1,0 +1,672 @@
+#!/bin/bash
+################################################################################
+#
+# cygport - Cygwin packaging application
+#
+# Copyright (C) 2006-2016 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+################################################################################
+set -e;
+
+
+################################################################################
+#
+# Initialization
+#
+################################################################################
+
+# for regexes, sort, etc.
+export LC_COLLATE=C
+
+declare -r  _version=0.23.0;
+
+declare -r _privdatadir=/usr/share/cygport;
+declare -r _privclassdir=/usr/share/cygport/cygclass;
+declare -r _privlibdir=/usr/share/cygport/lib;
+declare -r _privgnuconfigdir=/usr/share/cygport;
+declare -r _sysconfdir=/etc;
+
+
+### import defined, pushd, popd
+source ${_privlibdir}/syntax.cygpart
+###
+
+
+################################################################################
+#
+# Command-line Help
+#
+################################################################################
+
+#****** Cygport/ Title
+#  OVERVIEW
+#  The Cygport Reference Manual documents cygport, a utility for creating and
+#  building software packages for the Cygwin platform.
+#
+#  |html Copyright &#169; 2006-2016 Yaakov Selkowitz
+#
+#  Permission is granted to copy, distribute and/or modify this manual
+#  under the terms of the GNU Free Documentation License, Version 1.3 or
+#  any later version published by the Free Software Foundation; with no
+#  Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+#  You should have received a copy of the GNU Free Documentation License
+#  along with this manual. If not, see http://www.gnu.org/licenses/.
+#****
+
+#****** Cygport/ Introduction
+#  OVERVIEW
+#  cygport is a utility for creating and building software packages for the
+#  software platform.  It is designed to minimize the amount of code and
+#  effort for individual packages, automating common processes while leaving
+#  flexibility to deal with unusual packages while avoiding many mistakes
+#  or omissions.
+#
+#  cygport packages are controlled by .cygport files, which define variables
+#  and functions unique to that package and version.  cygport provides a
+#  modular API, documented here, which covers a wide variety of packaging
+#  scenarios.
+#
+#  The syntax of .cygport files resemble that of Gentoo Portage, but they
+#  are not compatible.  Furthermore, unlike Portage, cygport is not a
+#  package manager; it only creates packages which can then be used in a
+#  Cygwin package repository and installed with Cygwin's setup.exe package
+#  manager.
+#
+#  This manual is divided into the following chapters:
+#****
+
+#****-* Cygport/Chapter 1
+#  CHAPTER
+#  * Usage
+#****
+#****-* Cygport/Chapter 2
+#  CHAPTER
+#  * Configuration
+#****
+#****-* Cygport/Chapter 3
+#  CHAPTER
+#  * Format
+#****
+#****-* Cygport/Chapter 4
+#  CHAPTER
+#  * Information
+#****
+#****-* Cygport/Chapter 5
+#  CHAPTER
+#  * Downloading
+#****
+#****-* Cygport/Chapter 6
+#  CHAPTER
+#  * Preparation
+#****
+#****-* Cygport/Chapter 7
+#  CHAPTER
+#  * Checks
+#****
+#****-* Cygport/Chapter 8
+#  CHAPTER
+#  * Compiling
+#****
+#****-* Cygport/Chapter 9
+#  CHAPTER
+#  * Testing
+#****
+#****-* Cygport/Chapter 10
+#  CHAPTER
+#  * Installing
+#****
+#****-* Cygport/Chapter 11
+#  CHAPTER
+#  * Postinstall
+#****
+#****-* Cygport/Chapter 12
+#  CHAPTER
+#  * Packaging
+#****
+#****-* Cygport/Chapter 13
+#  CHAPTER
+#  * Uploading
+#****
+#****-* Cygport/Chapter 14
+#  CHAPTER
+#  * Cygclasses
+#****
+
+#****** Chapter 1/Usage
+#  USAGE
+#  See
+#  |html <a href="cygport.1.html">the manpage</a>
+#  for command line options.
+#  REQUIRES
+#  The following packages are required to build packages with cygport:
+#   autoconf, automake, bash, binutils, bzip2, coreutils, diffstat, diffutils,
+#   dos2unix, file, gawk, grep, gzip, lftp, libtool, lndir, make, openssh,
+#   patch, rsync, sed, tar, unzip, util-linux, wget, which, xz.
+#  Other software packages are required by some Cygclasses, as indicated within.
+#****
+
+### import _show_help, _show_version
+source ${_privlibdir}/help.cygpart
+###
+
+# Accept --help and --version arguments without specifying a cygport file
+while true
+do
+	case ${1} in
+	--help|-h|-\?)
+		__show_help;
+		exit 0;
+		;;
+	--version|-v)
+		__show_version;
+		exit 0;
+		;;
+	--debug|-d)
+		set -x;
+		shift;
+		;;
+	--32|-4)
+		if defined _host_arch && [ ${_host_arch} != i686 ]
+		then
+			error "Only one of --32|--64 may be specified"
+		fi
+		_host_arch=i686
+		shift;
+		;;
+	--64|-8)
+		if defined _host_arch && [ ${_host_arch} != x86_64 ]
+		then
+			error "Only one of --32|--64 may be specified"
+		fi
+		_host_arch=x86_64
+		shift;
+		;;
+	-*)
+		echo "${0}: unknown argument ${1}";
+		__show_help;
+		exit 1;
+		;;
+	*)	break ;;
+	esac
+done
+
+declare -ar argv=(${0} ${@})
+declare -ir argc=$(( $# + 1 ))
+
+# Show help if no commands are given
+if ! defined argv[1] || ! defined argv[2]
+then
+	__show_help;
+	exit 1;
+fi
+
+
+################################################################################
+#
+# System checks
+#
+################################################################################
+
+### import check_prog and friends
+source ${_privlibdir}/check_funcs.cygpart
+###
+
+# check now for all mandatory programs
+for _myprog in bzip2 cat chmod cp diff diffstat dos2unix file find gawk grep gzip \
+               install ln mkdir mv patch rm rsync sed sort tar xargs which xz
+do
+	if ! check_prog ${_myprog}
+	then
+		error "${_myprog} is required to run cygport";
+	fi
+done
+
+unset _myprog;
+
+if check_prog pbzip2
+then
+	readonly _tar_bz2_flag="-I pbzip2 -"
+else
+	# bzip2 is required, no need to check
+	readonly _tar_bz2_flag="-j"
+fi
+
+
+################################################################################
+#
+# Import user settings
+#
+################################################################################
+
+# Values which can be overridden either system-wide or per package
+
+declare    MAKEOPTS="-j$(($(nproc 2>/dev/null) + 1)) ";
+
+# load configuration
+for conf in ${_sysconfdir}/cygport.conf \
+			"${HOME}/.cygportrc" \
+			"${HOME}/.cygport.conf" \
+			"${HOME}/.cygport/cygport.conf"
+do
+	if [ -e "${conf}" ]
+	then
+		source "${conf}" || error "could not read ${conf}"
+	fi
+done
+unset conf;
+
+
+################################################################################
+#
+# Function definitions
+#
+################################################################################
+
+### __config_get/set and friends
+source ${_privlibdir}/config_registry.cygpart
+###
+
+### inherit and friends
+source ${_privlibdir}/inheritance.cygpart
+###
+
+### fetch and friends
+source ${_privlibdir}/src_fetch.cygpart
+###
+
+### mirrors list
+source ${_privdatadir}/mirrors
+###
+
+### unpack, cygpatch, __src_prep and friends
+source ${_privlibdir}/src_prep.cygpart
+###
+
+### CC/CXX, CFLAGS/CXXFLAGS, etc.
+source ${_privlibdir}/compilers.cygpart
+###
+
+### lndirs, cygmake
+source ${_privlibdir}/src_compile.cygpart
+###
+
+### cygtest and friends
+source ${_privlibdir}/src_test.cygpart
+###
+
+### cyginstall, do*, new*, *into, and friends
+source ${_privlibdir}/src_install.cygpart
+###
+
+### __src_postinst and friends
+source ${_privlibdir}/src_postinst.cygpart
+###
+
+### __list_files, __show_deps, __show_info, __show_web
+source ${_privlibdir}/pkg_info.cygpart
+###
+
+### __pkg_* functions
+source ${_privlibdir}/pkg_pkg.cygpart
+###
+
+### __pkg_upload
+source ${_privlibdir}/pkg_upload.cygpart
+###
+
+### __finish
+source ${_privlibdir}/pkg_cleanup.cygpart
+###
+
+# Auto-inherit autotools for backwards compatibility. But we
+# want to allow it to be inherited one more time in order to
+# reset src_compile() when other cygclasses override it.
+_autotools_CYGCLASS_stage1_=1
+inherit autotools;
+unset _autotools_CYGCLASS_ _autotools_CYGCLASS_stage1_
+
+
+################################################################################
+#
+# Import the .cygport file
+#
+################################################################################
+
+unset NAME VERSION RELEASE
+if [ -f ${argv[1]} ]
+then
+	eval $(grep '^NAME=' ${argv[1]})
+	eval $(grep '^VERSION=' ${argv[1]})
+	eval $(grep '^RELEASE=' ${argv[1]})
+fi
+
+if [ "${NAME+y}${VERSION+y}${RELEASE+y}" = "yyy" ]
+then
+declare -r  PN=${NAME}
+declare     PV=${VERSION}
+declare -r  PR=${RELEASE}
+declare -r  PF=${PN}-${PV}-${PR}
+declare -r  cygportfile=${argv[1]##*/}
+else
+# file must be named PN-PV-PR.cygport, but the extension is optional in argv[1]
+            PF=${argv[1]##*/}
+declare -r  PF=${PF%.cygport}
+declare -r  PN=${PF%%-[0-9]*};
+declare     NAME=${PN}
+declare -r  PR=${PF##*-};
+declare     RELEASE=${PR}
+            PV=$(echo ${PF} | sed -e "s/${PN}\-\(.*\)\-${PR}$/\1/");
+declare     VERSION=${PV}
+declare -r  cygportfile=${PF}.cygport;
+fi
+
+# these must be defined now to be available in SRC_URI
+declare -r  P=${PN}-${PV};
+declare -r  PVR=${PV}-${PR};
+declare -ar PVP=(${PV//[-\._]/ });
+declare -r  PV=(${PV} ${PVP[*]});
+declare -r  PV_MAJ=${PV[1]};
+declare -r  PV_MAJ_MIN="${PV[1]}.${PV[2]}";
+
+# http://www.rpm.org/max-rpm/s1-rpm-inside-scripts.html
+declare -rx CYGPORT_PACKAGE_NAME=${NAME}
+declare -rx CYGPORT_PACKAGE_VERSION=${VERSION}
+declare -rx CYGPORT_PACKAGE_RELEASE=${RELEASE}
+#declare -rx CYGPORT_DOC_DIR=/usr/share/doc
+
+
+_topdir=${argv[1]%/*};
+
+if [ "x${_topdir}" = "x${argv[1]}" ]
+then
+	if [ -f ./${cygportfile} ]
+	then
+		_topdir=.;
+	else
+		_topdir=/usr/src;
+	fi
+fi
+
+declare -r top=$(cd ${_topdir}; pwd);
+unset _topdir;
+
+if [ ! -e ${top}/${cygportfile} ]
+then
+	error "${cygportfile} not found.";
+fi
+
+### load .cygport
+source ${top}/${cygportfile} || error "could not read ${cygportfile}"
+###
+
+case ${ARCH} in
+${CHOST%%-*}|noarch) ;;
+*)  error "This package may only be built for ${ARCH}"
+esac
+
+if defined CYGPORT_DEPEND
+then
+	if ! __version_at_least ${CYGPORT_DEPEND} ${_version}
+	then
+		error "This package requires cygport ${CYGPORT_DEPEND} or newer";
+	fi
+fi
+
+
+for restrict in ${RESTRICT//,/ }
+do
+	declare _CYGPORT_RESTRICT_${restrict//-/_}_=1
+done
+unset restrict
+
+
+################################################################################
+#
+# Define package-dependant variables
+#
+################################################################################
+
+declare -r workdir="${top}/${PF}.${ARCH}";
+declare -r srcdir="${workdir}/src";
+declare -r origsrcdir="${workdir}/origsrc";
+declare -r configdir="${workdir}/config";
+declare -r logdir="${workdir}/log";
+declare -r patchdir="${workdir}/patch";
+declare -r spkgdir="${workdir}/spkg/${PF}.src";
+declare -r distdir="${workdir}/dist";
+
+SRC_DIR=${SRC_DIR:-${ORIG_PN:-${PN}}-${PV}};
+if [ "x${SRC_DIR}" = "x." ]
+then
+	declare -r S=${srcdir};
+else
+	declare -r S=${srcdir}/${SRC_DIR};
+fi
+
+# documented in lib/syntax.cygpart
+declare -r B="${workdir}/build";
+declare -r D="${workdir}/inst";
+declare -r T="${workdir}/temp";
+declare -r C="${S}/CYGWIN-PATCHES";
+
+# http://www.rpm.org/max-rpm/s1-rpm-inside-scripts.html
+declare -rx CYGPORT_ARCH=${ARCH}
+declare -rx CYGPORT_OS="Cygwin"
+#declare -rx CYGPORT_SOURCE_DIR=
+#declare -rx CYGPORT_BUILD_DIR=
+declare -rx CYGPORT_BUILD_ROOT=${D}
+declare -rx CYGPORT_OPT_FLAGS=${CFLAGS}
+
+declare -r compilelog="${logdir}/${PF}-compile.log";
+declare -r checklog="${logdir}/${PF}-check.log";
+declare -r installlog="${logdir}/${PF}-install.log";
+declare -r pkglog="${logdir}/${PF}-pkg.log";
+declare -r uploadlog="${logdir}/${PF}-upload.log";
+
+if ! defined SRC_URI
+then
+	error "SRC_URI must be defined";
+fi
+
+for _src_uri in ${SRC_URI}
+do
+	if [ -f ${top}/${_src_uri} ]
+	then
+		_src_orig_pkgs+=" ${_src_uri}";
+		continue;
+	fi
+	_src_uri="${_src_uri##*\#/}"
+	_src_uri="${_src_uri%\?*}"
+	_src_orig_pkgs+=" ${_src_uri##*/}";
+done
+readonly _src_orig_pkgs;
+unset _src_uri;
+
+for _patch_uri in ${PATCH_URI}
+do
+	if [ -f ${top}/${_patch_uri} ]
+	then
+		_src_orig_patches+=" ${_patch_uri}";
+		continue;
+	fi
+	_patch_uri="${_patch_uri##*\#/}"
+	_patch_uri="${_patch_uri%\?*}"
+	_src_orig_patches+=" ${_patch_uri##*/}";
+done
+readonly _src_orig_patches;
+unset _patch_uri;
+
+declare -r cygwin_patchfile=${PF}.cygwin.patch;
+declare -r src_patchfile=${PF}.src.patch;
+
+declare -ar pkg_name=(${PKG_NAMES:-${PN}});
+declare -r  pkg_count=${#pkg_name[*]};
+
+# this requires S and B to be already defined
+if ! defined _CYGPORT_RESTRICT_debuginfo_
+then
+	for flags in {C,CXX,F,FC,GO,OBJC,OBJCXX}FLAGS
+	do
+		for map in ${DEBUG_PREFIX_MAPS[*]}
+		do
+			declare ${flags}+=" -fdebug-prefix-map=${map}=/usr/src/debug/${PF}"
+		done
+		declare ${flags}+=" -fdebug-prefix-map=${B}=/usr/src/debug/${PF}"
+		declare ${flags}+=" -fdebug-prefix-map=${S}=/usr/src/debug/${PF}"
+	done
+	unset flags map
+fi
+
+################################################################################
+#
+# Command processing
+#
+################################################################################
+
+declare -i arg_n=2
+
+# When adding commands here, also add them to cygport-bash-completion
+while (( arg_n < argc ))
+do
+	case ${argv[${arg_n}]} in
+		downloadall|fetchall|wgetall|getall)
+			__src_fetch;
+			_status=$?;
+			;;
+		download|fetch|wget|get)
+			__DL_ONLY_MISSING=1 __src_fetch;
+			_status=$?;
+			;;
+		prep|unpack)
+			__stage Preparing;
+			__src_prep;
+			_status=$?;
+			;;
+		compile|build|make)
+			__stage Compiling;
+			__log_init ${compilelog};
+			__check_depends && \
+			src_compile 2>&1 | tee -a ${compilelog};
+			_status=${PIPESTATUS[0]};
+			;;
+		check|test)
+			__stage Testing;
+			__log_init ${checklog};
+			src_test 2>&1 | tee -a ${checklog};
+			_status=${PIPESTATUS[0]};
+			;;
+		inst*)
+			__stage Installing;
+			__log_init ${installlog};
+			(__prepinstalldirs && src_install && __src_postinst) 2>&1 | tee -a ${installlog};
+			_status=${PIPESTATUS[0]};
+			;;
+		postinst*)
+			__src_postinst;
+			_status=$?;
+			;;
+		list)
+			__list_files;
+			_status=$?;
+			;;
+		listdebug*|listdbg*)
+			__list_debug_files;
+			_status=$?;
+			;;
+		dep*)
+			__show_deps;
+			_status=$?;
+			;;
+		info*)
+			__show_info;
+			_status=$?;
+			;;
+		homepage|web*|www*)
+			__show_web;
+			_status=$?;
+			;;
+		package|pkg)
+			__stage Packaging;
+			__log_init ${pkglog};
+			(__pkg_binpkg && __pkg_pkgcheck && __pkg_srcpkg && __pkg_dist) 2>&1 | tee -a ${pkglog};
+			_status=${PIPESTATUS[0]};
+			;;
+		diff|mkdiff|mkpatch)
+			__pkg_diff;
+			_status=$?;
+			;;
+		upload|up)
+			__stage Uploading;
+			__log_init ${uploadlog};
+			(__pkg_upload) 2>&1 | tee -a ${uploadlog};
+			_status=${PIPESTATUS[0]};
+			;;
+		announce)
+			__stage "Preparing announcement";
+			__pkg_announce;
+			_status=$?;
+			;;
+		clean|finish)
+			__finish;
+			_status=$?;
+			;;
+		almostall|all)
+			__stage Preparing && __src_prep && \
+			__log_init ${compilelog} && \
+			__check_depends && \
+			__stage Compiling && src_compile 2>&1 | tee -a ${compilelog} && \
+			test ${PIPESTATUS[0]} -eq 0 && \
+			__log_init ${installlog} && \
+			__stage Installing && (__prepinstalldirs && src_install && __src_postinst) 2>&1 | tee -a ${installlog} && \
+			test ${PIPESTATUS[0]} -eq 0 && \
+			__log_init ${pkglog} && \
+			__stage Packaging && (__pkg_binpkg && __pkg_pkgcheck && __pkg_srcpkg && __pkg_dist) 2>&1 | tee -a ${pkglog} && \
+			test ${PIPESTATUS[0]} -eq 0
+			_status=$?;
+			;;
+		help)
+			__show_help;
+			exit 0;
+			;;
+		version)
+			__show_version;
+			exit 0;
+			;;
+		_*)
+			error "unknown command ${argv[${arg_n}]}";
+			exit 1;
+			;;
+		*)
+			if __check_function ${argv[${arg_n}]} && ! __check_function_ro ${argv[${arg_n}]}
+			then
+				${argv[${arg_n}]};
+			else
+				error "unknown command ${argv[${arg_n}]}";
+			fi
+			_status=$?;
+			;;
+	esac
+
+	if (( _status != 0 ))
+	then
+		break;
+	fi
+
+	arg_n+=1;
+done
+
+exit ${_status};

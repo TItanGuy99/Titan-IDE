@@ -1,0 +1,520 @@
+<?xml version="1.0"?>
+<gconf>
+	<dir name="schemas">
+		<dir name="desktop">
+			<dir name="gnome">
+				<dir name="typing_break">
+					<entry name="enabled">
+						<local_schema short_desc="ھەرپتاختا قۇلۇپلاشنى قوزغىتىشقا يول قويامدۇ يوق">
+							<longdesc>ھەرپتاختا قۇلۇپلاشنى قوزغىتىشقا يول قويامدۇ يوق.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="allow_postpone">
+						<local_schema short_desc="ئۈزۈشنى كېچىكتۈرۈشكە يول قوي">
+							<longdesc>خەت ئۇرۇشنى ئۈزۈش ئېكرانىنى كېچىكتۈرۈشكە بولامدۇ يوق.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="break_time">
+						<local_schema short_desc="ئۈزۈش ۋاقتى">
+							<longdesc>خەت ئۇرۇشنى ئۈزۈش داۋاملىشىدىغان مىنۇت سانى.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="type_time">
+						<local_schema short_desc="خەت ئۇرۇش ۋاقتى">
+							<longdesc>ئۈزۈش ھالىتى باشلىنىشتىن ئىلگىرىكى ئەڭ قىسقا خەت ئۇرۇش ۋاقتى.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="thumbnailers">
+					<entry name="disable_all">
+						<local_schema short_desc="سىرتتىكى ھەممە كىچىك سۈرەتنى چەكلە">
+							<longdesc>true قىلىپ تەڭشەلسە بۇ پروگراممىلارنىڭ ئۆزىدە قوزغىتىلغان ياكى چەكلەنگەن بولسىمۇ سىرتتىكى ھەممە كىچىك سۈرەت پروگراممىسىنى چەكلەيدۇ.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="thumbnail_cache">
+					<entry name="maximum_size">
+						<local_schema>
+							<longdesc>غەملەنگەن كىچىك سۈرەتنىڭ ئەڭ چوڭ چوڭلۇقى، بىرلىكى مېگابايت. -1 گە تەڭشەلسە ئۆزلۈكىدىن تازىلاش چەكلىنىدۇ.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="maximum_age">
+						<local_schema>
+							<longdesc>كىچىك سۈرەتنى غەملەشنىڭ ئەڭ ئۇزۇن ئۆمرى، بىرلىكى كۈن. -1 غا تەڭشەلسە ئۆزلۈكىدىن تازىلاش چەكلىنىدۇ.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="sound">
+					<entry name="input_feedback_sounds">
+						<local_schema short_desc="كىرگۈزۈش ئىنكاس ئاۋازى">
+							<longdesc>كىرگۈزۈش ھادىسىسى كۆرۈلگەندە ئاۋاز چىقىرامدۇ يوق</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="theme_name">
+						<local_schema short_desc="ئاۋاز تېمىسىنىڭ ئاتى">
+							<longdesc>ھادىسە ئاۋازىغا ئىشلىتىدىغان XDG ئاۋاز تېمىسى</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="event_sounds">
+						<local_schema short_desc="ھادىسىنىڭ ئاۋازى">
+							<longdesc>ئىشلەتكۈچى ھادىسىسى كۆرۈلگەندە ئاۋاز چىقىرامدۇ يوق.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="enable_esd">
+						<local_schema short_desc="ESD نى قوزغات">
+							<longdesc>قوزغالغاندا ئاۋاز مۇلازىمىتىنى قوزغات.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="default_mixer_tracks">
+						<local_schema short_desc="كۆڭۈلدىكى ئارىلاشتۇرغۇچ ئاۋاز يولى">
+							<longdesc>كۆپ ۋاسىتە كۇنۇپكا باغلىنىشى ئىشلىتىدىغان كۆڭۈلدىكى ئارىلاشتۇرغۇچ ئاۋاز يولى.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="default_mixer_device">
+						<local_schema short_desc="كۆڭۈلدىكى ئارىلاشتۇرغۇچ ئۈسكۈنىسى">
+							<longdesc>كۆپ ۋاسىتە كۇنۇپكا باغلىنىشى ئىشلىتىدىغان كۆڭۈلدىكى ئارىلاشتۇرغۇچ ئۈسكۈنىسى.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="peripherals">
+					<dir name="mouse">
+						<entry name="cursor_size">
+							<local_schema short_desc="نۇر بەلگە چوڭلۇقى">
+								<longdesc>cursor_theme نەقىل ئالغان نۇر بەلگە چوڭلۇقى.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="cursor_theme">
+							<local_schema short_desc="نۇربەلگىسىنىڭ ئۇسلۇبى">
+								<longdesc>نۇر بەلگە تېمىسىنىڭ ئاتى. پەقەت Xcursor نى قوللايدىغان Xservers غا ئىشلىتىلىدۇ، مەسىلەن، XFree86 4.3 ياكى يېڭى نەشرى</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="cursor_font">
+							<local_schema short_desc="نۇربەلگىسىنىڭ خەت نۇسخىسى">
+								<longdesc>نۇر بەلگە خەت نۇسخىسىنىڭ ئاتى. ئەگەر تەڭشەلمىسە ئۇنداقتا كۆڭۈلدىكى خەت نۇسخىسىنى ئىشلىتىدۇ. بۇ تەڭشەك پەقەت ھەر قېتىملىق ئەڭگىمە باشلىنىشتىن ئىلگىرى X مۇلازىمېتىرغا يوللايدۇ، شۇڭلاشقا ئەڭگىمەدە ئۇنى ئۆزگەرتىشنىڭ پايدىسى يوق، سىز كېيىنكى قېتىم تىزىمغا كىرگەندە ئاندىن كۈچكە ئىگە بولىدۇ.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="locate_pointer">
+							<local_schema short_desc="كۆرسەتكۈچ ئورنى">
+								<longdesc>Ctrl نى بېسىپ قويۇۋەتكەن چاغدىكى چاشقىنەك ئورنىنى يورۇتامدۇ يوق.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="double_click">
+							<local_schema short_desc="قوش چېكىشنىڭ ئارىلىقى">
+								<longdesc>قوش چېكىش ئارىلىقى.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="drag_threshold">
+							<local_schema short_desc="سۆرەشنىڭ بوسۇغا قىممىتى">
+								<longdesc>سۆرەشنى باشلىغۇچە بولغان ئارىلىق.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="motion_threshold">
+							<local_schema short_desc="ھەرىكەت بوسۇغا قىممىتى">
+								<longdesc>چاشقىنەك ھەرىكىتىنى تېزلىتىشنى قوزغىتىشتىن ئىلگىرى چوقۇم يۆتكىلىشكە تېگىشلىك پىكسېل سانى. سىستېمىنىڭ كۆڭۈلدىكى قىممىتى -1</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="motion_acceleration">
+							<local_schema short_desc="تاق چەك">
+								<longdesc>چاشقىنەك ھەرىكىتىنىڭ تېزلىتىش ھەسسىسى. سىستېمىنىڭ كۆڭۈلدىكى قىممىتى -1</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="single_click">
+							<local_schema short_desc="تاق چەك">
+								<longdesc>تاق چېكىلسە سىنبەلگە ئاچىدۇ.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="left_handed">
+							<local_schema short_desc="چاشقىنەك توپچا يۆنىلىشى">
+								<longdesc>سولخاي چاشقىنەككە ئوڭ سول توپچىنى ئالماشتۇرىدۇ.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="keyboard">
+						<entry name="remember_numlock_state">
+							<local_schema short_desc="NumLock ھالىتىنى ئەستە تۇت">
+								<longdesc>ئەگەر true تەڭشەلسە، GNOME ئوخشاش بولمىغان ئەڭگىمەلەر ئارىسىدا NumLock چىرىغىنىڭ ھالىتىنى ئەستە تۇتىدۇ.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bell_custom_file">
+							<local_schema short_desc="ھەرپتاختا ئاۋازىنىڭ ئىختىيارى ھۆججەت ئاتى">
+								<longdesc>قويىدىغان قوڭغۇراق ئاۋازىنىڭ ھۆججەت ئاتى.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bell_mode">
+							<local_schema>
+								<longdesc>تاللىغىلى بولىدىغان قىممىتى &quot;on&quot;(ئوچۇق)، &quot;off&quot;(تاقاق) ۋە &quot;custom&quot;(ئىختىيارى)</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+				<dir name="lockdown">
+					<entry name="disable_application_handlers">
+						<local_schema short_desc="URL ۋە MIME تىپلىق بىر تەرەپ قىلغۇچنى چەكلە">
+							<longdesc>URL ۋە MIME تىپلىق بىر تەرەپ قىلغۇچ ئىجرا قىلىشنى توس</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_lock_screen">
+						<local_schema short_desc="ئېكراننى قۇلۇپلاشنى چەكلە">
+							<longdesc>ئىشلەتكۈچىنىڭ ئۆز ئېكرانىنى قۇلۇپلاشتىن توسىدۇ.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_user_switching">
+						<local_schema short_desc="ئىشلەتكۈچى ئالماشتۇرۇشنى ئىناۋەتسىز قىل">
+							<longdesc>ئىشلەتكۈچى ئۆزىنىڭ ئاكتىپ ئەڭگىمەسىدە باشقا بىر ھېساباتقا ئالمىشىشىنى توسىدۇ.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_print_setup">
+						<local_schema short_desc="بېسىش تەڭشەكلىرىنى چەكلە">
+							<longdesc>ئىشلەتكۈچىنىڭ پرىنتېر تەڭشىكىنى ئۆزگەرتىشنى توسىدۇ. مەسىلەن، بۇنداق بولغاندا ھەممە قوللىنىشچان پروگراممىلارنىڭ «پرىنتېر تەڭشەك» سۆزلەشكۈنى زىيارەت قىلىشنى چەكلەيدۇ.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_printing">
+						<local_schema short_desc="بېسىشنى چەكلە">
+							<longdesc>ئىشلەتكۈچىنىڭ بېسىشىنى توسىدۇ. مەسىلەن، بۇنداق بولغاندا ھەممە قوللىنىشچان پروگراممىلارنىڭ «پرىنتېر تەڭشەك» سۆزلەشكۈنى زىيارەت قىلىشنى چەكلەيدۇ.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_save_to_disk">
+						<local_schema short_desc="ھۆججەتلەرنى دىسكىغا ساقلاشنى ئىناۋەتسىز قىلىدۇ">
+							<longdesc>ئىشلەتكۈچىنى ھۆججەتنى دىسكىغا ساقلاشتىن توسىدۇ. مەسىلەن، بۇنداق بولغاندا ھەممە قوللىنىشچان پروگراممىلارنىڭ «باشقا ئاتتا ساقلا» سۆزلەشكۈنى زىيارەت قىلىشنى چەكلەيدۇ.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_command_line">
+						<local_schema short_desc="بۇيرۇق قۇرىنى چەكلە">
+							<longdesc>ئىشلەتكۈچى جەدۋىلىنىڭ تېرمىنال زىيارەت قىلىشتىن توسىدۇ ياكى ئىجرا قىلىنىدىغان بۇيرۇق قۇرىنى بەلگىلەيدۇ. مەسىلەن، بۇنداق بولغاندا تاختىدىكى «پروگرامما ئىجرا قىل» سۆزلەشكۈنى زىيارەت قىلىش چەكلىنىدۇ.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="interface">
+					<entry name="show_unicode_menu">
+						<local_schema short_desc="«يۇنىكود تىزگىن ھەرپلىرى» تىزىملىكىنى كۆرسەت">
+							<longdesc>كىرگۈزۈش رامكىسى ۋە تېكىست كۆرۈنۈشىدىكى تىل مۇھىت تىزىملىكى تىزگىن بەلگىسى تاللانمىسىنى قىستۇرۇش بىلەن تەمىنلەمدۇ يوق.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="show_input_method_menu">
+						<local_schema short_desc="&apos;كىرگۈزگۈچ&apos; تىزىملىكىنى كۆرسەت">
+							<longdesc>كىرگۈزۈش رامكىسى ۋە تېكىست كۆرۈنۈشىدىكى تىل مۇھىت تىزىملىكى كىرگۈزگۈچنىڭ تاللانمىسىنى ئۆزگەرتەلەمدۇ يوق.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menubar_accel">
+						<local_schema short_desc="تىزىملىك بالداق تېزلەتكۈچ">
+							<longdesc>تىزىملىك بالداقنى ئاچىدىغان ھەرپتاختا تېز كۇنۇپكا.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="file_chooser_backend">
+						<local_schema short_desc="GtkFileChooser نىڭ بۆلىكى">
+							<longdesc>GtkFileChooser پارچىسى ئىشلىتىدىغان ھۆججەت سىستېما مودېلىنىڭ بۆلىكى. ئىشلىتىلىشچان قىممىتى: &quot;gio&quot;، &quot;gnome-vfs&quot; ۋە &quot;gtk+&quot;</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="status_bar_meter_on_right">
+						<local_schema short_desc="قورال بالداق ئوڭ تەرەپتە">
+							<longdesc>ئوڭ تەرەپتە ھالەت بالداق ئەسكەرتىشىنى كۆرسىتەمدۇ يوق.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="use_custom_font">
+						<local_schema short_desc="ئىختىيارى خەت نۇسخا ئىشلەت">
+							<longdesc>gtk+ پروگراممىدا ئىختىيارى خەت نۇسخا ئىشلىتەمدۇ يوق.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="monospace_font_name">
+						<local_schema short_desc="تەڭ كەڭلىكتىكى خەت نۇسخا">
+							<longdesc>تېرمىنال پروگراممىغا ئوخشاش جايلاردا ئىشلىتىلىدىغان تەڭ  كەڭلىكتىكى(مۇقىم كەڭلىكتىكى) خەت نۇسخا</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="document_font_name">
+						<local_schema short_desc="پۈتۈك خەت نۇسخا">
+							<longdesc>پۈتۈك ئوقۇشتا ئىشلەتكەن كۆڭۈلدىكى خەت نۇسخا ئاتى.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-module">
+						<local_schema short_desc="GTK IM بۆلىكى">
+							<longdesc>gtk+ ئىشلەتكەن كىرگۈزگۈچ بۆلىكىنىڭ ئاتى.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-status-style">
+						<local_schema short_desc="GTK IM ھالەت ئۇسلۇبى">
+							<longdesc>gtk+ ئىشلىتىدىغان GTK+ كىرگۈزگۈچ ھالەت ئۇسلۇبىنىڭ ئاتى.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-preedit-style">
+						<local_schema short_desc="GTK IM ئالدىن تەھرىر ئۇسلۇبى">
+							<longdesc>gtk+ ئىشلىتىدىغان GTK+ كىرگۈزگۈچ ئالدىن تەھرىر ئۇسلۇبىنىڭ ئاتى.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="font_name">
+						<local_schema short_desc="كۆڭۈلدىكى خەت نۇسخىسى">
+							<longdesc>gtk+ ئىشلەتكەن كۆڭۈلدىكى خەت نۇسخا ئاتى.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_key_theme">
+						<local_schema short_desc="Gtk+ تېمىسى">
+							<longdesc>gtk+ ئىشلەتكەن كۆڭۈلدىكى تېمىنىڭ ئاساسى ئاتى.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_theme">
+						<local_schema short_desc="Gtk+ تېمىسى">
+							<longdesc>gtk+ ئىشلەتكەن كۆڭۈلدىكى تېمىنىڭ ئاساسى ئاتى.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="icon_theme">
+						<local_schema short_desc="سىنبەلگە تېمىسى">
+							<longdesc>تاختا، nautilus قاتارلىقلارغا ئىشلىتىلىدىغان سىنبەلگە تېمىسى.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink_time">
+						<local_schema short_desc="نۇربەلگىسىنىڭ لىپىلداش ۋاقتى">
+							<longdesc>نۇر بەلگە لىپىلداش دەۋرىيلىكىنىڭ ئۇزۇنلۇقى، بىرلىكى مىللىسېكۇنت.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink">
+						<local_schema short_desc="نۇربەلگىسىنىڭ لىپىلدىشى">
+							<longdesc>نۇر بەلگە لىپىلدامدۇ يوق.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_icons_size">
+						<local_schema short_desc="قورال بالداقتىكى سىنبەلگە چوڭلۇقى">
+							<longdesc>قورال بالداقتىكى سىنبەلگە چوڭلۇقى، «كىچىك قورال بالداق» ياكى «چوڭ قورال بالداق».</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_detachable">
+						<local_schema short_desc="قورال بالداق پارچىلىنىدۇ">
+							<longdesc>ئىشلەتكۈچى قورال بالداقنى پارچىلاپ تۆت ئەتراپقا يۆتكىيەلەمدۇ يوق.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menubar_detachable">
+						<local_schema short_desc="تىزىملىك بالداق پارچىلىنىدۇ">
+							<longdesc>ئىشلەتكۈچى تىزىملىك بالداقنى پارچىلاپ تۆت ئەتراپقا يۆتكىيەلەمدۇ يوق.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="buttons_have_icons">
+						<local_schema short_desc="توپچىدىكى سىنبەلگە">
+							<longdesc>توپچا تېكىستىنىڭ يېنىدا سىنبەلگە كۆرسىتەمدۇ يوق.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menus_have_icons">
+						<local_schema short_desc="تىزىملىكتىكى سىنبەلگە">
+							<longdesc>تىزىملىكتىكى تىزىملىك تۈرىنىڭ يېنىدا سىنبەلگە كۆرسىتەمدۇ يوق.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_style">
+						<local_schema short_desc="قورال بالداق ئۇسلۇبى">
+							<longdesc>قورال بالداق ئۇسلۇبى. ئىشلەتكىلى بولىدىغان قىممىتى «قوش»، «قوش (توغرىسىغا)»، «سىنبەلگە» ۋە «تېكىست».</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="can_change_accels">
+						<local_schema short_desc="تېزلىتىشنى ئۆزگەرتەلەيدۇ">
+							<longdesc>نۇربەلگە ئاكتىپ تىزىملىكنى كۆرسەتكەندە، ئىشلەتكۈچى يېڭى تېزلەتكۈچنى ھەرىكەتچان كىرگۈزەلەمدۇ يوق.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menus_have_tearoff">
+						<local_schema short_desc="تىزىملىكتىكى ئايرىغۇچ">
+							<longdesc>تىزىملىكتە ئايرىغۇچ بولامدۇ يوق.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="enable_animations">
+						<local_schema short_desc="جانلاندۇرۇمنى قوزغات">
+							<longdesc>جانلاندۇرۇمنى كۆرسىتەمدۇ يوق. دىققەت: بۇ ئومۇمىيەت تەڭشىكى بولۇپ، ئۇ كۆزنەك باشقۇرغۇچ، تاختا قاتارلىقلارنىڭ قىلمىشىنى ئۆزگەرتىدۇ.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="accessibility">
+						<local_schema short_desc="قوشۇمچە قورالنى قوزغات">
+							<longdesc>قوللىنىشچان پروگرامما ياردەمچى زىيارەتنى قوللامدۇ يوق</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="file-views">
+					<entry name="icon_theme">
+						<local_schema short_desc="ھۆججەت سىنبەلگە تېمىسى">
+							<longdesc>ھۆججەت سىنبەلگىسى كۆرسىتىشكە ئىشلىتىلىدىغان تېما.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="background">
+					<entry name="color_shading_type">
+						<local_schema short_desc="رەڭ يورۇقلۇق تىپى">
+							<longdesc>تەگلىك رەڭگىنى قانداق تەدرىجىي ئۆزگەرتىدۇ. قىممىتى «توغرىسىغا تەدرىجىي ئۆزگىرىش»، «بويىغا تەدرىجىي ئۆزگىرىش» ۋە «ساپ رەڭ».</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="secondary_color">
+						<local_schema short_desc="ئىككىنچى رەڭ">
+							<longdesc>تەدرىجىي ئۆزگىرىش دائىرىسىنى سىزغاندا ئوڭ تەرەپ ياكى ئاستى تەرەپنىڭ رەڭگى، سان رەڭ سىزغاندا ئىشلىتىلمەيدۇ.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="primary_color">
+						<local_schema short_desc="ئاساسىي رەڭ">
+							<longdesc>تەدرىجىي ئۆزگىرىش دائىرىسىنى سىزغاندا سول تەرەپ ياكى ئۈستى تەرەپ رەڭگى ياكى سىزغان ساپ رەڭ.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_opacity">
+						<local_schema short_desc="رەسىمنىڭ تۇتۇقلۇقى">
+							<longdesc>تەگلىك رەسىم سىزغاندىكى تۇتۇقلۇقى.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_filename">
+						<local_schema short_desc="رەسىمنىڭ ھۆججەت ئاتى">
+							<longdesc>تەگلىككە سۈرەتكە ئىشلىتىدىغان ھۆججەت.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_options">
+						<local_schema short_desc="رەسىم تاللانمىلىرى">
+							<longdesc>تام قەغەز ھۆججەت ئاتىدا بەلگىلەنگەن سۈرەتنى قانداق كۆرسىتىش بەلگىلىنىدۇ. قىممىتى: &quot;none&quot;، &quot;wallpaper&quot;، &quot;centered&quot;، &quot;scaled&quot;، &quot;stretched&quot;، &quot;zoom&quot;، &quot;spanned&quot;</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="draw_background">
+						<local_schema short_desc="ئۈستەلئۈستى تەگلىكىنى سىز">
+							<longdesc>GNOME غا ئۈستەلئۈستى تەگلىكىنى سىزدۇرىدۇ.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="applications">
+					<dir name="window_manager">
+						<entry name="workspace_names">
+							<local_schema short_desc="خىزمەت رايون ئاتى(تەۋسىيە قىلىنمايدۇ)">
+								<longdesc>بىرىنچى كۆزنەك باشقۇرغۇچ خىزمەت رايون ئاتىنىڭ تىزىملىكى. بۇ كۇنۇپكا GNOME 2.12 نەشرىدىن كېيىن ئىشلىتىش تەۋسىيە قىلىنمايدۇ.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="number_of_workspaces">
+							<local_schema short_desc="خىزمەت رايون سانى(تەۋسىيە قىلىنمايدۇ)">
+								<longdesc>ئىشلەتكۈچى كۆزنەك باشقۇرغۇچ ئىشلىتىدىغان خىزمەت رايون سانى. بۇ كۇنۇپكا GNOME 2.12 نەشرىدىن كېيىن ئىشلىتىش تەۋسىيە قىلىنمايدۇ.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="current">
+							<local_schema short_desc="ئىشلەتكۈچى كۆزنەك باشقۇرغۇچ(تەۋسىيە قىلىنمايدۇ)">
+								<longdesc>ئالدى بىلەن سىنايدىغان كۆزنەك باشقۇرغۇچ. بۇ كۇنۇپكا GNOME 2.12 نەشرىدىن كېيىن ئىشلىتىش تەۋسىيە قىلىنمايدۇ.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="default">
+							<local_schema short_desc="كۆڭۈلدىكى كۆزنەك باشقۇرغۇچ(تەۋسىيە قىلىنمايدۇ)">
+								<longdesc>ئىشلەتكۈچى كۆزنەك باشقۇرغۇچ كۆڭۈلدىكى كۆزنەك باشقۇرغۇچنى تاپالمىدى. بۇ كۇنۇپكا GNOME 2.12 نەشرىدىن كېيىن ئىشلىتىش تەۋسىيە قىلىنمايدۇ.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="terminal">
+						<entry name="exec_arg">
+							<local_schema short_desc="ئىجرا ئۆزگەرگۈچىسى">
+								<longdesc>«ئىجرا» كۇنۇپكىسىدا ئېنىقلانغان تېرمىنالدا ئىجرا قىلىنىدىغان پروگراممىنىڭ ئەركىن ئۆزگەرگۈچىسى</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="تېرمىنال پروگراممىسى">
+								<longdesc>تېرمىنالغا ئېھتىياجلىق پروگراممىنى قوزغاتقاندا ئىشلىتىدىغان تېرمىنال پروگراممىسى.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="tasks">
+						<entry name="needs_term">
+							<local_schema short_desc="ۋەزىپىگە تېرمىنال زۆرۈر">
+								<longdesc>كۆڭۈلدىكى ۋەزىپە پروگراممىسى تېرمىنالدا ئىجرا قىلىنامدۇ يوق</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="كۆڭۈلدىكى ۋەزىپىلەر">
+								<longdesc>كۆڭۈلدىكى ۋەزىپە پروگراممىسى</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="calendar">
+						<entry name="needs_term">
+							<local_schema short_desc="يىلنامىگە تېرمىنال زۆرۈر">
+								<longdesc>كۆڭۈلدىكى يىلنامە پروگراممىسى تېرمىنالدا ئىجرا قىلىنامدۇ يوق</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="كۆڭۈلدىكى يىلنامە">
+								<longdesc>كۆڭۈلدىكى يىلنامە پروگراممىسى</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="browser">
+						<entry name="nremote">
+							<local_schema short_desc="توركۆرگۈ يىراقتىكى بۇيرۇقنى چۈشىنىدۇ">
+								<longdesc>كۆڭۈلدىكى توركۆرگۈ netscape يىراقتىكى بۇيرۇقنى چۈشىنەمدۇ يوق</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="needs_term">
+							<local_schema short_desc="توركۆرگۈگە تېرمىنال زۆرۈر">
+								<longdesc>كۆڭۈلدىكى توركۆرگۈ تېرمىنالدا ئىجرا بولامدۇ يوق.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="كۆڭۈلدىكى كۆرگۈ">
+								<longdesc>ھەممە URL نى كۆرىدىغان كۆڭۈلدىكى كۆرگۈ.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="at">
+						<dir name="visual">
+							<entry name="startup">
+								<local_schema short_desc="ئالدىن قوزغىتىدىغان كۆرۈنۈشچان ياردەمچى تېخنىكىلىق پروگراممىنى قوزغات">
+									<longdesc>GNOME تىزىمغا كىرگەندە ئالدىن قوزغىتىدىغان كۆرۈنۈشچان ياردەمچى تېخنىكىلىق پروگرامما.</longdesc>
+								</local_schema>
+							</entry>
+							<entry name="exec">
+								<local_schema short_desc="ئالدىن قوزغىتىدىغان كۆرۈنۈشچان ياردەمچى تېخنىكىلىق قوللىنىشچان پروگرامما">
+									<longdesc>تىزىمغا كىرىش، تىزىملىك ياكى بۇيرۇق قۇرىدا ئىشلىتىلىدىغان ئالدىن قوزغىتىدىغان كۆرۈنۈشچان ياردەمچى تېخنىكىلىق قوللىنىشچان پروگرامما</longdesc>
+								</local_schema>
+							</entry>
+						</dir>
+						<dir name="mobility">
+							<entry name="startup">
+								<local_schema short_desc="ئالدىن قوزغىتىدىغان كۆچمە ياردەمچى تېخنىكىلىق پروگراممىنى قوزغات">
+									<longdesc>GNOME تىزىمغا كىرگەندە ئالدىن قوزغىتىدىغان كۆچمە ياردەمچى تېخنىكىلىق پروگرامما.</longdesc>
+								</local_schema>
+							</entry>
+							<entry name="exec">
+								<local_schema short_desc="ئالدىن قوزغىتىدىغان كۆچمە ياردەمچى تېخنىكىلىق قوللىنىشچان پروگرامما">
+									<longdesc>تىزىمغا كىرىش، تىزىملىك ياكى بۇيرۇق قۇرىدا ئىشلىتىلىدىغان ئالدىن قوزغىتىدىغان كۆچمە ياردەمچى تېخنىكىلىق قوللىنىشچان پروگرامما</longdesc>
+								</local_schema>
+							</entry>
+						</dir>
+					</dir>
+				</dir>
+				<dir name="accessibility">
+					<dir name="startup">
+						<entry name="exec_ats">
+							<local_schema short_desc="قوزغىتىدىغان ياردەمچى تېخنىكىلىق پروگرامما">
+								<longdesc>GNOME ئۈستەلئۈستىگە تىزىمغا كىرگەندە قوزغىتىدىغان ياردەمچى تېخنىكىلىق پروگرامما تىزىملىكى.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="keyboard">
+						<entry name="stickykeys_modifier_beep">
+							<local_schema>
+								<longdesc>ئۆزگەرتىش توپچىسى بېسىلسا ئاۋاز چىقار</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="stickykeys_two_key_off">
+							<local_schema>
+								<longdesc>ئىككى توپچىنىڭ بىرلا ۋاقىتتا بېسىلىشىنى چەكلە</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="slowkeys_delay">
+							<local_schema short_desc="مىللىسېكۇنتنىڭ ئەڭ كىچىك ئارىلىقى">
+								<longdesc>@delay مىللىسېكۇنت بېسىپ تۇرغاندىن سىرت، كۇنۇپكا بېسىپ كىرگۈزۈشكە قوشۇلما.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_init_delay">
+							<local_schema short_desc="دەسلەپلەشتۈرۈشتە كېچىكتۈرىدىغان مىللىسېكۇنت سانى">
+								<longdesc>چاشقىنەك يۆتكىلىش توپچىسى كۈچكە ئىگە بولۇشتىن ئىلگىرى كۈتىدۇ.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_accel_time">
+							<local_schema short_desc="قانچە مىللىسېكۇنتتىن كېيىن تېزلىتىشنى باشلايدۇ">
+								<longdesc>قانچە مىللىسېكۇنتتا 0 دىن ئەڭ يۇقىرى سۈرئەتكە ئۆرلەيدۇ.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_max_speed">
+							<local_schema short_desc="ھەر سېكۇنتلۇق پىكسېل سانى">
+								<longdesc>ئەڭ يۇقىرى تېزلىكتە ھەر سېكۇنتتا قانچە پىكسېل يۆتكىلىدۇ.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bouncekeys_delay">
+							<local_schema short_desc="مىللىسېكۇنتنىڭ ئەڭ كىچىك ئارىلىقى">
+								<longdesc>@delay مىللىسېكۇنتتا ئوخشاش بىر كۇنۇپكىنى تەكرار بېسىشقا پەرۋا قىلما.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+			</dir>
+		</dir>
+	</dir>
+</gconf>

@@ -1,0 +1,1472 @@
+#!/usr/bin/perl -w
+
+#
+# This software comes with the same License as Perl.
+#
+# Originally written by H.Schurig
+# Additions by Jörn Engel
+# Fixes by Lothar Wassmann <LW@KARO-electronics.de>
+# fixed the d|diff error
+#
+
+use Cwd;
+use Getopt::Long;
+use File::Basename;
+
+Getopt::Long::Configure("no_auto_abbrev");	# Could cause unexpected things
+Getopt::Long::Configure("bundling");		# We want -sA to work
+Getopt::Long::Configure("no_ignore_case");	# We don't want -a == -A
+
+#
+# Beginnings of a patch manager. This one is quite similar to
+# patch-scripts from Andrew Morton, but
+#
+# a) contained in one file
+# b) uses a different file layout
+#
+# The file layout:
+#
+# $projectdir/.patches			directory with patches
+# $projectdir/.patches/<name>.patch	one specific patch
+# $projectdir/.patches/<name>.files	which files are touched by this patch
+# $projectdir/.patches/<name>.txt	optional description
+# $projectdir/.patches/series		sequence of available patches
+# $projectdir/.patches/applied		sequence of patches that led to current files
+#
+# More in the perldoc section below
+#
+
+use strict;
+
+my $debug = 0;			# debug level
+my $verbose = 0;		# verbose level
+my $do_add = 0;			# -add a file without editing it
+my $do_refresh = 0;		# -r --refresh option
+my $do_back = 0;		# -b --back --pop option
+my $do_back_all = 0;		# -B --back-all
+my $do_apply = 0;		# -a --apply option
+my $do_apply_all = 0;		# -A --apply-all option
+my $do_help = 0;		# -h --help option
+my $do_force = 0;		# -f --force option
+my $do_import = 0;		# -i --import option
+my $do_convpatchscripts = 0;	# --convert-from-patchscripts option
+my $do_show = 0;		# -s option
+my $do_diff = 0;		# -d option
+my $do_files = 0;		# -F option
+my $do_prefixstrip = 1;		# -p --prefixstrip option
+my $mergename = '';		# -M create merged patch with this name
+my $interactive = 1;		# disables some NOTE: prints if enabled
+my $projectdir = '';		# where we found the .patches directory
+my $origdir;			# directory of invocation
+my $patchname = '';		# current name of the patch
+my @applied;			# list of all currently applied patchs, used to go backwards
+my @series;			# list of all usable patches, used to apply next patch
+my %applied;			# quick index to find out what is in @applied
+my %series;			# quick index to find out what is in @series
+my $lastapplied = '';		# the last applied patch
+my @patchfilelist;		# list of files that get patched by the current patch
+my %patchfilelist;		# quick index to find out what is in @patchfilelist
+
+
+
+=head1 NAME
+
+patcher - a patch maintenance tool
+
+=head1 SYNOPSIS
+
+=over 20
+
+=item patcher [-n <patchname>] [<file ...>]
+
+Edit <file> as part of the patch <patchname>.
+
+=item patcher -r
+
+Refresh current patch.
+
+=item patcher [-f] -b
+
+Move back one patch to the previous one.
+
+=item patcher [-f] -b <patch>
+
+Move back in series until we're at <patch>.
+
+=item patcher [-f] -b <num>
+
+Move back <num> patches in series.
+
+=item patcher -a
+
+Apply the next patch in the series.
+
+=item patcher -a <patch>
+
+Apply all patches from the series until we've reached at <patch>.
+
+=item patcher -a <num>
+
+Apply next <num> patches from series.
+
+=item patcher -n <patchname> [-p <n>] -i <diff>
+
+Import an external diff file into patch <patchname>. Strip <n> levels from
+the directory names. Please note that patch allows '-p1', but we only '-p
+1'.
+
+=item patcher [-f] [-n <patchname>] [-p <n>] -i <patch ...>
+
+Import an external diff file into patch <patchname>. Strip <n> levels from
+the directory names. Please note that patch allows '-p1', but we only '-p
+1'.
+
+=back
+
+=head1 CONCEPT
+
+Patcher is a perl script which I use for managing patches.  It's quite
+powerful, easy to use, and fast.
+
+Patcher keeps track of which files you change. It then can
+generate patches from your changes, no need for you to handle the diff tool
+manually.
+
+You can have more than one record of file changes, we call this a patch.
+A patch is something that the patch(1) command can apply.
+
+The patches can be stacked in series, they define the order they have to
+applied. Patcher keeps series information as well as information which
+patches have been applied and which not.
+
+=head1 DESCRIPTION
+
+Later we will have a walkthrought, but let me first explain the basic
+operation modes of patcher:
+
+=head2 Editing files
+
+When you call patcher with a filename, patch will make a backup of this file
+(if the file exists).  Now you can create or change the file. Later you can
+ask patcher to create a unified diff with all your changes.
+
+=head2 Creating unified diffs
+
+Just call "patcher -r" and you will get a unified diff of all your
+additions, modification and deletions. The diff will be stored in
+.patches/<patchname>.patch. It is in a form that allows direct application
+via patch(1) or, of course, via "patcher -i".
+
+Whenever you do "patcher -r" your .patches/<patchname>.patch file get's
+refreshed.
+
+=head2 Back out a patch
+
+To revoke your changes and go to the previous version, just enter
+"patcher -b". Patcher will make sure that you don't loose your changes
+by asking you to create a diff if something has changed since the last
+refresh. You may use -f (or --force) patcher to go back anyway.
+
+You can back out more than one patch by either specifying a number
+a patch name after -b.
+
+=head2 Re-Apply a patch
+
+With "patcher -n <patchname> -a" one can apply an already existing
+managed patch. A managed patch is a patch that already is stored
+in the .patches directory and is mentioned in the .patches/series file.
+Patcher tests if the patch would apply without problem and
+applies it. If the patch would be rejected, you can use -f (or --force)
+to apply the patch anyway.
+
+You can apply more than one patch by either specifying a number
+a patch name after -a.
+
+=head2 Importing external patches
+
+Sometimes you have an external patch. That's the opposite of a managed
+patch, the patch is not stored in the .patches directory. By importing
+it, it will become a managed patch.
+
+Import the patch simply with -i <filename>. You can use -p <num> to
+specify the directory level, similar to the -p<num> option of patch(1). But
+please keep in mind that we need a space between -p and the number.
+
+Normally only clean patches will be imported. To import a patch that
+creates rejects use -f (or --force). You'll see a list of files where
+the patch did not apply cleanly, fix the problems manually.
+
+Later you can use "patcher -r" to create a clean patch.
+
+=head1 INSTALLATION
+
+Just place patcher somewhere in your path. That's all.
+
+For each project Patcher requires one  special directory called ".patches".
+It will search for this directory. If it does not exist, patcher creates it
+automatically.
+
+=head1 INTERNALS
+
+All work occurs with a single directory tree. All commands are invoked
+within the root of that tree (TODO: this can and should change). Patcher manages a
+"stack" of patches.
+
+Each patch is a changeset against the base tree plus the preceding patches.
+
+All patches are listed, in order, in the file ".patches/series". Patcher
+adds patches into this file, but never deletes entries. You can edit this
+file with a text editor, but please do only so if the patch you delete is
+currently not applied.
+
+Any currently applied patches is listed in the file ".patches/applied". The
+patcher manage this file, there is no need for you to ever edit this file
+manually.
+
+Each patch affects a number of files in the tree. These files are listed in
+a file list named ".patches/*.files". Patcher manages them. When you back out
+a patch, this file will deleted. Or, in other words, this file exists only
+for applied patches. It's only used by "patcher -r".
+
+Patches are placed into ".patches/*.patch" files. They are always unified
+diffs with -p1 as patchlevel. You can copy then anywhere, the patch(1)
+utility will read them without problems.
+
+Optionally you can put descriptions for the patches in files named
+".patches/*.txt".
+
+So for a particular patch "my-first-patch" the following will exist:
+
+=over
+
+=item -
+
+An entry "my-first-patch.patch" in ".patches/series".
+
+=item -
+
+An entry "my-first-patch" in ".patches/applied" (if it's currently applied)
+
+=item -
+
+A file ".patches/my-first-patch.files" which contains the names of the
+files which my-first-patch modifies, adds or removes
+
+=item -
+
+A file ".patches/my-first-patch.patch", which is the context diff, basically the
+main output of patcher.
+
+=item -
+
+Optionally a file ".patches/my-first-patch.txt" which contains the patch's
+changelog, description or whatever you put in there.
+
+=back
+
+=head1 WALKTHROUGHT
+
+Let's start.
+
+Go into /usr/src/linux (or wherever).
+
+Now let's start with changing some source files:
+
+	patcher -n my-patch kernel/sched.c
+
+OK, patcher copied kernel/sched.c to kernel/sched.c~my-patch for you, the
+program has also done some magic in the .patches directory, which won't be
+of interest to us now.
+
+	Now edit kernel/sched.c a bit.
+
+Now we're ready to document the patch:
+
+	Create .patches/my-patch.txt
+
+Now generate a patch:
+
+	patcher -r
+
+This will generate ".patches/my-patch.patch". Take a look at this file.
+
+Now we remove our change to sched.c by going backwards:
+
+	patcher -b
+
+Look at where we're now:
+
+	patcher -s
+
+Now let's add another file to my-patch. First we re-apply the patch:
+
+	patcher -a
+
+Now edit a second file:
+
+	patcher kernel/printk.c
+
+Note that here we gave patcher a single argument, without command line options.
+This always tells patcher to add another file to the current patch.
+
+	Edit kernel/printk.c
+
+Refresh my-patch:
+
+	patcher -r
+
+Now start a second patch:
+
+	patcher -n my-second-patch kernel/sched.c
+
+Here we have a filename in the command line for patcher, so we edit a file. But
+now we specified a patch name with -n. This told patcher to create a new patch.
+Now patcher manages two patches, "my-patch" and "my-second-patch".
+
+	Edit kernel/sched.c, to make some changes for my-second-patch
+
+Generate my-second-patch:
+
+	patcher -r
+
+Take a look in ".patches/my-second-patch.patch".
+
+Also note that "my-second-patch.patch" has been added to the series file.
+Whenever you manually begin a patch, it will automatically be put into the
+series file.
+
+In this way, the whole thing is stackable. If you have four patches applied,
+say "patch-1", "patch-2", "patch-3" and "patch-4", and if patch-2 and
+patch-4 both touch kernel/sched.c then you will have:
+
+=over 30
+
+=item kernel/sched.c~patch-2
+
+Original copy, before patch-2
+
+=item kernel/sched.c~patch-4
+
+Copy before patch-4. Contains changes from patch-2
+
+=item kernel/sched.c
+
+Current working copy. Contains changes from patch-4.
+
+=back
+
+This means that your diff headers contain "~patch-name" in them, which
+is convenient documentation.
+
+To end our tour, we remove both patches:
+
+	patcher -b
+	patcher -b
+
+That's pretty much it, really.
+
+=head1 SEE ALSO
+
+Andrew Morton's patch scripts at http://www.zip.com.au/~akpm/linux/patches/
+
+I stole the idea from him and even most of this documentation.
+
+At http://savannah.nongnu.org/projects/quilt/ you'll find Quilt. That's the
+successor of Andrew's original scripts. They do the same as patcher (and
+slightly more), but with tenthousand shell scripts.
+
+=head1 AUTHOR
+
+Holger Schurig <holgerschurig usingthedomain gmx.de>
+
+=cut
+
+
+
+#
+# Find and/or create a Patch directory
+#
+# a) look in current directory for .patches directory
+# b) if not found, descent and look again
+# c) if at /, create a .patches directory at the original place
+#
+sub FindProjectDirectory()
+{
+	print "DEBUG: FindProjectDirectory()\n" if $debug > 1;
+
+	return if $projectdir;
+
+	$origdir = "";
+	while (1) {
+		$projectdir = cwd();
+		$origdir ||= $projectdir;
+		last if $projectdir eq '/';
+		if (-d '.patches') {
+			print "DEBUG: found .patches/ in $projectdir/\n" if $debug > 1;
+			chdir $origdir;
+			return;
+		}
+		chdir '..';
+	}
+	$projectdir = $origdir;
+	print "NOTE: made $projectdir to projectdir by creating .patches/\n";
+	chdir $projectdir;
+	mkdir '.patches' or die "$!\n";
+}
+
+
+
+#
+# This loads the contents of the file .patches/series into @series and %series
+#                            and from .patches/applied into @applied and %applied
+# After this, $lastapplied is the name of the last applied patch
+#
+sub LoadSeriesAndApplied()
+{
+	print "DEBUG: LoadSeriesAndApplied()\n" if $debug > 1;
+
+	@applied = ();
+	%applied = ();
+	@series  = ();
+	%series  = ();
+
+	if (open APPLIED, "$projectdir/.patches/applied") {
+		while (defined($_ = <APPLIED>)) {
+			chomp;
+			next if /^\s*$/;
+			next if /^#/;
+			next if $applied{$_};
+			push @applied, $_;
+			$applied{$_} = 1;
+			$lastapplied = $_;
+		}
+		close APPLIED;
+	}
+
+	if (open SERIES, "$projectdir/.patches/series") {
+		while (defined($_ = <SERIES>)) {
+			chomp;
+			next if /^\s*$/;
+			next if /^#/;
+			next if $series{$_};
+			push @series, $_;
+			$series{$_} = 1;
+		}
+		close SERIES;
+	}
+
+	if ($debug > 2) {
+		print "DEBUG: applied: ", join(" ", @applied), "\n" if @applied;
+		print "DEBUG: series:  ", join(" ", @series),  "\n" if @series;
+	}
+}
+
+
+
+#
+# This saves the contents of @series and @applied into .patches/{series,applied}
+#
+sub SaveSeriesAndApplied()
+{
+	print "DEBUG: SaveSeriesAndApplied()\n" if $debug > 1;
+
+	open SERIES, ">$projectdir/.patches/series" or die "$!\n";
+	print SERIES join("\n", @series, '');
+	close SERIES;
+
+	open APPLIED, ">$projectdir/.patches/applied" or die "$!\n";
+	print APPLIED join("\n", @applied, '');
+	close APPLIED;
+}
+
+
+
+#
+# Whenever we patch a file, we first make a backup copy of the unchanged file in
+# it's current directory. This will later be used to re-create a patch.
+#
+sub GetBackupName($)
+{
+	my $fname = shift;
+	print "DEBUG: GetBackupName('$fname')\n" if $debug > 2;
+
+	return "$fname~$patchname";
+}
+
+
+
+#
+# For every applied patch we have a list of the files modified by the patch
+# in .patches/<$patchname>.files. We load this in to @patchfilelist.
+#
+sub LoadPatchedFiles($)
+{
+	my $pname = shift;
+	print "DEBUG: LoadPatchedFiles('$pname')\n" if $debug > 1;
+
+	@patchfilelist = ();
+	%patchfilelist = ();
+	if (open FILES, "$projectdir/.patches/$pname.files") {
+		while (defined($_ = <FILES>)) {
+			chomp;
+			next if /^\s*$/;
+			next if /^#/;
+			print "DEBUG: putting '$_' into \@patchfilelist\n" if $debug > 1;
+			push @patchfilelist, $_;
+			$patchfilelist{$_} = 1;
+		}
+		close FILES;
+	}
+}
+
+
+
+#
+# Puts a file into a patch
+#
+# a) check for name of patch to put it into
+# b) try to get it out of BitKeeper
+# c) check if the file is already in the patch
+# d) create backup copy
+# e) add it to the list of files
+# f) add it to @applied and @series, if necessary
+#
+sub PutIntoPatch($)
+{
+	my $fname = shift;
+	print "DEBUG: PutIntoPatch('$fname')\n" if $debug > 1;
+
+	if (!$patchname && $lastapplied) {
+		$patchname = $lastapplied;
+		#print "NOTE: --name was missing, using '$patchname' as patch name\n";
+	}
+	unless ($patchname) {
+		print "ERROR: you want to patch a file, but I can't find into which patch this file\n";
+		print "       file belongs. Please use the --name parameter.\n";
+		exit(1);
+	}
+
+	# Try to get the file out of BitKeeper
+	my $sccs = dirname($fname) . "/SCCS";
+	if ((-d $sccs) && -f ($sccs . "/s." . basename($fname))) {
+		unless (-f $fname) {
+			#print "No file found, bk edit\n";
+			system("bk", "edit", "-q", $fname);
+		} else {
+			#print "file found, checking for write bit\n";
+			my $mode = (stat($fname))[2] & 0222;
+			unless ($mode) {
+				#print "readonly file found, bk edit\n";
+				system("bk", "unedit", "-q", $fname);
+				system("bk", "edit", "-q", $fname);
+			}
+		}
+	}
+
+	my $backupname = GetBackupName($fname);
+	my $dontadd = 0;
+	if (-f $backupname) {
+		print "WARNING: '$fname' patched more than once\n";
+		$dontadd = 1;
+	}
+	elsif (-f $fname) {
+		print "DEBUG: creating backup copy $backupname\n" if $debug;
+		system('/bin/cp', '-a', $fname, $backupname);
+	} else {
+		print "DEBUG: file $fname does not exist\n" if $debug > 1;
+	}
+
+	unless ($dontadd) {
+		print "DEBUG: adding $fname to $patchname.files\n" if $debug;
+		open FILES, ">>$projectdir/.patches/$patchname.files" or die "$!\n";
+		print FILES "$fname\n";
+		close FILES;
+	}
+
+	my $added = 0;
+	unless ($applied{$patchname}) {
+		print "DEBUG: adding '$patchname' to applied\n" if $debug;
+		push @applied, $patchname;
+		$applied{$patchname} = 1;
+		$added = 1;
+	}
+	unless ($series{$patchname}) {
+		splice @series, $#applied, 0, $patchname;
+		$series{$patchname} = 1;
+		print "DEBUG: adding '$patchname' to series\n" if $debug;
+		$added = 1;
+	}
+	if ($added) {
+		SaveSeriesAndApplied();
+	}
+}
+
+
+
+#
+# General patch applier
+#
+# a) only apply not-yet-applied patches, based on @applied
+# b) only apply not-yet-applied patches, based on patch -R
+# c) only apply patches that apply cleanly
+# d) call PutIntoPatch for all touched files so that the backups and @patchfilelist are ok
+# e) finally apply patch
+#
+sub ApplyPatchWith($)
+{
+	my ($opt) = @_;
+
+	my $patchlog = "$projectdir/.patches/.tmp.$$";
+
+	# First we check if the patch with this name is already in our database ...
+	if ($applied{$patchname}) {
+		print "NOTE: patch with name '$patchname' already applied\n";
+		return 1;
+	}
+
+	my $res;
+
+	# ... then we look if the patch would apply cleanly ...
+	print "DEBUG: patch --dry-run $opt\n" if $debug > 1;
+	$res = system("patch --dry-run $opt >$patchlog 2>/dev/null");
+	if ($res != 0) {
+		unless ($do_force) {
+			unlink($patchlog);
+			return 1;
+		}
+	}
+
+	# ... and if this worked,
+	# - we apply the patch
+	# - we scan the output of the application to find out which files have
+	#   been modified and put them into our database, this also creates
+	#   backup copies
+	unlink("$projectdir/.patches/$patchname.files");
+	if (open PATCHLOG, $patchlog) {
+		my $print_refresh = 1;
+		while (defined($_ = <PATCHLOG>)) {
+			chomp;
+			#print "DEBUG: $_\n";
+			print "NOTE: please check $1\n" if /saving rejects to file (.+)$/;
+			if (/^Hunk #\d+ succeeded at \d+ \(offset .+ lines\)/ && $print_refresh) {
+				print "NOTE: please refresh this patch, line-numbers have changed\n";
+				$print_refresh = 0;
+			}
+			next unless /^patching file (.+)$/;
+			PutIntoPatch($1);
+		}
+		close PATCHLOG;
+	}
+
+	# Finally we apply the patch. No need to create backup copies with -b,
+	# that has been done by PutIntoPatch()
+	$opt = "-f $opt" if $do_force;
+	print  "DEBUG: patch $opt\n" if $debug > 1;
+	$res = system("patch $opt >$patchlog");
+	unlink($patchlog);
+	$res = 0 if $do_force && $res == 256;
+	if ($res != 0) {
+		print "ERROR: strange, with --dry-run the patch worked, but without it does not work ...\n";
+		return 1;
+	}
+
+	# TODO: put header of patch into .patches/<$patchname>.txt
+
+	return $res;
+}
+
+
+
+#
+# This simply applies the next patch, based on info in @series and @applied
+#
+sub ApplyNextPatch()
+{
+	print "DEBUG: ApplyNextPatch()\n" if $debug > 1;
+
+	unless (@series) {
+		print "ERROR: no entries in ./patches/series\n";
+		exit(1);
+	}
+
+	if ($#applied == $#series) {
+		print "ERROR: all patches already applied\n";
+		exit(1);
+	}
+
+	$patchname = $series[$#applied+1];
+	print "NOTE: applying '$patchname'\n"; 
+
+	# -E	remove empty files
+	# -p1	delete 1 prefix dir
+	my $opt = "-E -p1 <$projectdir/.patches/$patchname.patch";
+	my $res = ApplyPatchWith($opt);
+	if ($res == 0) {
+		print "NOTE: patch '$patchname' applied\n" if $debug;
+		$lastapplied = $patchname;
+	} else {
+		print "ERROR: patch '$patchname' did not apply, you could try -f option\n";
+		exit(1);
+	}
+}
+
+
+
+#
+# We want to edit a file. So we have to:
+# a) look if the file has already been put into a patch
+#    if yes: edit the file
+#    if no: complain
+#
+sub EditFile($)
+{
+	my $fname = shift;
+	print "DEBUG: EditFile('$fname')\n" if $debug > 1;
+
+	if ($patchname) {
+		if (($patchname ne $lastapplied) && -f "$projectdir/.patches/$patchname.files") {
+			print "ERROR: we can only edit files in the current or in a new patch.\n";
+			print "       Try -p to pop back to '$patchname'.\n";
+			exit(1);
+		}
+	} else {
+		if ($lastapplied) {
+			$patchname = $lastapplied;
+			print "NOTE: assuming '$patchname' as patch name\n" if $debug;
+		} else {
+			print "ERROR: you want to patch a file, but I can't find into which patch this file\n";
+			print "       file belongs. Please use the --name parameter.\n";
+			exit(1);
+		}
+	}
+
+	LoadPatchedFiles($patchname);
+	unless ($patchfilelist{$fname}) {
+		PutIntoPatch($fname);
+	}
+
+	return if $do_add;
+
+	if ($ENV{EDITOR}) {
+		print "NOTE: editing file $fname\n";
+		system($ENV{EDITOR}, $fname);
+	} else {
+		print "\$EDITOR to $fname missing\n";
+		system("vi " . $fname);
+	}
+}
+
+
+
+#
+# Creates a -p1 formatted unified diff of one file. Needs $patchname set because
+# of GetBackupName(). Also, the file PATCH should be opened for writing.
+#
+sub DiffOneFile($)
+{
+	my ($fname) = @_;
+	print "DEBUG: DiffOneFile('$fname')\n" if $debug > 1;
+
+	my $dir = basename($projectdir);
+	my $backupname = GetBackupName($fname);
+	chdir("$projectdir/..");
+
+	# Was the patch an "add"/"modify"-patch?
+
+	if (-f "$dir/$fname") {
+
+		if (-f "$dir/$backupname") {
+			$backupname = "$dir/$backupname";
+		} else {
+			$backupname = '/dev/null';
+		}
+		# -u	unified diff
+		# -d	find perhaps smaller set of changes
+		my $opt = "-ud $backupname $dir/$fname";
+		print "DEBUG: diff $opt\n" if $debug;
+		open DIFF, "diff $opt |";
+		while (defined($_ = <DIFF>)) {
+			# Strip dates in the format like those:
+			# +++ linux-2.4.19/Makefile       Tue May  6 09:33:07 2003
+			#			   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+			#s/(^[\+\-]{3}? .+)\s+\w\w\w \w\w\w\s+\d+ \d\d:\d\d:\d\d \d\d\d\d/$1/;
+			# The Date format may look different, so that this expression may not work
+			# Since the 'patch' utility can't handle file names with embedded spaces,
+			# it's safe to strip everything beyond the last non-space character
+			 s/(^[\+\-]{3}? [^\s]+)\s.*$/$1/;
+			print PATCH $_;
+		}
+		close DIFF;
+
+	# Was the patch a "remove"-patch?
+
+	} else {
+		print PATCH "--- $dir/$fname\n";
+		print PATCH "+++ /dev/null\n";
+
+		my $lines = 0;
+		if (open DIFF, "<$dir/$backupname") {
+			while (<DIFF>) {
+				$lines++;
+			}
+			close DIFF;
+			print PATCH "@@ -1,$lines +0,0 @@\n";
+			open DIFF, "<$dir/$backupname";
+			while (defined($_ = <DIFF>)) {
+				print PATCH "-$_";
+			}
+			close DIFF;
+		} else {
+			print "Can't open $dir/$backupname\n";
+		}
+	}
+	chdir($origdir);
+}
+
+
+
+#
+# This get's the list of changed-files per patch and diffs the backup copies
+# against the current situation. The diffs will be put into the $patchname.patch file
+#
+sub RefreshPatch(;$)
+{
+	print "DEBUG: RefreshPatchSet()\n" if $debug > 1;
+
+	my $patch = $_[0];
+	if (!$patchname && $lastapplied) {
+		$patchname = $lastapplied;
+		#print "NOTE: --name was missing, using '$patchname' as patch name\n" if $debug;
+	}
+	unless ($patchname) {
+		print "Can't refresh unnamed patch: please specify name of a patch with --name first\n";
+		exit(1);
+	}
+	unless (open FILES, "$projectdir/.patches/$patchname.files") {
+		print "ERROR: no '$projectdir/.patches/$patchname.files', cannot refresh\n";
+		exit(1);
+	}
+
+	$patch = "$projectdir/.patches/$patchname.patch" unless $patch;
+	my $desc  = "$projectdir/.patches/$patchname.txt";
+
+	# Prepend header
+	unlink $patch;
+	if (-f $desc) {
+		system('/bin/cp', $desc, $patch);
+	} else {
+		print "WARNING: Description for patch '$patchname' missing\n" if $debug > 3;
+	}
+
+	# Add diffs:
+	open PATCH, ">>$patch";
+	print PATCH "\n#\n# Patch managed by http://www.holgerschurig.de/patcher.html\n#\n\n";
+	my $fname;
+	while (defined($fname = <FILES>)) {
+		chomp($fname);
+		DiffOneFile($fname);
+	}
+	close FILES;
+	close PATCH;
+
+	print "NOTE: patch '$patchname' refreshed\n" if $interactive;
+}
+
+
+
+#
+# The opposite of ApplyNextPatch()
+#
+sub BackOnePatch()
+{
+	print "DEBUG: BackOnePatch()\n" if $debug > 1;
+
+	unless ($lastapplied) {
+		print "ERROR: no patch currently applied\n";
+		exit(1);
+	}
+	$patchname = $lastapplied;
+
+	my $patchfile = "$projectdir/.patches/$patchname.patch";
+	unless (-f $patchfile) {
+		print "ERROR: patch file for '$patchname' does not exist\n";
+		exit(1);
+	}
+
+	# Create a temporary patch file and compare with last stored patch
+	# This ensures that all files mentioned in $patchname.files are taken
+	# into account even if they aren't present in the $patchname.patch file yet
+	my $tmpfile = "$projectdir/.patches/$patchname.tmp";
+	$interactive = 0;
+	RefreshPatch($tmpfile);
+	my $res = system("diff -q $tmpfile $patchfile >/dev/null");
+	unlink($tmpfile);
+	if ($res == 0) {
+		print "NOTE: patch '$patchname' taken back\n";
+	} else {
+		if ($do_force) {
+			print "WARNING: loosing patch information because of -f flag\n";
+		} else {
+			print "ERROR: patch '$patchname' has not been refreshed.\n";
+			print "       either refresh with -r or force operation with -f\n";
+			exit(1);
+		}
+	}
+
+
+	# I have two options: I just revert the patch via patch -R ... 
+	#                     or I could go through .patches/$patchname.files
+	# I think I'll go the second way
+
+	if (open FILES, "$projectdir/.patches/$patchname.files") {
+		while (defined($_ = <FILES>)) {
+			chomp;
+			print "DEBUG: going to previous '$_'\n" if $debug;
+			my $backupname = GetBackupName($_);
+			if (-f $backupname) {
+				rename $backupname, $_;
+				my $now = time;
+				utime($now, $now, $_);
+			} else {
+				unlink $_;
+			}
+		}
+		close FILES;
+	}
+
+	# we re-create the list of files on-the-fly when doing "patcher -a",
+	# so it's safe to delete this file
+	unlink("$projectdir/.patches/$patchname.files");
+
+	pop @applied;
+	delete $applied{$patchname};
+	$lastapplied = $applied[-1];
+	if (@applied) {
+		print "NOTE: now at '$lastapplied'\n" if $interactive;
+	} else {
+		print "DEBUG: that was the last patch\n" if $debug;
+	}
+	$patchname = undef;
+	SaveSeriesAndApplied();
+}
+
+
+
+#
+# Back out ...
+# - the previous patch if called without arguments
+# - all patches up-to-but-not-including the specified patch
+# - the specified number of patches
+#
+sub BackPatch(@)
+{
+	print "DEBUG: BackPatch(...)\n" if $debug > 1;
+
+	unless (@ARGV) {
+		BackOnePatch();
+		return;
+	}
+
+	if ($#ARGV > 0) {
+		print "ERROR: only one argument to -b allowed\n";
+		exit(1);
+	}
+
+	my $target = $ARGV[0];
+
+	# numerical argument to back out n patches
+	$target =~ /^(\d+)$/;
+	if (defined $1 && $1 == $target) {
+		while ($target > 0) {
+			print "DEBUG: $target patches to go\n" if $debug;
+			BackOnePatch();
+			return if $#applied < 0;
+			$target--
+		}
+		return;
+	}
+
+	unless ($applied{$target}) {
+		print "ERROR: no patch named '$target' currently applied\n";
+		exit(1);
+	}
+
+	$interactive = 0;
+	while ($lastapplied ne $target) {
+		BackOnePatch();
+	}
+	print "NOTE: now at '$lastapplied'\n";
+}
+
+
+
+#
+# Undo all patches (I usually do -b 99 instead)
+#
+sub BackAllPatches()
+{
+	print("DEBUG: BackAllPatches()\n") if $debug;
+	while ($#applied >= 0) {
+		print("DEBUG: $#applied patches to go\n") if $debug;
+		BackOnePatch();
+	}
+}
+
+
+
+#
+# Apply ...
+# - the next patch if called without arguments
+# - all patches up-to-and-including the specified patch
+# - the specified number of patches
+# - a not-yet-in-the-series patch at the current position
+#
+sub ApplyPatch(@)
+{
+	my (@what) = @_;
+	print "DEBUG: ApplyPatch(...)\n" if $debug > 1;
+
+	unless (@what) {
+		ApplyNextPatch();
+		return;
+	}
+
+	my $target;
+	foreach $target (@what) {
+		print "DEBUG: looking for patch '$target'\n" if $debug;
+
+		# numerical argument to forward n patches
+		$target =~ /^(\d+)$/;
+		if (defined $1 and $1 == $target) {
+			while ($target > 0) {
+				print "DEBUG: $target patches to go\n" if $debug;
+				ApplyNextPatch();
+				last if $#applied == $#series;
+				$target--
+			}
+			next;
+		}
+
+		# The patch is already applied
+		if ($applied{$target}) {
+			print "NOTE: patch '$target' already applied\n";
+			next;
+		}
+
+		# The patch is not yet applied, but in series
+		if ($series{$target}) {
+			print "DEBUG: patch '$target' is in series, going forward\n" if $debug;
+			while ($lastapplied ne $target) {
+				ApplyNextPatch();
+			}
+			next;
+		}
+
+		# The patch is not yet applied and not in series
+		if (-f "$projectdir/.patches/$target.patch") {
+			print "NOTE: '$target' will be inserted at the current position into .patches/series\n";
+			# insert new patch at current position
+			splice @series, $#applied+1, 0, $target;
+			$series{$target} = 1;
+			ApplyNextPatch();
+			next;
+		}
+
+		print "ERROR: patch '$target' unknown, maybe you need to import (-i) it?\n";
+		exit(1);
+	}
+}
+
+
+
+#
+# Apply all patches (I usually do -a 99 instead)
+#
+sub ApplyAllPatches()
+{
+	print("DEBUG: ApplyAllPatches()\n") if $debug;
+
+	while ($#applied < $#series) {
+		print("DEBUG: $#applied done out of $#series\n") if $debug;
+		ApplyNextPatch();
+	}
+}
+
+
+
+#
+# Import an external patch and make it known to patcher
+#
+sub ImportExternalPatch($)
+{
+	my $fname = shift;
+	print "DEBUG: ImportExternalPatch('$fname')\n" if $debug > 1;
+
+	# TODO: if no --name option has been given we could try to find a patchname
+	# based on the filename. Here is some code, which I have to test. The
+	# print DEBUG will vanish once I'm satisfied.
+	my $suggest = $fname;
+	$suggest =~  s/.gz$//;			# strip .gz
+	$suggest =~  s/.bz2$//;			# strip .bz2
+	$suggest =~  s/.diff$//;		# strip .diff
+	$suggest =~  s/.patch$//;		# strip .patch
+	$suggest =~  s/^diff[-.]?//;		# strip .diff
+	$suggest =~  s/^patch[-.]?//;		# strip .patch
+	$suggest =~  s/(.*)_[0-9\.\-]*/$1/;	# util-linux_1234 -> util-linux
+	$suggest =~  s/.*\/([^\/]+)/$1/;	# remove preceeding directories
+	if ($patchname) {
+		print "DEBUG: $suggest $patchname\n" if $suggest ne $patchname;
+	} else {
+		$patchname = $suggest;
+	}
+
+	# check if the patch would apply
+	# -f	force
+	# -E	remove empty output files
+	# -p	prefix strip
+	my $opt = "-f -E -p$do_prefixstrip <$fname";
+
+	print "NOTE: import patch '$fname' as '$patchname'\n";
+	my $res = ApplyPatchWith($opt);
+	if ($res && !$do_force) {
+		print "ERROR: patch did not apply, try again with force (-f -i ...)\n";
+		exit(1);
+	}
+
+	# Refresh the patch so that we have some usable .patches/*.patch file
+	$interactive = 0;
+	$res = RefreshPatch();
+
+	# Try to copy a .txt file as well
+	$fname =~ s:\.patch$:.txt: ;
+	$patchname =~ s:\.patch$:.txt: ;
+	if (-r $fname) {
+		system('/bin/cp', $fname, "$projectdir/.patches/$patchname.txt");
+	}
+}
+
+
+
+#
+# For people that used Andrew Morton's patch scripts and want to convert
+#
+sub ConvertFromPatchScripts()
+{
+	print "ConvertFromPatchScripts()\n" if $debug > 1;
+
+	chdir($projectdir);
+	unless (-d 'patches' && -d 'pc' && -d 'txt') {
+		print "ERROR: $projectdir has not been maintained with Andrew Morton's patch-scripts\n";
+		exit(1);
+	}
+	my $fn;
+
+	chdir("$projectdir/patches");
+	foreach $fn (glob '*.patch') {
+		print  "cp -a $fn $projectdir/.patches/$fn\n" if $debug;
+		system("cp -a $fn $projectdir/.patches/$fn");
+	}
+
+	chdir("$projectdir/pc");
+	foreach $fn (glob '*.pc') {
+		$_ = $fn;
+		s/\.pc$/.files/;
+		print  "cp -a $fn $projectdir/.patches/$_\n" if $debug;
+		system("cp -a $fn $projectdir/.patches/$_");
+	}
+
+	chdir("$projectdir/txt");
+	foreach $fn (glob '*.txt') {
+		print  "cp -a $fn $projectdir/.patches/$fn\n" if $debug;
+		system("cp -a $fn $projectdir/.patches/$fn");
+	}
+
+	chdir($projectdir);
+	print  "cp -a applied-patches .patches/applied\n" if $debug;
+	system("cp -a applied-patches .patches/applied");
+	print  "cp -a series .patches\n" if $debug;
+	system("cp -a series .patches");	
+
+
+	exit(0);
+}
+
+
+
+#
+# This create a so-called "merged" patch. It merges all applied patches into
+# one. If a file get's patched more than once, then we will emit the result,
+# not the individual patches to this file.
+#
+sub MergeAllPatches()
+{
+	print("DEBUG: MergeAllPatches()\n") if $debug;
+	# This creates a list of all files and notes which patch
+	# touched the specific file first
+
+	my %patchedby = ();
+	my @patchedby = ();
+	my ($patch, $file);
+	foreach $patch (@applied) {
+		LoadPatchedFiles($patch);
+		foreach $file (@patchfilelist) {
+			unless (defined($patchedby{$file})) {
+				#print "$patch: $file\n";
+				$patchedby{$file} = $patch;
+				push @patchedby, $file;
+			}
+		}
+	}
+
+	if (!open(PATCH, ">", $mergename)) {
+		print("FATAL: could not open $mergename for writing\n");
+		exit(2);
+	}
+	print PATCH "\n# This is a cumulative patch consisting of:\n#\n";
+	foreach $patch (@applied) {
+		print PATCH "#   $patch.patch\n";
+	}
+	print PATCH "#\n# Patch managed by http://www.holgerschurig.de/patcher.html\n#\n\n";
+	foreach $file (sort @patchedby) {
+		$patchname = $patchedby{$file};
+		DiffOneFile($file);
+	}
+	close PATCH;
+
+	exit(0);		# we modified $patchname
+}
+
+
+
+#
+# Show status of patches in .patches, @series and @applied
+#
+sub ShowStatus()
+{
+	print "ShowStatus()\n" if $debug > 1;
+
+
+	# Find any patches that are not in the series files and display
+	# them as orphaned:
+
+	chdir("$projectdir/.patches");
+	foreach (glob "*.patch") {
+		s/\.patch$//;
+		next if $series{$_};
+		next unless $verbose;
+		my $stat = 'not in series';
+		$stat = 'orphan applied' if $applied{$_};
+		printf "%-14s %-13s %s\n", $stat, -f "$projectdir/.patches/$_.txt" ? '' : '.txt missing', $_;
+	}
+
+
+	# Display status of all patches in the series file:
+
+	foreach (@series) {
+		my $stat = 'unapplied';
+		$stat = 'applied' if $applied{$_};
+		printf "%-14s %-13s %s\n", $stat, -f "$projectdir/.patches/$_.txt" ? '' : '.txt missing', $_;
+	}
+
+}
+
+
+
+#
+# Show changes of files in current patch vs. last patched version
+#
+sub ShowDiff()
+{
+	print "ShowDiff()\n" if $debug > 1;
+
+	if (!$patchname && $lastapplied) {
+		$patchname = $lastapplied;
+		#print "NOTE: --name was missing, using '$patchname' as patch name\n" if $debug;
+	}
+	unless ($patchname) {
+		print "Can't diff unnamed patch: please specify name of a patch with --name first\n";
+		exit(1);
+	}
+	unless (open FILES, "$projectdir/.patches/$patchname.files") {
+		print "ERROR: no '$projectdir/.patches/$patchname.files', can not diff\n";
+		exit(1);
+	}
+
+	my $patch = "$projectdir/.patches/$patchname.patch";
+	unless (-f $patch) {
+		print "Patchfile $patch does not exist\n";
+		return 0;
+	}
+	my $difflog = "$projectdir/.patches/$patchname.tmp";
+	$interactive = 0;
+	RefreshPatch($difflog);
+	my $uptodate = 1;
+	my $opt = "-u0d $patch $difflog";
+	print "DEBUG: diff $opt\n" if $debug;
+	if (open DIFF, "diff $opt |") {
+		while (defined($_ = <DIFF>)) {
+			print $_;
+			$uptodate = 0;
+		}
+		close DIFF;
+		if ($uptodate) {
+			print "Patch $patchname is up to date\n";
+		}
+	} else {
+		print "Can't diff file '$patch' against '$difflog'\n";
+		undef $uptodate;
+	}
+	unlink $difflog unless $debug;
+	$uptodate;
+}
+
+
+sub ShowFiles() {
+	chdir("$projectdir/.patches");
+
+	if (!$patchname && $lastapplied) {
+		$patchname = $lastapplied;
+		#print "NOTE: --name was missing, using '$patchname' as patch name\n" if $debug;
+	}
+	unless ($patchname) {
+		print "Can't refresh unnamed patch: please specify name of a patch with --name first\n";
+		exit(1);
+	}
+	unless (open FILES, "$projectdir/.patches/$patchname.files") {
+		print "ERROR: cannot show files of unapplied patch '$patchname'\n";
+		exit(1);
+	}
+	print "Files modified by '$patchname':\n";
+	while (my $file = <FILES>) {
+		print " $file";
+	}
+}
+
+
+#
+# Simple help
+#
+sub usage
+{
+	print <<EOF;
+Usage:
+    patcher [-n <name>] file         edit file
+    patcher -r                       re-create .patches/<name>.patch
+    patcher -a                       apply next patch of .patches/series
+    patcher -a <patch>               apply patches until at we're at <patch>
+    patcher -a <num>                 apply <num> patches
+    patcher -A                       apply all patches
+    patcher -b                       back out last patch
+    patcher -b <patch>               back patches until we're at <patch>
+    patcher -b <num>                 back <num> patches
+    patcher -B                       back out all patches
+    patcher -d                       show changes of files in current patch set wrt. patch
+    patcher -F                       list all files belonging to current patch
+    patcher [-p <num>] -i file       import external patch
+    patcher -s                       show state of patch system
+    patcher -M <name>                merge all patches into <name>
+EOF
+	exit(shift);
+}
+
+sub wrong_usage
+{
+	print(shift, "\n");
+	usage(2);
+}
+
+sub CheckOptionConflict
+{
+	if ($do_back + $do_back_all + $do_apply + $do_apply_all > 1) {
+		wrong_usage("only one of -a, -A, -b and -B may be used");
+	}
+	if (($do_back || $do_back_all || $do_apply || $do_apply_all)
+	    && ($mergename ne '')) {
+		wrong_usage("only one of -a, -A, -b, -B and -M may be used");
+	}
+}
+
+$_ = GetOptions(
+	'a|apply'	=> \$do_apply,
+	'A|apply-all'	=> \$do_apply_all,
+	'b|back'	=> \$do_back,
+	'B|back-all'	=> \$do_back_all,
+	'c|convert-from-patchscripts' => \$do_convpatchscripts,
+	'd|debug+'	=> \$debug,
+	'f|force'	=> \$do_force,
+	'h|help'	=> \$do_help,
+	'i|import'	=> \$do_import,
+	'M|merge-all=s'	=> \$mergename,
+	'n|name=s'	=> \$patchname,
+	'p|prefixstrip=i' => \$do_prefixstrip,
+	'r|refresh'	=> \$do_refresh,
+	's|show'	=> \$do_show,
+	'diff'		=> \$do_diff,
+	'F|files'	=> \$do_files,
+	'v|verbose+'	=> \$verbose,
+	'add'		=> \$do_add,
+	) || usage(2);
+usage(1) if $do_help;
+
+CheckOptionConflict();
+
+FindProjectDirectory();
+
+if ($do_convpatchscripts) {
+	ConvertFromPatchScripts();
+}
+
+LoadSeriesAndApplied();
+
+if ($do_refresh) {
+	RefreshPatch();
+}
+
+if ($mergename ne '') {
+	MergeAllPatches();
+} elsif ($do_apply) {
+	ApplyPatch(@ARGV);
+} elsif ($do_apply_all) {
+	ApplyAllPatches();
+} elsif ($do_back) {
+	BackPatch(@ARGV);
+} elsif ($do_back_all) {
+	BackAllPatches();
+}
+
+if ($do_show) {
+	ShowStatus();
+}
+
+if ($do_diff) {
+    ShowDiff();
+}
+
+if ($do_files) {
+	ShowFiles();
+}
+
+exit(0) if $do_refresh
+	|| $mergename ne ''
+	|| $do_apply
+	|| $do_apply_all
+	|| $do_back
+	|| $do_back_all
+	|| $do_show
+	|| $do_diff
+	|| $do_files;
+
+usage(1, "$0: no files given\n") unless @ARGV;
+
+my $arg;
+for $arg (@ARGV) {
+	if ($do_import) {
+		ImportExternalPatch($arg)
+	} else {
+		EditFile($arg);
+	}
+}
+
+SaveSeriesAndApplied();
+
+0;

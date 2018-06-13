@@ -1,0 +1,78 @@
+#!/bin/bash
+# Have to use bash; can't get ash to "exec -l"
+# Separate script from chere to avoid need for argument parsing
+#
+# first arg is shell
+# second arg is the path
+#
+# Dave Kilroy
+# Nov 2011
+#
+VERSION=1.4
+# HISTORY PRIOR TO GIT
+#VERSION=1.2
+# Add support for dash
+# Add support for mksh
+#VERSION=0.7
+# Run normally if /bin is not in path
+#   Thanks to Dave Griffin
+# Don't complain if second arg not present. Assume we are in the correct
+#   directory. This allows compatibility with previous versions of chere.
+#VERSION=0.6
+# Fix a couple typos
+# cd to second arg to handle invocation from RH explorer pane
+# If the second arg is not a valid directory, guess a network path since
+#  we will always lose the \\ prefix
+#VERSION=0.4
+# First version, tied into chere version
+
+# Would have the second arg as a directory to cd to, but the directory
+# can't be quoted correctly for netork paths
+
+# Fully specify paths to binaries, as /bin is not necessarily in the path
+CYGPATH=/bin/cygpath
+SED=/bin/sed
+ID=/bin/id
+GETENT=/bin/getent
+
+if [ -z $1 ]; then
+ echo An argument is required, specifying the shell to invoke as a login shell
+ exit
+elif [ $1 == -h ]; then
+ echo This script is not intended to be invoked from the command line. Try chere -h
+ exit
+fi
+
+# Instead, just set a variable indicating to the login shells not to cd $HOME
+export CHERE_INVOKING=true
+
+# Goto the desired directory.
+# This is necessary when the context menu is opened in the RH pane
+if [ ! -z "$2" ]; then
+ CHERE_DIR=`$CYGPATH "$2"`
+ NETWORK_PATH=/$CHERE_DIR
+ if [ -d "$CHERE_DIR" ]; then
+  cd "$CHERE_DIR"
+
+ # If the full path doesn't exist, this is prob a network path
+ elif [ -d "$NETWORK_PATH" ]; then
+  cd "$NETWORK_PATH"
+ fi
+fi
+# If that doesn't exist then the current should be the desired directory
+
+if [ $1 = /etc/passwd ]; then
+ user=`$ID -un`
+ scmd=`$GETENT passwd $user | $SED -n "s?.*:\(.*\)?\1?gp"`
+ set -- $scmd
+fi
+
+# Replace this bash with a login shell
+# but only if we recognise the shell
+case $1 in 
+ /bin/sh* | /bin/bash* | /bin/pdksh* | /bin/posh* | /bin/tcsh* | /bin/zsh*  | /bin/dash* | /bin/mksh* | /bin/fish* )
+    echo Starting $1;
+    exec -l $1;;
+ * )
+    echo Do not recognise $1;;
+esac

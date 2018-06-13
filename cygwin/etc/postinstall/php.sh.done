@@ -1,0 +1,24 @@
+if [ ! -f /etc/php.ini ]
+then
+    /usr/bin/mkdir -p /etc
+    /usr/bin/cp /etc/defaults/etc/php.ini /etc/php.ini
+fi
+
+if [ ! -f /etc/php-fpm.conf ]
+then
+    /usr/bin/mkdir -p /etc
+    /usr/bin/cp /etc/defaults/etc/php-fpm.conf /etc/php-fpm.conf
+fi
+
+if [ ! -f /etc/php-fpm.d/www.conf ]
+then
+    /usr/bin/mkdir -p /etc/php-fpm.d
+    /usr/bin/cp /etc/defaults/etc/php-fpm.d/www.conf /etc/php-fpm.d/www.conf
+fi
+
+if [ ! -f /etc/httpd/conf.d/php7.conf ]
+then
+    /usr/bin/mkdir -p /etc/httpd/conf.d
+    /usr/bin/cp /etc/defaults/etc/httpd/conf.d/php7.conf /etc/httpd/conf.d/php7.conf
+fi
+

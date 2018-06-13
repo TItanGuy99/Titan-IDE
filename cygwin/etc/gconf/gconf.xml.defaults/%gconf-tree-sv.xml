@@ -1,0 +1,627 @@
+<?xml version="1.0"?>
+<gconf>
+	<dir name="schemas">
+		<dir name="system">
+			<dir name="smb">
+				<entry name="workgroup">
+					<local_schema short_desc="SMB-arbetsgrupp">
+						<longdesc>Windows-nätverksarbetsgruppen eller -domänen som användaren är del av. För att en ny arbetsgrupp ska börja gälla kan användaren behöva logga ut och in igen.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="proxy">
+				<entry name="autoconfig_url">
+					<local_schema short_desc="URL för automatisk proxykonfiguration">
+						<longdesc>URL som tillhandahåller proxykonfigurationsvärden.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="socks_port">
+					<local_schema short_desc="Port för SOCKS-proxyserver">
+						<longdesc>Porten på maskinen som definieras av &quot;/system/proxy/socks_host&quot; som du använder som proxyserver.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="socks_host">
+					<local_schema short_desc="Värdnamn för SOCKS-proxyserver">
+						<longdesc>Namnet på maskinen som ska agera proxyserver för socks.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="ftp_port">
+					<local_schema short_desc="Port för FTP-proxyserver">
+						<longdesc>Porten på maskinen som definieras av &quot;/system/proxy/ftp_host&quot; som du använder som proxyserver.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="ftp_host">
+					<local_schema short_desc="Värdnamn för FTP-proxyserver">
+						<longdesc>Namnet på maskinen som ska agera proxyserver för FTP.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="secure_port">
+					<local_schema short_desc="Port för säker HTTP-proxyserver">
+						<longdesc>Porten på maskinen som definieras av &quot;/system/proxy/secure_host&quot; som du använder som proxyserver.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="secure_host">
+					<local_schema short_desc="Värdnamn för säker HTTP-proxyserver">
+						<longdesc>Namnet på maskinen som ska agera proxyserver för säker HTTP.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="mode">
+					<local_schema short_desc="Proxykonfigurationsläge">
+						<longdesc>Välj proxykonfigurationsläget. Värden som stöds är &quot;none&quot;, &quot;manual&quot;, &quot;auto&quot;.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="http_proxy">
+				<entry name="ignore_hosts">
+					<local_schema short_desc="Värdnamn för ickeproxyvärdar">
+						<longdesc>Denna nyckel innehåller en lista med värdar som ansluts till direkt istället för att gå via proxyservern (om den är igång). Värdena kan vara värdnamn, domäner (genom användning av ett inledande jokertecken som *.blaha.se), IP-värdadresser (både IPv4 och IPv6) och nätverksadresser med en nätmask (någonting liknande 192.168.0.0/24).</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="authentication_password">
+					<local_schema short_desc="Lösenord för HTTP-proxyserver">
+						<longdesc>Lösenord att skicka som autentisering vid användning av HTTP-proxyserver.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="authentication_user">
+					<local_schema short_desc="Användarnamn för HTTP-proxyserver">
+						<longdesc>Användarnamn att skicka som autentisering vid användning av HTTP-proxyserver.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="use_authentication">
+					<local_schema short_desc="Autentisera proxyserveranslutningar">
+						<longdesc>Om detta är sant kräver anslutningarna till proxyservern autentisering. Användarnamn- och lösenordsparet definieras av &quot;/system/http_proxy/authentication_user&quot; och &quot;/system/http_proxy/authentication_password&quot;.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="port">
+					<local_schema short_desc="Port för HTTP-proxyserver">
+						<longdesc>Porten på maskinen som definieras av &quot;/system/http_proxy/host&quot; som du använder som proxyserver.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="host">
+					<local_schema short_desc="Värdnamn för HTTP-proxyserver">
+						<longdesc>Namnet på maskinen som ska agera proxyserver för HTTP.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="use_http_proxy">
+					<local_schema short_desc="Använd HTTP-proxyserver">
+						<longdesc>Aktiverar proxyinställningarna vid åtkomst av HTTP över Internet.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="dns_sd">
+				<entry name="extra_domains">
+					<local_schema short_desc="Extra domäner som dns-sd-tjänster ska sökas i">
+						<longdesc>Kommaseparerad lista med dns-sd-domäner som ska synas på platsen &quot;network:///&quot;.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="display_local">
+					<local_schema short_desc="Hur den lokala DNS-SD-tjänsten ska visas">
+						<longdesc>Möjliga värden är &quot;merged&quot;, &quot;separate&quot; och &quot;disabled&quot;.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+		</dir>
+		<dir name="desktop">
+			<dir name="gnome">
+				<dir name="typing_break">
+					<entry name="enabled">
+						<local_schema short_desc="Huruvida tangentbordslåsning är aktiverat">
+							<longdesc>Huruvida tangentbordslåsning är aktiverat.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="allow_postpone">
+						<local_schema short_desc="Tillåt senareläggning av pauser">
+							<longdesc>Huruvida skrivpausskärmen kan senareläggas.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="break_time">
+						<local_schema short_desc="Paustid">
+							<longdesc>Antal minnuter som skrivpausen ska vara.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="type_time">
+						<local_schema short_desc="Skrivtid">
+							<longdesc>Antal minuter med skrivtid innan pausläget börjar.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="thumbnailers">
+					<entry name="disable_all">
+						<local_schema short_desc="Inaktivera alla externa skapare av miniatyrbilder">
+							<longdesc>Ställ till sant för att inaktivera alla externa program som skapar miniatyrbilder, oavsett om de aktiveras/inaktiveras individuellt.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="thumbnail_cache">
+					<entry name="maximum_size">
+						<local_schema>
+							<longdesc>Maximal storlek för miniatyrbildsmellanlagret, i megabyte. Ställ in till -1 för att inaktivera tömning.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="maximum_age">
+						<local_schema>
+							<longdesc>Maximal ålder för miniatyrbilder i mellanlagret, i dagar. Ställ in till -1 för att inaktivera tömning.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="sound">
+					<entry name="input_feedback_sounds">
+						<local_schema short_desc="Återkopplingsljud för inmatning">
+							<longdesc>Huruvida ljud ska spelas vid inmatningshändelser.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="theme_name">
+						<local_schema short_desc="Ljudtemanamn">
+							<longdesc>XDG-ljudtemat att använda för händelseljud.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="event_sounds">
+						<local_schema short_desc="Ljud för händelser">
+							<longdesc>Huruvida ljud ska spelas vid användarhändelser.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="enable_esd">
+						<local_schema short_desc="Aktivera ESD">
+							<longdesc>Aktivera uppstart av ljudserver.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="default_mixer_tracks">
+						<local_schema short_desc="Standardmixerspår">
+							<longdesc>Standardmixerspåren som används av multimediatangentbindningarna.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="default_mixer_device">
+						<local_schema short_desc="Standardmixerenhet">
+							<longdesc>Standardmixerenheten som används av multimediatangentbindningarna.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="peripherals">
+					<dir name="mouse">
+						<entry name="cursor_size">
+							<local_schema short_desc="Markörstorlek">
+								<longdesc>Storlek på pekaren som refereras till av cursor_theme.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="cursor_theme">
+							<local_schema short_desc="Markörtema">
+								<longdesc>Temanamn för pekare. Används endast av Xservers som stöder Xcursor, såsom XFree86 4.3 och senare.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="cursor_font">
+							<local_schema short_desc="Markörtypsnitt">
+								<longdesc>Typsnittsnamn för markören. Om det inte är inställt används standardtypsnittet. Detta värde propageras endast till X-serverstarten för varje session, så att ändra det mitt under en session kommer inte att ha någon effekt till dess att du loggar in nästa gång.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="locate_pointer">
+							<local_schema short_desc="Lokalisera pekare">
+								<longdesc>Markera den aktuella positionen för pekaren när control-tangenten trycks ned och släpps.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="double_click">
+							<local_schema short_desc="Tid för dubbelklick">
+								<longdesc>Längden på ett dubbelklick.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="drag_threshold">
+							<local_schema short_desc="Tröskelvärde för dragning">
+								<longdesc>Avstånd innan en dragning startas.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="motion_threshold">
+							<local_schema short_desc="Tröskelvärde för rörelse">
+								<longdesc>Avstånd i bildpunkter som pekaren måste flyttas innan accelerererad musrörelse aktiveras. Ett värde på -1 är systemets standardalternativ.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="motion_acceleration">
+							<local_schema short_desc="Enkelklick">
+								<longdesc>Accelerationsförstärkare för musrörelse. Ett värde på -1 är systemets standardalternativ.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="single_click">
+							<local_schema short_desc="Enkelklick">
+								<longdesc>Enkelklick för att öppna ikoner.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="left_handed">
+							<local_schema short_desc="Musknappsorientering">
+								<longdesc>Byt vänster och höger musknapp för vänsterhänt mus.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="keyboard">
+						<entry name="remember_numlock_state">
+							<local_schema short_desc="Kom ihåg NumLock-status">
+								<longdesc>När inställd till true kommer GNOME att komma ihåg status för NumLock-lampan mellan sessioner.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bell_custom_file">
+							<local_schema short_desc="Anpassat filnamn för tangentbordssignal">
+								<longdesc>Filnamn på signalen som ska spelas upp.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bell_mode">
+							<local_schema>
+								<longdesc>möjliga värden är &quot;on&quot;, &quot;off&quot; och &quot;custom&quot;.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+				<dir name="lockdown">
+					<entry name="disable_application_handlers">
+						<local_schema short_desc="Inaktivera hanterare för URL- och MIME-typer">
+							<longdesc>Förhindra att hanterarprogram för URL- eller MIME-typer körs.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_lock_screen">
+						<local_schema short_desc="Inaktivera skärmlåsning">
+							<longdesc>Förhindra användaren från att låsa skärmen.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_user_switching">
+						<local_schema short_desc="Inaktivera användarväxling">
+							<longdesc>Förhindra användaren från att växla till ett annat konto under tiden dennes session är aktiv.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_print_setup">
+						<local_schema short_desc="Inaktivera utskriftskonfiguration">
+							<longdesc>Förhindra att användaren ändrar utskriftsinställningar. Detta kan till exempel inaktivera åtkomst till alla programs &quot;Utskriftskonfiguration&quot;-dialogfönster.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_printing">
+						<local_schema short_desc="Inaktivera utskrifter">
+							<longdesc>Förhindra att användaren skriver ut. Detta kan till exempel inaktivera åtkomst till alla programs &quot;Skriv ut&quot;-dialogfönster.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_save_to_disk">
+						<local_schema short_desc="Inaktivera sparande av filer till disk">
+							<longdesc>Förhindra att användaren sparar filer på hårddisken. Detta kan till exempel inaktivera åtkomst till alla programs &quot;Spara som&quot;-dialogfönster.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_command_line">
+						<local_schema short_desc="Inaktivera kommandorad">
+							<longdesc>Förhindra att användaren kommer åt terminalfönster eller kan ange en kommandorad som ska köras. Detta kan till exempel inaktivera åtkomst till panelens &quot;Kör program&quot;-dialogfönster.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="interface">
+					<entry name="show_unicode_menu">
+						<local_schema short_desc="Visa &quot;Unicode-kontrolltecken&quot;-menyn">
+							<longdesc>Huruvida sammanhangsmenyerna för objekt och textvyer ska låta kontrolltecken infogas eller inte.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="show_input_method_menu">
+						<local_schema short_desc="Visa &quot;Inmatningsmetoder&quot;-menyn">
+							<longdesc>Huruvida sammanhangsmenyer för objekt och textvyer ska låta inmatningsmetoden ändras eller inte.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menubar_accel">
+						<local_schema short_desc="Menyradssnabbtangent">
+							<longdesc>Tangentbordsgenväg för att öppna menyraderna.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="file_chooser_backend">
+						<local_schema short_desc="Modul för GtkFileChooser">
+							<longdesc>Modul att använda som filsystemsmodellen för GtkFileChooser-widgeten. Möjliga värden är &quot;gio&quot;, &quot;gnome-vfs&quot; och &quot;gtk+&quot;.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="status_bar_meter_on_right">
+						<local_schema short_desc="Statusraden till höger">
+							<longdesc>Huruvida en statusradsmätare ska visas till höger.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="use_custom_font">
+						<local_schema short_desc="Använd anpassat typsnitt">
+							<longdesc>Huruvida ett anpassat typsnitt ska användas i gtk+-program.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="monospace_font_name">
+						<local_schema short_desc="Typsnitt med fast breddsteg">
+							<longdesc>Namn på ett typsnitt med fast breddsteg som kan användas på platser som exempelvis terminalfönster.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="document_font_name">
+						<local_schema short_desc="Dokumenttypsnitt">
+							<longdesc>Namn på standardtypsnittet som används för läsning av dokument.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-module">
+						<local_schema short_desc="GTK IM-modul">
+							<longdesc>Namn på inmatningsmetodens modul som används av GTK+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-status-style">
+						<local_schema short_desc="GTK IM-statusstil">
+							<longdesc>Namn på GTK+-inmatningsmetodens statusstil som används av gtk+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-preedit-style">
+						<local_schema short_desc="GTK IM-förredigeringsstil">
+							<longdesc>Namn på GTK+-inmatningsmetodens förredigeringsstil som används av gtk+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="font_name">
+						<local_schema short_desc="Standardtypsnitt">
+							<longdesc>Namn på standardtypsnittet som används av gtk+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_key_theme">
+						<local_schema short_desc="Gtk+-tema">
+							<longdesc>Basnamn för standardtemat som används av gtk+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_theme">
+						<local_schema short_desc="Gtk+-tema">
+							<longdesc>Basnamn för standardtemat som används av gtk+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="icon_theme">
+						<local_schema short_desc="Ikontema">
+							<longdesc>Ikontema att använda för panelen, nautilus, osv.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink_time">
+						<local_schema short_desc="Blinktid för markör">
+							<longdesc>Längd på markörblinkcykeln, i millisekunder.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink">
+						<local_schema short_desc="Markörblinkning">
+							<longdesc>Huruvida markören ska blinka.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_icons_size">
+						<local_schema short_desc="Storlek på verktygsradsikoner">
+							<longdesc>Ikonstorlek i verktygsrader, antingen &quot;small-toolbar&quot; eller &quot;large-toolbar&quot;.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_detachable">
+						<local_schema short_desc="Verktygsrad är löstagbar">
+							<longdesc>Huruvida användaren kan ta loss verktygsrader och flytta runt dem.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menubar_detachable">
+						<local_schema short_desc="Menyrad är löstagbar">
+							<longdesc>Huruvida användaren kan ta loss menyrader och flytta runt dem.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="buttons_have_icons">
+						<local_schema short_desc="Knappar har ikoner">
+							<longdesc>Huruvida knappar kan visa en ikon i tillägg till knapptexten.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menus_have_icons">
+						<local_schema short_desc="Menyer har ikoner">
+							<longdesc>Huruvida menyer kan visa en ikon bredvid ett menyobjekt.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_style">
+						<local_schema short_desc="Verktygsradsstil">
+							<longdesc>Stil för verktygsrad. Giltiga värden är &quot;both&quot;, &quot;both-horiz&quot;, &quot;icons&quot; och &quot;text&quot;.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="can_change_accels">
+						<local_schema short_desc="Kan ändra snabbtangenter">
+							<longdesc>Huruvida användaren dynamiskt kan ange en ny snabbtangent när denne är positionerad över ett aktivt menyobjekt.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menus_have_tearoff">
+						<local_schema short_desc="Menyer har löstagningsflik">
+							<longdesc>Huruvida menyer ska ha en löstagningsflik.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="enable_animations">
+						<local_schema short_desc="Aktivera animationer">
+							<longdesc>Huruvida animationer ska visas. Observera: Detta är en global nyckel, den ändrar beteendet på fönsterhanteraren, panelen osv.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="accessibility">
+						<local_schema short_desc="Aktivera tillgänglighet">
+							<longdesc>Huruvida Program-menyn ska ha tillgänglighetsstöd.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="file-views">
+					<entry name="icon_theme">
+						<local_schema short_desc="Filikontema">
+							<longdesc>Tema som används för visning av filikoner.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="background">
+					<entry name="color_shading_type">
+						<local_schema short_desc="Färgskuggningstyp">
+							<longdesc>Hur bakgrundsfärgen ska skuggas. Möjliga värden är &quot;horizontal-gradient&quot; (vågrät gradient), &quot;vertical-gradient&quot; (lodrät gradient) och &quot;solid&quot; (enfärgad).</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="secondary_color">
+						<local_schema short_desc="Sekundär färg">
+							<longdesc>Höger eller nedre färg vid ritande av färgtoningar, används inte för enfärgat.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="primary_color">
+						<local_schema short_desc="Primär färg">
+							<longdesc>Vänster färg eller övre färg vid ritande av färgtoningar, eller den enda färgen vid enfärgat.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_opacity">
+						<local_schema short_desc="Bildopacitet">
+							<longdesc>Opacitet med vilken bakgrundsbilden ska ritas.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_filename">
+						<local_schema short_desc="Bildfilnamn">
+							<longdesc>Fil att använda som bakgrundsbild.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_options">
+						<local_schema short_desc="Bildalternativ">
+							<longdesc>Bestämmer hur bilden som är angiven i wallpaper_filename renderas. Möjliga värden är &quot;none&quot;, &quot;wallpaper&quot;, &quot;centered&quot;, &quot;scaled&quot;, &quot;stretched&quot;, &quot;zoom&quot;, &quot;spanned&quot;.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="draw_background">
+						<local_schema short_desc="Rita skrivbordsbakgrund">
+							<longdesc>Låt GNOME rita ut skrivbordsbakgrunden.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="applications">
+					<dir name="component_viewer">
+						<entry name="exec">
+							<local_schema short_desc="Standardprogram för komponentvisning">
+								<longdesc>Programmet som används för visning av filer som kräver en komponent för att visa dem. Parametern %s kommer att ersättas av filens URI:er, och parametern %c kommer att ersättas av komponent-IID.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="window_manager">
+						<entry name="workspace_names">
+							<local_schema short_desc="Namn på arbetsytorna (föråldrat)">
+								<longdesc>En lista med namn på de första fönsterhanterararbetsytorna. Denna nyckel har föråldrats sedan GNOME 2.12.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="number_of_workspaces">
+							<local_schema short_desc="Antalet arbetsytor (föråldrat)">
+								<longdesc>Antalet arbetsytor som fönsterhanteraren ska använda. Denna nyckel har föråldrats sedan GNOME 2.12.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="current">
+							<local_schema short_desc="Användarfönsterhanterare (föråldrat)">
+								<longdesc>Fönsterhanterare att prova först. Denna nyckel har föråldrats sedan GNOME 2.12.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="default">
+							<local_schema short_desc="Alternativ fönsterhanterare (föråldrat)">
+								<longdesc>Alternativ fönsterhanterare om användarfönsterhanteraren inte kan hittas. Denna nyckel har föråldrats sedan GNOME 2.12.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="terminal">
+						<entry name="exec_arg">
+							<local_schema short_desc="Exekveringsargument för standardterminal">
+								<longdesc>Exekveringsargumentet att använda för standardterminalprogrammet.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Standardterminalprogram">
+								<longdesc>Standardterminalprogrammet att använda för program som kräver en terminal.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="tasks">
+						<entry name="needs_term">
+							<local_schema short_desc="Uppgifter behöver terminal">
+								<longdesc>Huruvida standardprogram för uppgifter behöver en terminal för att köra</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Standarduppgifter">
+								<longdesc>Standardprogram för uppgifter</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="calendar">
+						<entry name="needs_term">
+							<local_schema short_desc="Kalender behöver terminal">
+								<longdesc>Huruvida standardprogram för kalender behöver en terminal för att köra</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Standardkalender">
+								<longdesc>Standardprogram för kalender</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="browser">
+						<entry name="nremote">
+							<local_schema short_desc="Webbläsaren förstår fjärr">
+								<longdesc>Huruvida standardwebbläsaren förstår netscape-fjärr.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="needs_term">
+							<local_schema short_desc="Webbläsaren behöver terminal">
+								<longdesc>Huruvida standardwebbläsaren behöver en terminal för att köra.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Standardwebbläsare">
+								<longdesc>Standardwebbläsare för alla URL:er.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="at">
+						<dir name="visual">
+							<entry name="startup">
+								<local_schema short_desc="Starta föredraget program för hjälpmedelstekniker för synskadade">
+									<longdesc>GNOME ska starta föredraget program för hjälpmedelstekniker för synskadade under inloggning.</longdesc>
+								</local_schema>
+							</entry>
+							<entry name="exec">
+								<local_schema short_desc="Föredraget program för hjälpmedelstekniker för synskadade">
+									<longdesc>Föredraget program för hjälpmedelstekniker för synskadade att använda för inloggning, meny eller kommandorad.</longdesc>
+								</local_schema>
+							</entry>
+						</dir>
+						<dir name="mobility">
+							<entry name="startup">
+								<local_schema short_desc="Starta föredraget program för hjälpmedelstekniker för rörelsehindrade">
+									<longdesc>GNOME ska starta föredraget program för hjälpmedelstekniker för rörelsehindrade under inloggning.</longdesc>
+								</local_schema>
+							</entry>
+							<entry name="exec">
+								<local_schema short_desc="Föredraget program för hjälpmedelstekniker för rörelsehindrade">
+									<longdesc>Föredraget program för hjälpmedelstekniker för rörelsehindrade att använda för inloggning, meny eller kommandorad.</longdesc>
+								</local_schema>
+							</entry>
+						</dir>
+					</dir>
+				</dir>
+				<dir name="accessibility">
+					<dir name="startup">
+						<entry name="exec_ats">
+							<local_schema short_desc="Starta program för hjälpmedelstekniker">
+								<longdesc>Lista över program för hjälpmedelstekniker som ska startas när inloggning sker till GNOME-skrivbordet.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="keyboard">
+						<entry name="stickykeys_modifier_beep">
+							<local_schema>
+								<longdesc>Pip när en modifierare trycks ned.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="stickykeys_two_key_off">
+							<local_schema>
+								<longdesc>Inaktivera om två tangenter trycks ned samtidigt.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="slowkeys_delay">
+							<local_schema short_desc="Minsta intervall i millisekunder">
+								<longdesc>Acceptera inte en tangent som trycks ned om den inte hålls nedtryckt i @delay millisekunder.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_init_delay">
+							<local_schema short_desc="Initiell fördröjning i millisekunder">
+								<longdesc>Hur många millisekunder att vänta innan musflyttningstangenter börjar fungera.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_accel_time">
+							<local_schema short_desc="Hur länge ska accelerering ske i millisekunder">
+								<longdesc>Hur många millisekunder det tar att gå från 0 till maximal hastighet.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_max_speed">
+							<local_schema short_desc="Bildpunkter per sekund">
+								<longdesc>Hur många bildpunkter per sekund att flytta vid maximal hastighet.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bouncekeys_delay">
+							<local_schema short_desc="minsta intervall i millisekunder">
+								<longdesc>Ignorera flera tryckningar på _samma_ tangent inom @delay millisekunder.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+			</dir>
+		</dir>
+	</dir>
+</gconf>

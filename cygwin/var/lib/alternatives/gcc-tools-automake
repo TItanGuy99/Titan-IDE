@@ -1,0 +1,11 @@
+auto
+/opt/gcc-tools/bin/automake
+gcc-tools-aclocal
+/opt/gcc-tools/bin/aclocal
+
+/opt/gcc-tools/epoch1/bin/automake-1.9
+10
+/opt/gcc-tools/epoch1/bin/aclocal-1.9
+/opt/gcc-tools/epoch2/bin/automake-1.11
+20
+/opt/gcc-tools/epoch2/bin/aclocal-1.11

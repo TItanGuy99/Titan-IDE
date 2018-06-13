@@ -1,0 +1,48 @@
+#!/bin/sh
+# Run from command line, to open a kde help page in kfm/konqueror
+# Argument : The classname (case sensitive !).
+# Both doxygen and kdoc docs are supported.
+
+# You can edit this line to set the directory holding your KDE docs, or you
+# can use the environment variable KDEDOCS to avoid future conflicts with this
+# file if the default changes.
+KDEDOCS=${KDEDOCS:-"$KDEDIR/share/doc/HTML/en/kdelibs-apidocs"}
+
+if [ $# = 1 ]; then
+  if [ -e "$KDEDOCS/doxygen.css" ]; then
+    # Docs are laid out in doxygen style.
+    if [ -f "$KDEDOCS/class$1.html" ]; then
+      kfmclient exec "$KDEDOCS/class$1.html"
+    elif [ -f "$KDEDOCS"/*/html/"class$1.html" ]; then
+      kfmclient exec "$KDEDOCS"/*/html/"class$1.html"
+    else
+      classstring=`echo "$1" | sed -e 's/::/_1_1/'`
+      if [ -f "$KDEDOCS/class$classstring.html" ]; then
+        kfmclient exec "$KDEDOCS/class$classstring.html"
+      elif [ -f "$KDEDOCS"/*/html/"class$classstring.html" ]; then
+        kfmclient exec "$KDEDOCS"/*/html/"class$classstring.html"
+      elif [ -f "$KDEDOCS"/class*_1_1"$1.html" ]; then
+        kfmclient exec "$KDEDOCS"/class*_1_1"$1.html"
+      elif [ -f "$KDEDOCS"/*/html/class*_1_1"$1.html" ]; then
+        kfmclient exec "$KDEDOCS"/*/html/class*_1_1"$1.html"
+      else
+        echo "No class $1 in $KDEDOCS/*"
+        exit 1
+      fi
+    fi
+  elif [ -e "$KDEDOCS/kdecore/index.html" ]; then
+    # Docs are laid out in kdoc style.
+    if [ -f "$KDEDOCS"/*/"$1.html" ]; then
+      kfmclient exec "$KDEDOCS"/*/"$1.html"
+    else
+      echo "No class $1 in $KDEDOCS/*"
+      exit 1
+    fi
+  else
+    echo "$KDEDOCS does not appear to contain your KDE docs."
+    exit 1
+  fi
+else
+  echo "Usage : $0 <classname>"
+  exit 1
+fi

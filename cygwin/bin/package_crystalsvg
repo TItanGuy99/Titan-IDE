@@ -1,0 +1,179 @@
+#!/bin/sh
+echo -n "Starting up..."
+#
+# Copyright (C) 2004 Frans Englich <frans.englich@telia.com>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+#
+#
+# This little script assumes that in $PWD/ is a check out of various
+# KDE modules, searches them for SVG files and packages them up in a tarball, 
+# all the files in the toplevel, together with this script and a list of the files(FILES) 
+# telling what KDE modules/path the svg files were copied from.
+# This script is shipped with the kdesdk package.
+#
+# Author: Frans Englich <frans.englich@telia.com>
+
+
+# In what directory we should search
+SEARCH_DIR="$PWD"
+
+
+# The name of the tar ball without extension. If you're not 110% sure 
+# the sources are up to date, remove the date tag'
+PKGNAME="kde_crystalsvg-$(date '+%Y-%m-%d')"
+
+
+# The path to where the package should be written
+PKGPATH="$PWD/"
+
+
+# What nice value to run find and tar with. find is too intensive..
+NICE=15 # Low..
+
+
+# Path to the LICENSE file
+LICENSE="$SEARCH_DIR"/kdelibs/pics/LICENSE.crystalsvg
+
+
+# You shouldn't need to edit anything below.
+
+
+
+
+
+
+# Sanity checks
+if [ ! -d "$SEARCH_DIR" ]; then
+	echo "$SEARCH_DIR is not an directory. Exiting."
+	exit 1;
+fi
+
+if [ ! -r $LICENSE ]; then
+	echo "The file \"$LICENSE\" do not exist or is not readable. Exiting."
+	exit 1;
+fi
+
+TDIR=$(mktemp -d "${TMPDIR:-/tmp}/kde_crystalsvg_packageXXXXXX")
+PKGDIR="$TDIR/$PKGNAME"
+mkdir "$PKGDIR"
+
+echo "done" # Startup
+
+# Find the SVGs
+FILES="$PKGDIR/FILES"
+echo -n "Searching for the SVG files..."
+SVGFILES=$(find "$SEARCH_DIR" -name "cr*.svg*" -type f)
+if [ $? -ne 0 ]; then
+	echo "There was an error when searching for the files. Exiting." >&2
+	exit 1;
+fi
+echo "done" # Search
+
+echo -n "Generating README, FILES etc. files..."
+# Fill the FILES file
+echo "" >> "$FILES"
+echo "README - contains general information about this package" >> "$FILES"
+echo "FILES - this file" >> "$FILES"
+echo "LICENSE - contains the license the SVG files are licensed under" >> "$FILES"
+echo "" >> "$FILES"
+echo "From the lines below, you can find out in what KDE package and where, the SVG are located" >> $FILES
+echo "" >> "$FILES"
+echo "$SVGFILES" | sed -e s,"$SEARCH_DIR",,g | sort >> "$FILES"
+
+cp "$LICENSE" "$PKGDIR/LICENSE"
+
+# Copy the SVG files, portable way
+for F in $SVGFILES; do cp -- "$F" "$PKGDIR"; done
+
+# Fill the README file
+README="$PKGDIR/README"
+cat >> "$README" << EOF
+
+Crystal SVG sources from KDE CVS
+
+These are the Crystal SVG vector sources from KDE CVS.
+
+LOCATION
+The "FILES" file gives information about the location they come from.
+
+Most come from: kdelibs/pics/crystalsvg  You can visit this cvs directory using webcvs:
+http://webcvs.kde.org/cgi-bin/cvsweb.cgi/kdelibs/pics/crystalsvg
+Due to the naming the SVGs are at the end of the list.
+
+They are in the form of .svgz, which can be renamed to svg.gz and opened with gzip -d *.svg.gz
+
+Application icons may also be found with the application sources:  /<kde_app_suite>/<kde_app_name>/pics e.g. /kdebase/konqueror/pics or /kdeedu/kmplot/pics
+
+The package_svg_files script collected the sources automatically.
+
+THE ART OF MAKING ICONS
+If you want to make Crystal Icons, take a look at the Icon Guide. Here you will find information on icon making, submitting icons to kde, technical problems with svg icons, references, software and much more.
+http://kde.ground.cz/tiki-index.php?page=Icon+Guide
+
+The smaller icons are hand-fixed after they are exported to pixels. Running the sources directly on your system will probably give poorer results than using the png version of the Crystal SVG set.
+
+The most up to date info for kde artists can be found at the wiki:
+http://kde.ground.cz/tiki-index.php?page=KDE+Artists
+
+MISSING SOURCES
+Most of the icons are made by Everaldo, initiator and visionairy of the set, while Torsten is highly productive too. Besides Everaldo and Torsten, other artists added icons to the Crystal icon set. For whatever reason, some of these sources are missing. If you ever made a Crystal SVG icon, and see the source is not in this archive, please send the vector source to: icons --at-- kde --dot-- org
+If you want feedback on an icon you made: kde-artists --at-- kde --dot-- org
+And of course, Everaldo too is interested in your Crystal icons:
+"Everaldo" <everaldo --at--everaldo --dot-- com>
+
+Suse has published some Crystal Icons raw material. See the Icon Guide for more information about this. http://kde.ground.cz/tiki-index.php?page=Icon+Guide
+
+SOFTWARE
+Many SVGs made with Illustrator will not open in Sodipodi. Karbon14 (KOffice-1.3) will open these SVG files made with AI. Sometimes it takes a while and sometimes it doesn't
+get the gradients correct. However, if you then save the file from Karbon14, it will open in Sodipodi. You may also try Sketch, renamed to Skencil.
+
+BUGLIST
+Inspired? Take a look at the buglist!
+http://bugs.kde.org/buglist.cgi?short_desc_type=allwordssubstr&short_desc=&long_desc_type=allwordssubstr&long_desc=&product=artwork&component=general&version=unspecified&bug_status=UNCONFIRMED&bug_status=NEW&bug_status=ASSIGNED&bug_status=REOPENED&bugidtype=include&bug_id=&votes=&emailassigned_to1=1&emailtype1=substring&email1=&emailassigned_to2=1&emailreporter2=1&emailcc2=1&emailtype2=substring&email2=&changedin=&chfieldfrom=&chfieldto=Now&chfieldvalue=&order=Reuse+same+sort+as+last+time&cmdtype=doit&newqueryname=
+
+LICENSE & QUESTIONS
+License: see LICENSE.crystalsvg
+Questions?  Write an e-mail to  kde-artists --at-- kde --dot-- org
+
+EOF
+echo "done" # Generating
+
+
+
+# Package it
+echo -n "Packaging the files..."
+
+nice -n$NICE tar -cjf "$PKGPATH/$PKGNAME.tar.bz2" -C "$TDIR" "$PKGNAME" 2>/dev/null
+
+if [ $? -ne 0 ]; then
+	echo "There was an error while packaging the files. Exiting."
+	exit 1;
+fi
+echo "done" # Packaging
+
+
+
+# Clean up
+rm -rf "$TDIR"
+
+
+
+# All done
+echo ""
+echo "Success - the package is called "$PKGNAME", located in $PKGPATH"
+echo ""
+
+# EOF

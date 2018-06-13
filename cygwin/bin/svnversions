@@ -1,0 +1,51 @@
+#! /bin/sh
+unset LANG LC_ALL
+LC_ALL=C
+export LC_ALL
+
+if [ $# -eq 1 ]; then
+    svn info "$1" | awk '/^Last Changed Rev/ { print $4 }'
+else
+    for f; do
+	svn info "$f" | awk "/^Last Changed Rev/ { print \"$f\", \$4 }"
+    done
+fi
+
+exit
+
+=head1 NAME
+
+svnversions -- Displays version of the files passed as argument.
+
+=head1 SYNOPSIS
+
+    svnversions <file1> [<file2> [...]]
+
+=head1 DESCRIPTION
+
+svnversions displays the last revision a file in Subversion was
+changed, as known by the local checked out directory. No connection is
+required to the Subversion server. It is equivalent to the "COMMITTED"
+revision name.
+
+Unlike svnversion(1), this program returns the revision a file was
+modified. svnversion(1) tells the revision a working dir is at.
+
+It can be used in other scripts, or simply to ask for diffs using
+
+svn diff -r [<version>:]<version> <file(s)>
+
+=head1 AUTHOR
+
+Thiago Macieira <thiago@kde.org>
+
+Inspired on cvsversion, written by
+David Faure <faure@kde.org>
+
+=head1 SEE ALSO
+
+This command parses the output from 'svn info'.
+
+ svn(1), svnversion(1)
+
+=cut

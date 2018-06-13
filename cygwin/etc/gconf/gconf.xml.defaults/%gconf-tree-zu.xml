@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<gconf>
+	<dir name="schemas">
+		<dir name="system">
+			<dir name="smb">
+				<entry name="workgroup">
+					<local_schema short_desc="Iqembu lokusebenza SMB">
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="proxy">
+				<entry name="autoconfig_url">
+					<local_schema short_desc="Isilinganisi esingumbambeli esizenzekalelayo URL">
+						<longdesc>iURL enikezela ngamanani esilinganisi sesibambeli.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="socks_port">
+					<local_schema short_desc="umbambeli wetheku ku-SOCKS">
+						<longdesc>Itheku emshinini lichazwa nge &quot;/system/proxy/socks_host&quot; obambisela ngayo.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="socks_host">
+					<local_schema short_desc="umbambeli wegama lommemi ku-SOCKS">
+						<longdesc>Igama lomshini kusibambeli sesocks sidlulele.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="ftp_port">
+					<local_schema short_desc="Umbambeli wetheku Ku-FTP">
+						<longdesc>Itheku emshinini lichazwa nge &quot;/system/proxy/ftp_host&quot; obambisela ngayo.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="ftp_host">
+					<local_schema short_desc="Umbambeli wegama lommemi ku-FTP">
+						<longdesc>Igama lomshini kusibambeli se-FTP sidlulele.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="secure_port">
+					<local_schema short_desc="Umbambeli wethuku ku-HTTP okhuselekile">
+						<longdesc>Itheku emshinini lichazwa nge &quot;/system/proxy/secure_host&quot; obambisela ngayo.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="secure_host">
+					<local_schema short_desc="Umbambeli wegama lommemi ku-HTTP elikhuselekile">
+						<longdesc>Igama lomshini kusibambeli ikhusele i-HTTP ekudluleni.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="mode">
+					<local_schema short_desc="Isimo sesibambiso sesilinganisi">
+						<longdesc>Khetha isimo sesibambiso sesilinganisi. Amanani asekelwe yilawa &quot;ngekho&quot;, &quot;manual&quot;, &quot;zenzakalelayo&quot;.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="http_proxy">
+				<entry name="ignore_hosts">
+					<local_schema short_desc="Ummemi ongayisibambisi">
+						<longdesc>Lenkinobho iqukethe uhlu lwezimmemi ezixhunywe ngqo, kuno kuthi usebenzise isibambeli (uma sisebenza). Amanani kungaba amabizo-mmemi, indawo (usebenzisa isikhethi sokuqala njenge *.foo.com), amakheli ommemi IP (omabili oIPv4 ne IPv6) kanye nekheli lolwembu nesidleke zokuzivala ubuso (into enjenge 192.168.0.0/24).</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="authentication_password">
+					<local_schema short_desc="Umbambeli womngenisi-bizo ku-HTTP">
+						<longdesc>Umngenisi-bizo wokungena njengesiqiniseko uma wenza isibambiso se-HTTP.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="authentication_user">
+					<local_schema short_desc="Umbambeli webizo-lukusetshenziswa ku-HTTP">
+						<longdesc>Umsebenzisi gama ezedlula njengesiqiniseko mawenza isibambeli se-HTTP.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="use_authentication">
+					<local_schema short_desc="Qiniseka ngesixhumaniso sesibenzisi esingumbambeli">
+					</local_schema>
+				</entry>
+				<entry name="port">
+					<local_schema short_desc="Umbambeli wetheku ku-HTTP">
+						<longdesc>Itheku emshinini lichazwa nge &quot;/system/http_proxy/host&quot; obambisela ngayo.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="host">
+					<local_schema short_desc="Umbambeli wegama lommemi ku-HTTP">
+						<longdesc>Igama lomshini kusibambeli se-HTTP sidlulele.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="use_http_proxy">
+					<local_schema short_desc="Sebenzisa isibambeli HTTP">
+						<longdesc>Igunyaza uhlelo lokubambisa uma ungena ku-HTTP ku-lwembu jikelele.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="dns_sd">
+				<entry name="display_local">
+					<local_schema short_desc="Utshengisa kanjani izisebenzisi zei-DNS-SD zasendaweni">
+						<longdesc>Amanani anganzeka ilawa &quot;hlangana&quot;, &quot;hlukene&quot; kanye &quot;khininda&quot;.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+		</dir>
+		<dir name="desktop">
+			<dir name="gnome">
+				<dir name="applications">
+					<dir name="component_viewer">
+						<entry name="exec">
+							<local_schema short_desc="Iphutha lesitho sokusetshenziswa sokubuka">
+								<longdesc>Isisebenziso sokubona ohele abadinga isitho sokubabona. Isigamu %s sizokubuyiselwa ngehele URIs, isigamu %c sizokubuyiselwa ngesitho IID.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="terminal">
+						<entry name="exec_arg">
+							<local_schema short_desc="Sebenzisa umgomo wephutha lesigungu">
+								<longdesc>Umgomo osetshenziswa ukusebenzisa iphutha lesigungu sesisebenziso.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Iphutha lesigungu sokusetshenziswa">
+								<longdesc>Iphutha lesisebenzisi esigungwini sokusebenzisa izisebenzisi ezidinga isigungu.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+			</dir>
+		</dir>
+	</dir>
+</gconf>

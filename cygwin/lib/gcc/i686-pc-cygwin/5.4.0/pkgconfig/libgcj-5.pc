@@ -1,0 +1,10 @@
+prefix=/usr
+exec_prefix=/usr
+libdir=${exec_prefix}/lib
+includedir=$(libdir)/gcc/$(target_noncanonical)/$(gcc_version)/include/
+
+Name: libgcj
+Description: libgcj
+Version: 5.4.0
+Libs: -L${libdir} -lgcj
+Cflags: -I${includedir}

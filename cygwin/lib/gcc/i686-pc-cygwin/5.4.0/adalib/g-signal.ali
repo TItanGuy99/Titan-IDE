@@ -1,0 +1,89 @@
+V "GNAT Lib v5"
+A -gnatwa
+A -nostdinc
+A -O2
+A -Wextra
+A -Wall
+A -g
+A -gnatp
+A -gnatg
+A -mtune=generic
+A -march=i686
+P ZX
+
+RN
+
+U gnat.signals%b	g-signal.adb		37fc3675 NE OL PK
+W gnat%s		gnat.ads		gnat.ali
+W system%s		system.ads		system.ali
+W system.interrupts%s	s-interr.adb		s-interr.ali
+
+U gnat.signals%s	g-signal.ads		604bcea3 EE NE OL PK
+W ada%s			ada.ads			ada.ali
+W ada.interrupts%s	a-interr.adb		a-interr.ali
+W gnat%s		gnat.ads		gnat.ali
+
+D ada.ads		20070406091342 3ffc8e18 ada%s
+D a-except.ads		20140730140058 5250cb69 ada.exceptions%s
+D a-finali.ads		20140611123707 69f99942 ada.finalization%s
+D a-interr.ads		20090409150019 391cab36 ada.interrupts%s
+D a-stream.ads		20141120112812 119b8fb3 ada.streams%s
+D a-tags.ads		20140730140058 dc4d0634 ada.tags%s
+D a-unccon.ads		20070406091342 f9eb8f06 ada.unchecked_conversion%s
+D gnat.ads		20140801083227 fd2ad2f1 gnat%s
+D g-signal.ads		20090409150019 a47db764 gnat.signals%s
+D g-signal.adb		20090409150019 b51da3ca gnat.signals%b
+D interfac.ads		20141120112812 6033a23f interfaces%s
+D i-c.ads		20110801143639 5421119b interfaces.c%s
+D i-cstrin.ads		20140611122922 341d0ddf interfaces.c.strings%s
+D system.ads		20141030114420 f4ce8c3a system%s
+D s-atacco.ads		20120515093410 4c36d12f system.address_to_access_conversions%s
+D s-exctab.ads		20140225151139 54135002 system.exception_table%s
+D s-finroo.ads		20120426095924 4ff27390 system.finalization_root%s
+D s-interr.ads		20140813165905 269c22db system.interrupts%s
+D s-multip.ads		20101011073009 38ac9f73 system.multiprocessors%s
+D s-osinte.ads		20150107102251 2e5b26a9 system.os_interface%s
+D s-parame.ads		20140801093848 7e2a0d7f system.parameters%s
+D s-soflin.ads		20140801100131 aa763b52 system.soft_links%s
+D s-stache.ads		20140225151139 a37c21ec system.stack_checking%s
+D s-stausa.ads		20110804134155 017a0a05 system.stack_usage%s
+D s-stalib.ads		20150220094550 fa0a3617 system.standard_library%s
+D s-stoele.ads		20140225151139 2dc34a04 system.storage_elements%s
+D s-tasinf.ads		20140613095942 601f6b72 system.task_info%s
+D s-taspri.ads		20141120144719 6c1d93d4 system.task_primitives%s
+D s-taskin.ads		20150106085750 339749f0 system.tasking%s
+D s-taprob.ads		20110927094500 502249e3 system.tasking.protected_objects%s
+D s-tpoben.ads		20121029113218 b641f948 system.tasking.protected_objects.entries%s
+D s-traent.ads		20140730135025 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20140731130224 9d58a4c0 system.unsigned_types%s
+D s-win32.ads		20140120152906 b7f96285 system.win32%s
+X 1 ada.ads
+16K9*Ada 19e8 9|39r6 43r37 46r39 49r34 10|42r37 51r34 60r39
+X 4 a-interr.ads
+38K13*Interrupts 71e19 9|39w10 43r41 46r43 49r38 10|42r41 51r38 60r43
+40I9*Interrupt_ID<18|64I9> 9|43r52 46r54 49r49 10|42r52 51r49 60r54
+X 8 gnat.ads
+34K9*GNAT 37e9 9|41r9 52r5 10|34r14 65r5
+X 9 g-signal.ads
+41K14*Signals 8|34k9 9|52l10 52e17 10|34b19 65l10 65t17
+43U14*Block_Signal 43>28 10|42b14 45l8 45t20
+43i28 Signal{4|40I9} 10|42b28 44r44
+46U14*Unblock_Signal 46>30 10|60b14 63l8 63t22
+46i30 Signal{4|40I9} 10|60b30 62r46
+49V13*Is_Blocked{boolean} 49>25 10|51b13 54l8 54t18
+49i25 Signal{4|40I9} 10|51b25 53r46
+X 10 g-signal.adb
+36K12 SI=36:30 44r7 44r27 53r14 53r29 62r7 62r29
+X 14 system.ads
+37K9*System 10|32r6 36r23 14|199e11
+X 18 s-interr.ads
+50K16*Interrupts 10|32w13 36r30 18|278e22
+64I9*Ada_Interrupt_ID<short_short_integer>
+67I9*Interrupt_ID<short_short_integer> 10|44r30 53r32 62r32
+136U14*Block_Interrupt 10|44s10
+139U14*Unblock_Interrupt 10|62s10
+147V13*Is_Blocked{boolean} 10|53s17
+X 24 s-stausa.ads
+203U14*Initialize 204i<c,__gnat_stack_usage_initialize>22
+268U14*Output_Results 272i<c,__gnat_stack_usage_output_results>22
+

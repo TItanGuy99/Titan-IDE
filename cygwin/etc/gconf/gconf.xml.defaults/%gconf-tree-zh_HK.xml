@@ -1,0 +1,628 @@
+<?xml version="1.0"?>
+<gconf>
+	<dir name="schemas">
+		<dir name="system">
+			<dir name="smb">
+				<entry name="workgroup">
+					<local_schema short_desc="SMB 工作羣組">
+						<longdesc>使用者所屬的 Windows 網絡羣組或網域。新的羣組可能要等使用者再登入後才能完全生效，</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="proxy">
+				<entry name="autoconfig_url">
+					<local_schema short_desc="自動代理伺服器組態網址">
+						<longdesc>提供代理伺服器組態的網址。</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="socks_port">
+					<local_schema short_desc="SOCKS 代理伺服器連接埠">
+						<longdesc>在“/system/proxy/socks_host’中定義的代理伺服器的埠號。</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="socks_host">
+					<local_schema short_desc="SOCKS 代理伺服器主機名稱">
+						<longdesc>socks 代理伺服器主機名稱。</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="ftp_port">
+					<local_schema short_desc="FTP 代理伺服器埠號">
+						<longdesc>在“/system/proxy/ftp_host’中定義的代理伺服器的埠號。</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="ftp_host">
+					<local_schema short_desc="FTP 代理伺服器主機名稱">
+						<longdesc>FTP 代理伺服器主機名稱。</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="secure_port">
+					<local_schema short_desc="安全式 HTTP 代理伺服器連接埠">
+						<longdesc>在“/system/proxy/secure_host’中定義的代理伺服器的埠號。</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="secure_host">
+					<local_schema short_desc="安全式 HTTP 代理伺服器主機名稱">
+						<longdesc>用在安全式 HTTP 的代理伺服器主機名稱。</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="mode">
+					<local_schema short_desc="代理伺服器組態模式">
+						<longdesc>選擇代理伺服器設置模式。支援的值有“none”、“manual”、“auto”。</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="http_proxy">
+				<entry name="ignore_hosts">
+					<local_schema short_desc="不使用代理伺服器的主機">
+						<longdesc>這個鍵值包含了要直接連線，不透過代理伺服器（如果有使用）的主機。數值可以為主機名稱、網域（開頭使用萬用字符如 *.foo.com）、IP 位址（IPv4 和 IPv6 皆可）或帶有子網絡遮罩的位址（像是 192.168.0.0/24）。</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="authentication_password">
+					<local_schema short_desc="HTTP 代理伺服器密碼">
+						<longdesc>使用 HTTP 代理伺服器時進行認證的密碼。</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="authentication_user">
+					<local_schema short_desc="HTTP 代理伺服器使用者名稱">
+						<longdesc>使用 HTTP 代理伺服器時用來驗證的使用者名稱。</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="use_authentication">
+					<local_schema short_desc="驗證代理伺服器連線">
+						<longdesc>如設定為“true”，那麼連接到代理伺服器時需要認證。使用者/密碼的組合在
+“/system/http_proxy/authentication_user”和“/system/http_proxy/authentication_password”中設定。</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="port">
+					<local_schema short_desc="HTTP 代理伺服器連接埠">
+						<longdesc>在“/system/http_proxy/host’中定義的代理伺服器的埠號。</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="host">
+					<local_schema short_desc="HTTP 代理伺服器主機名稱">
+						<longdesc>HTTP 代理伺服器主機名稱。</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="use_http_proxy">
+					<local_schema short_desc="使用 HTTP 代理伺服器">
+						<longdesc>經互聯網存取 HTTP 時啟用代理伺服器設定。</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="dns_sd">
+				<entry name="extra_domains">
+					<local_schema short_desc="找尋 DNS-SD 服務的額外網域">
+						<longdesc>在“network:///”位置中顯示的 DNS-SD 網域清單，以逗號隔開。</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="display_local">
+					<local_schema short_desc="如何顯示本地端的 DNS-SD 服務">
+						<longdesc>可能值為“merged”,“separate”以及“disabled”。</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+		</dir>
+		<dir name="desktop">
+			<dir name="gnome">
+				<dir name="typing_break">
+					<entry name="enabled">
+						<local_schema short_desc="是否鎖定鍵盤">
+							<longdesc>是否鎖定鍵盤</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="allow_postpone">
+						<local_schema short_desc="允許暫時放棄休息">
+							<longdesc>可否暫時延後進入休息畫面的時間。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="break_time">
+						<local_schema short_desc="休息時間">
+							<longdesc>工作時間中必須間歇性地休息指定的時間，以分鐘計算</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="type_time">
+						<local_schema short_desc="工作時間">
+							<longdesc>開始休息時間之前可以工作（打字）的時間，以分鐘計算</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="thumbnailers">
+					<entry name="disable_all">
+						<local_schema short_desc="停止使用任何製作縮圖的程式">
+							<longdesc>如設定為“true”，會停止產生任何縮圖，而不理會各種製作縮圖的程式是否已經個別被啟用或者停止使用</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="thumbnail_cache">
+					<entry name="maximum_size">
+						<local_schema>
+							<longdesc>縮圖快取中的大小上限，以 MB 計。設為 -1 則停用清除功能。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="maximum_age">
+						<local_schema>
+							<longdesc>縮圖保留在快取中最長的期限，以天數計。設為 -1 則停用清除功能。</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="sound">
+					<entry name="input_feedback_sounds">
+						<local_schema short_desc="輸入回饋音效">
+							<longdesc>是否播放輸入事件的音效。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="theme_name">
+						<local_schema short_desc="音效主題名稱">
+							<longdesc>在事件音效中使用的 XDG 音效主題</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="event_sounds">
+						<local_schema short_desc="代表事件的音效">
+							<longdesc>當出現不同事件時播放代表該事件的音效。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="enable_esd">
+						<local_schema short_desc="啟用 ESD">
+							<longdesc>啟動時開啟音效伺服程式。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="default_mixer_tracks">
+						<local_schema short_desc="預設混音聲道">
+							<longdesc>多媒體按鍵組合使用的預設混音聲道</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="default_mixer_device">
+						<local_schema short_desc="預設混音裝置">
+							<longdesc>多媒體按鍵組合使用的預設混音裝置</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="peripherals">
+					<dir name="mouse">
+						<entry name="cursor_size">
+							<local_schema short_desc="鼠標大小">
+								<longdesc>cursor_theme 中指定的鼠標主題的大小。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="cursor_theme">
+							<local_schema short_desc="鼠標主題">
+								<longdesc>這個是鼠標主題名稱，只適用於支援 Xcursor 的 X 伺服程式，例如 XFree86 4.3 或以後的版本。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="cursor_font">
+							<local_schema short_desc="鼠標字型檔">
+								<longdesc>載有鼠標的檔案名稱。如果沒有設定，會使用預設的鼠標檔。本設定值只會在作業階段開始時傳送至 X 伺服程式，因此使用 X Window 時更改設定是不會生效的，必須登出再登入後才會生效。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="locate_pointer">
+							<local_schema short_desc="標示鼠標位置">
+								<longdesc>當按下及放開 Control 鍵後，加強顯示目前游標的位置。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="double_click">
+							<local_schema short_desc="連按兩下時間">
+								<longdesc>連按兩下的時間長度。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="drag_threshold">
+							<local_schema short_desc="拖曳距離界限">
+								<longdesc>滑鼠移動指定的距離才視為拖曳。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="motion_threshold">
+							<local_schema short_desc="移動距離界限">
+								<longdesc>鼠標加速前所需的移動距離（像素）。-1 表示使用系統預設值。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="motion_acceleration">
+							<local_schema short_desc="單次點擊">
+								<longdesc>滑鼠移動的加速度。-1 表示使用系統的預設值。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="single_click">
+							<local_schema short_desc="單次點擊">
+								<longdesc>點擊一下滑鼠按鈕即開啟圖示。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="left_handed">
+							<local_schema short_desc="左右手滑鼠模式">
+								<longdesc>在左手滑鼠模式中，左右按鈕的功能會互換。</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="keyboard">
+						<entry name="remember_numlock_state">
+							<local_schema short_desc="記憶 NumLock 狀態">
+								<longdesc>如設定為“true”，GNOME 會在下次進入桌面時回復上次的 NumLock 鍵狀態。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bell_custom_file">
+							<local_schema short_desc="鍵盤響聲音效檔">
+								<longdesc>應播放的響聲音效檔名稱。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bell_mode">
+							<local_schema>
+								<longdesc>可使用的值為“on”、“off”及“custom”。</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+				<dir name="lockdown">
+					<entry name="disable_application_handlers">
+						<local_schema short_desc="停用 URL 與 MIME 類型處理程式">
+							<longdesc>避免執行任何 URL 與 MIME 類型處理程式。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_lock_screen">
+						<local_schema short_desc="停用畫面上鎖">
+							<longdesc>防止使用者鎖定螢幕。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_user_switching">
+						<local_schema short_desc="停用使用者切換">
+							<longdesc>當作業階段正在使用時，防止使用者切換到另一個帳戶。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_print_setup">
+						<local_schema short_desc="禁止更改打印設定">
+							<longdesc>禁止用戶修改打印設定。譬如說，本設定會令所有應用軟件的「打印設定」對話方塊失效。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_printing">
+						<local_schema short_desc="禁止打印">
+							<longdesc>禁止用戶打印。譬如說，本設定會令所有應用軟件的「打印」對話方塊失效。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_save_to_disk">
+						<local_schema short_desc="禁止將檔案儲存至磁碟">
+							<longdesc>禁止用戶將檔案儲存進磁碟。譬如說，本設定會令所有應用軟件的「另存新檔」對話方塊失效。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_command_line">
+						<local_schema short_desc="禁止使用指令列">
+							<longdesc>禁止用戶使用虛擬終端機或者從指令列執行指令。譬如說，本設定會令面板中的「執行程式」對話方塊失效。</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="interface">
+					<entry name="show_unicode_menu">
+						<local_schema short_desc="顯示「萬國碼控制字符」選單">
+							<longdesc>項目和文字檢視的快顯選單中應否提供插入萬國碼控制字符的選擇。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="show_input_method_menu">
+						<local_schema short_desc="顯示「輸入法」選單">
+							<longdesc>項目和文字檢視的快顯選單中應否顯示輸入法選擇。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menubar_accel">
+						<local_schema short_desc="選單列捷徑鍵">
+							<longdesc>用來開啟選單列的鍵盤快捷鍵。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="file_chooser_backend">
+						<local_schema short_desc="GtkFileChooser 所使用的模組">
+							<longdesc>GtkFileChooser 元件所使用的檔案系統模組。可能的值為“gio”、“gnome-vfs”以及“gtk+”。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="status_bar_meter_on_right">
+						<local_schema short_desc="狀態列在右邊">
+							<longdesc>進度列是否在右邊顯示。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="use_custom_font">
+						<local_schema short_desc="使用自選字型">
+							<longdesc>gtk+ 程式會否使用自選字型。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="monospace_font_name">
+						<local_schema short_desc="固定闊度字型">
+							<longdesc>在例如終端機等地方使用的固定闊度字型</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="document_font_name">
+						<local_schema short_desc="文件字型">
+							<longdesc>閱讀文件的預設字型名稱。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-module">
+						<local_schema short_desc="GTM IM 模組">
+							<longdesc>GTK+ 輸入法模組所使用的名稱。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-status-style">
+						<local_schema short_desc="GTK 輸入法狀態樣式">
+							<longdesc>GTK+ 輸入法所使用的「狀態區域」樣式的名稱。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-preedit-style">
+						<local_schema short_desc="GTK 輸入法 Preedit 區域樣式">
+							<longdesc>GTK+ 輸入法所使用的 Preedit 區域樣式的名稱。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="font_name">
+						<local_schema short_desc="預設字型">
+							<longdesc>gtk+ 選用的預設字型名稱。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_key_theme">
+						<local_schema short_desc="Gtk+ 佈景主題">
+							<longdesc>gtk+ 預設使用的佈景主題的名稱。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_theme">
+						<local_schema short_desc="Gtk+ 佈景主題">
+							<longdesc>gtk+ 預設使用的佈景主題的名稱。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="icon_theme">
+						<local_schema short_desc="圖示佈景主題">
+							<longdesc>在面板、nautilus 等等中使用的圖示主題</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink_time">
+						<local_schema short_desc="游標閃爍時間">
+							<longdesc>游標閃爍的周期，以毫秒計算。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink">
+						<local_schema short_desc="閃爍游標">
+							<longdesc>游標可否閃爍。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_icons_size">
+						<local_schema short_desc="工具列圖示大小">
+							<longdesc>工具列中圖示的大小，可以是「small-toolbar」或「large-toolbar」。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_detachable">
+						<local_schema short_desc="工具列可卸離視窗">
+							<longdesc>用戶可否卸離及移動工具列。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menubar_detachable">
+						<local_schema short_desc="選單列可卸離視窗">
+							<longdesc>用戶可否卸離及移動選單列。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="buttons_have_icons">
+						<local_schema short_desc="按鈕加圖示">
+							<longdesc>是否要在按鈕文字旁顯示圖示。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menus_have_icons">
+						<local_schema short_desc="選單可出現圖示">
+							<longdesc>選單項目旁邊應否顯示圖示。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_style">
+						<local_schema short_desc="工具列樣式">
+							<longdesc>工具列的風格。可用的數值有「both」、「both-horiz」、「icons」與「text」。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="can_change_accels">
+						<local_schema short_desc="可更改捷徑鍵">
+							<longdesc>當位置在使用中選單項目上時使用者能否在中隨時設定捷徑鍵。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menus_have_tearoff">
+						<local_schema short_desc="顯示可將選單卸離選單列的元件">
+							<longdesc>應否顯示可讓選單卸離選單列的元件。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="enable_animations">
+						<local_schema short_desc="啟用動畫">
+							<longdesc>應否平滑地移動桌面的各種視窗元件。請注意：這是整體的設定，它會更改視窗總管、面板等等的運作方式。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="accessibility">
+						<local_schema short_desc="啟用無障礙環境">
+							<longdesc>應用程式應否支援無障礙環境。</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="file-views">
+					<entry name="icon_theme">
+						<local_schema short_desc="檔案圖示主題">
+							<longdesc>顯示檔案圖示所使用的圖示主題。</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="background">
+					<entry name="color_shading_type">
+						<local_schema short_desc="背景顏色顯示方式">
+							<longdesc>繪畫背景顏色的方式。可使用的值為“horizontal-gradient”、“vertical-gradient”及“solid”。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="secondary_color">
+						<local_schema short_desc="第二種顏色">
+							<longdesc>當繪畫漸變色時選用的右邊或底部顏色，繪畫單色時不會使用本選項。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="primary_color">
+						<local_schema short_desc="第一種顏色">
+							<longdesc>指定當顯示漸變色時左邊或頂部的顏色，或是顯示單色時使用的顏色。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_opacity">
+						<local_schema short_desc="圖案透明度">
+							<longdesc>繪畫背景圖案時選用的透明度。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_filename">
+						<local_schema short_desc="圖案檔案名稱">
+							<longdesc>用作背景圖案的檔案。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_options">
+						<local_schema short_desc="圖案選項">
+							<longdesc>決定 wallpaper_filename 中指定的圖像如何顯示。可使用的值為：“none”、“wallpaper”、“centered”、“scaled”、“stretched”、“zoom”、“spanned”。</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="draw_background">
+						<local_schema short_desc="繪畫桌布">
+							<longdesc>顯示 GNOME 桌面的桌布。</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="applications">
+					<dir name="component_viewer">
+						<entry name="exec">
+							<local_schema short_desc="預設的元件檢視程式">
+								<longdesc>有些檔案需要有一個元件來檢視它們，這裏指定檢視所用的程式。參數 %s 會被檔案的 URI 所取代，參數 %c 會被元件 IID 所取代。</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="window_manager">
+						<entry name="workspace_names">
+							<local_schema short_desc="工作區名稱（不鼓勵再使用）">
+								<longdesc>一系列視窗總管預設使用的工作區名稱。這設定鍵自 GNOME 2.12 已不鼓勵再使用。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="number_of_workspaces">
+							<local_schema short_desc="工作區數目（不鼓勵再使用）">
+								<longdesc>視窗總管應開啟的工作區數目，這設定鍵自 GNOME 2.12 已不鼓勵再使用。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="current">
+							<local_schema short_desc="用戶首選的視窗總管（不鼓勵再使用）">
+								<longdesc>首選的視窗總管。這設定鍵自 GNOME 2.12 已不鼓勵再使用。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="default">
+							<local_schema short_desc="後備視窗總管（不鼓勵再使用）">
+								<longdesc>當找不到用戶首選的視窗總管時，執行這裏指定的後備視窗總管。這設定鍵自 GNOME 2.12 已不鼓勵再使用。</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="terminal">
+						<entry name="exec_arg">
+							<local_schema short_desc="預設終端機的 Exec 參數">
+								<longdesc>預設終端機所使用的 exec 參數。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="預設的終端機">
+								<longdesc>應用程式需要使用終端機時，預設執行的終端機。</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="tasks">
+						<entry name="needs_term">
+							<local_schema short_desc="工作需要終端機">
+								<longdesc>預設的工作是否需要終端機方可運行</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="預設工作">
+								<longdesc>預設的工作應用程式</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="calendar">
+						<entry name="needs_term">
+							<local_schema short_desc="行事曆需要終端機">
+								<longdesc>預設的行事曆是否需要終端機方可運行</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="預設行事曆">
+								<longdesc>預設的行事曆應用程式</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="browser">
+						<entry name="nremote">
+							<local_schema short_desc="瀏覽器可辨認 remote 協定">
+								<longdesc>預設的瀏覽器可否辨認 netscape remote 協定。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="needs_term">
+							<local_schema short_desc="瀏覽器需要終端機方可運作">
+								<longdesc>預設的瀏覽器是否需要終端機方可運行。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="預設瀏覽器">
+								<longdesc>所有 URL 的預設瀏覽器。</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="at">
+						<dir name="visual">
+							<entry name="startup">
+								<local_schema short_desc="執行偏好的視覺輔助科技程式">
+									<longdesc>在登入時 GNOME 會執行偏好的視覺輔助科技。</longdesc>
+								</local_schema>
+							</entry>
+							<entry name="exec">
+								<local_schema short_desc="偏好的視覺輔助科技程式">
+									<longdesc>用於登入、選單及命令列的偏好視覺輔助科技。</longdesc>
+								</local_schema>
+							</entry>
+						</dir>
+						<dir name="mobility">
+							<entry name="startup">
+								<local_schema short_desc="執行偏好的行動輔助科技程式">
+									<longdesc>在登入時 GNOME 會執行偏好的行動輔助科技</longdesc>
+								</local_schema>
+							</entry>
+							<entry name="exec">
+								<local_schema short_desc="偏好的行動輔助科技程式">
+									<longdesc>偏好的行動輔助科技可以用作於登入、選單及命令列。</longdesc>
+								</local_schema>
+							</entry>
+						</dir>
+					</dir>
+				</dir>
+				<dir name="accessibility">
+					<dir name="startup">
+						<entry name="exec_ats">
+							<local_schema short_desc="進入桌面時啟動的輔助技術程式">
+								<longdesc>當登入 GNOME 桌面時，會啟動這些有輔助技術的程式。</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="keyboard">
+						<entry name="stickykeys_modifier_beep">
+							<local_schema>
+								<longdesc>當按下 Ctrl、Shift、Alt 等特殊按鍵時發出聲響。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="stickykeys_two_key_off">
+							<local_schema>
+								<longdesc>如果同時按下兩個鍵則停止功能。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="slowkeys_delay">
+							<local_schema short_desc="時間間隔下限（毫秒）">
+								<longdesc>除非按下某鍵持續超過 @delay 毫秒，否則作廢。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_init_delay">
+							<local_schema short_desc="開始前的延遲時間（毫秒）">
+								<longdesc>等待指定的毫秒數目後，滑鼠移動鍵才會生效。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_accel_time">
+							<local_schema short_desc="加速所需的毫秒數目">
+								<longdesc>從靜止加速至最高速度需要多少毫秒。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_max_speed">
+							<local_schema short_desc="像素（每秒）">
+								<longdesc>最高速度時每秒可移動多少像素。</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bouncekeys_delay">
+							<local_schema short_desc="時間間隔下限（毫秒）">
+								<longdesc>若在 @delay 毫秒內多次按下同一按鍵，則第一次以後的按鍵作廢。</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+			</dir>
+		</dir>
+	</dir>
+</gconf>

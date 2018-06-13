@@ -1,0 +1,118 @@
+#! /bin/sh -e
+
+# Copyright (c) 2009  Openismus GmbH  <http://www.openismus.com/>
+#
+# util/mm-common-prepare.  Generated from mm-common-prepare.in by configure.
+#
+# mm-common is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published
+# by the Free Software Foundation, either version 2 of the License,
+# or (at your option) any later version.
+#
+# mm-common is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with mm-common.  If not, see <http://www.gnu.org/licenses/>.
+
+prefix="/usr"
+datarootdir="${prefix}/share"
+datadir="${datarootdir}"
+pkgdatadir="${datadir}/mm-common"
+
+progname=${0##*/}
+installcmd='ln -s'
+instaction=symlinking
+forceflag=
+target=.
+
+for arg
+do
+  case $arg in
+  '-?'|--help)
+    cat <<EOF
+Usage: $progname [OPTION]... [DIRECTORY | CONFIGURE-FILE]
+
+Prepare a C++ binding module to use mm-common.
+
+ -c, --copy          copy files rather than symlinking them
+ -f, --force         replace existing files
+     --help          display this help message
+     --version       print version information
+EOF
+    exit 0
+    ;;
+  --version)
+    echo "$progname 0.9.8"
+    exit 0
+    ;;
+  -c|--copy)
+    installcmd=cp
+    instaction=copying
+    ;;
+  -f|--force)
+    forceflag=' -f'
+    ;;
+  -cf|-fc)
+    installcmd=cp
+    instaction=copying
+    forceflag=' -f'
+    ;;
+  -*)
+    echo "$progname: error: unrecognized option '$arg'" >&2
+    exit 1
+    ;;
+  ?*)
+    target=${arg%/}
+    ;;
+  esac
+done
+
+if test -d "$target"; then
+  srcdir=$target
+  acfile=$target/configure.ac
+else
+  srcdir=${target%/*}
+  acfile=$target
+fi
+
+if test ! -f "$acfile"; then
+  echo "$progname: error: $acfile not found" >&2
+  exit 1
+fi
+
+# Extract the directory macro arguments from configure.ac
+s='	 ' # tab+space
+auxdir=`sed -n "s/^[$s]*AC_CONFIG_AUX_DIR([[$s]*\\([^])\$,$s]*\\).*/\\1/p" "$acfile"`
+doctooldir=`sed -n "s/^[$s]*MM_CONFIG_DOCTOOL_DIR([[$s]*\\([^])\$,$s]*\\).*/\\1/p" "$acfile"`
+
+auxdir=$srcdir${auxdir:+/}$auxdir
+echo "$progname: putting auxiliary files in '$auxdir'."
+test -d "$auxdir" || mkdir "$auxdir"
+
+for file in compile-binding.am dist-changelog.am doc-reference.am generate-binding.am
+do
+  if test -n "$forceflag" || test ! -f "$auxdir/$file"; then
+    echo "$progname: $instaction file '$file'"
+    $installcmd$forceflag "$pkgdatadir/build/$file" "$auxdir/$file"
+  fi
+done
+
+if test -n "$doctooldir"
+then
+  doctooldir=$srcdir/$doctooldir
+  echo "$progname: putting documentation utilities in '$doctooldir'."
+  test -d "$doctooldir" || mkdir "$doctooldir"
+
+  for file in doc-install.pl doc-postprocess.pl doxygen.css doxygen-extra.css tagfile-to-devhelp2.xsl
+  do
+    if test -n "$forceflag" || test ! -f "$doctooldir/$file"; then
+      echo "$progname: $instaction file '$file'"
+      $installcmd$forceflag "$pkgdatadir/doctool/$file" "$doctooldir/$file"
+    fi
+  done
+fi
+
+exit 0

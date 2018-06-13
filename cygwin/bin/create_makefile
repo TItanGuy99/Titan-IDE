@@ -1,0 +1,110 @@
+#!/usr/bin/env bash
+
+# Create Makefile.in and Makefile in a directory (containing a Makefile.am !)
+# Saves time compared to re-running configure completely
+
+if [ $# -ne 1 ]; then 
+  echo "$0 : creates a Makefile from a Makefile.am"
+  echo
+  echo "Usage : $0 relativepath/Makefile"
+  echo "So the argument is the file you want to create."
+  echo
+else
+  if test -f config.status && test -f configure; then
+    :
+  else
+    if test ! -f Makefile && test -n "$OBJ_SUBDIR"; then
+      cd $OBJ_SUBDIR
+    else
+      if test ! -f Makefile && test -n "$OBJ_REPLACEMENT"; then
+         objdir=`pwd | sed -e "$OBJ_REPLACEMENT"`
+         cd $objdir
+      fi
+    fi
+
+    if test ! -f Makefile && test -n "$OBJ_SUBDIR"; then
+       cd $OBJ_SUBDIR
+    fi
+
+    if test ! -f Makefile; then 
+      echo "$0: in the current directory there is no Makefile"
+      echo "you will have to run it from the top build dir."
+      echo "if you do not have a Makefile there - rerun configure"
+      exit
+    fi
+
+  fi
+
+  # Handle arg with missing "/Makefile"
+  relpath=$1
+  if test -n "`echo $relpath | grep \/$`"; then
+    relpath=`echo $relpath | sed 's/\/$//'`
+  fi
+  if test -z "`echo $relpath | grep 'Makefile$'`"; then 
+    relpath="$relpath/Makefile"
+  fi
+
+  # Strip leading ./, otherwise config.status chokes
+  relpath=`echo "$relpath" | sed -e 's,^\./,,'`
+
+  # Go up to toplevel dir
+  while test ! -f config.status; do
+    relpath="`basename $PWD`/$relpath"
+    cd ..
+  done
+
+  # Find out top_srcdir.
+  top_srcdir=`egrep '^top_srcdir *=' Makefile | sed -e "s#top_srcdir *= *##"`
+
+  (  
+    if cd $top_srcdir ; then
+     # Check if unsermake or automake was used to create the toplevel Makefile.in
+     # (the one in $relpath might not exist yet)
+     if test -n "`sed -n -e '1p' Makefile.in | grep unsermake`"; then
+       if test -n "`sed -n -e '1p' Makefile.in | grep automake`"; then # old unsermake
+         if test -z "$UNSERMAKE"; then
+           echo "unsermake was used to build this module, but \$UNSERMAKE isn't set!"
+	   exit 1
+         fi
+         $UNSERMAKE $relpath
+         exit 2
+       else # new unsermake
+         UNSERMAKE=`type -p unsermake`
+         if test ! -x "$UNSERMAKE"; then
+                echo 'Makefile was created with unsermake, but there'
+                echo 'is no unsermake in $PATH'
+                exit 1
+         fi
+         $UNSERMAKE -c $relpath
+       fi
+     else
+       # Suck in AUTOCONF/AUTOMAKE detection code
+	UNSERMAKE=no
+       eval `admin/detect-autoconf.pl`
+       /bin/sh admin/missing --run $AUTOMAKE $relpath || exit
+       if test -f admin/am_edit; then perl admin/am_edit $relpath.in ;\
+       else 
+         if test -f ../admin/am_edit; then perl ../admin/am_edit $relpath.in ; \
+         fi
+       fi
+     fi
+    fi
+  )
+  case $? in
+    1)
+      exit 1
+      ;;
+    2)
+      createrulesfile="true"
+      ;;
+    *)
+      ;;
+  esac
+  if test -f `dirname $relpath`; then 
+	rm `dirname $relpath`
+  fi
+  CONFIG_FILES=$relpath CONFIG_HEADERS= ./config.status
+  if test "$createrulesfile" = "true"; then
+    CONFIG_FILES="$relpath.rules $relpath.calls" CONFIG_HEADERS= ./config.status
+  fi
+fi

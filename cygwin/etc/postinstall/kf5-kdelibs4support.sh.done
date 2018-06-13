@@ -1,0 +1,48 @@
+if [ ! -f /etc/xdg/colors/40.colors ]
+then
+    /usr/bin/mkdir -p /etc/xdg/colors
+    /usr/bin/cp /etc/defaults/etc/xdg/colors/40.colors /etc/xdg/colors/40.colors
+fi
+
+if [ ! -f /etc/xdg/colors/Oxygen.colors ]
+then
+    /usr/bin/mkdir -p /etc/xdg/colors
+    /usr/bin/cp /etc/defaults/etc/xdg/colors/Oxygen.colors /etc/xdg/colors/Oxygen.colors
+fi
+
+if [ ! -f /etc/xdg/colors/Rainbow.colors ]
+then
+    /usr/bin/mkdir -p /etc/xdg/colors
+    /usr/bin/cp /etc/defaults/etc/xdg/colors/Rainbow.colors /etc/xdg/colors/Rainbow.colors
+fi
+
+if [ ! -f /etc/xdg/colors/Royal.colors ]
+then
+    /usr/bin/mkdir -p /etc/xdg/colors
+    /usr/bin/cp /etc/defaults/etc/xdg/colors/Royal.colors /etc/xdg/colors/Royal.colors
+fi
+
+if [ ! -f /etc/xdg/colors/Web.colors ]
+then
+    /usr/bin/mkdir -p /etc/xdg/colors
+    /usr/bin/cp /etc/defaults/etc/xdg/colors/Web.colors /etc/xdg/colors/Web.colors
+fi
+
+if [ ! -f /etc/xdg/kdebug.areas ]
+then
+    /usr/bin/mkdir -p /etc/xdg
+    /usr/bin/cp /etc/defaults/etc/xdg/kdebug.areas /etc/xdg/kdebug.areas
+fi
+
+if [ ! -f /etc/xdg/kdebugrc ]
+then
+    /usr/bin/mkdir -p /etc/xdg
+    /usr/bin/cp /etc/defaults/etc/xdg/kdebugrc /etc/xdg/kdebugrc
+fi
+
+if [ ! -f /etc/xdg/ksslcalist ]
+then
+    /usr/bin/mkdir -p /etc/xdg
+    /usr/bin/cp /etc/defaults/etc/xdg/ksslcalist /etc/xdg/ksslcalist
+fi
+

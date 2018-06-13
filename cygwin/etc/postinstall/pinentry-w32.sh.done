@@ -1,0 +1,8 @@
+#!/bin/sh
+prefix=/usr
+bindir=${prefix}/bin
+sbindir=${prefix}/sbin
+
+${sbindir}/update-alternatives \
+	--install ${bindir}/pinentry pinentry ${bindir}/pinentry-w32.exe 10
+

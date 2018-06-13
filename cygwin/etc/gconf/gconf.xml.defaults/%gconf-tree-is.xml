@@ -1,0 +1,250 @@
+<?xml version="1.0"?>
+<gconf>
+	<dir name="schemas">
+		<dir name="desktop">
+			<dir name="gnome">
+				<dir name="typing_break">
+					<entry name="enabled">
+						<local_schema short_desc="Hvort lyklaborðslæsing sé virk eða ekki">
+							<longdesc>Hvort lyklaborðslæsing sé virk eða ekki.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="allow_postpone">
+						<local_schema short_desc="Leyfa frestun pásu">
+							<longdesc>Hvort fresta megi pásugluggunum eða ekki.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="break_time">
+						<local_schema short_desc="Pásutími">
+							<longdesc>Lengd pásu í mínútum.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="type_time">
+						<local_schema short_desc="Vélritunartími">
+							<longdesc>Lengd lotu við lyklaborðið áður en pása hefst.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="thumbnailers">
+					<entry name="disable_all">
+						<local_schema short_desc="Nota engin útvær smámyndatól">
+							<longdesc>Hakaðu við þetta til þess að koma í veg fyrir að öll útvær smámyndatól verði notuð, hvernig sem hvert þeirra er stillt.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="sound">
+					<entry name="event_sounds">
+						<local_schema short_desc="Hljóð fyrir atburði">
+							<longdesc>Á að spila hljóð við atburði notenda.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="enable_esd">
+						<local_schema short_desc="Virkja ESD">
+							<longdesc>Virjka hljóð þjón við ræsingu</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="peripherals">
+					<dir name="mouse">
+						<entry name="cursor_size">
+							<local_schema short_desc="Stærð bendils">
+							</local_schema>
+						</entry>
+						<entry name="cursor_theme">
+							<local_schema short_desc="Þema bendils">
+							</local_schema>
+						</entry>
+						<entry name="cursor_font">
+							<local_schema short_desc="Letur bendils">
+								<longdesc>Heiti leturs í bendlinum. Þetta gildi er einungis sent áfram til X þjóns við ræsingu hverrar setu, þannig að breytingar í miðri setu munu ekki hafa áhrif fyrr en næst þegar þú skráir þig inn.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="locate_pointer">
+							<local_schema short_desc="Finna bendil">
+							</local_schema>
+						</entry>
+						<entry name="double_click">
+							<local_schema short_desc="Tvísmellitími">
+							</local_schema>
+						</entry>
+						<entry name="drag_threshold">
+							<local_schema short_desc="Skynjunarmörk dreginna hluta">
+							</local_schema>
+						</entry>
+						<entry name="motion_threshold">
+							<local_schema short_desc="Skynjunarmörk hreyfingar">
+								<longdesc>Fjarlægð í myndeiningum sem bendillinn þarf að fara áður en hröðun hefst. Gildið -1 er sjálfgefna kerfisgildið</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="motion_acceleration">
+							<local_schema short_desc="Einfalt músarklikk">
+								<longdesc>Margföldunarstuðull músarhröðunar. Gildið -1 er sjálfgefna kerfisgildið.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="single_click">
+							<local_schema short_desc="Einfalt músarklikk">
+							</local_schema>
+						</entry>
+						<entry name="left_handed">
+							<local_schema short_desc="Staða músartakka">
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="keyboard">
+						<entry name="bell_custom_file">
+							<local_schema short_desc="Skráarnafn fyrir sérvalda lyklaborðsbjöllu">
+							</local_schema>
+						</entry>
+						<entry name="bell_mode">
+							<local_schema>
+								<longdesc>möguleg gildi eru &quot;á&quot;, &quot;af&quot; og &quot;sérsniðið&quot;.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+				<dir name="interface">
+					<entry name="status_bar_meter_on_right">
+						<local_schema short_desc="Upplýsingastika til hægri">
+						</local_schema>
+					</entry>
+					<entry name="use_custom_font">
+						<local_schema short_desc="Nota annað letur">
+							<longdesc>Hvort nota eigi sérvalið letur í gtk+ forritum.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="monospace_font_name">
+						<local_schema short_desc="Jafnbreitt letur">
+							<longdesc>Heiti jafnbreiðs leturs sem á að nota í hlutum eins og skjáhermum.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-status-style">
+						<local_schema short_desc="GTK IM stöðu stíll">
+							<longdesc>Heiti GTK+ inngangsaðgerðarinnar Status Style sem gtk+ notar.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-preedit-style">
+						<local_schema short_desc="GTK IM Preedit stíll">
+							<longdesc>Heiti GTK+ inngangsaðgerðarinnar Preedit Style sem gtk+ notar.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="font_name">
+						<local_schema short_desc="Sjálfgefið letur">
+							<longdesc>Heiti sjálfgefna letursins sem gtk+ notar.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_key_theme">
+						<local_schema short_desc="Gtk+ þema">
+							<longdesc>Grunnheiti sjálfgefinnar þemu gtk+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_theme">
+						<local_schema short_desc="Gtk+ þema">
+							<longdesc>Grunnheiti sjálfgefinnar þemu gtk+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="icon_theme">
+						<local_schema short_desc="Táknmyndaþema">
+							<longdesc>Táknmyndaþema sem nota á í spjaldinu, nautilus of svo framvegis.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink_time">
+						<local_schema short_desc="Blikktíðni bendils">
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink">
+						<local_schema short_desc="Bendill blikkar">
+						</local_schema>
+					</entry>
+					<entry name="toolbar_icons_size">
+						<local_schema short_desc="Stærð smátáknmynda á tólstiku">
+						</local_schema>
+					</entry>
+					<entry name="toolbar_detachable">
+						<local_schema short_desc="Hægt er að flytja tólstiku">
+						</local_schema>
+					</entry>
+					<entry name="menubar_detachable">
+						<local_schema short_desc="Hægt er að flytja valmyndastiku">
+						</local_schema>
+					</entry>
+					<entry name="menus_have_icons">
+						<local_schema short_desc="Smátáknmyndir á valmynd">
+						</local_schema>
+					</entry>
+					<entry name="toolbar_style">
+						<local_schema short_desc="Stíll tólstiku">
+						</local_schema>
+					</entry>
+					<entry name="can_change_accels">
+						<local_schema short_desc="Getur breytt flytilyklum">
+						</local_schema>
+					</entry>
+					<entry name="menus_have_tearoff">
+						<local_schema short_desc="Hægt er að rífa valmyndir af">
+						</local_schema>
+					</entry>
+					<entry name="enable_animations">
+						<local_schema short_desc="Virkja hreyfimyndir">
+							<longdesc>Stillir hvort birta skuli hreyfimyndir. Ath: Þetta er víðvær stilling sem hefur áhrif á gluggastjórann, spjaldið og svo framvegis.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="accessibility">
+						<local_schema short_desc="Virkja aukið aðgengi">
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="file-views">
+					<entry name="icon_theme">
+						<local_schema short_desc="Skráartáknmyndaþema">
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="background">
+					<entry name="color_shading_type">
+						<local_schema short_desc="Gerð skuggalits">
+						</local_schema>
+					</entry>
+					<entry name="secondary_color">
+						<local_schema short_desc="Auka litur">
+							<longdesc>Hægri eða neðsti litur þegar &apos;gradients&apos; eru teiknaðir eða heill litur.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="primary_color">
+						<local_schema short_desc="Aðallitur">
+							<longdesc>Vinstri eða efsti litur þegar &apos;gradients&apos; eru teiknaðir eða heill litur.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_opacity">
+						<local_schema short_desc="Ógagnsæi myndar">
+						</local_schema>
+					</entry>
+					<entry name="picture_filename">
+						<local_schema short_desc="Skráarnafn myndar">
+						</local_schema>
+					</entry>
+					<entry name="picture_options">
+						<local_schema short_desc="Valmöguleikar myndar">
+						</local_schema>
+					</entry>
+					<entry name="draw_background">
+						<local_schema short_desc="Teikna bakgrunn skjáborðs">
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="applications">
+					<dir name="terminal">
+						<entry name="exec_arg">
+							<local_schema short_desc="Ræsiviðföng">
+								<longdesc>Viðföng notuð til þess að ræsa forrit í skel skilgreind með &apos;exec&apos; lykli.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Skeljarforrit">
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+			</dir>
+		</dir>
+	</dir>
+</gconf>

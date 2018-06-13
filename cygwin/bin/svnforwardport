@@ -1,0 +1,86 @@
+#!/bin/sh
+# Forwardport the last change in a branch to HEAD
+# Usage: svnforwardport <files>
+#
+# This is a port of the "cvsbackport" script:
+# Initial author: Dirk Mueller
+# Support for multiple command-line arguments, handling of patch rejects: David Faure
+# Ported to SVN: Till Gerken
+# Better usage, quote-safety: Matthew Woehlke
+#
+# This isn't the most sophisticated script ever, and might break. It needs to be
+# used from within the repository so that it can guess the remote URL correctly.
+#
+
+#REPOSITORY=https://svn.kde.org/home/kde
+
+usage() {
+  echo "Usage: $0 <file> [<file> ...]"
+  exit
+}
+
+while getopts 'h' opt ; do
+  case $opt in
+    *) usage;; # -h, --help will also trip this
+  esac
+done
+unset opt
+shift `expr ${OPTIND} - 1`
+
+[ -z "$*" ] && usage
+
+export LC_ALL="C"
+
+SRC_REMOTE="`svn info | sed -n '/URL:/s/^URL: //p'`"
+BRANCH="`echo $SRC_REMOTE | sed 's|.*branches/KDE/\([^/]*\).*|\1|'`"
+TARGET_REMOTE=`echo $SRC_REMOTE | sed "s|branches/KDE/$BRANCH|trunk/KDE|"`
+
+echo "Forward porting from $BRANCH to trunk"
+TMPFILE="`mktemp svnforport.XXXXXX`" || exit 1
+
+patchok=1
+
+for file in "$@" ; do
+
+  echo "Looking for last change to $file..."
+  svnlastchange -ws "$file" > $TMPFILE || exit 1
+  echo "Browsing last change to $file..."
+  less "$TMPFILE"
+
+  FILE_PATH="$file"
+  FROM_URL="$SRC_REMOTE/$file"
+  TO_URL="$TARGET_REMOTE/$file"
+
+  echo "Switching to trunk..."
+  svn switch "$TO_URL" "$FILE_PATH" || exit 1
+  if patch "$FILE_PATH" "$TMPFILE"; then
+    rm -f "$TMPFILE"
+    echo "Showing diff for $file..."
+    svn diff "$FILE_PATH" | less
+  else
+    rm -f "$TMPFILE"
+    patchok=0
+    break
+  fi
+done
+
+if [ $patchok -eq 1 ]; then
+  echo "Do you want to commit all changes? (y/n) [y]"
+  read confirm
+  if [ -z "$confirm" ] || [ "`echo $confirm | cut -c 1 | tr Y y`" = "y" ] ; then
+    svn ci "$@"
+  else
+    echo "Aborted!" >&2
+  fi
+else
+  echo -n "Patch failed! Press enter to revert changes and switch back to branch: "
+  read confirm
+  for file in "$@" ; do
+    svn revert "$file"
+  done
+fi
+
+echo "Switching back to branch..."
+for file in "$@" ; do
+  svn switch "$SRC_REMOTE/$file" "$file"
+done

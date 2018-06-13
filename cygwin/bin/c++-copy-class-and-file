@@ -1,0 +1,49 @@
+#!/bin/sh
+
+if [ $# != 2 ]; then
+    echo "Usage: $0 old_classname new_classname"
+    exit 1
+fi
+
+oldname=$1
+newname=$2
+
+oldfile=`echo $oldname | tr A-Z a-z`
+newfile=`echo $newname | tr A-Z a-z`
+
+echo "Copying $oldfile.{cpp,h} to $newfile.{cpp,h}"
+
+if [ ! -f $newfile.h ]; then
+    cp $oldfile.h $newfile.h
+    cp $oldfile.cpp $newfile.cpp
+    if [ -f ${oldfile}_p.h ]; then
+        cp ${oldfile}_p.h ${newfile}_p.h
+    fi
+
+    git add $newfile.h
+    git add $newfile.cpp
+    if [ -f ${newfile}_p.h ]; then
+        git add ${newfile}_p.h
+    fi
+fi
+
+# Update build system
+perl -pi -e '$_ .= "$1'$newfile.cpp'\n" if (m/^(\s*)'$oldfile'\.cpp/)' CMakeLists.txt
+perl -pi -e '$_ .= "$1'$newfile.h'\n" if (m/^(\s*)'$oldfile'\.h/)' CMakeLists.txt
+
+# Rename class
+perl -pi -e "s/$oldname/$newname/g" $newfile.h $newfile.cpp
+if [ -f ${newfile}_p.h ]; then
+    perl -pi -e "s/$oldname/$newname/g" ${newfile}_p.h
+fi
+
+oldinclguard=`echo $oldname | tr a-z A-Z`
+newinclguard=`echo $newname | tr a-z A-Z`
+
+# Update include guard
+perl -pi -e "s/$oldinclguard/$newinclguard/g" $newfile.h
+
+# Update includes in cpp file
+perl -pi -e 's/\b'$oldfile'\.h/'$newfile'\.h/' $newfile.cpp
+perl -pi -e 's/\b'$oldfile'\.moc/'$newfile'\.moc/' $newfile.cpp
+

@@ -1,0 +1,815 @@
+# -*- shell-script -*-
+
+# bash completion for monotone 1.0
+# Author: Richard Levitte <richard@levitte.org>
+#
+# Based on previous script by Olivier Andrieu <oandrieu@nerim.net>
+# with contributions by Matthew A. Nicholson <matt@matt-land.com>
+# and Matthew Sackman <matthew@wellquite.org>
+#
+# This program is made available under the GNU GPL version 2.0 or
+# greater. See the accompanying file COPYING for details.
+#
+# This program is distributed WITHOUT ANY WARRANTY; without even the
+# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+# PURPOSE.
+
+# Requirements:
+#    the bash completion package <http://www.caliban.org/bash/>,
+# copy this file in the directory /etc/bash_completion.d
+
+
+# List information on the stuff to parse (this could really be in a
+# separate file that any completion package could load and use).
+# These lines were generated with the perl script
+# monotone_gen_bash_completion_table.pl
+# If you do it, be careful to set your locale to "C" and be sure the right
+# mtn is used (you can use the environment variable MTN to point at the right
+# one).
+# BEGIN ----------------------------------------------------------------------
+declare -a _monotone_options_noarg
+_monotone_options_noarg=(
+    --allow-default-confdir
+    --allow-workspace
+    --bookkeep-only
+    --brief
+    --builtin-rcfile
+    --clear-from
+    --clear-rcfiles
+    --clear-to
+    --concise
+    --context
+    --corresponding-renames
+    --diffs
+    --drop-bad-certs
+    --dry-run
+    --external
+    --files
+    --force-duplicate-key
+    --formatted
+    --full
+    --graph
+    --help
+    --hidden
+    --ignore-suspend-certs
+    --ignored
+    --interactive
+    --log-certs
+    --log-revids
+    --merges
+    --missing
+    --move-conflicting-paths
+    --no-brief
+    --no-builtin-rcfile
+    --no-corresponding-renames
+    --no-default-confdir
+    --no-diffs
+    --no-dry-run
+    --no-files
+    --no-format-dates
+    --no-graph
+    --no-hidden
+    --no-ignore-suspend-certs
+    --no-ignored
+    --no-log-certs
+    --no-log-revids
+    --no-merges
+    --no-move-conflicting-paths
+    --no-pid-file
+    --no-recursive
+    --no-resolve-conflicts
+    --no-respect-ignore
+    --no-set-default
+    --no-show-encloser
+    --no-standard-rcfiles
+    --no-unchanged
+    --no-unknown
+    --no-update
+    --no-workspace
+    --non-interactive
+    --plain
+    --quiet
+    --recursive
+    --resolve-conflicts
+    --respect-ignore
+    --reverse
+    --revs-only
+    --set-default
+    --show-encloser
+    --standard-rcfiles
+    --timestamps
+    --unchanged
+    --unified
+    --unknown
+    --update
+    --use-default-key
+    --use-one-changelog
+    --verbose
+    --version
+    --with-header
+    --without-header
+    -R
+    -h
+    -q
+    -v
+)
+declare -a _monotone_options_arg
+_monotone_options_arg=(
+    --author
+    --authors-file
+    --automate-stdio-size
+    --bind
+    --branch
+    --branches-file
+    --confdir
+    --conflicts-file
+    --date
+    --date-format
+    --db
+    --depth
+    --diff-args
+    --drop-attr
+    --dump
+    --exclude
+    --export-marks
+    --from
+    --import-marks
+    --key
+    --key-to-push
+    --keydir
+    --last
+    --log
+    --message
+    --message-file
+    --next
+    --pid-file
+    --rcfile
+    --refs
+    --remote-stdio-host
+    --resolve-conflicts-file
+    --revision
+    --root
+    --ssh-sign
+    --ticker
+    --to
+    --xargs
+    -@
+    -b
+    -d
+    -k
+    -m
+    -r
+)
+declare -A _monotone_options_arg_fns
+_monotone_options_arg_fns=(
+    [--authors-file]=_monotone_files
+    [--bind]=_monotone_address_port
+    [--branch]=_monotone_branches [-b]=_monotone_branches
+    [--branches-file]=_monotone_files
+    [--confdir]=_monotone_dirs
+    [--conflicts-file]=_monotone_files
+    [--db]=_monotone_databases [-d]=_monotone_databases
+    [--dump]=_monotone_files
+    [--export-marks]=_monotone_files
+    [--from]=_monotone_revisions
+    [--import-marks]=_monotone_files
+    [--keydir]=_monotone_dirs
+    [--key]=_monotone_key [-k]=_monotone_public_key
+    [--key-to-push]=_monotone_public_key
+    [--log]=_monotone_files
+    [--message_file]=_monotone_files
+    [--pid-file]=_monotone_files
+    [--rcfile]=_monotone_files
+    [--refs]=_monotone_refs
+    [--remote-stdio-host]=_monotone_address_port
+    [--resolve-conflicts-file]=_monotone_files
+    [--revision]=_monotone_revisions [-r]=_monotone_revisions
+    [--root]=_monotone_dirs
+    [--ssh-sign]=_monotone_ssh_sign
+    [--ticker]=_monotone_ticker
+    [--xargs]=_monotone_files
+    [-@]=_monotone_files
+)
+declare -A _monotone_aliases
+_monotone_aliases['mtn au']='mtn automate'
+_monotone_aliases['mtn di']='mtn diff'
+_monotone_aliases['mtn ls']='mtn list'
+_monotone_aliases['mtn list dbs']='mtn list databases'
+declare -A _monotone_command_options
+declare -A _monotone_command_args
+declare -A _monotone_commands
+_monotone_commands['mtn']='add annotate approve asciik attr automate bisect cat cert checkout ci cleanup_workspace_list clone co comment commit complete conflicts cvs_import db di diff disapprove drop dropkey explicit_merge fdiff fload fmerge genkey get_roster git_export heads help identify import list local log manpage merge merge_into_dir merge_into_workspace migrate_workspace mkdir mv passphrase pivot_root pluck privkey propagate pubkey pull push rcs_import read refresh_inodeprints register_workspace rename revert rm serve set setup show_conflicts ssh_agent_add ssh_agent_export status suspend sync tag testresult trusted undrop unregister_workspace unset update version'
+_monotone_command_options['mtn']='--allow-default-confdir --allow-workspace --builtin-rcfile --clear-rcfiles --confdir --date-format --db --dump --help --ignore-suspend-certs --interactive --key --keydir --log --no-builtin-rcfile --no-default-confdir --no-format-dates --no-ignore-suspend-certs --no-standard-rcfiles --no-workspace --non-interactive --quiet --rcfile --root --ssh-sign --standard-rcfiles --ticker --timestamps --use-default-key --verbose --version --xargs -@ -d -h -k -q -v'
+_monotone_command_args['mtn add']='PATH ...'
+_monotone_command_options['mtn add']='--no-recursive --no-respect-ignore --no-unknown --recursive --respect-ignore --unknown -R'
+_monotone_command_args['mtn annotate']='PATH'
+_monotone_command_options['mtn annotate']='--revision --revs-only -r'
+_monotone_command_args['mtn approve']='REVISION'
+_monotone_command_options['mtn approve']='--branch --no-update --update -b'
+_monotone_command_args['mtn asciik']='SELECTOR'
+_monotone_commands['mtn attr']='drop get set'
+_monotone_command_args['mtn attr drop']='PATH ATTR'
+_monotone_command_args['mtn attr get']='PATH ATTR'
+_monotone_command_args['mtn attr set']='PATH ATTR VALUE'
+_monotone_commands['mtn automate']='ancestors ancestry_difference branches cert certs checkout children common_ancestors content_diff descendents drop_attribute drop_db_variables drop_public_key erase_ancestors erase_descendants file_merge generate_key get_attributes get_base_revision_id get_content_changed get_corresponding_path get_current_revision get_current_revision_id get_db_variables get_extended_manifest_of get_file get_file_of get_file_size get_manifest_of get_option get_public_key get_revision get_workspace_root graph heads identify interface_version inventory keys leaves log lua packet_for_fdata packet_for_fdelta packet_for_rdata packets_for_certs parents pull push put_file put_public_key put_revision read_packets remote remote_stdio roots select set_attribute set_db_variable show_conflicts stdio sync tags toposort update'
+_monotone_command_args['mtn automate ancestors']='REV1 REV2 REV3 ...'
+_monotone_command_args['mtn automate ancestry_difference']='NEW_REV OLD_REV1 OLD_REV2 ...'
+### Missing mtn automate branches
+_monotone_command_args['mtn automate cert']='REVISION-ID NAME VALUE'
+_monotone_command_args['mtn automate certs']='REV'
+_monotone_command_args['mtn automate checkout']='DIRECTORY'
+_monotone_command_options['mtn automate checkout']='--branch --move-conflicting-paths --no-move-conflicting-paths --revision -b -r'
+_monotone_command_args['mtn automate children']='REV'
+_monotone_command_args['mtn automate common_ancestors']='REV1 REV2 REV3 ...'
+_monotone_command_args['mtn automate content_diff']='FILE ...'
+_monotone_command_options['mtn automate content_diff']='--depth --exclude --reverse --revision --with-header --without-header -r'
+_monotone_command_args['mtn automate descendents']='REV1 REV2 REV3 ...'
+_monotone_command_args['mtn automate drop_attribute']='PATH KEY'
+_monotone_command_args['mtn automate drop_db_variables']='DOMAIN NAME'
+_monotone_command_args['mtn automate drop_public_key']='KEY_NAME_OR_HASH'
+_monotone_command_args['mtn automate erase_ancestors']='REV1 REV2 REV3 ...'
+_monotone_command_args['mtn automate erase_descendants']='REV1 REV2 REV3 ...'
+_monotone_command_args['mtn automate file_merge']='LEFT_REVID LEFT_FILENAME RIGHT_REVID RIGHT_FILENAME'
+_monotone_command_args['mtn automate generate_key']='KEY_NAME PASSPHRASE'
+_monotone_command_options['mtn automate generate_key']='--force-duplicate-key'
+_monotone_command_args['mtn automate get_attributes']='PATH'
+_monotone_command_options['mtn automate get_attributes']='--revision -r'
+### Missing mtn automate get_base_revision_id
+_monotone_command_args['mtn automate get_content_changed']='REV FILE'
+_monotone_command_args['mtn automate get_corresponding_path']='REV1 FILE REV2'
+_monotone_command_args['mtn automate get_current_revision']='PATHS ...'
+_monotone_command_options['mtn automate get_current_revision']='--depth --exclude'
+### Missing mtn automate get_current_revision_id
+_monotone_command_args['mtn automate get_db_variables']='DOMAIN'
+_monotone_command_args['mtn automate get_extended_manifest_of']='REVISION'
+_monotone_command_args['mtn automate get_file']='FILEID'
+_monotone_command_args['mtn automate get_file_of']='FILENAME'
+_monotone_command_options['mtn automate get_file_of']='--revision -r'
+_monotone_command_args['mtn automate get_file_size']='FILEID'
+_monotone_command_args['mtn automate get_manifest_of']='REVID'
+_monotone_command_args['mtn automate get_option']='OPTION'
+_monotone_command_args['mtn automate get_public_key']='KEY_NAME_OR_HASH'
+_monotone_command_args['mtn automate get_revision']='REVID'
+### Missing mtn automate get_workspace_root
+### Missing mtn automate graph
+_monotone_command_args['mtn automate heads']='BRANCH'
+_monotone_command_args['mtn automate identify']='PATH'
+### Missing mtn automate interface_version
+_monotone_command_args['mtn automate inventory']='PATH ...'
+_monotone_command_options['mtn automate inventory']='--corresponding-renames --depth --exclude --ignored --no-corresponding-renames --no-ignored --no-unchanged --no-unknown --unchanged --unknown'
+### Missing mtn automate keys
+### Missing mtn automate leaves
+_monotone_command_args['mtn automate log']='PATH ...'
+_monotone_command_options['mtn automate log']='--clear-from --clear-to --depth --exclude --from --last --merges --next --no-merges --to'
+_monotone_command_args['mtn automate lua']='LUA_FUNCTION ARG1 ARG2 ...'
+_monotone_command_args['mtn automate packet_for_fdata']='FILEID'
+_monotone_command_args['mtn automate packet_for_fdelta']='OLD_FILE NEW_FILE'
+_monotone_command_args['mtn automate packet_for_rdata']='REVID'
+_monotone_command_args['mtn automate packets_for_certs']='REVID'
+_monotone_command_args['mtn automate parents']='REV'
+_monotone_command_args['mtn automate pull']='ADDRESS:PORTNUMBER PATTERN ...'
+_monotone_command_options['mtn automate pull']='--dry-run --exclude --no-dry-run --no-set-default --set-default'
+_monotone_command_args['mtn automate push']='ADDRESS:PORTNUMBER PATTERN ...'
+_monotone_command_options['mtn automate push']='--dry-run --exclude --key-to-push --no-dry-run --no-set-default --set-default'
+_monotone_command_args['mtn automate put_file']='FILEID CONTENTS'
+_monotone_command_args['mtn automate put_public_key']='KEY-PACKET-DATA'
+_monotone_command_args['mtn automate put_revision']='REVISION-DATA'
+_monotone_command_args['mtn automate read_packets']='PACKET-DATA'
+_monotone_command_args['mtn automate remote']='COMMAND ARGS'
+_monotone_command_options['mtn automate remote']='--no-set-default --remote-stdio-host --set-default'
+_monotone_command_args['mtn automate remote_stdio']='ADDRESS:PORTNUMBER'
+_monotone_command_options['mtn automate remote_stdio']='--no-set-default --set-default'
+### Missing mtn automate roots
+_monotone_command_args['mtn automate select']='SELECTOR'
+_monotone_command_args['mtn automate set_attribute']='PATH KEY VALUE'
+_monotone_command_args['mtn automate set_db_variable']='DOMAIN NAME VALUE'
+_monotone_command_args['mtn automate show_conflicts']='LEFT_REVID RIGHT_REVID'
+_monotone_command_options['mtn automate show_conflicts']='--branch --ignore-suspend-certs --no-ignore-suspend-certs -b'
+_monotone_command_options['mtn automate stdio']='--automate-stdio-size'
+_monotone_command_args['mtn automate sync']='ADDRESS:PORTNUMBER PATTERN ...'
+_monotone_command_options['mtn automate sync']='--dry-run --exclude --key-to-push --no-dry-run --no-set-default --set-default'
+_monotone_command_args['mtn automate tags']='BRANCH_PATTERN'
+_monotone_command_args['mtn automate toposort']='REV1 REV2 REV3 ...'
+_monotone_command_options['mtn automate update']='--branch --move-conflicting-paths --no-move-conflicting-paths --revision -b -r'
+_monotone_commands['mtn bisect']='bad good reset skip status update'
+_monotone_command_options['mtn bisect bad']='--move-conflicting-paths --no-move-conflicting-paths --revision -r'
+_monotone_command_options['mtn bisect good']='--move-conflicting-paths --no-move-conflicting-paths --revision -r'
+### Missing mtn bisect reset
+_monotone_command_options['mtn bisect skip']='--move-conflicting-paths --no-move-conflicting-paths --revision -r'
+### Missing mtn bisect status
+_monotone_command_options['mtn bisect update']='--move-conflicting-paths --no-move-conflicting-paths'
+_monotone_command_args['mtn cat']='FILENAME'
+_monotone_command_options['mtn cat']='--revision -r'
+_monotone_command_args['mtn cert']='SELECTOR CERTNAME CERTVAL'
+_monotone_command_args['mtn checkout']='DIRECTORY'
+_monotone_command_args['mtn ci']='PATH ...'
+### Missing mtn cleanup_workspace_list
+_monotone_command_args['mtn clone']='HOST:PORTNUMBER BRANCH DIRECTORY'
+_monotone_command_options['mtn clone']='--branch --revision -b -r'
+_monotone_command_args['mtn co']='DIRECTORY'
+_monotone_command_options['mtn co']='--branch --move-conflicting-paths --no-move-conflicting-paths --revision -b -r'
+_monotone_command_args['mtn comment']='REVISION COMMENT'
+_monotone_command_args['mtn commit']='PATH ...'
+_monotone_command_options['mtn commit']='--author --branch --date --depth --exclude --message --message-file -b -m'
+_monotone_command_args['mtn complete']='(revision|file|key) PARTIAL-ID'
+_monotone_commands['mtn conflicts']='clean resolve_first resolve_first_left resolve_first_right show_first show_remaining store'
+### Missing mtn conflicts clean
+_monotone_command_args['mtn conflicts resolve_first']='RESOLUTION'
+_monotone_command_options['mtn conflicts resolve_first']='--conflicts-file'
+_monotone_command_args['mtn conflicts resolve_first_left']='RESOLUTION'
+_monotone_command_options['mtn conflicts resolve_first_left']='--conflicts-file'
+_monotone_command_args['mtn conflicts resolve_first_right']='RESOLUTION'
+_monotone_command_options['mtn conflicts resolve_first_right']='--conflicts-file'
+_monotone_command_options['mtn conflicts show_first']='--conflicts-file'
+_monotone_command_options['mtn conflicts show_remaining']='--conflicts-file'
+_monotone_command_args['mtn conflicts store']='LEFT_REVID RIGHT_REVID'
+_monotone_command_options['mtn conflicts store']='--branch --conflicts-file -b'
+_monotone_command_args['mtn cvs_import']='CVSROOT'
+_monotone_command_options['mtn cvs_import']='--branch -b'
+_monotone_commands['mtn db']='changesetify check dump execute fix_certs info init load migrate regenerate_caches rosterify set_epoch version'
+### Missing mtn db changesetify
+### Missing mtn db check
+### Missing mtn db dump
+### Missing mtn db execute
+_monotone_command_options['mtn db fix_certs']='--drop-bad-certs'
+_monotone_command_options['mtn db info']='--concise --full'
+### Missing mtn db init
+### Missing mtn db load
+### Missing mtn db migrate
+### Missing mtn db regenerate_caches
+_monotone_command_options['mtn db rosterify']='--drop-attr'
+_monotone_command_args['mtn db set_epoch']='BRANCH EPOCH'
+### Missing mtn db version
+_monotone_command_args['mtn di']='PATH ...'
+_monotone_command_args['mtn diff']='PATH ...'
+_monotone_command_options['mtn diff']='--context --depth --diff-args --exclude --external --no-show-encloser --reverse --revision --show-encloser --unified --with-header --without-header -r'
+_monotone_command_args['mtn disapprove']='PARENT-REVISION CHILD-REVISION'
+_monotone_command_options['mtn disapprove']='--author --branch --date --message --message-file --no-update --update -b -m'
+_monotone_command_args['mtn drop']='PATH ...'
+_monotone_command_args['mtn dropkey']='KEY_NAME_OR_HASH'
+_monotone_command_args['mtn explicit_merge']='LEFT-REVISION RIGHT-REVISION DEST-BRANCH'
+_monotone_command_options['mtn explicit_merge']='--author --date --message --message-file --no-resolve-conflicts --no-update --resolve-conflicts --resolve-conflicts-file --update -m'
+_monotone_command_args['mtn fdiff']='SRCNAME DESTNAME SRCID DESTID'
+_monotone_command_options['mtn fdiff']='--context --diff-args --external --no-show-encloser --reverse --show-encloser --unified --with-header --without-header'
+### Missing mtn fload
+_monotone_command_args['mtn fmerge']='PARENT_FILEID LEFT_FILEID RIGHT_FILEID'
+_monotone_command_args['mtn genkey']='KEY_NAME'
+_monotone_command_options['mtn genkey']='--force-duplicate-key'
+_monotone_command_args['mtn get_roster']='REVID'
+_monotone_command_options['mtn git_export']='--authors-file --branches-file --export-marks --import-marks --log-certs --log-revids --no-log-certs --no-log-revids --refs --use-one-changelog'
+_monotone_command_options['mtn heads']='--branch -b'
+_monotone_command_args['mtn help']='command ARGS ...'
+_monotone_command_options['mtn help']='--hidden --no-hidden'
+_monotone_command_args['mtn identify']='PATH'
+_monotone_command_args['mtn import']='DIRECTORY'
+_monotone_command_options['mtn import']='--author --branch --date --dry-run --exclude --message --message-file --no-dry-run --no-respect-ignore --respect-ignore --revision -b -m -r'
+_monotone_commands['mtn list']='branches certs changed databases dbs duplicates epochs ignored keys known missing tags unknown vars workspaces'
+_monotone_command_args['mtn list branches']='PATTERN'
+_monotone_command_options['mtn list branches']='--exclude'
+_monotone_command_args['mtn list certs']='REVID'
+_monotone_command_args['mtn list changed']='PATH ...'
+_monotone_command_options['mtn list changed']='--depth --exclude'
+### Missing mtn list databases
+### Missing mtn list dbs
+_monotone_command_options['mtn list duplicates']='--revision -r'
+_monotone_command_args['mtn list epochs']='BRANCH ...'
+_monotone_command_args['mtn list ignored']='PATH'
+_monotone_command_options['mtn list ignored']='--depth --exclude --no-recursive --recursive -R'
+_monotone_command_args['mtn list keys']='PATTERN'
+_monotone_command_options['mtn list known']='--depth --exclude'
+_monotone_command_options['mtn list missing']='--depth --exclude'
+_monotone_command_args['mtn list tags']='PATTERN'
+_monotone_command_options['mtn list tags']='--exclude'
+_monotone_command_args['mtn list unknown']='PATH'
+_monotone_command_options['mtn list unknown']='--depth --exclude --no-recursive --recursive -R'
+_monotone_command_args['mtn list vars']='DOMAIN'
+### Missing mtn list workspaces
+_monotone_commands['mtn local']='kill_certs kill_revision'
+_monotone_command_args['mtn local kill_certs']='SELECTOR CERTNAME CERTVAL'
+_monotone_command_args['mtn local kill_revision']='REVID'
+_monotone_command_args['mtn log']='PATH ...'
+_monotone_command_options['mtn log']='--brief --clear-from --clear-to --depth --diffs --exclude --files --from --graph --last --merges --next --no-brief --no-diffs --no-files --no-graph --no-merges --revision --to -r'
+_monotone_command_options['mtn manpage']='--formatted --hidden --no-hidden --plain'
+_monotone_command_options['mtn merge']='--author --branch --date --message --message-file --no-resolve-conflicts --no-update --resolve-conflicts --resolve-conflicts-file --update -b -m'
+_monotone_command_args['mtn merge_into_dir']='SOURCE-BRANCH DEST-BRANCH DIR'
+_monotone_command_options['mtn merge_into_dir']='--author --date --message --message-file --no-resolve-conflicts --no-update --resolve-conflicts --resolve-conflicts-file --update -m'
+_monotone_command_args['mtn merge_into_workspace']='OTHER-REVISION'
+_monotone_command_options['mtn merge_into_workspace']='--move-conflicting-paths --no-move-conflicting-paths'
+_monotone_command_args['mtn migrate_workspace']='DIRECTORY'
+_monotone_command_args['mtn mkdir']='DIRECTORY ...'
+_monotone_command_options['mtn mkdir']='--no-respect-ignore --respect-ignore'
+_monotone_command_args['mtn mv']='SRC1 SRC2 ... DEST_DIR'
+_monotone_command_args['mtn passphrase']='KEY_NAME_OR_HASH'
+_monotone_command_args['mtn pivot_root']='NEW_ROOT PUT_OLD'
+_monotone_command_options['mtn pivot_root']='--bookkeep-only --move-conflicting-paths --no-move-conflicting-paths'
+_monotone_command_args['mtn pluck']='PATH ...'
+_monotone_command_options['mtn pluck']='--depth --exclude --move-conflicting-paths --no-move-conflicting-paths --revision -r'
+_monotone_command_args['mtn privkey']='KEY_NAME_OR_HASH'
+_monotone_command_args['mtn propagate']='SOURCE-BRANCH DEST-BRANCH'
+_monotone_command_options['mtn propagate']='--author --date --message --message-file --no-resolve-conflicts --resolve-conflicts --resolve-conflicts-file -m'
+_monotone_command_args['mtn pubkey']='KEY_NAME_OR_HASH'
+_monotone_command_args['mtn pull']='ADDRESS:PORTNUMBER PATTERN ...'
+_monotone_command_options['mtn pull']='--dry-run --exclude --no-dry-run --no-set-default --no-update --set-default --update'
+_monotone_command_args['mtn push']='ADDRESS:PORTNUMBER PATTERN ...'
+_monotone_command_options['mtn push']='--dry-run --exclude --key-to-push --no-dry-run --no-set-default --set-default'
+_monotone_command_args['mtn rcs_import']='RCSFILE ...'
+_monotone_command_options['mtn rcs_import']='--branch -b'
+_monotone_command_args['mtn read']='FILE1 FILE2 ...'
+### Missing mtn refresh_inodeprints
+_monotone_command_args['mtn register_workspace']='WORKSPACE_PATH'
+_monotone_command_args['mtn rename']='SRC1 SRC2 ... DEST_DIR'
+_monotone_command_options['mtn rename']='--bookkeep-only'
+_monotone_command_args['mtn revert']='PATH ...'
+_monotone_command_options['mtn revert']='--depth --exclude --missing'
+_monotone_command_args['mtn rm']='PATH ...'
+_monotone_command_options['mtn rm']='--bookkeep-only --missing --no-recursive --recursive -R'
+_monotone_command_options['mtn serve']='--bind --no-pid-file --pid-file'
+_monotone_command_args['mtn set']='DOMAIN NAME VALUE'
+_monotone_command_args['mtn setup']='DIRECTORY'
+_monotone_command_options['mtn setup']='--branch -b'
+_monotone_command_args['mtn show_conflicts']='REV REV'
+### Missing mtn ssh_agent_add
+_monotone_command_args['mtn ssh_agent_export']='FILENAME'
+_monotone_command_args['mtn status']='PATH ...'
+_monotone_command_options['mtn status']='--depth --exclude'
+_monotone_command_args['mtn suspend']='REVISION'
+_monotone_command_options['mtn suspend']='--branch --no-update --update -b'
+_monotone_command_args['mtn sync']='ADDRESS:PORTNUMBER PATTERN ...'
+_monotone_command_options['mtn sync']='--dry-run --exclude --key-to-push --no-dry-run --no-set-default --no-update --set-default --update'
+_monotone_command_args['mtn tag']='REVISION TAGNAME'
+_monotone_command_args['mtn testresult']='REV (pass|fail|true|false|yes|no|1|0)'
+_monotone_command_args['mtn trusted']='REVISION NAME VALUE SIGNER1 SIGNER2 ...'
+_monotone_command_args['mtn undrop']='PATH ...'
+_monotone_command_args['mtn unregister_workspace']='WORKSPACE_PATH'
+_monotone_command_args['mtn unset']='DOMAIN NAME'
+_monotone_command_options['mtn update']='--branch --move-conflicting-paths --no-move-conflicting-paths --revision -b -r'
+_monotone_command_options['mtn version']='--concise --full'
+# END ------------------------------------------------------------------------
+    
+
+_monotone_previous_RETURN=`trap -p RETURN`
+_monotone_previous_SIGHUP=`trap -p SIGHUP`
+_monotone_previous_SIGINT=`trap -p SIGINT`
+_monotone_previous_SIGPIPE=`trap -p SIGPIPE`
+_monotone_previous_SIGTERM=`trap -p SIGTERM`
+if shopt -q extglob; then :; else
+    shopt -s extglob
+    trap "shopt -u extglob; ${_monotone_previous_RETURN:-trap - RETURN}; ${_monotone_previous_SIGHUP:-trap - SIGHUP}; ${_monotone_previous_SIGINT:-trap - SIGINT}; ${_monotone_previous_SIGPIPE:-trap - SIGPIPE}; ${_monotone_previous_SIGTERM:-trap - SIGTERM}" RETURN SIGHUP SIGINT SIGPIPE SIGTERM
+fi
+
+# Call monotone to complete IDs
+_monotone_complete() {
+    if (( "${#cur}" >=2 )) ; then
+	COMPREPLY=( "${COMPREPLY[@]}" $(${mtn} $mono_db complete $1 $cur 2> /dev/null) )
+    fi
+}
+
+_monotone_revisions() {
+    _monotone_complete revision
+}
+
+_monotone_manifests() {
+    _monotone_complete manifest ??????
+}
+
+_monotone_manifest_files() {
+    _monotone_complete file
+}
+
+_monotone_dirs() {
+    _filedir -d
+}
+
+_monotone_files() {
+    _filedir
+}
+
+_monotone_databases() {
+    _filedir mtn
+    _filedir db
+    COMPREPLY=(
+	"${COMPREPLY[@]}"
+	$(compgen -W "$(LANG=POSIX \
+                        ${mtn} list databases 2> /dev/null |\
+                        grep -v '^\s' |\
+                        sed -e 's/(in [^)]*):$//')" -- ${cur#*=} )
+    )
+}
+
+# Call monotone to complete key ids (private or public)
+_monotone_keys() {
+    local range
+    if [ "$1" = "privkey" ]; then
+	range='/\[private/,$'
+    else
+	range='1,/\[private/'
+    fi
+    COMPREPLY=( "${COMPREPLY[@]}" $(compgen -W "$(${mtn} $mono_db list keys 2> /dev/null |\
+                                sed -n ${range}'{/^[0-9a-f]/s/[0-9a-f]* //p}')" -- ${cur#*=} ) )
+}
+
+_monotone_branches() {
+    COMPREPLY=( "${COMPREPLY[@]}" $(compgen -W "$(${mtn} $mono_db list branches 2> /dev/null)" -- ${cur#*=} ) )
+}
+
+_monotone_tags() {
+    COMPREPLY=( "${COMPREPLY[@]}" $(compgen -W "$(${mtn} $mono_db list tags 2> /dev/null | awk '{print $1}')" -- ${cur#*=} ) )
+}
+
+_monotone_public_key() {
+    _monotone_keys pubkey
+}
+
+_monotone_refs() {
+    COMPREPLY=( "${COMPREPLY[@]}" $(compgen -W 'revs roots leaves' -- $cur) )
+}
+
+_monotone_ssh_sign() {
+    COMPREPLY=( "${COMPREPLY[@]}" $(compgen -W 'yes no only check' -- $cur) )
+}
+
+_monotone_ticker() {
+    COMPREPLY=( "${COMPREPLY[@]}" $(compgen -W 'count dot none' -- $cur) )
+}
+
+_monotone_address_port() {
+    if [[ "$cur" == *:* ]]; then
+	# remove backslash escape from the first colon
+	cur=${cur/\\:/:}
+	local userhost=${cur%%?(\\):*}
+	local port=${cur#*:}
+	COMPREPLY=( "${COMPREPLY[@]}" $(compgen -W '4691' -- $port) )
+    else
+	COMPREPLY=( "${COMPREPLY[@]}" $(compgen -A hostname -- $cur) )
+    fi
+}
+
+_monotone_command_words() {
+    cmd_prev_line=
+    cmd_line=
+    cmd_words=()
+    cmd_cword=-1
+    arg_words=()
+    arg_cword=-1
+    cmd_cur=
+    cmd_prev=
+    local w pw i cmdi argi
+    w=
+    cmdi=0
+    argi=0
+    for i in ${!words[@]}; do
+	pw=$w
+	w=${words[$i]}
+
+	# We know that the first word is the command itself.  Because it might
+	# have a directory spec in it, just set it to the command we know.
+	if [ $cmdi -eq 0 ]; then
+	    w=mtn
+	fi
+
+	# if the current word is '--opt=val', split it up into '--opt' and 'val'
+	if [[ "$w" == --?*=* ]]; then
+	    if [[ "$pw" == -* \
+		&& " ${_monotone_options_noarg[*]} " != *\ $pw\ * ]]; then
+		# Current word is an argument to an earlier option,
+		# so we skip past it
+		continue
+	    fi
+	    pw="${w%%?(\\)=*}"
+	    w="${w#*=}"
+	# if the current word is '-oval', split it up into '-o' and 'val'
+	elif [[ "$w" == -[a-z]?* ]]; then
+	    if [[ "$pw" == -* \
+		&& " ${_monotone_options_noarg[*]} " != *\ $pw\ * ]]; then
+		# Current word is an argument to an earlier option,
+		# so we skip past it
+		continue
+	    fi
+	    pw="${w:0:2}"
+	    w="${w:2}"
+	elif [[ "$w" == -* ]]; then
+	    continue
+	fi
+	if [[ "$pw" != -* \
+	    || " ${_monotone_options_noarg[*]} " == *\ $pw\ * ]]; then
+	    if [[ -z "$cmd_line" \
+		|| -n "${_monotone_commands[$cmd_line]}" ]]; then
+		if [ $i -le $cword ]; then
+		    cmd_cword=$cmdi
+		    cmd_prev=$cmd_cur
+		    cmd_cur=$w
+		    cmd_prev_line=$cmd_line
+		    if [ -n "$cmd_line" ]; then
+	    		cmd_line="$cmd_line "
+		    fi
+		    cmd_line="$cmd_line$w"
+		    if [ -n "${_monotone_aliases[$cmd_line]}" ]; then
+			cmd_line=${_monotone_aliases[$cmd_line]}
+		    fi
+		fi
+		cmd_words[$cmdi]=$w
+		(( cmdi += 1 ))
+	    else
+		if [ $i -le $cword ]; then
+		    cmd_cword=-1
+		    arg_cword=$argi
+		    arg_prev=$arg_cur
+		    arg_cur=$w
+		fi
+		arg_words[$argi]=$w
+		(( argi += 1 ))
+	    fi
+    	fi
+    done
+}
+
+_monotone() {
+    local cur prev words cword mono_db mtn
+    local cmd_words cmd_cword cmd_cur cmd_prev cmd_line cmd_prev_line
+    local arg_words arg_cword arg_cur arg_prev 
+    local i cmdi argi
+    local x
+
+    local debug
+    debug=${DEBUG_MONOTONE_BASH_COMPLETIONS:-false}
+
+    if [[ $- == *v* ]]; then
+	original_v_value="-v"
+    else
+	original_v_value="+v"
+    fi
+    if [[ $- == *x* ]]; then
+	original_x_value="-x"
+    else
+	original_x_value="+x"
+    fi
+
+    if $debug; then
+	echo "COMP_WORDS:" "${COMP_WORDS[@]}"
+	echo "COMP_CWORD:" "$COMP_CWORD"
+    fi
+
+    COMPREPLY=()
+    _get_comp_words_by_ref -n := cur prev words cword
+    _split_longopt
+    _monotone_command_words
+    if [[ "$cur" == -[a-z]?* ]]; then
+	if ! [[ "$prev" == -* \
+	    && " ${_monotone_options_noarg[*]} " != *\ $prev\ * ]]; then
+	    prev="${cur:0:2}"
+	    cur="${cur:2}"
+	fi
+    fi
+
+    if $debug; then
+	echo "words:" "${words[@]}"
+	echo "cword:" "$cword"
+    fi
+
+    mtn=${words[0]}
+    for w in ${words[@]} ; do
+	if [[ "$w" == --db=* || "$w" == -d?* ]] ; then
+	    mono_db="$w" ; break
+	fi
+    done
+    if [ -z "$mono_db" ] ; then
+	for i in ${!words[@]} ; do
+	    [ $i -eq 0 ] && continue
+	    x="${words[$i-1]}"
+	    if [ "$x" = --db -o "$x" = -d ] ; then
+		mono_db="--db=${words[$i]}" ; break
+	    fi
+	done
+    fi
+
+    if $debug; then
+	echo "db: $mono_db"
+	echo "prev: $prev"
+	echo "cur: $cur"
+    fi
+
+    if $debug; then
+	set -x
+	set -v
+    fi
+    case $cur in
+	*/a:!(*/[[:alpha:]]:*) | *=a:!(*/[[:alpha:]]:*) | a:!(*/[[:alpha:]]:*) )
+            cur="${cur##*a:}"
+	    _monotone_public_keys
+	    ;;      
+	*/b:!(*/[[:alpha:]]:*) | *=b:!(*/[[:alpha:]]:*) | b:!(*/[[:alpha:]]:*) )
+	    cur="${cur##*b:}"
+	    _monotone_branches
+	    ;;
+        */h:!(*/[[:alpha:]]:*) | *=h:!(*/[[:alpha:]]:*) | h:!(*/[[:alpha:]]:*) )
+	    cur="${cur##*h:}"
+	    _monotone_branches
+	    ;;
+	*/i:!(*/[[:alpha:]]:*) | *=i:!(*/[[:alpha:]]:*) | i:!(*/[[:alpha:]]:*) )
+	    cur="${cur##*i:}"
+	    _monotone_revisions
+	    ;;
+	*/t:!(*/[[:alpha:]]:*) | *=t:!(*/[[:alpha:]]:*) | t:!(*/[[:alpha:]]:*) )
+	    cur="${cur##*t:}"
+	    _monotone_tags
+	    ;;
+	-* )
+	    if [ $cword -gt 0 ]; then
+		x=(
+		    ${_monotone_command_options["mtn"]}
+		    ${_monotone_command_options[$cmd_line]}
+		)
+	    fi
+	    COMPREPLY=( "${COMPREPLY[@]}" $(compgen -W "${x[*]}" -- $cur) )
+	    ;;
+        * )
+	    if [[ "$prev" == -* \
+		&& " ${_monotone_options_arg[*]} " == *\ $prev\ * ]]; then
+		if [ -n "${_monotone_options_arg_fns[$prev]}" ]; then
+		    ${_monotone_options_arg_fns[$prev]}
+		fi
+	    else
+		COMPREPLY=(
+		    "${COMPREPLY[@]}"
+		    $(compgen -W "${_monotone_command_options["mtn"]}
+			${_monotone_command_options[$cmd_prev_line]}" -- $cur)
+		)
+		if [ $cmd_cword -ge 0 ]; then
+		    if [ -n "${_monotone_commands[$cmd_prev_line]}" ]; then
+			COMPREPLY=(
+			    "${COMPREPLY[@]}"
+			    $(compgen -W \
+				"${_monotone_commands[$cmd_prev_line]}" \
+				 -- $cur)
+			)
+		    fi
+		elif [ $arg_cword -ge 0 ]; then
+		    local args=( ${_monotone_command_args[$cmd_line]} )
+		    local argtype=${args[$arg_cword]}
+		    if [ $arg_cword -ge 1 ] && [ "$argtype" = "..." ]; then
+			argtype=${args[$arg_cword-1]}
+		    elif [ ${#args[*]} -ge 2 ] && \
+			[ -z "$argtype" -a "${args[${#args[*]}-1]}" = "..." ]; then
+			argtype=${args[${#args[*]}-2]}
+		    fi
+		    case $argtype in
+			*PATH | PATHS | *FILENAME | *FILE | SRC | SRC[0-9] | FILE[0-9] )
+			    _monotone_files
+			    ;;
+			*REVISION | REV* | NEW_REV* | OLD_REV* | *REVID | FROM | TO )
+			    _monotone_revisions
+			    ;;
+			DIR* | *ROOT | DEST_DIR | WORKSPACE_PATH )
+			    _monotone_dirs
+			    ;;
+			KEY* )
+			    _monotone_public_keys
+			    ;;
+			BRANCH* | SOURCE-BRANCH | DEST-BRANCH )
+			    _monotone_branches
+			    ;;
+			TAG* )
+			    _monotone_tags
+			    ;;
+			ADDR*:PORT* | HOST*:PORT* )
+			    _monotone_address_port
+			    ;;
+			RESOLUTION )
+			    # To be implemented, this one is complex
+			    ;;
+			\(*\) )
+			    COMPREPLY=(
+				"${COMPREPLY[@]}"
+				$(compgen -W "`echo "$argtype" | sed -e 's/[()]//g' -e 's/|/ /g'`" -- $cur) )
+			    ;;
+		    esac
+		fi
+	    fi
+    esac
+    set $original_v_value
+    unset original_v_value
+    set $original_x_value
+    unset original_x_value
+
+    # I copied this code from http://willcode4beer.com/tips.jsp?set=tabMaven
+    # -- Richard Levitte
+    ############################################################
+    # Work-around bash_completion issue where bash interprets a colon
+    # as a separator.
+    # Work-around borrowed from the darcs work-around for the same
+    # issue.
+    colonprefixes=${cur%"${cur##*:}"}
+    local i=${#COMPREPLY[*]}
+    while [ $((--i)) -ge 0 ]; do
+	COMPREPLY[$i]=${COMPREPLY[$i]#"$colonprefixes"}
+    done
+    ############################################################
+
+    if $debug; then
+	echo "COMPREPLY: ${COMPREPLY[@]}"
+    fi
+
+    return 0
+}
+
+complete -F _monotone mtn

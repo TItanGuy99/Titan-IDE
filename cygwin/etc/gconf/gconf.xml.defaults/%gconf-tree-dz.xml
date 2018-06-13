@@ -1,0 +1,450 @@
+<?xml version="1.0"?>
+<gconf>
+	<dir name="schemas">
+		<dir name="system">
+			<dir name="smb">
+				<entry name="workgroup">
+					<local_schema short_desc="ཨེསི་ཨེམ་བི་ལཱ་སྡེ།">
+						<longdesc>ལག་ལེན་པ་དེ་ ཆ་ཤས་ཅིག་ཨིན་མི་ ཝིན་ཌོསི་ཡོངས་འབྲེལ་སྡེ་ཚན་ ཡང་ན་ ཌོ་མེན། ལཱ་སྡེ་གསརཔ་ཅིག་ལུ་ ནུས་པ་ཧྲིལ་བུ་འཐོབ་ནིའི་དོན་ལུ་ ལག་ལེན་པ་དེ་གིས་ ཕྱིར་བསྐྱོད་འབད་ཞིནམ་ལས་ ལོག་ནང་བསྐྱོད་འབད་དགོཔ་འོང་།</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="proxy">
+				<entry name="autoconfig_url">
+					<local_schema short_desc="རང་བཞིན་གྱི་ པོརོག་སི་ རིམ་སྒྲིག་གི་ ཡུ་ཨར་ཨེལ།">
+						<longdesc>པོརོག་སི་ རིམ་སྒྲིག་གི་ བེ་ལུསི་བྱིན་མི་ ཡུ་ཨར་ཨེལ།</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="socks_port">
+					<local_schema short_desc="ཨེསི་ཨོ་སི་ཀེ་ཨེསི་ པོརོག་སི་ འདྲེན་ལམ།">
+						<longdesc>ཁྱོད་ཀྱིས་པོརོག་སི་འབད་མི་ འཕྲུལ་ཆས་གུའི་འདྲེན་ལམ་དེ་ &quot;/system/proxy/socks_host&quot; གིས་ ངེས་འཛིན་འབད་ཡོད།</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="socks_host">
+					<local_schema short_desc="ཨེསི་ཨོ་སི་ཀེ་ཨེསི་ པོརོག་སི་ ཧོསཊི་ནེམ།">
+						<longdesc>བརྒྱུད་དེ་ཨེསི་ཨོ་སི་ཀེ་ཨེསི་ པོརོག་སི་འབད་ནིའི་ གློག་འཕྲུལ་གྱི་མིང༌།</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="ftp_port">
+					<local_schema short_desc="ཨེཕ་ཊི་པི་ པོརོག་སི་ འདྲེན་ལམ།">
+						<longdesc>ཁྱོད་ཀྱིས་ པོ་རོ་སི་འབད་མི་ འཕྲུལ་ཆས་གུའི་འདྲེན་ལམ་དེ་ &quot;/system/proxy/ftp_host&quot; གིས་ངེས་འཛིན་འབད་ཡོད།</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="ftp_host">
+					<local_schema short_desc="ཨེཕ་ཊི་པི་ པོརོག་སི་གི་ ཧོསཊི་ནེམ༌།">
+						<longdesc>ཨེཕ་ཊི་པི་ པོརོག་སི་་འབད་ནིའི་ གློག་འཕྲུལ་ཆས་མིང༌།</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="secure_port">
+					<local_schema short_desc="ཨེཆ་ཊི་ཊི་པི་ པོརོག་སི་གི་ འདྲེན་ལམ མཐའ་བཙན་བཟོ།">
+						<longdesc>ཁྱོད་ཀྱིས་པོརོག་སི་འབད་མི་ འཕྲུལ་ཆས་གུའི་འདྲེན་ལམ་དེ་ &quot;/system/proxy/secure_host&quot; གིས་ ངེས་འཛིན་འབད་ཡོད།</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="secure_host">
+					<local_schema short_desc="ཨེཆ་ཊི་ཊི་པི་ པོརོག་སི་ ཧོསཊི་གི་ནེམ་ མཐའ་བཙན་བཟོ།">
+						<longdesc>བརྒྱུད་དེ་ཨེཆ་ཊི་ཊི་པི་པོརོག་སི་ མཐའ་བཙན་བཟོ་ནིའི་ གློག་འཕྲུལ་གྱི་མིང༌།</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="mode">
+					<local_schema short_desc="པོརོག་སི་ རིམ་སྒྲིག་གི་ཐབས་ལམ།">
+						<longdesc>པོརོག་སི་ རིམ་སྒྲིག་གི་ཐབས་ལམ་ སེལ་འཐུ་འབད། རྒྱབ་སྐྱོར་ཅན་གྱི་ བེ་ལུསི་ &quot;none&quot;, &quot;manual&quot;, &quot;auto&quot; ཚུ་ཨིན།</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="http_proxy">
+				<entry name="ignore_hosts">
+					<local_schema short_desc="པོརོག་སི་མིན་པའི་ ཧོསཊིསི།">
+						<longdesc>ལྡེ་མིག་འདི་ནང་ ཧོསཊི་གི་ཐོ་ཡིག་ཅིག་ཡོད་མི་ཚུ་ (ཤུགས་ལྡན་ཨིན་པ་ཅིན)་ པོརོག་སི་མ་བརྒྱུད་པར་ ཕྲང་ཕྲང་མཐུད་དེ་ཡོདཔ་ཨིན། བེ་ལུསི་ཚུ་ ཧོསཊི་མིང་དང་ ཌོ་མེན་ (*.foo.com བཟུམ་གྱི་ འགོ་ཐོག་གི་ ཝ་ཡེལ་ཀཌི་ ལག་ལེན་འཐབ་སྟེ) ཨའི་པི་ཧོསཊི་ཁ་བྱང་(ཨའི་པི་ཝི་༤་དང་ ཨའི་པི་ཝི་༦ གཉིས་ཆ་རང་) ཡོངས་འབྲེལ་གྱི་ཁ་བྱང་ (༡༩༢་ ༡༦༨་ ༠་༠ / ༢༤ བཟུམ་འབད་མི་) ནེཊི་མཱཀསི་དང་གཅིག་ཁར།</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="authentication_password">
+					<local_schema short_desc="ཨེཆ་ཊི་ཊི་པི་ པོརོག་སི་ ཆོག་ཡིག">
+						<longdesc>ཨེཆ་ཊི་ཊི་པི་ པོརོག་སིང་གི་སྐབས་ལུ་ ཆོག་ཡིག་དེ་ བདེན་བཤད་བཟུམ་ཅིག་སྦེ་སྤྲོད་ནི།</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="authentication_user">
+					<local_schema short_desc="ཨེཆ་ཊི་ཊི་པི་ པོརོག་སི་་ ལག་ལེན་པའི་མིང༌།">
+						<longdesc>ཨེཆ་ཊི་ཊི་པི་ པོརོག་སིང་གི་སྐབས་ལུ་ བདེན་བཤད་བཟུམ་སྦེ་སྤྲོད་ནིའི་ ལག་ལེན་པའི་མིང་།</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="use_authentication">
+					<local_schema short_desc="པོརོག་སི་ སར་བར་མཐུད་ལམ་གྱི་ བདེན་ཁུངས་བཤད།">
+						<longdesc>ངེས་བདེན་ཨིན་པ་ཅིན་ པོརོག་སི་སར་བར་གྱི་ མཐུད་ལམ་ཚུ་ལུ་ བདེན་བཤད་དགོ ལག་ལེན་པའི་མིང་/ ཆོག་ཡིག་གི་ཀོམ་བོ་དེ་ &quot;/system/http_proxy/authentication_user&quot;  དང་ &quot;/system/http_proxy/authentication_password&quot; ཚུ་གིས་ ངེས་འཛིན་འབད་ཡོད།</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="port">
+					<local_schema short_desc="ཨེཆ་ཊི་ཊི་པི་ པོརོག་སི་ འདྲེན་ལམ།">
+						<longdesc>ཁྱོད་ཀྱིས་ པོརོག་སི་འབད་མི་ འཕྲུལ་ཆས་གུའི་འདྲེན་ལམ་དེ་ &quot;/system/http_proxy/host&quot; གིས་ ངེས་འཛིན་འབད་ཡོད།</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="host">
+					<local_schema short_desc="ཨེཆ་ཊི་ཊི་པི་ པོརོག་སི་ ཧོསཊི་ནེམ།">
+						<longdesc>ཨེཆ་ཊི་་ཊི་པི་ པོརོག་སི་འབད་ནིའི་ གློག་འཕྲུལ་གྱི་མིང༌།</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="use_http_proxy">
+					<local_schema short_desc="ཨེཆ་ཊི་ཊི་པི་ པོརོག་སི་ ལག་ལེན་འཐབ།">
+						<longdesc>ཨིན་ཊར་ནེཊི་་ཐོག་ལས་ ཨེཆ་ཊི་ཊི་པི་ འཛུལ་སྤྱོད་འབདཝ་ད་ པོརོག་སི་ གཞི་སྒྲིག་ལྕོགས་ཅན་བཟོཝ་ཨིན།</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="dns_sd">
+				<entry name="extra_domains">
+					<local_schema short_desc="ཌི་ཨེན་ཨེསི་-ཨེསི་ཌི་གི་ ཞབས་ཏོག་བལྟ་ནིའི་དོན་ལུ་ ཌོ་མེན་ཐེབས།">
+						<longdesc>&quot;network:///&quot; གནས་ཁོངས་ནང་ མཐོང་དགོ་པའི་ ལྷོོད་རྟགས་ཀྱིས་ སོ་སོ་དབྱེ་མི་  ཌི་ཨེན་ཨེསི་-ཨེསི་ཌི་ཌོ་མེན།</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="display_local">
+					<local_schema short_desc="ཉེ་གནས་ཀྱི་ཌི་ཨེན་ཨེསི་-ཨེསི་ཌི་གི་ ཞབས་ཏོག་བཀྲམ་སྟོན་འབད་ཐངས།">
+						<longdesc>སྲིད་པའི་བེ་ལུསི་ &quot;merged&quot; &quot;separate&quot; དང་ &quot;disabled&quot; ཚུ་ཨིན།</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+		</dir>
+		<dir name="desktop">
+			<dir name="gnome">
+				<dir name="typing_break">
+					<entry name="enabled">
+						<local_schema short_desc="ལྡེ་སྒྲོམ་ལྡེ་མིག་བརྐྱབ་ནི་ ལྕོགས་ཅན་ཨིན་ན་མེན།">
+							<longdesc>ལྡེ་སྒྲོམ་ལྡེ་མིག་བརྐྱབ་ནི་ ལྕོགས་ཅན་ཨིན་ན་མེན།</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="allow_postpone">
+						<local_schema short_desc="བར་མཚམས་ཚུ་ ཕར་འགྱངས་འབད་བཅུག">
+							<longdesc>ཡིག་དཔར་བརྐྱབ་ནིའི་བར་མཚམས་ གསལ་གཞི་དེ་ ཕར་འགྱངས་འབད་ཚུགས་ག་མི་ཚུགས།</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="break_time">
+						<local_schema short_desc="བར་མཚམས་དུས་ཚོད།">
+							<longdesc>ཡིག་དཔར་བརྐྱབ་ནིའི་བར་མཚམས་རིང་ཐུང་ སྐར་མའི་གྲངས།</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="type_time">
+						<local_schema short_desc="ཡིག་དཔར་བརྐྱབ་ནིའི་དུས་ཚོད།">
+							<longdesc>བར་མཚམས་ཐབས་ལམ་ འགོ་མ་བཙུགས་པའི་ཧེ་མར་ ཡིག་དཔར་བརྐྱབ་ནིའི་དུས་ཚོད་ སྐར་མའི་གྲངས།</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="thumbnailers">
+					<entry name="disable_all">
+						<local_schema short_desc="ཕྱི་ཁའི་མཐེ་གཟེར་བརྡབ་མི་ ཆ་མཉམ་རང་ ལྕོགས་མིན་བཟོ།">
+							<longdesc>ལས་རིམ་དེ་ཚུ་ རང་དབང་སྦེ་ ལྕོགས་མིན་/ལྕོགས་ཅན་ གང་རུང་ཡང་ ཕྱི་ཁའི་མཐེ་གཟེར་བརྡབ་མིའི་ལས་རིམ་ཚུ་ ལྕོགས་མིན་བཟོ་ནི་ལུ་ ངེས་བདེན་ལུ་ གཞི་སྒྲིག་འབད།</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="sound">
+					<entry name="event_sounds">
+						<local_schema short_desc="བྱུང་ལས་ཀྱི་དོན་ལུ་སྒྲ་སྐད།">
+							<longdesc>ལག་ལེན་པའི་བྱུང་ལས་ལུ་ སྒྲ་སྐད་གཏང་ནི་ཨིན་ན།</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="enable_esd">
+						<local_schema short_desc="ཨི་ཨེསི་ཌི་ ལྕོགས་ཅན་བཟོ།">
+							<longdesc>སྒྲ་སྐད་སར་བར་འགོ་བཙུགས་ ལྕོགས་ཅན་བཟོ།</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="default_mixer_tracks">
+						<local_schema short_desc="སྔོན་སྒྲིག་སྦྱོར་འཕྲུལ་གླུ་རིམ་ཚུ་">
+							<longdesc>སྣ་མང་བརྡ་ལམ་ལྡེ་མིག་བསྡམ་ཐག་དེ་ཚུ་གིས་ ལག་ལེན་འཐབ་མི་ སྔོན་སྒྲིག་སྦྱོར་འཕྲུལ་གླུ་རིམ་ཚུ།</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="default_mixer_device">
+						<local_schema short_desc="སྔོན་སྒྲིག་སྦྱོར་འཕྲུལ་ཐབས་འཕྲུལ་">
+							<longdesc>སྣ་མང་བརྡ་ལམ་ལྡེ་མིག་བསྡམ་ཐག་ཚུ་གིས་ལག་ལེན་འཐབ་མི་ སྔོན་སྒྲིག་སྦྱོར་འཕྲུལ་ཐབས་འཕྲུལ་</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="peripherals">
+					<dir name="mouse">
+						<entry name="cursor_size">
+							<local_schema short_desc="འོད་རྟགས་ཚད།">
+								<longdesc>འོད་རྟགས་བརྗོད་དོན་གྱིས་ གཞི་བསྟུན་འབད་ཡོད་མི་ འོད་རྟགས་ཀྱི་ཚད།(_t)</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="cursor_theme">
+							<local_schema short_desc="འོད་རྟགས་བརྗོད་དོན།">
+								<longdesc>འོད་རྟགས་བརྗོད་དོན་གྱི་མིང་། ཨེགསི་འོད་རྟགས་ དཔེར་ན་ ཨེགསི་ཕིརི་༨༦ ༤.༣ དང་ དེ་གི་ཤུལ་ལས་ཀྱི་ཚུ་ལུ་རྒྱབ་སྐྱོར་འབད་མི་ ཨེགསི་སར་བར་གྱིས་ ལག་ལེན་འཐབ་ཨིན།</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="cursor_font">
+							<local_schema short_desc="འོད་རྟགས་ཡིག་གཟུགས།">
+								<longdesc>འོད་རྟགས་ཡིག་གཟུགས་ཀྱི་མིང༌། སྒྲིག་བཤོལ་འབད་བ་ཅིན་ སྔོན་སྒྲིག་ཡིག་གཟུགས་དེ་ ལག་ལེན་འཐབ་ཨིན། བེ་ལུ་འདི་ ལཱ་ཡུན་རེ་འགོ་བཙུགས་སྐབས་ ཨེགསི་སར་བར་རྐྱངམ་གཅིག་ལུ་ དར་ཁྱབ་བཏང་སྟེ་ཡོདཔ་ལས་ ཁྱོད་ཀྱིས་ཤུལ་ལས་ ནང་བསྐྱོད་མ་འབད་ཚུན་ཚོད་ ལཱ་ཡུན་གྱི་བར་ན་ བསྒྱུར་བཅོས་འབདཝ་ད་ ཕན་གནོད་མེདཔ་ཨིན།</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="locate_pointer">
+							<local_schema short_desc="དཔག་བྱེད་ག་ཡོད་འཚོལ།">
+							</local_schema>
+						</entry>
+						<entry name="double_click">
+							<local_schema short_desc="ཨེབ་གཏང་ཐེངས་གཉིས་ཀྱི་དུས་ཚོད།">
+							</local_schema>
+						</entry>
+						<entry name="drag_threshold">
+							<local_schema short_desc="ཐེརེཤ་ཧཱོལ་ འདྲུད།">
+							</local_schema>
+						</entry>
+						<entry name="motion_threshold">
+							<local_schema short_desc="འགུལ་བསྐྱོད་ཐེརེཤ་ཧཱོལ།">
+								<longdesc>མགྱོགསསྤྱོད་ཀྱི་ མའུསི་འགུལ་བསྐྱོད་ ཤུགས་ལྡན་མ་བཟོ་བའི་ཧེ་མར་ དཔག་བྱེད་འགུལ་བསྐྱོད་འབད་དགོ་པའི་རྒྱང་ཚད་ པིག་སེལསི་ནང༌། -༡ གི་བེ་ལུ་དེ་ རིམ་ལུགས་སྔོན་སྒྲིག་ཨིན།</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="motion_acceleration">
+							<local_schema short_desc="ཨེབ་གཏང་ཐེངས་གཅིག">
+								<longdesc>མཱའུསི་འགུལ་བསྐྱོད་ཀྱི་དོན་ལུ་ མགྱོགས་སྤྱོད་སྒྱུར་བྱེད།  -༡ གི་བེ་ལུ་དེ་ རིམ་ལུགས་སྔོན་སྒྲིག་ཨིན།</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="single_click">
+							<local_schema short_desc="ཨེབ་གཏང་ཐེངས་གཅིག">
+							</local_schema>
+						</entry>
+						<entry name="left_handed">
+							<local_schema short_desc="མཱའུསི་ཨེབ་རྟ་གི་ཕྱོགས།">
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="keyboard">
+						<entry name="remember_numlock_state">
+							<local_schema short_desc="ཨང་ལྡེའི་གནས་ལུགས་ སེམས་ཁར་བཞག">
+								<longdesc>བདེན་པ་གུ་གཞི་སྒྲིག་འབདཝ་ད་ཇི་ནོམ་གྱིས་ ལཱ་ཡུན་ཚུ་གི་བར་ན་ ཨང་ལྡེའི་ ཨེལ་ཨི་ཌི་གི་གནས་ལུགས་ སེམས་ཁར་བཞགཔ་ཨིན།</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bell_custom_file">
+							<local_schema short_desc="ལྡེ་སྒྲོམ་དྲིལ་བུའི་ སྲོལ་སྒྲིག་ཡིག་སྣོད་མིང༌།">
+							</local_schema>
+						</entry>
+						<entry name="bell_mode">
+							<local_schema>
+								<longdesc>སྲིད་པའི་་བེ་ལུསི་ &quot;on&quot;, &quot;off&quot; དང་ &quot;custom&quot; ཚུ་ཨིན།</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+				<dir name="lockdown">
+					<entry name="disable_lock_screen">
+						<local_schema short_desc="གསལ་གཞི་ལྡེ་མིག་རྐྱབས་ནི་ལྕོགས་མིན་བཟོ་">
+							<longdesc>ལག་ལེན་པ་དེ་ལུ་ ཁོ་གི་གསལ་གཞི་ལྡེ་མིག་རྐྱབས་ནི་སྔོན་བཀག་འབད།</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_user_switching">
+						<local_schema short_desc="ལག་ལེན་པ་སོར་བསྒྱུར་འབད་ནི་ལྕོགས་མིན་བཟོ་">
+							<longdesc>ལག་ལེན་པ་ཅིག་ལུ་ ཁོ་གི་ལཱ་ཡུན་དེ་ ཤུགས་ལྡན་ཨིན་པའི་སྐབས་ རྩིས་ཐོ་གཞན་མི་ཅིག་ལུ་ སོར་བསྒྱུར་འབད་ནི་འདི་ལས་སྔོན་བཀག་འབད།</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_print_setup">
+						<local_schema short_desc="དཔར་བསྐྲུན་གཞི་སྒྲིག་ལྕོགས་མིན་བཟོ།">
+							<longdesc>ལག་ལེན་པ་དེ་ དཔར་བསྐྲུན་གཞི་སྒྲིག་ ལེགས་བཅོས་འབད་ནི་ལས་ བཀག་ཐབས་འབདཝ་ཨིན། དཔེར་ན་ འདི་གིས་གློག་རིམ་ཆ་མཉམ་ལུ་ &quot;Print Setup&quot; ཌའི་ལོག་ལུ་ འཛུལ་སྤྱོད་འབད་ནི་ ལྕོགས་མིན་བཟོཝ་ཨིན།</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_printing">
+						<local_schema short_desc="དཔར་བསྐྲུན་ལྕོགས་མིན་བཟོ།">
+							<longdesc>ལག་ལེན་པ་དེ་ དཔར་བསྐྲུན་འབད་ནི་ལས་ བཀག་ཐབས་འབདཝ་ཨིན། དཔེར་ན་ འདི་གིས་གློག་རིམ་ཆ་མཉམ་ལུ་&quot;Print&quot; ་ཌའི་ལོག་ཚུ་ལུ་ འཛུལ་སྤྱོད་འབད་ནི་ ལྕོགས་མིན་བཟོཝ་ཨིན།</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_save_to_disk">
+						<local_schema short_desc="ཡིག་སྣོད་ཚུ་ ཌིཀསི་ལུ་བསྲུང་ནི་ ལྕོགས་མིན་བཟོ།">
+							<longdesc>ལག་ལེན་པ་དེ་ ཡིག་སྣོད་ཚུ་ ཌིཀསི་ནང་བསྲུང་ནི་ལས་ བཀག་ཐབས་འབདཝ་ཨིན། དཔེར་ན་ འདི་གིས་གློག་རིམ་ཆ་མཉམ་ལུ་ &quot;Save as&quot; ཌའི་ལོག་ཚུ་ལུ་ འཛུལ་སྤྱོད་འབད་ནི་ ལྕོགས་མིན་བཟོཝ་ཨིན།</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_command_line">
+						<local_schema short_desc="བཀོད་ལམ་ལྕོགས་མིན་བཟོ།">
+							<longdesc>ལག་ལེན་པ་དེ་ ཊར་མི་ནཱལ་ནང་ འཛུལ་སྤྱོད་འབད་ནི་ལས་ བཀག་ཐབས་འབདཝ་ཨིན། ཡང་ཅིན་ ལག་ལེན་འཐབ་དགོ་པའི་ བཀོད་ལམ་ཅིག་ གསལ་བཀོད་འབདཝ་ཨིན། དཔེར་ན་ འདི་གིས་པེ་ནཱལ་གྱི&quot;Run Application&quot; ཌའི་ལོག་ལུ་ འཛུལ་སྤྱོད་ལྕོགས་མིན་བཟོ་འོང༌།</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="interface">
+					<entry name="show_unicode_menu">
+						<local_schema short_desc="&apos;ཡི་ནི་ཀོཌི་ ཚད་འཛིན་ཡིག་འབྲུ་&apos; དཀར་ཆག་སྟོན།">
+						</local_schema>
+					</entry>
+					<entry name="show_input_method_menu">
+						<local_schema short_desc="&apos;ཨིན་པུཊི་ཐབས་ལམ&apos; གྱི་དཀར་ཆག་དེ་སྟོན།">
+						</local_schema>
+					</entry>
+					<entry name="menubar_accel">
+						<local_schema short_desc="དཀར་ཆག་ཕྲ་རིང་གི་མགྱོགས་འཕྲུལ།">
+							<longdesc>དཀར་ཆག་ཕྲ་རིང་ཚུ་ཁ་ཕྱེ་ནིའི་ ལྡེ་སྒྲོམ་མགྱོགས་ཐབས།</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="file_chooser_backend">
+						<local_schema short_desc="ཇི་ཊི་ཀེ་ ཡིག་སྣོད་འདེམས་བྱེད་ཀྱི་དོན་ལུ་ མོ་ཌུལ།">
+						</local_schema>
+					</entry>
+					<entry name="status_bar_meter_on_right">
+						<local_schema short_desc=" གནས་ཚད་ཕྲ་རིང༌ གཡས་ཕྱོགས་ལུ།">
+						</local_schema>
+					</entry>
+					<entry name="use_custom_font">
+						<local_schema short_desc="སྲོལ་སྒྲིག་ཡིག་གཟུགས་ལག་ལེན་འཐབ།">
+							<longdesc>ཇི་ཊི་ཀེ་+ གློག་རིམ་ནང་ལུ་ སྲོལ་སྒྲིག་ཡིག་གཟུགས་ཅིག་ ལག་ལེན་འཐབ་དགོཔ་ཨིན་ན།</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="monospace_font_name">
+						<local_schema short_desc="མོ་ནོ་སིཔེསི་ ཡིག་གཟུགས།">
+							<longdesc>ཊར་མི་ནཱལ་བཟུམ་མའི་ གནས་ཁོངས་ཚུ་ནང་ ལག་ལེན་འཐབ་ནིའི་དོན་ལུ་ མོ་ནོ་སིཔེསི་ (རྒྱ་ཚད་གཏན་བཟོས་) ཡིག་གཟུགས་ཅིག་གི་མིང༌།</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="document_font_name">
+						<local_schema short_desc="ཡིག་ཆའི་ཡིག་གཟུགས།">
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-status-style">
+						<local_schema short_desc="ཇི་ཊི་ཀེ་ ཨའི་ཨེམ་ གནས་ཚད་བཟོ་རྣམ།">
+							<longdesc>ཇི་ཊི་ཀེ་+ གིས་ལག་ལེན་འཐབ་མི་ ཇི་ཊི་ཀེ་+ ཨིན་པུཊི་ཐབས་ཤེས་ གནས་ཚད་བཟོ་རྣམ་གྱི་མིང༌།</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-preedit-style">
+						<local_schema short_desc="ཇི་ཊི་ཀེ་ ཨའི་ཨེམ་ ཞུན་དག་མ་འབད་གོང་གི་བཟོ་རྣམ།">
+							<longdesc>ཇི་ཊི་ཀེ་+ གིས་ལག་ལེན་འཐབ་མི་ ཇི་ཊི་ཀེ་+ ཨིན་པུཊི་གི་ཐབས་ཤེས་ ཞུན་དག་མ་འབད་གོང་གི་བཟོ་རྣམ་གྱི་མིང༌།</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="font_name">
+						<local_schema short_desc="སྔོན་སྒྲིག་ཡིག་གཟུགས།">
+							<longdesc>ཇི་ཊི་ཀེ་+ གིས་ལག་ལེན་འཐབ་མི་ སྔོན་སྒྲིག་ཡིག་གཟུགས་ཀྱི་མིང༌།</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_key_theme">
+						<local_schema short_desc="ཇི་ཊི་ཀེ་+ བརྗོད་དོན།">
+							<longdesc>ཇི་ཊི་ཀེ་+ གིས་ལག་ལེན་འཐབ་མི་ སྔོན་སྒྲིག་བརྗོད་དོན་གྱི་གཞི་མིང༌།</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_theme">
+						<local_schema short_desc="ཇི་ཊི་ཀེ་+ བརྗོད་དོན།">
+							<longdesc>ཇི་ཊི་ཀེ་+ གིས་ལག་ལེན་འཐབ་མི་ སྔོན་སྒྲིག་བརྗོད་དོན་གྱི་གཞི་མིང༌།</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="icon_theme">
+						<local_schema short_desc="ངོས་དཔར་གྱི་བརྗོད་དོན།">
+							<longdesc>པེ་ནཱལ་དང་ ནའུ་ཊི་ལཱསི་ལ་སོགས་པའི་དོན་ལུ་ ལག་ལེན་འཐབ་ནིའི་ངོས་དཔར།</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink_time">
+						<local_schema short_desc="འོད་རྟགས་འགུལ་བསྐྱོད་དུས་ཚོད།">
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink">
+						<local_schema short_desc="འོད་རྟགས་འགུལ་བསྐྱོད།">
+						</local_schema>
+					</entry>
+					<entry name="toolbar_icons_size">
+						<local_schema short_desc="ལག་ཆས་ཕྲ་རིང་གི་ ངོས་དཔར་ཚད།">
+						</local_schema>
+					</entry>
+					<entry name="toolbar_detachable">
+						<local_schema short_desc="འཕྱལ་བཏུབ་པའི་ ལག་ཆས་ཕྲ་རིང་།">
+						</local_schema>
+					</entry>
+					<entry name="menubar_detachable">
+						<local_schema short_desc="འཕྱལ་བཏུབ་པའི་ དཀར་ཆག་ཕྲ་རིང་།">
+						</local_schema>
+					</entry>
+					<entry name="menus_have_icons">
+						<local_schema short_desc="དཀར་ཆག་ཚུ་ལུ་ ངོས་དཔར་ཡོད།">
+						</local_schema>
+					</entry>
+					<entry name="toolbar_style">
+						<local_schema short_desc="ལག་ཆས་ཕྲ་རིང་གི་བཟོ་རྣམ།">
+						</local_schema>
+					</entry>
+					<entry name="can_change_accels">
+						<local_schema short_desc="ཨེག་སེལསི་ བསྒྱུར་བཅོས་འབད་ཚུགས།">
+						</local_schema>
+					</entry>
+					<entry name="menus_have_tearoff">
+						<local_schema short_desc="དཀར་ཆག་ཚུ་ལུ་ ཊིའར་ཨོཕ་ཡོད།">
+						</local_schema>
+					</entry>
+					<entry name="enable_animations">
+						<local_schema short_desc="བསྒུལ་བཟོ་ལྕོགས་ཅན་བཟོ།།">
+							<longdesc>བསྒུལ་བཟོ་ཚུ་ བཀྲམ་སྟོན་འབད་དགོཔ་ཨིན་ན། དྲན་འཛིན་: འདི་སྤྱི་ཁྱབ་ཀྱི་ལྡེ་མིག་ཅིག་ཨིནམ་ལས་ འདི་གིས་ སྒོ་སྒྲིག་འཛིན་སྐྱོང་པ་དང་ པེ་ནཱལ་ལ་སོགས་པའི་ སྤྱོད་ལམ་བསྒྱུར་བཅོས་འབདཝ་ཨིན།</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="accessibility">
+						<local_schema short_desc="འཛུལ་སྤྱོད་ལྕོགས་ཅན་བཟོ།">
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="file-views">
+					<entry name="icon_theme">
+						<local_schema short_desc="ཡིག་སྣོད་ངོས་དཔར་གྱི་བརྗོད་དོན།">
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="background">
+					<entry name="color_shading_type">
+						<local_schema short_desc="ཚོས་གཞི་ནག་གྲིབ་ཀྱི་དབྱེ་བ།">
+						</local_schema>
+					</entry>
+					<entry name="secondary_color">
+						<local_schema short_desc="གལ་གནད་ཆུང་བའི་ཚོས་གཞི།">
+							<longdesc>སྟེགས་རིས་འབྲི་བའི་སྐབས་ ཚོས་གཞི་རགས་པ་ ལག་ལེན་མ་འཐབ་པའི་ གཡས་ ཡང་ན་ མཇུག་གི་ཚོས་གཞི།</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="primary_color">
+						<local_schema short_desc="ཚོས་གཞི་གཙོ་བོ།">
+							<longdesc>སྟེགས་རིས་སམ་ ཚོས་རགས་པ་འབྲི་བའི་སྐབས་ གཡོན་ ཡང་ན་ མགོའི་ཚོས་གཞི།</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_opacity">
+						<local_schema short_desc="པར་གྱི་དྭངས་སྒྲིབ།">
+						</local_schema>
+					</entry>
+					<entry name="picture_filename">
+						<local_schema short_desc="པར་གྱི་ཡིག་སྣོད་མིང༌།">
+						</local_schema>
+					</entry>
+					<entry name="picture_options">
+						<local_schema short_desc="པར་གྱི་གདམ་ཁ་ཚུ།">
+						</local_schema>
+					</entry>
+					<entry name="draw_background">
+						<local_schema short_desc="ཌེཀསི་ཊོཔ་ རྒྱབ་གཞི་བྲིས།">
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="applications">
+					<dir name="component_viewer">
+						<entry name="exec">
+							<local_schema short_desc="སྔོན་སྒྲིག་ཆ་ཤས་ མཐོང་བྱེད་གློག་རིམ།">
+								<longdesc>ཡིག་སྣོད་ལུ་ བལྟ་ནིའི་གློག་རིམ་དེ་ལུ་ ཆ་ཤས་ཅིག་དགོ ཚད་བཟུང་ %s གི་ཚབ་ལུ་ ཡིག་སྣོད་ཀྱི་ ཡུ་ཨར་ཨའི་ཚུ་ བཙུགས་ནི་དང་ ཚད་བཟུང་ %c གི་ཚབ་ལུ་ ཆ་ཤས་ཀྱི་ཨའི་ཌི་ཌི་ བཙུགས་ནི་ཨིན།</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="window_manager">
+						<entry name="workspace_names">
+							<local_schema short_desc="ལཱ་གི་ས་ཁོངས་ཚུ་གི་མིང་ཚུ།(ངོས་ལེན་མེདཔ)">
+								<longdesc>སྒོ་སྒྲིག་འཛིན་སྐྱོང་པ་དང་པའི་ ལཱ་གི་ས་ཁོངས་ཀྱི་ མིང་ཚུ་དང་བཅས་པའི་ཐོ་ཡིག་ཅིག ལྡེ་མིག་འདི་ ཇི་ནོམ་ ༢.༡༢ ཐོན་ཞིནམ་ལས་ ངོས་ལེན་མེདཔ་བཟོ་ཡི།</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="number_of_workspaces">
+							<local_schema short_desc="ལཱ་གི་ས་ཁོངས་ཚུ་གི་གྱངས་ཁ།(ངོས་ལེན་མེདཔ)">
+								<longdesc>སྒོ་སྒྲིག་འཛིན་སྐྱོང་པ་གིས་ ལག་ལེན་འཐབ་དགོ་པའི་ ལཱ་གི་ས་ཁོངས་ཚུ་གི་གྱངས་ཁ། ལྡེ་མིག་འདི་ ཇི་ནོམ་ ༢.༡༢ ཐོན་ཞིནམ་ལས་ ངོས་ལེན་མེདཔ་བཟོ་ཡི།</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="current">
+							<local_schema short_desc="ལག་ལེན་པའི་སྒོ་སྒྲིག་འཛིན་སྐྱོང་པ།(ངོས་ལེན་མེདཔ)">
+								<longdesc>དང་པ་ར་ སྒོ་སྒྲིག་འཛིན་སྐྱོང་པ་ ལག་ལུན་འཐབ། ལྡེ་མིག་འདི་ ཇི་ནོམ་༢.༡༢ ཐོན་ཞིནམ་ལས་ ངོས་ལེན་མེདཔ་བཟོ་ཡི།</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="default">
+							<local_schema short_desc="གློ་བུར་རྒྱབ་ཐག་སྒོ་སྒྲིག་འཛིན་སྐྱོང་པ།(ངོས་ལེན་མེདཔ)">
+								<longdesc>ལག་ལེན་པའི་ སྒོ་སྒྲིག་འཛིན་སྐྱོང་པ་ འཚོལ་མ་ཐོབ་པ་ཅིན་ གློ་བུར་རྒྱབ་ཐག་སྒོ་སྒྲིག་འཛིན་སྐྱོང་པ། ལྡེ་མིག་འདི་ ཇི་ནོམ་ ༢.༡༢ ཐོན་ཞིནམ་ལས་ ངོས་ལེན་མེདཔ་བཟོ་ཡི།</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="terminal">
+						<entry name="exec_arg">
+							<local_schema short_desc="སྔོན་སྒྲིག་ཊར་མི་ནཱལ་གྱི་སྐོར་ལས་ སྒྲུབ་རྟགས་ལག་ལེན་འཐབ།">
+								<longdesc>སྔོན་སྒྲིག་ཊར་མི་ནཱལ་ གློམ་རིམ་གྱི་དོན་ལུ་ ལག་ལེན་འཐབ་དགོ་པའི་ ཨི་ཨེགསི་ཨི་སི་ སྒྲུབ་རྟགས།</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="སྔོན་སྒྲིག་ཊར་མི་ནཱལ་གློག་རིམ།">
+								<longdesc>ཊར་མི་ནཱལ་ཅིག་དགོ་པའི་ གློག་རིམ་ཚུ་གི་དོན་ལུ་ ལག་ལེན་འཐབ་དགོ་པའི་ སྔོན་སྒྲིག་ཊར་མི་ནཱལ་གློག་རིམ།</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+			</dir>
+		</dir>
+	</dir>
+</gconf>

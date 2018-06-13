@@ -1,0 +1,312 @@
+Compatibility list MAME style
++----------+-----+-----+--------------------------------+------+------+------+------+-----------------------------------------------------+
+|romname   | Pl  | Rot | Control Type (for one player)  | Bios | Test | Boot | Game | Notes                                               |
++----------+-----+-----+--------------------------------+------+------+------+------+-----------------------------------------------------+
+| Naomi cartridge system                                                                                                                  |
++----------+-----+-----+--------------------------------+------+------+------+------+-----------------------------------------------------+
+|18wheelr  |  1  |  H  | 1 axis, 2 pedal, 3 ssw, 2 btn  |      | Yes  | Yes  | Yes  | motorboard unemulated                               |
+|18wheels  |  1  |  H  | 1 axis, 2 pedal, 3 ssw, 2 btn  |      | Yes  | Yes  | Yes  |                                                     |
+|18wheelu  |  1  |  H  | 1 axis, 2 pedal, 3 ssw, 2 btn  |      | Yes  | Yes  | Yes  |                                                     |
+|alienfnt  |  1  |  H  | 3 axis, 5 btn                  |      | Yes  | Yes  | Yes  |                                                     |
+|alienfnta |  1  |  H  | 3 axis, 5 btn                  |      | Yes  | Yes  | Yes  |                                                     |
+|alpilota  |  1  |  H  | 2 axis, 3 pedal, 2 sw, 1 btn   |      | Yes  | Yes  | Yes  |                                                     |
+|alpiltdx  |  1  |  H  | 2 axis, 3 pedal, 2 sw, 1 btn   |      | Yes  | Yes  | Yes  |                                                     |
+|asndynmt  |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|ausfache  |  2  |  H  |                                | Jap  | Yes  | Yes  | Yes  |                                                     |
+|capsnk    |  2  |  H  | joy, 4btn                      |      | Yes  | Yes  | Yes  |                                                     |
+|capsnka   |  2  |  H  | joy, 4btn                      |      | Yes  | Yes  | Yes  |                                                     |
+|capsnkb   |  2  |  H  | joy, 4btn                      |      | Yes  | Yes  | Yes  |                                                     |
+|crackndj  |  1  |  H  | 1 btn, 1 axis, 2 rotary        |      | Yes  | Yes  | Yes  |                                                     |
+|crakndj2  |  1  |  H  | 1 btn, 1 axis, 2 rotary        |      | Yes  | Yes  | Yes  |                                                     |
+|crzytaxi  |  1  |  H  | 1 axis, 2 pedal, 2 btn         |      | Yes  | Yes  | Yes  |                                                     |
+|csmash    |  1  |  H  | joy, 2btn                      |      | Yes  | Yes  | Yes  |                                                     |
+|csmasho   |  1  |  H  | joy, 2btn                      |      | Yes  | Yes  | Yes  |                                                     |
+|cspike    |  2  |  H  | joy, 4btn                      |      | Yes  | Yes  | Yes  |                                                     |
+|deathcox  |  2  |  H  | lightgun 16-bit                |      | Yes  | Yes  | Yes  |                                                     |
+|derbyo2k  |  1  |  H  | joy, 5 btn                     | Usa  | Yes  | Yes  | No   | link unemulated, cardreader unemulated              |
+|derbyoc   |  1  |  H  | joy, 5 btn                     | Usa  | Yes  | Yes  | No   | link unemulated, cardreader unemulated              |
+|derbyoc2  |  1  |  H  | joy, 5 btn                     |      | Yes  | Yes  | No   | link unemulated, cardreader unemulated              |
+|derbyocw  |  1  |  H  | joy, 5 btn                     |      | Yes  | Yes  | No   | link unemulated, cardreader unemulated              |
+|doa2      |  2  |  H  | joy, 3 btn                     |      | Yes  | Yes  | Yes  |                                                     |
+|doa2m     |  2  |  H  | joy, 3 btn                     |      | Yes  | Yes  | Yes  |                                                     |
+|drbyocwc  |  1  |  H  | joy, 5 btn                     |      | Yes  | Yes  | No   | link unemulated, cardreader unemulated              |
+|dybb99    |  2  |  H  | 2 axis, 1 axis?pedal, 2 btn    | Jap  | Yes  | Yes  | Yes  |                                                     |
+|dybbnao   |  2  |  H  | 2 axis, 1 axis?pedal, 2 btn    | Jap  | Yes  | Yes  | Yes  |                                                     |
+|f355      |  1  |  H  |                                | Cust | Yes  | Yes  | Yes  |                                                     |
+|f355twin  |  1  |  H  |                                | Cust | Yes  | Yes  | Yes  |                                                     |
+|f355twn2  |  1  |  H  |                                | Cust | Yes  | Yes  | Yes  |                                                     |
+|ggram2    |  2  |  H  | joy, 4 btn, 1?? btn            | Jap  | Yes  | Yes  | Yes  |                                                     |
+|ggx       |  2  |  H  | joy, 4 btn                     |      | Yes  | Yes  | Yes  |                                                     |
+|gram2000  |  2  |  H  | joy, 4 btn                     |      | Yes  | Yes  | Yes  |                                                     |
+|gundmct   |  1  |  H  | twin-joystick with 4+6 buttons |      | Yes  | Yes  | Yes  |                                                     |
+|gunsur2   |  1  |  H  | 3-axis gun, 4btn (custom)      |      | Yes  | Yes  | Yes  |                                                     |
+|gunsur2j  |  1  |  H  | 3-axis gun, 4btn (custom)      |      | Yes  | Yes  | Yes  |                                                     |
+|gwing2    |  2  |  H  | joy, 2 btn                     |      | Yes  | Yes  | Yes  |                                                     |
+|hmgeo     |  2  |  H  | joy, 4 btn                     |      | Yes  | Yes  | Yes  |                                                     |
+|hopper    |  -  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|hotd2     |  2  |  H  | lightgun                       | Cust | Yes  | Yes  | Yes  |                                                     |
+|hotd2o    |  2  |  H  | lightgun                       | Cust | Yes  | Yes  | Yes  |                                                     |
+|hotd2p    |  2  |  H  | lightgun                       | Cust | Yes  | Yes  | Yes  |                                                     |
+|illvelo   |  1  |  V  |                                | Jap  | Yes  | Yes  | Yes  |                                                     |
+|inunoos   |  1  |  H  | 1 axis, 2 pedal, 2 btn         |      | Yes  | Yes  | Yes  |                                                     |
+|jambo     |  1  |  H  | 1 axis, 2 pedal, 2 btn         |      | Yes  | Yes  | Yes  |                                                     |
+|kick4csh  |  1  |  H  |                                |      | No   | Yes  | No   | hopper board unemulated                             |
+|mamonoro  |  2  |  V  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|manicpnc  |  2  |  H  | touchscreen                    |      | Yes  | Yes  | Yes  |                                                     |
+|marstv    |  3  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|mazan     |  1  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|mazana    |  1  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|mbaa      |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|mbaao     |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|mtkob2    |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|mushi2k5  |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|mushi2eo  |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|mushik2e  |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|mvsc2     |  2  |  H  | joy, 6 btn                     |      | Yes  | Yes  | Yes  |                                                     |
+|ninjaslt  |  2  |  H  | 2 lightguns                    |      | Yes  | Yes  | Yes  |                                                     |
+|ninjasltu |  2  |  H  | 2 lightguns                    |      | Yes  | Yes  | Yes  |                                                     |
+|ninjaslta |  2  |  H  | 2 lightguns                    |      | Yes  | Yes  | Yes  |                                                     |
+|ninjasltj |  2  |  H  | 2 lightguns                    |      | Yes  | Yes  | Yes  |                                                     |
+|oinori    |  1  |  H  |                                |      | Yes  | Yes  | Yes  | ARCNET network unemulated                           |
+|otrigger  |  1  |  H  | trackball, joy, 3 btn          |      | Yes  | Yes  | Yes  |                                                     |
+|pjustic   |  2  |  H  | joy, 4 btn                     |      | Yes  | Yes  | Yes  |                                                     |
+|pokasuka  |  2  |  H  | touchscreen                    |      | Yes  | Yes  | Yes  |                                                     |
+|pstone    |  2  |  H  | joy, 3 btn                     |      | Yes  | Yes  | Yes  |                                                     |
+|pstone2   |  4  |  H  | joy, 3 btn                     |      | Yes  | Yes  | Yes  |                                                     |
+|puyoda    |  2  |  H  | joy, 1 btn                     |      | Yes  | Yes  | Yes  |                                                     |
+|qmegamis  |  2  |  H  | (joy, 1 btn) or (4 btn)        |      | Yes  | Yes  | Yes  |                                                     |
+|radirgyn  |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|rhytngk   |  2  |  H  | joystick with 2 buttons        | Jap  | Yes  | Yes  | Yes  |                                                     |
+|ringout   |  4  |  H  | 2 axis, 2 btn                  |      | Yes  | Yes  | Yes  |                                                     |
+|samba     |  2  |  H  | 4 axis, 2 btn (custom)         |      | Yes  | Yes  | Yes  |                                                     |
+|samba2k   |  2  |  H  | 4 axis, 2 btn (custom)         |      | Yes  | Yes  | Yes  |                                                     |
+|sambap    |  2  |  H  | 4 axis, 2 btn (custom)         |      | Yes  | Yes  | Yes  |                                                     |
+|sgtetris  |  2  |  H  | joy, 2 btn                     |      | Yes  | Yes  | Yes  |                                                     |
+|shangril  |  1  |  H  | mahjong panel                  |      | Yes  | Yes  | Yes  |                                                     |
+|shootopl  |  1  |  H  | 3 rotary, 2 axis, 4 btn        |      | Yes  | Yes  | Yes  |                                                     |
+|shootpl   |  1  |  H  | 3 rotary, 2 axis, 4 btn        |      | Yes  | Yes  | Yes  |                                                     |
+|shootplm  |  1  |  H  | 3 rotary, 2 axis, 4 btn        |      | Yes  | Yes  | Yes  |                                                     |
+|sl2007    |  2  |  V  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|slasho    |  1  |  H  | joy, 4 btn                     |      | Yes  | Yes  | Yes  |                                                     |
+|smarinef  |  1  |  H  | fishing rod                    |      | Yes  | Yes  | Yes  | DLX network not emulated                            |
+|smlg99    |  2  |  H  | 2 axis, 1 axis?pedal, 2 btn    |      | Yes  | Yes  | Yes  |                                                     |
+|spawn     |  1  |  H  | joy, 4 btn                     |      | Yes  | Yes  | Yes  |                                                     |
+|sstrkfgt  |  1  |  H  | 2 axis, 2 pedal, 4 btn         |      | Yes  | Yes  | Yes  |                                                     |
+|sstrkfgta |  1  |  H  | 2 axis, 2 pedal, 4 btn         |      | Yes  | Yes  | Yes  |                                                     |
+|starhrse  |  -  |  H  |                                |      | Yes  | Yes  | Yes  | ARCNET network unemulated                           |
+|starhrct  |  -  |  H  |                                |      | Yes  | Yes  | Yes  | ARCNET network unemulated                           |
+|starhrcl  |  1  |  V  |                                |      | Yes  | Yes  | Yes  | ARCNET network unemulated                           |
+|starhrsp  |  1  |  V  |                                |      | Yes  | Yes  | Yes  | ARCNET network unemulated                           |
+|starhrpr  |  1  |  V  |                                |      | Yes  | Yes  | Yes  | ARCNET network unemulated                           |
+|suchie3   |  1  |  H  | mahjong panel                  | Jap  | Yes  | Yes  | Yes  |                                                     |
+|tduno     |  1  |  H  | JVS-touchscreen                |      | Yes  | Yes  | Yes  |                                                     |
+|tduno2    |  1  |  H  | JVS-touchscreen                |      | Yes  | Yes  | Yes  |                                                     |
+|tokyobus  |  1  |  H  | 1 axis, 2 pedal, 6 btn         |      | Yes  | Yes  | Yes  |                                                     |
+|totd      |  2  |  H  | keyboard                       |      | Yes  | Yes  | Yes  |                                                     |
+|toukon4   |  2  |  H  | joy, 5 btn                     |      | Yes  | Yes  | Yes  |                                                     |
+|toyfight  |  2  |  H  | joy, 3 btn                     |      | Yes  | Yes  | Yes  |                                                     |
+|virnba    |  2  |  H  | joy, 2 btn                     |      | Yes  | Yes  | Yes  |                                                     |
+|virnbao   |  2  |  H  | joy, 2 btn                     |      | Yes  | Yes  | Yes  |                                                     |
+|virnbap   |  2  |  H  | joy, 2 btn                     |      | Yes  | Yes  | Yes  |                                                     |
+|vonot     |  1  |  H  | joy, 4 btn                     |      | Yes  | Yes  | Yes  |                                                     |
+|vs2_2k    |  2  |  H  | joy, 3 btn                     |      | Yes  | Yes  | Yes  |                                                     |
+|vtenis2c  |  2  |  H  | joy, 2 btn                     |      | Yes  | Yes  | Yes  |                                                     |
+|vtennis   |  2  |  H  | joy, 2 btn                     |      | Yes  | Yes  | Yes  |                                                     |
+|wldkicks  |  4  |  H  | 2 axis, 2 pedal, ?? btn        |      | Yes  | Yes  | Yes  |                                                     |
+|wldkicksa |  4  |  H  | 2 axis, 2 pedal, ?? btn        |      | Yes  | Yes  | Yes  |                                                     |
+|wldkicksj |  4  |  H  | 2 axis, 2 pedal, ?? btn        |      | Yes  | Yes  | Yes  |                                                     |
+|wrungp    |  1  |  H  | 1 axis, 1 pedal, 1 btn         |      | Yes  | Yes  | Yes  |                                                     |
+|wwfroyal  |  2  |  H  | joy, 3 btn                     |      | Yes  | Yes  | Yes  |                                                     |
+|zerogu2   |  2  |  H  | 2 axis, 3 btn                  |      | Yes  | Yes  | Yes  |                                                     |
+|zombrvn   |  2  |  H  | 2 axis, 3 btn                  |      | Yes  | Yes  | Yes  |                                                     |
+|zombrvno  |  2  |  H  | 2 axis, 3 btn                  |      | Yes  | Yes  | Yes  |                                                     |
+|zunou     |  2  |  H  | touchscreen                    |      | Yes  | Yes  | Yes  |                                                     |
++----------+-----+-----+--------------------------------+------+------+------+------+-----------------------------------------------------+
+| Naomi GD-ROM system                                                                                                                     |
++----------+-----+-----+--------------------------------+------+------+------+------+-----------------------------------------------------+
+|azumanga  |  2  |  H  | joy, 1 btn                     |      | Yes  | Yes  | Yes  |                                                     |
+|bdrdown   |  2  |  H  | joystick with 3 buttons        |      | Yes  | Yes  | Yes  |                                                     |
+|cfield    |  1  |  H  | joystick with 3 buttons        | Jap  | Yes  | Yes  | Yes  |                                                     |
+|chocomk   |  2  |  H  | joystick with 2 buttons        |      | Yes  | Yes  | Yes  |                                                     |
+|cleoftp   |  2  |  H  | joystick with 3 buttons        |      | Yes  | Yes  | Yes  |                                                     |
+|confmiss  |  2  |  H  | lightgun                       |      | Yes  | Yes  | Yes  |                                                     |
+|cvs2gd    |  2  |  H  | joystick with 6 buttons        |      | Yes  | Yes  | Yes  |                                                     |
+|cvsgd     |  2  |  H  | joystick with 4 buttons        | Jap  | Yes  | Yes  | Yes  |                                                     |
+|dygolf    |  1  |  H  | joystick with 2 rotary channel |      | Yes  | Yes  | Yes  |                                                     |
+|ggxx      |  2  |  H  | joystick with 5 buttons        |      | Yes  | Yes  | Yes  |                                                     |
+|ggxxac    |  2  |  H  | joystick with 5 buttons        | Jap  | Yes  | Yes  | Yes  |                                                     |
+|ggxxrl    |  2  |  H  | joystick with 5 buttons        | Jap  | Yes  | Yes  | Yes  |                                                     |
+|ggxxrlo   |  2  |  H  | joystick with 5 buttons        | Jap  | Yes  | Yes  | Yes  |                                                     |
+|ggxxsla   |  2  |  H  | joystick with 5 buttons        | Jap  | Yes  | Yes  | Yes  |                                                     |
+|gundmgd   |  1  |  H  | twin-joystick with 4+6 buttons |      | Yes  | Yes  | Yes  |                                                     |
+|gundmxgd  |  1  |  H  | twin-joystick with 4+6 buttons |      | Yes  | Yes  | Yes  |                                                     |
+|ikaruga   |  2  |  V  | joystick with 2 buttons        |      | Yes  | Yes  | Yes  |                                                     |
+|jingystm  |  2  |  H  | joystick with 3 buttons        | Jap  | Yes  | Yes  | Yes  |                                                     |
+|karous    |  1  |  V  | joystick with 3 buttons        | Jap  | Yes  | Yes  | Yes  |                                                     |
+|keyboard  |  2  |  H  | keyboard                       |      | Yes  | Yes  | Yes  |                                                     |
+|kurucham  |  2  |  H  | joystick with 3 buttons        | Jap  | Yes  | Yes  | Yes  |                                                     |
+|lupinsho  |  2  |  H  | lightgun                       |      | Yes  | Yes  | Yes  |                                                     |
+|luptype   |  2  |  H  | keyboard                       |      | Yes  | Yes  | Yes  |                                                     |
+|meltyb    |  2  |  H  | joystick with 5 buttons        | Jap  | Yes  | Yes  | Yes  |                                                     |
+|meltybo   |  2  |  H  | joystick with 5 buttons        | Jap  | Yes  | Yes  | Yes  |                                                     |
+|meltybld  |  2  |  H  | joystick with 5 buttons        | Jap  | Yes  | Yes  | Yes  |                                                     |
+|meltyblo  |  2  |  H  | joystick with 5 buttons        | Jap  | Yes  | Yes  | Yes  |                                                     |
+|moeru     |  1  |  H  | joystick with 3 buttons        | Jap  | Yes  | Yes  | Yes  |                                                     |
+|mok       |  2  |  H  | lightgun                       |      | Yes  | Yes  | Yes  |                                                     |
+|monkeyba  |  1  |  H  | analog 2-channel stick         |      | Yes  | Yes  | Yes  |                                                     |
+|ngdup23a  |  -  |  -  |                                |      | Yes  | Yes  | Yes  | dimm board unemulated                               |
+|ngdup23c  |  -  |  -  |                                |      | Yes  | Yes  | Yes  | dimm board unemulated                               |
+|ngdup23e  |  -  |  -  |                                |      | Yes  | Yes  | Yes  | dimm board unemulated                               |
+|ndcfboxa  |  -  |  -  |                                |      | Yes  | Yes  | Yes  | dimm board unemulated                               |
+|psyvar2   |  1  |  V  | joystick with 2 buttons        | Jap  | Yes  | Yes  | Yes  |                                                     |
+|puyofev   |  2  |  H  | joystick with 2 buttons        | Jap  | Yes  | Yes  | Yes  |                                                     |
+|quizqgd   |  2  |  V  | joystick with 4 buttons        |      | Yes  | Yes  | Yes  |                                                     |
+|radirgy   |  1  |  V  | joystick with 3 buttons        | Jap  | Yes  | Yes  | Yes  |                                                     |
+|radirgyo  |  1  |  V  | joystick with 3 buttons        | Jap  | Yes  | Yes  | Yes  |                                                     |
+|senko     |  2  |  H  | joystick with 3 buttons        | Jap  | Yes  | Yes  | Yes  |                                                     |
+|senkoo    |  2  |  H  | joystick with 3 buttons        | Jap  | Yes  | Yes  | Yes  |                                                     |
+|senkosp   |  2  |  H  | joystick with 3 buttons        | Jap  | Yes  | Yes  | Yes  |                                                     |
+|sfz3ugd   |  2  |  H  | joystick with 6 buttons        | Jap  | Yes  | Yes  | Yes  |                                                     |
+|shaktam   |  2  |  H  | 2 axis, 5 btn                  |      | Yes  | Yes  | Yes  |                                                     |
+|shaktamb  |  2  |  H  | 2 axis, 5 btn                  |      | Yes  | Yes  | Yes  |                                                     |
+|shaktmsp  |  2  |  H  | 2 axis, 5 btn                  |      | Yes  | Yes  | Yes  |                                                     |
+|shikgam2  |  2  |  V  | joystick with 3 buttons        |      | Yes  | Yes  | Yes  |                                                     |
+|slashout  |  1  |  H  | joystick with 4 buttons        |      | Yes  | Yes  | Yes  |                                                     |
+|spkrbtl   |  2  |  H  | joystick with 4 buttons        |      | Yes  | Yes  | Yes  |                                                     |
+|sprtjam   |  2  |  H  | joystick with 2 buttons        |      | Yes  | Yes  | Yes  |                                                     |
+|ss2005    |  1  |  H  | joystick with 3 buttons        | Jap  | Yes  | Yes  | Yes  |                                                     |
+|ss2005o   |  1  |  H  | joystick with 3 buttons        | Jap  | Yes  | Yes  | Yes  |                                                     |
+|starseek  |  1  |  H  | joystick with ? buttons        | Jap  | Yes  | Yes  | Yes  |                                                     |
+|takoron   |  2  |  H  | joystick with 3 buttons        | Jap  | Yes  | Yes  | Yes  |                                                     |
+|tetkiwam  |  2  |  H  | joystick with 3 buttons        | Jap  | Yes  | Yes  | Yes  |                                                     |
+|trgheart  |  1  |  V  | joystick with 3 buttons        | Jap  | Yes  | Yes  | Yes  |                                                     |
+|trizeal   |  2  |  V  | joystick with 3 buttons        | Jap  | Yes  | Yes  | Yes  |                                                     |
+|undefeat  |  2  |  V  | joystick with 2 buttons        | Jap  | Yes  | Yes  | Yes  |                                                     |
+|usagiym   |  1  |  H  | mahjong panel                  | Jap  | Yes  | Yes  | Yes  |                                                     |
+|vathlete  |  2  |  H  | joystick with 3 buttons        |      | Yes  | Yes  | Yes  |                                                     |
+|vtennis2  |  2  |  H  | joystick with 3 buttons        |      | Yes  | Yes  | Yes  |                                                     |
+|vtennisg  |  2  |  H  | joystick with 2 buttons        |      | Yes  | Yes  | Yes  |                                                     |
+|wsbbgd    |  2  |  H  | ad stick + 2 buttons           |      | Yes  | Yes  | Yes  |                                                     |
++----------+-----+-----+--------------------------------+------+------+------+------+-----------------------------------------------------+
+| Naomi Satellite system                                                                                                                  |
++----------+-----+-----+--------------------------------+------+------+------+------+-----------------------------------------------------+
+|wccf212e  |  1  |  H  |                                | Exp  | Yes  | Yes  | No   | dimm board unemulated                               |
+|wccf234j  |  1  |  H  |                                | Jap  | Yes  | Yes  | No   | dimm board unemulated                               |
+|wccf310j  |  1  |  H  |                                | Jap  | Yes  | Yes  | No   | dimm board unemulated                               |
+|wccf331e  |  1  |  H  |                                | Exp  | Yes  | Yes  | No   | dimm board unemulated                               |
+|wccf322e  |  1  |  H  |                                | Exp  | Yes  | Yes  | No   | dimm board unemulated                               |
+|wccf420e  |  1  |  H  |                                | Exp  | Yes  | Yes  | No   | dimm board unemulated                               |
++----------+-----+-----+--------------------------------+------+------+------+------+-----------------------------------------------------+
+| Naomi 2 cartridge system                                                                                                                |
++----------+-----+-----+--------------------------------+------+------+------+------+-----------------------------------------------------+
+|clubk2k3  |  1  |  H  | 1 axis, 2 pedal, 1 btn         |      | Yes  | Yes  | Yes  |                                                     |
+|clubk2kp  |  1  |  H  | 1 axis, 2 pedal, 1 btn         |      | Yes  | Yes  | Yes  |                                                     |
+|clubkrtc  |  1  |  H  | 1 axis, 2 pedal, 1 btn         |      | Yes  | Yes  | Yes  |                                                     |
+|clubkrtd  |  1  |  H  | 1 axis, 2 pedal, 1 btn         |      | Yes  | Yes  | Yes  |                                                     |
+|clubkrt   |  1  |  H  | 1 axis, 2 pedal, 1 btn         |      | Yes  | Yes  | Yes  |                                                     |
+|clubkprz  |  1  |  H  | 1 axis, 2 pedal, 1 btn         |      | Yes  | Yes  | Yes  |                                                     |
+|clubkprzb |  1  |  H  | 1 axis, 2 pedal, 1 btn         |      | Yes  | No   | No   | hopper board unemulated                             |
+|kingrt66  |  1  |  H  | 1 axis, 2 pedal, 1 btn         |      | Yes  | Yes  | Yes  |                                                     |
+|soulsurf  |  1  |  H  | sensor mat, 2 btn              |      | Yes  | Yes  | Yes  |                                                     |
+|vf4cart   |  2  |  H  | joy, 3 btn                     | Usa  | Yes  | Yes  | Yes  |                                                     |
+|vf4evoct  |  2  |  H  | joy, 3 btn                     | Usa  | Yes  | Yes  | Yes  |                                                     |
+|vstrik3c  |  2  |  H  | joy, 3 btn                     | Usa  | Yes  | Yes  | Yes  |                                                     |
+|vstrik3co |  2  |  H  | joy, 3 btn                     | Usa  | Yes  | Yes  | Yes  |                                                     |
+|wldrider  |  1  |  H  | 1 axis, 3 pedal, 2 btn         |      | Yes  | Yes  | Yes  |                                                     |
++----------+-----+-----+--------------------------------+------+------+------+------+-----------------------------------------------------+
+| Naomi 2 GD-ROM system                                                                                                                   |
++----------+-----+-----+--------------------------------+------+------+------+------+-----------------------------------------------------+
+|beachspi  |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|clubkcyc  |  1  |  H  |                                |      | No   | Yes  | No   | Cycraft not emulated                                |
+|initd     |  1  |  H  |                                | Jap  | Yes  | Yes  | Yes  |                                                     |
+|initdo    |  1  |  H  |                                | Jap  | Yes  | Yes  | Yes  |                                                     |
+|initdexp  |  1  |  H  |                                | Exp  | Yes  | Yes  | Yes  |                                                     |
+|initdexpo |  1  |  H  |                                | Exp  | Yes  | Yes  | Yes  |                                                     |
+|initdv2e  |  1  |  H  |                                | Exp  | Yes  | Yes  | Yes  |                                                     |
+|initdv2j  |  1  |  H  |                                | Jap  | Yes  | Yes  | Yes  |                                                     |
+|initdv2jo |  1  |  H  |                                | Jap  | Yes  | Yes  | Yes  |                                                     |
+|initdv3e  |  1  |  H  |                                | Exp  | Yes  | Yes  | Yes  |                                                     |
+|initdv3j  |  1  |  H  |                                | Jap  | Yes  | Yes  | Yes  |                                                     |
+|initdv3jb |  1  |  H  |                                | Jap  | Yes  | Yes  | Yes  |                                                     |
+|inidv3cy  |  1  |  H  |                                |      | No   | Yes  | No   | Cycraft not emulated                                |
+|inidv3ca  |  1  |  H  |                                |      | No   | Yes  | No   | Cycraft not emulated                                |
+|vf4       |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|vf4b      |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|vf4o      |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|vf4evo    |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|vf4evoa   |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|vf4tuned  |  2  |  H  |                                |      | Yes  | Yes  | Yes  | need dimm board 3.17                                |
+|vf4tuneda |  2  |  H  |                                |      | Yes  | Yes  | Yes  | need dimm board 3.17                                |
+|vf4tunedd |  2  |  H  |                                |      | Yes  | Yes  | Yes  | need dimm board 3.17                                |
+|vstrik3   |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
++----------+-----+-----+--------------------------------+------+------+------+------+-----------------------------------------------------+
+| Atomiswave system                                                                                                                       |
++----------+-----+-----+--------------------------------+------+------+------+------+-----------------------------------------------------+
+|anmlbskt  |  2  |  V  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|basschal  |  1  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|claychal  |  1  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|demofist  |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|dirtypig  |  4  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|dolphin   |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|fotns     |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|ftspeed   |  1  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|ggisuka   |  4  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|ggx15     |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|kofnw     |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|kofnwj    |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|kofxi     |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|kov7sprt  |  1  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|maxspeed  |  1  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|mslug6    |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|ngbc      |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|rangrmsn  |  1  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|rumblef   |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|rumblef2  |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|rumblf2p  |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|salmankt  |  1  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|samsptk   |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|sprtshot  |  1  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|vfurlong  |  1  |  H  |                                |      | Yes  | Yes  | No   | card reader unemulated                              |
+|xtrmhnt2  |  1  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|xtrmhunt  |  1  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
++----------+-----+-----+--------------------------------+------+------+------+------+-----------------------------------------------------+
+| System SP                                                                                                                               |
++----------+-----+-----+--------------------------------+------+------+------+------+-----------------------------------------------------+
+|blockppl  |  1  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|dinoking  |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|dinokior  |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|dinoki25  |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|lovebery  |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|lovebero  |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|loveber3  |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|tetgiant  |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|tetgiano  |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
++----------+-----+-----+--------------------------------+------+------+------+------+-----------------------------------------------------+
+| Hikaru system                                                                                                                           |
++----------+-----+-----+--------------------------------+------+------+------+------+-----------------------------------------------------+
+|airtrix   |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|braveff   |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|pharrier  |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|sgnascar  |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|podrace   |  2  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
++----------+-----+-----+--------------------------------+------+------+------+------+-----------------------------------------------------+
+| Gaelco PVR2-based system                                                                                                                |
++----------+-----+-----+--------------------------------+------+------+------+------+-----------------------------------------------------+
+|atvtrack  |  1  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|atvtracka |  1  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
+|smashdrv  |  1  |  H  |                                |      | Yes  | Yes  | Yes  |                                                     |
++----------+-----+-----+--------------------------------+------+------+------+------+-----------------------------------------------------+
+
+NAOMI/NAOMI2 errors:
+CAUTION 51 - Player number incorrect
+CAUTION 52 - I/O Board serial doesn't match game settings
+CAUTION 53 - I/O Board serial doesn't match game settings
+CAUTION 54 - Cabinet orientation incorrect
+  ERROR 03 - Can't read serial number, bioses with this error won't work at all
+  ERROR 02 - BIOS region incorrect
+  ERROR 01 - BIOS version or ROM incorrect
+
+Test: If it enters into test mode (not actually working test mode, i.e. if inputs doesn't work)
+Boot: If game boots and draws some gfxs
+Game: If game can be coined up and can actually be played without problems.
+If the three aforementioned are all yes and there aren't any notes, game is fully working.

@@ -1,0 +1,68 @@
+#! /bin/dash
+
+markerdir=/var/lib/texmf/postinstall
+
+for f in ${markerdir}/*.tlp
+do
+    if [ -f ${f} ]
+    then
+	tlps=$(cat ${markerdir}/*.tlp)
+    fi
+    break
+done
+
+if [ -n "${tlps}" ]
+then
+    [ -x /usr/libexec/update_tlpdb ] && /usr/libexec/update_tlpdb add ${tlps}
+    for f in ${markerdir}/*.tlp
+    do
+	mv -f ${f} ${f}.done
+    done
+fi
+
+regenerate_language=0
+for f in ${markerdir}/*.lang
+do
+    if [ -f ${f} ]
+    then
+	regenerate_language=1
+	for g in ${markerdir}/*.lang
+	do
+	    mv -f ${g} ${g}.done
+	done
+    fi
+    break
+done
+
+if [ ${regenerate_language} = 1 ] \
+	|| [ ! -f /var/lib/texmf/tex/generic/config/language.def ] \
+	|| [ ! -f /var/lib/texmf/tex/generic/config/language.dat ] \
+	|| [ ! -f /var/lib/texmf/tex/generic/config/language.dat.lua ]
+then
+    [ -x /usr/bin/tlmgr ] && /usr/bin/tlmgr generate language
+    /usr/bin/touch ${markerdir}/texlive.rebuild_all_fmts
+fi
+
+for f in ${markerdir}/*.lsr
+do
+    if [ -f ${f} ]
+    then
+	[ -x /usr/bin/mktexlsr ] && /usr/bin/mktexlsr
+	for g in ${markerdir}/*.lsr
+	do
+	    mv -f ${g} ${g}.done
+	done
+    fi
+    break
+done
+
+if [ -f ${markerdir}/texlive.refresh_fmts ]
+then
+    # Maybe all formats will be rebuilt in zp_texlive_finish.dash.
+    if [ ! -f ${markerdir}/texlive.rebuild_all_fmts ]
+    then
+	[ -x /usr/bin/fmtutil-sys ] && /usr/bin/fmtutil-sys --refresh
+    fi
+    mv -f ${markerdir}/texlive.refresh_fmts \
+       ${markerdir}/texlive.refresh_fmts.done
+fi

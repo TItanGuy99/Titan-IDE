@@ -1,0 +1,655 @@
+<?xml version="1.0"?>
+<gconfschemafile>
+  <schemalist>
+
+    <schema>
+      <key>/schemas/desktop/gnome/thumbnail_cache/maximum_age</key>
+      <applyto>/desktop/gnome/thumbnail_cache/maximum_age</applyto>
+      <owner>gnome</owner>
+      <type>int</type>
+      <default>180</default>
+      <locale name="C">
+        <short></short>
+        <long>Maximum age for thumbnails in the cache, in days. Set to -1 to disable cleaning.</long>
+      </locale>
+
+      <locale name="ar">
+        
+        <long>العمر الأقصى للمصغرات في ذاكرة التخزين الموقت، بالأيام. ضع -1 لتعطيل التنظيف.</long>
+      </locale>
+
+      <locale name="as">
+        
+        <long>কেছে থাম্বনেইলৰ সৰ্বাধিক বয়স, দিনত । পৰিষ্কাৰ কৰা নিষ্ক্ৰিয় কৰিবলৈ -১ লৈ নিৰ্ধাৰণ কৰক ।</long>
+      </locale>
+
+      <locale name="ast">
+        
+        <long>Antigüedá máxima pa les miniatures de la caché, en díes. Ponlu a -1 pa desactivar la llimpieza.</long>
+      </locale>
+
+      <locale name="bg">
+        
+        <long>Максимална възраст в дни на временните мини-изображения. Стойност -1 изключва изтриването им.</long>
+      </locale>
+
+      <locale name="bn">
+        
+        <long>ক্যাশের মধ্যে উপস্থিত থাম্‌বনেইলের সর্বাধিক সংরক্ষণ কাল -দিন হিসাবে নির্ধারিত। বর্জন প্রক্রিয়া নিষ্ক্রিয় করার জন্য -1 নির্ধারণ করুন।</long>
+      </locale>
+
+      <locale name="bn_IN">
+        
+        <long>ক্যাশের মধ্যে উপস্থিত থাম্‌বনেইলের সর্বাধিক সংরক্ষণ কাল -দিন হিসাবে নির্ধারিত। বর্জন প্রক্রিয়া নিষ্ক্রিয় করার জন্য -1 নির্ধারণ করুন।</long>
+      </locale>
+
+      <locale name="ca">
+        
+        <long>Edat màxima, en dies, de les miniatures en la que poden estar en la memòria cau. Establiu-la a -1 per inhabilitar la neteja.</long>
+      </locale>
+
+      <locale name="ca@valencia">
+        
+        <long>Edat màxima, en dies, de les miniatures en la que poden estar en la memòria cau. Establiu-la a -1 per inhabilitar la neteja.</long>
+      </locale>
+
+      <locale name="crh">
+        
+        <long>Ög-hafizadaki başparmaq-tırnaqlarınıñ azamiy yaşı, kün olaraq. Temizlevni ğayrı qabilleştirmek içün -1 olaraq tesbit etiñiz.</long>
+      </locale>
+
+      <locale name="cs">
+        
+        <long>Maximální stáří náhledů ve vyrovnávací paměti ve dnech. Nastavte na -1 k zakázání vymazání.</long>
+      </locale>
+
+      <locale name="cy">
+        
+        <long>Oedran mwyaf, mewn dyddiau, ar gyfer rhagolygon yn y storfa. Gosodwch i -1 er mwyn analluogi glanhau.</long>
+      </locale>
+
+      <locale name="da">
+        
+        <long>Maksimumsalder for miniaturer i mellemlager i dage. Sæt til -1 for at slå oprydning fra.</long>
+      </locale>
+
+      <locale name="de">
+        
+        <long>Maximales Alter der Miniatur-Vorschaubilder im Zwischenspeicher, in Tagen. Der Wert -1 deaktiviert das Löschen.</long>
+      </locale>
+
+      <locale name="el">
+        
+        <long>Μέγιστος χρόνος διατήρησης μικρογραφιών στη μνήμη, σε ημέρες. Επιλέξτε -1 για να απενεργοποιήσετε την εκκαθάριση.</long>
+      </locale>
+
+      <locale name="en_GB">
+        
+        <long>Maximum age for thumbnails in the cache, in days. Set to -1 to disable cleaning.</long>
+      </locale>
+
+      <locale name="eo">
+        
+        <long>Makisuma aĝo por miniaturoj en la kaŝmemoro, laŭ tagoj. Agordu al -1 por elŝalti viŝadon.</long>
+      </locale>
+
+      <locale name="es">
+        
+        <long>Antigüedad máxima para las miniaturas de la caché, en días. Establézcalo a -1 para desactivar la limpieza.</long>
+      </locale>
+
+      <locale name="et">
+        
+        <long>Puhverdatud pisipiltide suurim eluiga päevades. Kustutamise keelamiseks määra väärtuseks -1.</long>
+      </locale>
+
+      <locale name="eu">
+        
+        <long>Cacheko koadro txikien gehienezko antzinatasuna (egunetan). Ezarri -1 balioa garbitzea desgaitzeko.</long>
+      </locale>
+
+      <locale name="fi">
+        
+        <long>Pienoiskuvien enimmäisikä välimuistissa päivinä. Aseta arvoon -1, jos haluat estää siivouksen.</long>
+      </locale>
+
+      <locale name="fr">
+        
+        <long>Âge maximum en jours pour les vignettes dans le cache. Définissez à -1 pour désactiver le nettoyage.</long>
+      </locale>
+
+      <locale name="gl">
+        
+        <long>Antigüidade máxima das miniaturas na caché, en días. Defínaa como -1 para desactivar a limpeza.</long>
+      </locale>
+
+      <locale name="gu">
+        
+        <long>કેશમાં થમ્બનેઈલો માટે મહત્તમ ઉંમર, દિવસોમાં. સફાઈલ નિષ્ક્રિય કરવા માટે -1 માં સુયોજીત કરો.</long>
+      </locale>
+
+      <locale name="he">
+        
+        <long>Maximum age for thumbnails in the cache, in days. Set to -1 to disable cleaning.</long>
+      </locale>
+
+      <locale name="hi">
+        
+        <long>दिनों में कैश में लघुचित्रों की अधिकतम आयु. साफ किया जाना निष्क्रिय करने के लिए -1 पर सेट करें.</long>
+      </locale>
+
+      <locale name="hu">
+        
+        <long>Bélyegképek maximális kora a gyorsítótárban, napokban. A tisztítás letiltásához állítsa -1-re.</long>
+      </locale>
+
+      <locale name="id">
+        
+        <long>Usia maksimum thumbnail di dalam singgahan, dalam hari. Tata ke -1 untuk menonaktifkan pembersihan.</long>
+      </locale>
+
+      <locale name="it">
+        
+        <long>Età massima per le miniature nella cache, in giorni. Impostare a -1 per disabilitare la pulizia.</long>
+      </locale>
+
+      <locale name="ja">
+        
+        <long>キャッシュの中に格納しておくサムネイルの最大寿命 (日単位) で、キャッシュのクリアを無効にする場合は -1 を指定します。</long>
+      </locale>
+
+      <locale name="kn">
+        
+        <long>ಕ್ಯಾಶೆಯಲ್ಲಿ ತಂಬ್‌ನೈಲ್ ಗರಿಷ್ಟ ಜೀವಿತಾವಧಿ, ದಿನಗಳಲ್ಲಿ. ಸ್ವಚ್ಛಗೊಳಿಸುವುದನ್ನು ಅಶಕ್ತಗೊಳಿಸಲು -1 ಗೆ ಬದಲಾಯಿಸಿ.</long>
+      </locale>
+
+      <locale name="ko">
+        
+        <long>캐시에 보관할 썸네일의 최대 기한. 썸네일을 지우지 않으려면 -1로 설정하십시오.</long>
+      </locale>
+
+      <locale name="lt">
+        
+        <long>Maksimalus miniatiūrų amžius kaupe (dienomis).  Nustatykite -1, jei norite išjungti kaupo valymą.</long>
+      </locale>
+
+      <locale name="lv">
+        
+        <long>Maksimālais sīktēlu, kas ir kešatmiņā, vecums dienās. Iestatiet uz -1, lai atslēgtu tīrīšanu.</long>
+      </locale>
+
+      <locale name="mk">
+        
+        <long>Максимална старост на сликичиња во кешот, во денови. Поставете -1 за да го исклучите чистењето.</long>
+      </locale>
+
+      <locale name="ml">
+        
+        <long>കാഷില്‍ നഖചിത്രം സൂക്ഷിക്കുവാനുള്ള ഏറ്റവും കൂടുതലായ സമയം, ദിവസങ്ങളില്‍. വെടിപ്പാക്കല്‍ പ്രവര്‍ത്തന രഹിതമാക്കുന്നതിനു് -1 ആയി സജ്ജമാക്കുക.</long>
+      </locale>
+
+      <locale name="mn">
+        
+        <long>Завсрын хадгалагчид мини зургуудыг хадгалах хамгийн их хугацаа, өдрөөр. Цэвэрлэхгүй гэвэл -1 сонгоно уу.</long>
+      </locale>
+
+      <locale name="mr">
+        
+        <long>कॅश मधिल थंबनेल करीता कमाल कालावधी, दिवसात. काढून टाकण्याकरीता कालवधीस -1 असे निश्चित करा.</long>
+      </locale>
+
+      <locale name="nb">
+        
+        <long>Maks alder for miniatyrer i bufferen i dager. Sett til -1 for å deaktivere opprydding.</long>
+      </locale>
+
+      <locale name="nl">
+        
+        <long>Maximum leeftijd voor miniaturen in de cache, in dagen. Instellen op -1 om opschonen uit te zetten.</long>
+      </locale>
+
+      <locale name="or">
+        
+        <long>କ୍ୟାଶରେ ଥିବା କ୍ଷୁଦ୍ର ଚିତ୍ର ପାଇଁ ସର୍ବାଧିକ ବୟସ, ଦିନରେ. ସଫାକରିବାକୁ ନିଷ୍କ୍ରିୟ କରିବା ପାଇଁ -1ବିନ୍ୟାସ କରନ୍ତୁ.</long>
+      </locale>
+
+      <locale name="pa">
+        
+        <long>ਕੈਸ਼ ਵਿੱਚ ਥੰਮਨੇਲ ਲਈ ਵੱਧੋ-ਵੱਧ ਉਮਰ ਦਿਨਾਂ ਵਿੱਚ। ਸਾਫ਼ ਕਰਨਾ ਆਯੋਗ ਕਰਨ ਵਾਸਤੇ -1 ਸੈੱਟ ਕਰੋ।</long>
+      </locale>
+
+      <locale name="pl">
+        
+        <long>Maksymalny wiek miniaturek w buforze, w dniach. Można ustawić na -1, aby wyłączyć czyszczenie.</long>
+      </locale>
+
+      <locale name="pt">
+        
+        <long>Idade máxima para as amostras na cache, em dias. Definir como -1 para desactivar a limpeza.</long>
+      </locale>
+
+      <locale name="pt_BR">
+        
+        <long>Tempo máximo para miniaturas no cache, em dias. Digite -1 para desabilitar a limpeza.</long>
+      </locale>
+
+      <locale name="ro">
+        
+        <long>Vârsta maximă în zile a miniaturilor în cache. Alegeți „-1” pentru a dezactiva reciclarea.</long>
+      </locale>
+
+      <locale name="ru">
+        
+        <long>Максимальная давность миниатюр в кэше, в днях. Установите в -1 для выключения очистки кэша.</long>
+      </locale>
+
+      <locale name="sk">
+        
+        <long>Maximálny vek náhľadov vo vyrovnávacej pamäti v dňoch. Nastavením na -1 vypnete čistenie.</long>
+      </locale>
+
+      <locale name="sl">
+        
+        <long>Največja starost sličic v predpomnilniku v dnevih. Vrednost -1 onemogoči čiščenje.</long>
+      </locale>
+
+      <locale name="sq">
+        
+        <long>Mosha maksimum e ruajtjes së miniaturave në cache. Cakto në -1 për të çaktivizuar pastrimin.</long>
+      </locale>
+
+      <locale name="sr">
+        
+        <long>Максимална старост малих приказа у остави, у данима. Поставите на -1 да онемогућите уклањање.</long>
+      </locale>
+
+      <locale name="sr@latin">
+        
+        <long>Maksimalna starost malih prikaza u ostavi, u danima. Postavite na -1 da onemogućite uklanjanje.</long>
+      </locale>
+
+      <locale name="sv">
+        
+        <long>Maximal ålder för miniatyrbilder i mellanlagret, i dagar. Ställ in till -1 för att inaktivera tömning.</long>
+      </locale>
+
+      <locale name="ta">
+        
+        <long>இடையகத்தில் சிறுபடங்களின் அதிகபட்ச வயது ஒரு நாளில். -1 என்று அமைத்து துடைப்பதை செயல்நீக்கு</long>
+      </locale>
+
+      <locale name="te">
+        
+        <long>క్యాచీనందు థంబ్‌నెయిల్సు గరిష్ఠ వయస్సు, రోజులలో. శుభ్రపరచుటను అచేతనము చేయుటకు -1కు అమర్చుము.</long>
+      </locale>
+
+      <locale name="th">
+        
+        <long>ระยะเวลาที่นานที่สุดที่จะเก็บภาพย่อไว้ในแคช เป็นจำนวนวัน กำหนดเป็น -1 ถ้าจะไม่ล้างแคชเลย</long>
+      </locale>
+
+      <locale name="tr">
+        
+        <long>Gün olarak ön bellekte küçük resimlerin azami yaşı. Temizlemeyı kapatmak için -1 olarak atayın.</long>
+      </locale>
+
+      <locale name="ug">
+        
+        <long>كىچىك سۈرەتنى غەملەشنىڭ ئەڭ ئۇزۇن ئۆمرى، بىرلىكى كۈن. -1 غا تەڭشەلسە ئۆزلۈكىدىن تازىلاش چەكلىنىدۇ.</long>
+      </locale>
+
+      <locale name="uk">
+        
+        <long>Максимальний вік ескізів у кеші, у днях. Значення -1 вимикає очищення.</long>
+      </locale>
+
+      <locale name="vi">
+        
+        <long>Khoảng thời gian tối đa cần nhớ tạm ảnh mẫu, theo ngày. Đặt thành -1 để tắt.</long>
+      </locale>
+
+      <locale name="zh_CN">
+        
+        <long>缓存缩略图的最长寿命，以天为单位。设定为-1以禁用自动清除。</long>
+      </locale>
+
+      <locale name="zh_HK">
+        
+        <long>縮圖保留在快取中最長的期限，以天數計。設為 -1 則停用清除功能。</long>
+      </locale>
+
+      <locale name="zh_TW">
+        
+        <long>縮圖保留在快取中最長的期限，以天數計。設為 -1 則停用清除功能。</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/desktop/gnome/thumbnail_cache/maximum_size</key>
+      <applyto>/desktop/gnome/thumbnail_cache/maximum_size</applyto>
+      <owner>gnome</owner>
+      <type>int</type>
+      <default>512</default>
+      <locale name="C">
+        <short></short>
+        <long>Maximum size of the thumbnail cache, in megabytes. Set to -1 to disable cleaning.</long>
+      </locale>
+
+      <locale name="ar">
+        
+        <long>العمر الأقصى للمصغرات في ذاكرة التخزين المؤقت، بالميغا بايت. ضع -1 لتعطيل التنظيف.</long>
+      </locale>
+
+      <locale name="as">
+        
+        <long>কেছে থাম্বনেইলৰ সৰ্বাধিক আকাৰ, megabytes ত । পৰিষ্কাৰ কৰা নিষ্ক্ৰিয় কৰিবলৈ -১ লৈ নিৰ্ধাৰণ কৰক ।</long>
+      </locale>
+
+      <locale name="ast">
+        
+        <long>Tamañu máximu de la caché de miniatures, en megabytes. Ponlu a -1 pa desactivar la llimpieza.</long>
+      </locale>
+
+      <locale name="bg">
+        
+        <long>Максимален общ размер в мегабайти за временните мини-изображения. Стойност -1 изключва изтриването им.</long>
+      </locale>
+
+      <locale name="bn">
+        
+        <long>ক্যাশের মধ্যে সংরক্ষণের উদ্দেশ্যে থাম্‌বনেইলের সর্বাধিক মাপ -মেগাবাইট হিসাবে নির্ধারিত। বর্জন প্রক্রিয়া নিষ্ক্রিয় করার জন্য -1 নির্ধারণ করুন।</long>
+      </locale>
+
+      <locale name="bn_IN">
+        
+        <long>ক্যাশের মধ্যে সংরক্ষণের উদ্দেশ্যে থাম্‌বনেইলের সর্বাধিক মাপ -মেগাবাইট হিসাবে নির্ধারিত। বর্জন প্রক্রিয়া নিষ্ক্রিয় করার জন্য -1 নির্ধারণ করুন।</long>
+      </locale>
+
+      <locale name="ca">
+        
+        <long>Mida màxima, en megabytes, de la memòria cau de miniatures. Establiu-la a -1 per inhabilitar la neteja.</long>
+      </locale>
+
+      <locale name="ca@valencia">
+        
+        <long>Mida màxima, en megabytes, de la memòria cau de miniatures. Establiu-la a -1 per inhabilitar la neteja.</long>
+      </locale>
+
+      <locale name="crh">
+        
+        <long>Ög-hafizadaki başparmaq-tırnaqlarınıñ azamiy ölçüsi, megabayt olaraq. Temizlevni ğayrı qabilleştirmek içün -1 olaraq tesbit etiñiz.</long>
+      </locale>
+
+      <locale name="cs">
+        
+        <long>Maximální velikost vyrovnávací paměti náhledů v megabajtech. Nastavte na -1 k zakázání vymazání.</long>
+      </locale>
+
+      <locale name="cy">
+        
+        <long>Maint mwyaf, mewn megabeit, y storfa rhagolygon. Gosodwch i -1 er mwyn analluogi glanhau.</long>
+      </locale>
+
+      <locale name="da">
+        
+        <long>Maksimumstørrelse af miniature-mellemlager i megabyte. Sæt til -1 for at slå oprydning fra.</long>
+      </locale>
+
+      <locale name="de">
+        
+        <long>Maximale Größer des Zwischenspeichers für die Miniatur-Vorschaubilder. Der Wert -1 deaktiviert das Löschen.</long>
+      </locale>
+
+      <locale name="el">
+        
+        <long>Μέγιστο μέγεθος μικρογραφιών, σε megabyte.  Επιλέξτε -1 για να απενεργοποιήσετε την εκκαθάριση.</long>
+      </locale>
+
+      <locale name="en@shaw">
+        
+        <long>𐑥𐑨𐑒𐑕𐑦𐑥𐑩𐑥 𐑕𐑲𐑟 𐑝 𐑞 𐑔𐑳𐑥𐑯𐑱𐑤 𐑒𐑨𐑖, 𐑦𐑯 𐑥𐑧𐑜𐑩𐑚𐑲𐑑𐑕. 𐑕𐑧𐑑 𐑑 -1 𐑑 𐑛𐑦𐑕𐑱𐑚𐑩𐑤 𐑒𐑤𐑰𐑯𐑦𐑙.</long>
+      </locale>
+
+      <locale name="en_GB">
+        
+        <long>Maximum size of the thumbnail cache, in megabytes. Set to -1 to disable cleaning.</long>
+      </locale>
+
+      <locale name="eo">
+        
+        <long>Maksimuma grando de la miniatura kaŝmemoro, laŭ megabajtoj. Agordu al -1 por elŝalti viŝadon.</long>
+      </locale>
+
+      <locale name="es">
+        
+        <long>Tamaño máximo de la caché de miniaturas, en megabytes. Establézcalo a -1 para desactivar la limpieza.</long>
+      </locale>
+
+      <locale name="et">
+        
+        <long>Puhverdatud pisipiltide suurim suurus megabaitides. Kustutamise keelamiseks määra väärtuseks -1.</long>
+      </locale>
+
+      <locale name="eu">
+        
+        <long>Cacheko koadro txikien gehienezko tamaina (MB). Ezarri -1 balioa garbitzea desgaitzeko.</long>
+      </locale>
+
+      <locale name="fi">
+        
+        <long>Pienoiskuvien välimuistin enimmäiskoko megatavuina. Aseta arvoon -1, jos haluat estää siivouksen.</long>
+      </locale>
+
+      <locale name="fr">
+        
+        <long>Taille maximum du cache en mégaoctets. Définissez à -1 pour désactiver le nettoyage.</long>
+      </locale>
+
+      <locale name="gl">
+        
+        <long>Antigüidade máxima da caché de miniaturas, en megabytes. Defínaa como -1 para desactivar a limpeza.</long>
+      </locale>
+
+      <locale name="gu">
+        
+        <long>થમ્બનેઈલ કેશનું મહત્તમ માપ, મેગાબાઈટોમાં. સફાઈ નિષ્ક્રિય કરવા માટે -1 માં સુયોજીત કરો.</long>
+      </locale>
+
+      <locale name="he">
+        
+        <long>Maximum size of the thumbnail cache, in megabytes. Set to -1 to disable cleaning.</long>
+      </locale>
+
+      <locale name="hi">
+        
+        <long>मेगाबाइट में कैश में लघुचित्रों की अधिकतम आयु. साफ किया जाना निष्क्रिय करने के लिए -1 पर सेट करें.</long>
+      </locale>
+
+      <locale name="hu">
+        
+        <long>Bélyegképek maximális mérete a gyorsítótárban, megabájtokban. A tisztítás letiltásához állítsa -1-re.</long>
+      </locale>
+
+      <locale name="id">
+        
+        <long>Ukuran maksimum singgahan thumbnail, dalam megabyte. Tata ke -1 untuk menonaktifkan pembersihan.</long>
+      </locale>
+
+      <locale name="it">
+        
+        <long>Dimensione massima della cache delle miniature, in megabyte. Impostare a -1 per disabilitare la pulizia.</long>
+      </locale>
+
+      <locale name="ja">
+        
+        <long>キャッシュの中に格納しておくサムネイルの最大サイズ (Mバイト単位) で、キャッシュのクリアを無効にする場合は -1 を指定します。</long>
+      </locale>
+
+      <locale name="kn">
+        
+        <long>ತಂಬ್‌ನೈಲ್ ಕ್ಯಾಶೆಯ ಗರಿಷ್ಟ ಗಾತ್ರ, ಮೆಗಾಬೈಟುಗಳಲ್ಲಿ. ಸ್ವಚ್ಛಗೊಳಿಸುವುದನ್ನು ಅಶಕ್ತಗೊಳಿಸಲು -1 ಗೆ ಬದಲಾಯಿಸಿ.</long>
+      </locale>
+
+      <locale name="ko">
+        
+        <long>썸네일 캐시의 최대 크기. 썸네일을 지우지 않으려면 -1로 설정하십시오.</long>
+      </locale>
+
+      <locale name="lt">
+        
+        <long>Maksimalus miniatiūrų kaupo dydis (megabaitais).  Nustatykite -1, jei norite išjungti kaupo valymą.</long>
+      </locale>
+
+      <locale name="lv">
+        
+        <long>Maksimālais sīktēlu, kas ir kešatmiņā, izmērs megabaitos. Iestatiet uz -1, lai atslēgtu tīrīšanu.</long>
+      </locale>
+
+      <locale name="mk">
+        
+        <long>Максимална големина на сликичињата во кешот, во мегабајти. Поставете -1 за да го исклучите чистењето.</long>
+      </locale>
+
+      <locale name="ml">
+        
+        <long>കാഷില്‍ നഖചിത്രം സൂക്ഷിക്കുവാനുള്ള ഏറ്റവും കൂടുതലായ വ്യാപ്തി, മെഗാബൈറ്റില്‍. വെടിപ്പാക്കല്‍ പ്രവര്‍ത്തന രഹിതമാക്കുന്നതിനു് -1 ആയി സജ്ജമാക്കുക.</long>
+      </locale>
+
+      <locale name="mn">
+        
+        <long>Завсрын хадгалагчид мини зургуудыг хадгалах хамгийн их хугацаа, мегабайтаар. Цэвэрлэхгүй гэвэл -1 сонгоно уу.</long>
+      </locale>
+
+      <locale name="mr">
+        
+        <long>कॅश मधिल थंबनेल करीता कमाल कालावधी, मेगाबाइटस् मध्ये. काढून टाकण्याकरीता कालवधीस -1 असे निश्चित करा.</long>
+      </locale>
+
+      <locale name="nb">
+        
+        <long>Maks størrelse på buffer for miniatyrer i megabyte. Sett til -1 for å deaktivere opprydding.</long>
+      </locale>
+
+      <locale name="nl">
+        
+        <long>Maximum grootte van de miniaturen-cache, in megabyte. Instellen op -1 om opschonen uit te zetten.</long>
+      </locale>
+
+      <locale name="or">
+        
+        <long>କ୍ୟାଶରେ ଥିବା କ୍ଷୁଦ୍ର ଚିତ୍ର ପାଇଁ ସର୍ବାଧିକ ବୟସ, ମେଗାବାଇଟରେରେ. ସଫାକରିବାକୁ ନିଷ୍କ୍ରିୟ କରିବା ପାଇଁ -1ବିନ୍ୟାସ କରନ୍ତୁ.</long>
+      </locale>
+
+      <locale name="pa">
+        
+        <long>ਕੈਸ਼ ਵਿੱਚ ਥੰਮਨੇਲ ਲਈ ਵੱਧੋ-ਵੱਧ ਸਾਈਜ਼ ਮੈਗਾਬਾਈਟ (MB) ਵਿੱਚ। ਸਾਫ਼ ਕਰਨਾ ਆਯੋਗ ਕਰਨ ਵਾਸਤੇ -1 ਸੈੱਟ ਕਰੋ।</long>
+      </locale>
+
+      <locale name="pl">
+        
+        <long>Maksymalny rozmiar bufora miniaturek, w megabajtach. Można ustawić na -1, aby wyłączyć czyszczenie.</long>
+      </locale>
+
+      <locale name="pt">
+        
+        <long>Tamanho máximo da cache de amostras, em megabytes. Definir como -1 para desactivar a limpeza.</long>
+      </locale>
+
+      <locale name="pt_BR">
+        
+        <long>Tamanho máximo das miniaturas em cache, em megabytes. Digite -1 para desabilitar a limpeza.</long>
+      </locale>
+
+      <locale name="ro">
+        
+        <long>Mărimea maximă în MB a miniaturilor în cache. Alegeți „-1” pentru a dezactiva reciclarea.</long>
+      </locale>
+
+      <locale name="ru">
+        
+        <long>Максимальный размер кэша, в мегабайтах. Установите в -1 для выключения очистки кэша.</long>
+      </locale>
+
+      <locale name="sk">
+        
+        <long>Maximálna veľkosť vyrovnávacej pamäti náhľadov v megabajtoch. Nastavením na -1 vypnete čistenie.</long>
+      </locale>
+
+      <locale name="sl">
+        
+        <long>Največja velikost predpomnilnika sličic v megabajtih. Vrednost -1 onemogoči čiščenje.</long>
+      </locale>
+
+      <locale name="sq">
+        
+        <long>Madhësia maksimum e cache të miniaturave, në megabyte. Cakto në -1 për të çaktivizuar pastrimin.</long>
+      </locale>
+
+      <locale name="sr">
+        
+        <long>Максимална величина оставе малих приказа, у мегабајтима. Поставите на -1 да онемогућите уклањање.</long>
+      </locale>
+
+      <locale name="sr@latin">
+        
+        <long>Maksimalna veličina ostave malih prikaza, u megabajtima. Postavite na -1 da onemogućite uklanjanje.</long>
+      </locale>
+
+      <locale name="sv">
+        
+        <long>Maximal storlek för miniatyrbildsmellanlagret, i megabyte. Ställ in till -1 för att inaktivera tömning.</long>
+      </locale>
+
+      <locale name="ta">
+        
+        <long>இடையகத்தில் சிறுபடங்களின் அதிகபட்ச அளவு மெகாபைட்டில். -1 என்று அமைத்து துடைப்பதை செயல்நீக்கு</long>
+      </locale>
+
+      <locale name="te">
+        
+        <long>థంబ్‌నెయిల్ క్యాచీయొక్క గరిష్ఠ పరిమాణము, మెగాబైట్లలో. శుభ్రపరచుటకు -1కు అమర్చుము.</long>
+      </locale>
+
+      <locale name="th">
+        
+        <long>ขนาดสูงสุดของแคชภาพย่อ ในหน่วยเมกะไบต์ กำหนดเป็น -1 ถ้าจะไม่ล้างแคชเลย</long>
+      </locale>
+
+      <locale name="tr">
+        
+        <long>Megabayt olarak ön bellekte küçük resimlerin azami boyutu. Temizlemeyı kapatmak için -1 olarak atayın.</long>
+      </locale>
+
+      <locale name="ug">
+        
+        <long>غەملەنگەن كىچىك سۈرەتنىڭ ئەڭ چوڭ چوڭلۇقى، بىرلىكى مېگابايت. -1 گە تەڭشەلسە ئۆزلۈكىدىن تازىلاش چەكلىنىدۇ.</long>
+      </locale>
+
+      <locale name="uk">
+        
+        <long>Максимальний розмір ескізів у кеші, у мегабайтах. Значення -1 вимикає очищення.</long>
+      </locale>
+
+      <locale name="vi">
+        
+        <long>Kích cỡ tối đa của bộ nhớ ảnh mẫu, theo mega-byte. Đặt thành -1 để tắt.</long>
+      </locale>
+
+      <locale name="zh_CN">
+        
+        <long>缓存缩略图的最大大小，以 mb 为单位。设定为-1以禁用自动清除。</long>
+      </locale>
+
+      <locale name="zh_HK">
+        
+        <long>縮圖快取中的大小上限，以 MB 計。設為 -1 則停用清除功能。</long>
+      </locale>
+
+      <locale name="zh_TW">
+        
+        <long>縮圖快取中的大小上限，以 MB 計。設為 -1 則停用清除功能。</long>
+      </locale>
+    </schema>
+
+  </schemalist>
+</gconfschemafile>

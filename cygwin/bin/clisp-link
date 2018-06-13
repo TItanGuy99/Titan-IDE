@@ -1,0 +1,592 @@
+#!/bin/sh
+# Usage: clisp-link command [more args]
+# where
+#   command = create, add, run, install
+# For more usage information, see <doc/impnotes.html#mod-overview>.
+# Or <http://clisp.org/modules.html#mod-overview>.
+# Bruno Haible 19.10.1994
+# Sam Steingold 2002-2010
+
+# This could as well be written in Lisp, for portability, but syscalls is
+# a module, so most useful scripting functionality will not be available.
+
+# Nuisances.
+(unset CDPATH) >/dev/null 2>&1 && unset CDPATH
+
+usage () {
+echo "Usage: $0 [ create | add | run | install ] ..." 1>&2
+exit 1
+}
+
+normalize(){                    # dir rel -> abs path for rel
+  dirname=`dirname "$2"`
+  echo `cd $1; cd ${dirname}; pwd`/`basename "$2"`
+}
+
+lncp () {
+  # Make a link from $1 to $2. Try symbolic link, hard link, file copying.
+  rm -f "$2"
+  ln -s "`normalize . $1`" "$2" 2>/dev/null || \
+    ln "$1" "$2" 2>/dev/null || \
+    cp -p "$1" "$2"
+}
+
+lncp_some () {
+  src_dir=$1; shift
+  destdir=$1; shift
+  ret=''
+  for f in $*; do
+    b=`basename $f`
+    lncp "`normalize "${src_dir}" "$f"`" "${destdir}"/$b
+    ret=${ret}" "$b
+  done
+  echo ${ret}
+}
+
+echotab () {
+cat <<!!
+	$1
+!!
+}
+
+# Print the commands being executed
+vecho () {
+  echo "$@"
+}
+
+# print an error message and exit
+fail () { echo "$0: $@" 1>&2; exit 1; }
+
+# ensure that "$1" is a directory
+check_dir () { test -d "$1" || fail "$1 is not a directory"; }
+
+# make "$1" as a new directory
+make_dest () {
+  if [ -r "$1" ] ; then
+    if [ -d "$1" ] ; then
+      fail "$1 already exists"
+    else
+      fail "$1 is not a directory"
+    fi
+  fi
+  mkdir "$1"
+}
+
+LISPRUN="lisp.exe"
+# ensure that "$1" contains a CLISP linking set
+check_linkset () {
+  test -r "$1"/lisp.a -a -x "$1"/${LISPRUN} -a -r "$1"/lispinit.mem \
+    -a -r "$1"/modules.h -a -r "$1"/modules.o -a -r "$1"/makevars ||
+  fail "directory $1 does not contain a CLISP linking set"
+}
+
+# ensure that "$1" contains a CLISP module
+check_module () {
+  if test \! -r "$1/link.sh"; then
+    if test -r "$1/configure"; then
+      echo "$0: no $1/link.sh, running $1/configure"
+      olddir=`pwd`;
+      cd $1; ./configure --with-clisp=${CLISP}; cd ${olddir}
+      test -f "$1/link.sh" \
+        || fail "directory $1 still does not contain a CLISP module"
+    else fail "directory $1 does not contain a CLISP module"
+    fi
+  fi
+}
+
+verbose () {
+  echo "$@"
+  "$@" || fail "failed in `pwd`"
+}
+
+make_lisprun () {
+  # Generate new modules.o, compiled from modules.c, includes modules.h
+  lncp "$absolute_linkkitdir"/modules.c modules.c
+  verbose ${CC} ${CPPFLAGS} ${CFLAGS} -I"$absolute_linkkitdir" -c modules.c
+  rm -f modules.c
+  # Generate new ${LISPRUN}
+  verbose ${CC} ${CFLAGS} ${CLFLAGS} modules.o ${LIBS} -o ${LISPRUN}
+}
+
+# func_tmpdir
+# creates a temporary directory.
+# Sets variable
+# - tmp             pathname of freshly created temporary directory
+func_tmpdir ()
+{
+  # Use the environment variable TMPDIR, falling back to /tmp. This allows
+  # users to specify a different temporary directory, for example, if their
+  # /tmp is filled up or too small.
+  : ${TMPDIR=/tmp}
+  {
+    # Use the mktemp program if available. If not available, hide the error
+    # message.
+    tmp=`(umask 077 && mktemp -d -q "$TMPDIR/gtXXXXXX") 2>/dev/null` &&
+    test -n "$tmp" && test -d "$tmp"
+  } ||
+  {
+    # Use a simple mkdir command. It is guaranteed to fail if the directory
+    # already exists.  $RANDOM is bash specific and expands to empty in shells
+    # other than bash, ksh and zsh.  Its use does not increase security;
+    # rather, it minimizes the probability of failure in a very cluttered /tmp
+    # directory.
+    tmp=$TMPDIR/gt$$-$RANDOM
+    (umask 077 && mkdir "$tmp")
+  } || fail "cannot create a temporary directory in $TMPDIR"
+}
+
+# evaluate in clisp and strip quotes
+clisp_eval() {
+  ${CLISP} -q -x "$*" 2>/dev/null | tail -n 1 | sed -e 's/^"//' -e 's/"$//'
+}
+
+# Where do we install?
+DYNMOD="dynmod"              # should be in sync with defs1.lisp:require
+LIBDIR=""
+try_set_LIBDIR() {
+  mkdir -p "$1" || fail "Directory $2=$1 does not exist"
+  mkdir -p "$1/${DYNMOD}" || fail "Directory $2=$1 is not writable"
+  f="$1/${DYNMOD}/.abazonk"
+  if touch "$f" 2>/dev/null; then
+    rm -f "$f"
+    LIBDIR=$1
+  fi
+}
+set_dynamic_module_location() {
+  if test "$with_dynamic_modules" != no -a -z "${LIBDIR}"; then
+    try_set_LIBDIR "${CLISP_LIBDIR}" "*lib-directory*"
+    if test -z "${LIBDIR}"; then # cf. src/m4/clisp.m4
+      CLISP_LIBDIR_USER=`clisp_eval '(and *user-lib-directory* (namestring *user-lib-directory*))'`
+      test "${CLISP_LIBDIR_USER}" = "NIL" && \
+        fail "Cannot determine the dynamic module directory: *lib-directory* is not writable and *user-lib-directory* is not specified"
+      try_set_LIBDIR "${CLISP_LIBDIR_USER}" "*user-lib-directory*"
+      test -z "${LIBDIR}" && fail "Cannot determine the dynamic module directory: neither *lib-directory* nor *user-lib-directory* are writable"
+    fi
+  fi
+}
+
+current_linking_set() {
+  DIR=`clisp_eval '(sys::program-name)'`
+  DIR=`dirname ${DIR}`
+  check_linkset ${DIR};
+  echo ${DIR}
+}
+
+# setting $with_dynamic_modules overrides the default
+with_dynamic_modules=${with_dynamic_modules-yes}
+
+# prepare the loading infrastructure for the current dynamic module.
+# this can be invoked only after "./link.sh" and relies on its variables.
+# also uses:
+#   ${absolute_currentdir} : the top level directory
+# appends the newly created DYNDIR files to DYNDIR_FILES
+prepare_dynamic_module() {
+  if test "$with_dynamic_modules" != no; then
+    dyndir=${LIBDIR}/${DYNMOD}
+    if test -n "${NEW_LIBS}"; then # have C code
+      dll="lib"; for m in ${NEW_MODULES}; do dll=${dll}-$m; done; dll=${dll}.dll
+      lib=${dyndir}/${dll}; libs="${NEW_LIBS} $absolute_sourcedir/lisp.def"; verbose ${CC} -shared $libs ${CLFLAGS} ${CFLAGS} -o $dyndir/$dll
+      DYNDIR_FILES=${DYNDIR_FILES}" ${lib}"
+      # dll has SHREXT extension
+      DM="(sys::dynload-modules (cl:merge-pathnames \"${dll}\" cl:*load-truename*) (quote ("
+      for m in ${NEW_MODULES}; do
+        DM=${DM}" \"$m\""
+      done
+    else DM=''
+    fi
+    # for each module there will be a hard link to a REQUIRE file
+    firstmod=''; othermods=''
+    for m in ${NEW_MODULES}; do
+      if test -z "${firstmod}"; then
+        firstmod=$m
+      else
+        othermods=${othermods}' '$m
+      fi
+    done
+    # create the REQUIRE file
+    reqfile=${dyndir}/${firstmod}.lisp
+    DYNDIR_FILES=${DYNDIR_FILES}" ${reqfile}"
+    rm -f "${reqfile}"
+    for f in ${TO_PRELOAD}; do
+      # preload files are not compiled
+      echo "(cl:load (cl:merge-pathnames \"../${moduledir}/${f}\" cl:*load-truename*))" >> "${reqfile}"
+    done
+    test -n "${DM}" && echo ${DM}" )))" >> "${reqfile}"
+    if test -n "${TO_LOAD}"; then
+      echo "(ext:appease-cerrors ; for DEF-CALL-OUT to non-existent functions" >> "${reqfile}"
+      for f in ${TO_LOAD}; do
+        # module files must be compiled
+        echo " (cl:load (cl:merge-pathnames \"../${moduledir}/${f}.fas\" cl:*load-truename*))" >> "${reqfile}"
+      done
+      echo ")" >> "${reqfile}"
+    fi
+    # create links to the REQUIRE file
+    for m in ${othermods}; do
+      ln ${dyndir}/$m.lisp "${reqfile}"
+      DYNDIR_FILES=${DYNDIR_FILES}' '${dyndir}/$m.lisp
+    done
+  fi
+}
+# Remove the comment to Set debugging output on
+#set -x
+
+# Exit immediately if some command fails.
+set -e
+
+# Check number of arguments. Need at least one argument.
+if [ $# = 0 ] ; then
+  usage
+fi
+
+# Where is clisp?
+if test -z "${CLISP}"; then
+  CLISP=`dirname $0`
+  CLISP=`cd ${CLISP}; pwd`/clisp
+fi
+# cd src/m4/clisp.m4
+${CLISP} --version 2>/dev/null | head -n 1 | grep "GNU CLISP" >/dev/null 2>&1 \
+  || fail "${CLISP} is not GNU CLISP"
+CLISP_LIBDIR=`${CLISP} -b`
+
+# Where is the link kit?
+if [ -n "$CLISP_LINKKIT" ] ; then
+  linkkitdir="$CLISP_LINKKIT"
+else
+  linkkitdir=${CLISP_LIBDIR}/linkkit
+fi
+
+test -r "$linkkitdir"/modules.c -a -r "$linkkitdir"/clisp.h ||
+  fail "No link kit found in $linkkitdir (is CLISP_LINKKIT set?)"
+absolute_linkkitdir=`cd "$linkkitdir" ; /bin/pwd`
+
+# Dispatch according to the first argument.
+case "$1" in
+
+  create)
+    # Usage: clisp-link create moduledir {file}*
+    case $# in
+      0 | 1) echo "Usage: $0 create moduledir file ..." 1>&2
+             exit 1 ;;
+    esac
+    moduledir="$2"
+    shift
+    shift
+    files="$*"
+    make_dest "$moduledir"
+    modulename=`echo "$moduledir" | sed -e 's,^.*/,,'`
+    files_c=''
+    files_o=''
+    for file in $files; do
+      file=`echo "$file" | sed -e 's,\.c$,,'`.c
+      filename=`echo "$file" | sed -e 's,^.*/,,'`
+      case "$file" in
+        /*) relative_file="$file" ;;
+        *)  case "$moduledir" in
+              /*) relative_file="$file" ;;
+              *)  relative_file=`echo "$moduledir"/ | sed -e 's,[^/][^/]*/*/,../,g'`"$file" ;;
+            esac ;;
+      esac
+      ln -s "$relative_file" "$moduledir"/"$filename" || ln "$file" "$moduledir"/"$filename" || cp -p "$file" "$moduledir"/"$filename"
+      files_c="$files_c"' '"$filename"
+      files_o="$files_o"' '`echo "$filename" | sed -e 's,\.c$,,'`.o
+    done
+    if false; then
+      # No Makefile
+      (echo "file_list=''"
+       for fc in $files_c; do
+         fo=`echo "$fc" | sed -e 's,\.c$,,'`.o
+         echo 'if test -r '"$fc"'; then'
+         echo "  if test '"'!'"' -f $fo || test $fo -ot $fc; then"
+         echo '    ${CC} ${CPPFLAGS} ${CFLAGS} -I"$absolute_linkkitdir" -c '"$fc"
+         echo '  fi'
+         echo '  file_list="$file_list"'"' $fo'"
+         echo 'fi'
+       done
+       echo 'NEW_FILES="$file_list"'
+       echo 'NEW_LIBS="$file_list"'
+       echo "TO_LOAD=''"
+      ) > "$moduledir"/link.sh
+    else
+      # With Makefile
+      (echo "# Makefile for CLISP module set $modulename"
+       echo
+       echo "srcdir = ."
+       echo "CC ="
+       echo "CPPFLAGS ="
+       echo "CFLAGS ="
+       echo "CLISP = clisp -q -norc"
+       echo 'CLISP_LINKKIT = $$($(CLISP) -b)/linkkit'
+       echo "LN = ln"
+       echo "MAKE = make"
+       echo "SHELL = /bin/sh"
+       echo
+       echo "DISTRIBFILES ="
+       echo "distribdir ="
+       echo
+       for fc in $files_c; do
+         fo=`echo "$fc" | sed -e 's,\.c$,,'`.o
+         echo "$fo : \$(srcdir)/$fc"
+         echotab '$(CC) $(CPPFLAGS) $(CFLAGS) -I$(CLISP_LINKKIT) -c $<'
+         echo
+       done
+       echo "clisp-module :$files_o"
+       echo
+       echo 'clisp-module-distrib : clisp-module force'
+       echotab '$(LN) $(DISTRIBFILES) $(distribdir)'
+       echo
+      ) > "$moduledir"/Makefile
+      (echo "file_list=''"
+       echo "mod_list=''"
+       for fc in $files_c; do
+         fo=`echo "$fc" | sed -e 's,\.c$,,'`.o
+         mod=`echo "$fc" | sed -e 's,\.c$,,' | sed -e 's,[^A-Za-z0-9_],_,g'`
+         # The last sed command must agree with foreign1.lisp:to-module-name.
+         echo 'if test -r '"$fc"'; then'
+         echo '  file_list="$file_list"'"' $fo'"
+         echo '  mod_list="$mod_list"'"' $mod'"
+         echo 'fi'
+       done
+       echo 'make clisp-module CC="${CC}" CPPFLAGS="${CPPFLAGS}" CFLAGS="${CFLAGS}" CLISP_LINKKIT="$absolute_linkkitdir" SHREXT=${SHREXT} $(CLISP)=${CLISP}'
+       echo 'NEW_FILES="$file_list"'
+       echo 'NEW_LIBS="$file_list"'
+       echo 'NEW_MODULES="$mod_list"'
+       echo "TO_LOAD=''"
+       echo "TO_PRELOAD=''"
+      ) > "$moduledir"/link.sh
+    fi
+    ;;
+
+  add)
+    # Usage: clisp-link add source-dir destination-dir moduledir...
+    if [ $# -lt 3 ] ; then
+      echo "Usage: $0 add source-dir destination-dir moduledir..." 1>&2
+      exit 1
+    fi
+    sourcedir="$2"
+    destinationdir="$3"
+    shift
+    shift
+    shift
+    moduledirs="$@"
+    check_dir "$sourcedir"
+    make_dest "$destinationdir"
+    for moduledir in $moduledirs; do check_dir "$moduledir"; done
+    absolute_currentdir=`/bin/pwd`
+    absolute_sourcedir=`cd "$sourcedir" ; /bin/pwd`
+    absolute_destinationdir=`cd "$destinationdir" ; /bin/pwd`
+    installbasedir=`dirname "$sourcedir"`
+    # What to do if we abort.
+    trap 'rm -rf "$absolute_destinationdir"' 1 2 15
+    test "$absolute_sourcedir" = "$absolute_destinationdir" &&
+      fail "directories $sourcedir and $destinationdir may not be the same"
+    check_linkset "$sourcedir"
+    for moduledir in $moduledirs; do check_module "$moduledir"; done
+    # Read the variables CC, CPPFLAGS, CFLAGS, CLFLAGS, LIBS, X_LIBS, RANLIB, FILES
+    . "$sourcedir"/makevars
+    if [ -z "$moduledirs" ] ; then
+      # Just make links from $destinationdir to $sourcedir
+      lncp_some "$sourcedir" "$destinationdir" ${LISPRUN} lispinit.mem modules.h modules.o makevars ${FILES};
+    else
+      cp "$sourcedir"/modules.h "$destinationdir"/modules.h
+      FILES=`lncp_some "$sourcedir" "$destinationdir" ${FILES}`
+      # Prepare the module directories and read their variables
+      PRELOAD=''
+      LOAD=''
+      set_dynamic_module_location # set LIBDIR
+      for moduledir in $moduledirs; do
+        modulename=`basename "$moduledir"`
+        # Prepare the module directory and read the variables NEW_FILES, NEW_LIBS
+        NEW_FILES=''
+        NEW_LIBS=''
+        NEW_MODULES=''
+        TO_PRELOAD=''
+        TO_LOAD=''
+        SHREXT=.dll
+        cd "$moduledir"
+        . ./link.sh
+        cd "$absolute_currentdir"
+        if test -n "${NEW_LIBS}"; then
+          for mod in $NEW_MODULES ; do # update modules.h
+            echo 'MODULE('"$mod"')' >> "$destinationdir"/modules.h
+          done
+        fi
+        FILES=${FILES}' '`lncp_some "$moduledir" "$destinationdir" ${NEW_FILES}`
+        LIBS=${NEW_LIBS}' '${LIBS}
+        for f in $TO_PRELOAD; do
+          PRELOAD=${PRELOAD}' -i '"$moduledir/$f"
+        done
+        for f in $TO_LOAD; do
+          LOAD=${LOAD}' -i '"$moduledir/$f"
+        done
+        cd "$destinationdir"
+        prepare_dynamic_module
+        cd "$absolute_currentdir"
+      done
+      start_dir=`pwd`
+      cd "$destinationdir"
+      make_lisprun
+      cd "${start_dir}"
+      if [ -n "$PRELOAD" ] ; then
+        # Generate new preliminary lispinit.mem
+        verbose "$sourcedir"/${LISPRUN} -B "$installbasedir" -M "$sourcedir"/lispinit.mem -norc -q ${PRELOAD} -x "(saveinitmem \"$destinationdir/lispinit.mem\")"
+      fi
+      # Generate new lispinit.mem
+      if [ -n "$PRELOAD" ] ; then
+        verbose "$destinationdir"/${LISPRUN} -B "$installbasedir" -M "$destinationdir"/lispinit.mem -norc -q ${LOAD} -x "(saveinitmem \"$destinationdir/lispinit.mem\")"
+      else
+        verbose "$destinationdir"/${LISPRUN} -B "$installbasedir" -M "$sourcedir"/lispinit.mem -norc -q ${LOAD} -x "(saveinitmem \"$destinationdir/lispinit.mem\")"
+      fi
+      # Generate new makevars
+      sed_escape_commas='s/,/\\,/g'
+      LIBS_escaped=`echo "$LIBS" | sed -e "$sed_escape_commas"`
+      sed -e "s,^LIBS=.*\$,LIBS='${LIBS_escaped}'," -e "s,^FILES=.*\$,FILES='${FILES}'," < "$sourcedir"/makevars > "$destinationdir"/makevars
+    fi
+    # Done.
+    trap '' 1 2 15
+    ;;
+
+  run)
+    # This is functionally the same as an add command, followed
+    # by running the resulting linking set, but is faster and requires less
+    # disk space if dynamic loading is available.
+    # Usage: clisp-link run source-dir moduledir...
+    if [ $# -lt 2 ] ; then
+      echo "Usage: $0 run source-dir moduledir..." 1>&2
+      exit 1
+    fi
+    sourcedir="$2"
+    installbasedir=`dirname "$sourcedir"`
+    shift
+    shift
+    if test "$with_dynamic_modules" != no; then
+      moduledirs="$@"
+      check_dir "$sourcedir"
+      for moduledir in $moduledirs; do check_dir "$moduledir"; done
+      absolute_currentdir=`/bin/pwd`
+      check_linkset  "$sourcedir"
+      for moduledir in $moduledirs; do check_module "$moduledir"; done
+      # Read the variables CC, CPPFLAGS, CFLAGS, CLFLAGS, LIBS, X_LIBS, RANLIB, FILES
+      . "$sourcedir"/makevars
+      if [ -z "$moduledirs" ] ; then
+        "$sourcedir"/${LISPRUN} -B "$installbasedir" -M "$sourcedir"/lispinit.mem
+      else
+        func_tmpdir
+        FILES=`lncp_some "$sourcedir" "$tmp" ${FILES}`
+        # Prepare the module directories and read their variables
+        PRELOAD=''
+        LIBS=''
+        MODULES=''
+        LOAD=''
+        for moduledir in $moduledirs; do
+          modulename=`basename "$moduledir"`
+          # Prepare the module directory and read the variables NEW_FILES, NEW_LIBS
+          NEW_FILES=''
+          NEW_LIBS=''
+          NEW_MODULES=''
+          TO_PRELOAD=''
+          TO_LOAD=''
+          SHREXT=.dll
+          cd "$moduledir"
+          . ./link.sh
+          cd "$absolute_currentdir"
+          for f in $TO_PRELOAD; do
+            PRELOAD=${PRELOAD}' '"$moduledir/$f"
+          done
+          FILES=${FILES}' '`lncp_some "$moduledir" "$tmp" ${NEW_FILES}`
+          if test -n "${NEW_LIBS}"; then
+            LIBS=${NEW_LIBS}' '${LIBS}
+            for mod in $NEW_MODULES; do
+              MODULES=${MODULES}' '"$mod"
+            done
+          fi
+          for f in $TO_LOAD; do
+            LOAD=${LOAD}' '"$moduledir/$f"
+          done
+        done
+        tmpinitlisp="$tmp/clisplink.lisp"
+        if test -n "${MODULES}"; then
+          tmpsharedlib="$tmp/clisplink.dll"
+          # What to do if we abort.
+          trap 'rm -rf "$tmp"' 0 1 2 15
+          # Create an initialization file with a couple of load forms.
+          (for f in $PRELOAD; do echo "(load \"${f}\")"; done
+           echo "(system::dynload-modules \"$tmpsharedlib\" (quote ("
+           for mod in $MODULES; do echo "  \"${mod}\""; done
+           echo ")))")  > "$tmpinitlisp"
+          # Create a shared library.
+          start_dir=`pwd`; cd $tmp;
+          lib="$tmpsharedlib"; libs="$LIBS"; verbose ${CC} -shared $libs ${CLFLAGS} ${CFLAGS} -o $dyndir/$dll
+        fi
+        (for f in $LOAD; do echo "(load \"${f}\")"; done) > "$tmpinitlisp"
+        cd "$start_dir"
+        # Run clisp, attach the shared library and load the Lisp stuff.
+        "$sourcedir"/${LISPRUN} -B "$installbasedir" -M "$sourcedir"/lispinit.mem -i "$tmpinitlisp"
+        rm -rf "$tmp"
+        trap '' 0 1 2 15
+      fi
+    else
+      func_tmpdir
+      destinationdir="$tmp"
+      # What to do if we abort.
+      trap 'rm -rf "$tmp"' 0 1 2 15
+      rm -rf $destinationdir # must not exist for make_dest; bug #[ 1469663 ]
+      "$0" add "$sourcedir" "$destinationdir" "$@" && "$destinationdir"/${LISPRUN} -B "$installbasedir" -M "$destinationdir"/lispinit.mem
+      rm -rf "$tmp"
+      trap '' 0 1 2 15
+    fi
+    ;;
+
+  install)
+    # Usage: clisp-link install moduledir...
+    if [ $# -lt 1 ] ; then
+      echo "Usage: $0 install moduledir..." 1>&2
+      exit 1
+    fi
+    sourcedir=`current_linking_set`
+    shift
+    moduledirs="$@"
+    absolute_currentdir=`/bin/pwd`
+    absolute_sourcedir=`cd "$sourcedir" ; /bin/pwd`
+    for moduledir in $moduledirs; do
+      check_dir "$moduledir"
+      check_module "$moduledir"
+      test -r "${moduledir}"/Makefile || \
+        fail "No Makefile in ${moduledir}, cannot install"
+    done
+    # Read the variables CC, CPPFLAGS, CFLAGS, CLFLAGS, LIBS, X_LIBS, RANLIB, FILES
+    . "$sourcedir"/makevars
+    set_dynamic_module_location # set LIBDIR
+    test -n "${DESTDIR}" || DESTDIR="${LIBDIR}"
+    mkdir -p "${DESTDIR}"
+    absdestdir=`cd "${DESTDIR}"; /bin/pwd`
+    # Prepare the module directories and read their variables
+    for moduledir in $moduledirs; do
+      modulename=`basename "$moduledir"`
+      # Prepare the module directory
+      NEW_FILES=''
+      NEW_LIBS=''
+      NEW_MODULES=''
+      TO_PRELOAD=''
+      TO_LOAD=''
+      SHREXT=.dll
+      cd "$moduledir"
+      absolute_moduledir=`/bin/pwd`
+      . ./link.sh
+      DYNDIR_FILES=''
+      prepare_dynamic_module # append to DYNDIR_FILES
+      mkdir -p "${absdestdir}/$moduledir"
+      # when running "CLISP=./clisp ./clisp-link install <modname>"
+      # in the build directory, avoid "cp: `...' and `...' are the same file"
+      if [ "${absolute_moduledir}" != "${absdestdir}/$moduledir" ]; then
+        make clisp-module-distrib LN=${INSTALL_DATA-cp} distribdir="${absdestdir}/$moduledir"
+        mkdir -p ${absdestdir}/${DYNMOD};
+        for f in ${DYNDIR_FILES}; do
+          cp ${f} ${absdestdir}/${DYNMOD}/
+        done
+      fi
+      cd "$absolute_currentdir"
+    done
+    ;;
+  *) usage;;
+esac
+

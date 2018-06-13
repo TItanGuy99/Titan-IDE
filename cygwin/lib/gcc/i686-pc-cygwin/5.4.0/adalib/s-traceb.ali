@@ -1,0 +1,71 @@
+V "GNAT Lib v5"
+A -gnatwa
+A -nostdinc
+A -O2
+A -Wextra
+A -Wall
+A -fno-inline
+A -fno-optimize-sibling-calls
+A -g
+A -gnatp
+A -gnatg
+A -g
+A -mtune=generic
+A -march=i686
+P ZX
+
+RN
+RV NO_IMPLEMENTATION_PRAGMAS
+RV SPARK_05
+
+U system.traceback%b	s-traceb.adb		b98c3e16 NE OL PK
+W system%s		system.ads		system.ali
+
+U system.traceback%s	s-traceb.ads		6af355e1 NE OL PK
+W system%s		system.ads		system.ali
+W system.traceback_entries%s  s-traent.adb	s-traent.ali
+
+D system.ads		20141030114420 f4ce8c3a system%s
+D s-traceb.ads		20140731125927 9e662fab system.traceback%s
+D s-traceb.adb		20141010122119 27ea11bd system.traceback%b
+D s-traent.ads		20140730135025 005bf670 system.traceback_entries%s
+X 1 system.ads
+37K9*System 199e11 2|42r6 44r9 51r28 54r21 54r39 55r21 55r39 82r21 85r21
+. 85r39 86r21 86r39 95r19 100r5 3|39r14 46r19 60r21 62r21 63r21 69r21 72r21
+. 72r39 73r21 73r39 92r28 95r21 95r39 96r21 96r39 109r5
+67M9*Address 2|54r28 55r28 82r28 85r28 86r28 95r26 3|46r26 60r28 62r28 63r28
+. 69r28 72r28 73r28 95r28 96r28
+69m4*Null_Address{67M9} 2|54r46 55r46 85r46 86r46 3|72r46 73r46 95r46 96r46
+X 2 s-traceb.ads
+44K16*Traceback 1|37k9 2|100l12 100e21 3|39b21 109l12 109t21
+50U14*Call_Chain 51=7 52>7 53<7 54>7 55>7 56>7 3|91b14 107l8 107t18
+51a7 Traceback{4|56A9} 3|92b7 101m10 101r10
+52i7 Max_Len{natural} 3|93b7 101r29
+53i7 Len{natural} 3|94b7 101m38
+54m7 Exclude_Min{1|67M9} 3|95b7 102r10
+55m7 Exclude_Max{1|67M9} 3|96b7 102r23
+56i7 Skip_Frames{natural} 3|97b7 106r25
+81U14*Call_Chain 82>7 83>7 84<7 85>7 86>7 87>7 3|51s7 68b14 89l8 89t18 100s7
+82m7 Traceback{1|67M9} 3|69b7 84r40
+83i7 Max_Len{natural} 3|70b7 85r40
+84i7 Len{natural} 3|71b7 84m7
+85m7 Exclude_Min{1|67M9} 3|72b7 86r40
+86m7 Exclude_Max{1|67M9} 3|73b7 87r40
+87i7 Skip_Frames{natural} 3|74b7 88r40 106r10
+94V13*C_Call_Chain{natural} 95>7 96>7 97i<c,system__traceback__c_call_chain>22
+. 3|45b13 53l8 53t20
+95m7 Traceback{1|67M9} 3|46b7 51r19
+96i7 Max_Len{natural} 3|47b7 51r30
+X 3 s-traceb.adb
+49i7 Val{natural} 51m39 52r14
+59V13 Backtrace{integer} 60>7 61>7 62>7 63>7 64>7 66b<c,__gnat_backtrace>22
+. 84s14
+60m7 Traceback{1|67M9} 84r25
+61i7 Len{integer} 85r25
+62m7 Exclude_Min{1|67M9} 86r25
+63m7 Exclude_Max{1|67M9} 87r25
+64i7 Skip_Frames{integer} 88r25
+X 4 s-traent.ads
+47K16*Traceback_Entries 2|42w13 51r35 3|92r35 4|67e29
+56A9*Tracebacks_Array(50M12)<integer> 2|51r53 3|92r53
+

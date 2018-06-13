@@ -1,0 +1,10 @@
+#!/usr/bin/python3
+# EASY-INSTALL-ENTRY-SCRIPT: 'calm==20161122','console_scripts','calm'
+__requires__ = 'calm==20161122'
+import sys
+from pkg_resources import load_entry_point
+
+if __name__ == '__main__':
+    sys.exit(
+        load_entry_point('calm==20161122', 'console_scripts', 'calm')()
+    )

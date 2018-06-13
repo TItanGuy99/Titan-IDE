@@ -1,0 +1,105 @@
+#!/bin/sh
+#    Copyright (C) 2005, 2006 Free Software Foundation, Inc.
+#    Copyright (C) 2002, 2007 Timo Schulz
+#
+# This file is free software; as a special exception the author gives
+# unlimited permission to copy and/or distribute it, with or without
+# modifications, as long as this notice is preserved.
+#
+# This file is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY, to the extent permitted by law; without even the
+# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+prefix=/usr
+exec_prefix=/usr
+exec_prefix_set=no
+
+opencdk_libs="-L${exec_prefix}/lib -lopencdk -lgcrypt -lgpg-error  -lz"
+opencdk_cflags=" -I${prefix}/include"
+
+usage()
+{
+    cat <<EOF
+Usage: opencdk-config [OPTIONS]
+Options:
+    [--prefix[=DIR]]
+    [--exec-prefix[=DIR]]
+    [--version]
+    [--libs]
+    [--cflags]
+    [--help]
+EOF
+    exit $1
+}
+
+if test $# -eq 0; then
+    usage 1 1>&2
+fi
+
+while test $# -gt 0; do
+  case "$1" in
+  -*=*) optarg=`echo "$1" | sed 's/[-_a-zA-Z0-9]*=//'` ;;
+  *) optarg= ;;
+  esac
+
+  case $1 in
+    --prefix=*)
+      prefix=$optarg
+      if test $exec_prefix_set = no ; then
+    exec_prefix=$optarg
+      fi
+      ;;
+    --prefix)
+      echo_prefix=yes
+      ;;
+    --exec-prefix=*)
+      exec_prefix=$optarg
+      exec_prefix_set=yes
+      ;;
+    --exec-prefix)
+      echo_exec_prefix=yes
+      ;;
+    --version)
+      echo "0.6.6"
+      exit 0
+      ;;
+    --help)
+      echo "start without params to get an overview"
+      exit 0
+      ;;      
+    --cflags)
+      echo_cflags=yes
+      ;;
+    --libs)
+      echo_libs=yes
+      ;;
+    *)
+      usage 1 1>&2
+      ;;
+  esac
+  shift
+done
+
+if test "$echo_prefix" = "yes"; then
+    echo $prefix
+fi
+
+if test "$echo_exec_prefix" = "yes"; then
+    echo $exec_prefix
+fi
+
+if test "$echo_cflags" = "yes"; then
+    if test "${prefix}/include" != "/usr/include" ; then
+      includes="-I${prefix}/include"
+      for i in $opencdk_cflags ; do
+    if test "$i" = "-I${prefix}/include" ; then
+      includes=""
+    fi
+      done
+    fi
+    echo $includes $opencdk_cflags
+fi
+
+if test "$echo_libs" = "yes"; then
+    echo ${opencdk_libs}
+fi

@@ -1,0 +1,285 @@
+#!/usr/bin/perl
+
+=head1 NAME
+
+pristine-bz2 - regenerate pristine bz2 files
+
+=head1 SYNOPSIS
+
+B<pristine-bz2> [-vdk] gendelta I<file.bz2> I<delta>
+
+B<pristine-bz2> [-vdk] genbz2 I<delta> I<file>
+
+=head1 DESCRIPTION
+
+This is a complement to the pristine-tar(1) command. Normally you
+don't need to run it by hand, since pristine-tar calls it as necessary
+to handle .tar.bz2 files.
+
+pristine-bz2 gendelta takes the specified I<bz2> file, and generates a
+small binary I<delta> file that can later be used by pristine-bz2 genbz2
+to recreate the original file.
+
+pristine-bz2 genbz2 takes the specified I<delta> file, and compresses the
+specified input I<file> (which must be identical to the contents of the
+original bz2 file). The resulting file will be identical to
+the original gz file used to create the delta.
+
+The approach used to regenerate the original bz2 file is to figure out
+how it was produced -- what compression level was used, whether it was
+built with bzip2(1) or with pbzip2(1).
+
+Note that other tools exist, like bzip2smp or dbzip2, but they are
+said to be bit-identical with bzip2. Anyway, bzip2 looks like the most
+widespread implementation, so it's hard to find bzip2 files that make
+pristine-bz2 fail. Please report!
+
+The deprecated bzip1 compression method hasn't been implemented.
+
+If the delta filename is "-", pristine-bz2 reads or writes it to stdio.
+
+=head1 OPTIONS
+
+=over 4
+
+=item -v
+
+Verbose mode, show each command that is run.
+
+=item -d
+
+Debug mode.
+
+=item -k
+
+Don't clean up the temporary directory on exit.
+
+=item -t
+
+Try harder to determine how to generate deltas of difficult bz2 files.
+
+=back
+
+=head1 ENVIRONMENT
+
+=over 4
+
+=item B<TMPDIR>
+
+Specifies a location to place temporary files, other than the default.
+
+=back
+
+=head1 AUTHOR
+
+Joey Hess <joeyh@debian.org>,
+Faidon Liambotis <paravoid@debian.org>,
+Cyril Brulebois <cyril.brulebois@enst-bretagne.fr>
+
+Licensed under the GPL, version 2.
+
+=cut
+
+use warnings;
+use strict;
+use Pristine::Tar;
+use Pristine::Tar::Delta;
+use Pristine::Tar::Formats;
+use File::Basename qw/basename/;
+use IO::Handle;
+
+delete $ENV{BZIP};
+delete $ENV{BZIP2};
+
+my @supported_bzip2_programs = qw(bzip2 pbzip2 zgz);
+
+my $try=0;
+
+dispatch(
+	commands => {
+		usage => [\&usage],
+		genbz2 => [\&genbz2, 2],
+		gendelta => [\&gendelta, 2],
+	},
+	options => {
+		"t|try!" => \$try,
+	},
+);
+
+sub usage {
+	print STDERR "Usage: pristine-bz2 [-vdkt] gendelta file.bz2 delta\n";
+	print STDERR "       pristine-bz2 [-vdkt] genbz2 delta file\n";
+}
+
+sub readbzip2 {
+	my $filename = shift;
+
+	if (! is_bz2($filename)) {
+		error "This is not a valid BZip2 archive.";
+	}
+
+	open(BZIP2, "< $filename")
+		or die("Could not open '$filename' for reading: $!\n");
+
+	my $chars;
+	if (read(BZIP2, $chars, 4) != 4) {
+		die("Unable to read from input\n");
+	}
+
+	my ($id1, $id2, $method, $level)
+		= unpack("CCCC", $chars);
+	# we actually want the value, not the ascii position
+	$level-=48;
+
+	if ($level !~ /^[1-9]$/) {
+		error "Unknown compression level $level\n";
+	}
+
+	close(BZIP2);
+
+	return ($level);
+}
+
+sub predictbzip2args {
+	my ($level, $program) = @_;
+
+	my @args=["-$level"];
+
+	if ($program eq 'zgz') {
+		@args=["-$level", "--old-bzip2"];
+		push @args, ["-$level", "--suse-bzip2"];
+		push @args, ["-$level", "--suse-pbzip2"];
+	}
+
+	return @args;
+}
+
+sub testvariant {
+	my ($old, $tmpin, $bzip2_program, @args) = @_;
+
+	# some compressors eat the uncompressed file, some
+	# do not; restore as needed. (Note that file name,
+	# mode, mtime do not matter to bzip2.)
+	if (! -e $tmpin) {
+		doit("cp", "$tmpin.bak", "$tmpin");
+	}
+
+	my $new=$tmpin.'.bz2';
+	unlink($new);
+
+	# try bzip2'ing with the arguments passed
+	if ($bzip2_program ne 'zgz') {
+		doit($bzip2_program, @args, $tmpin);
+	}
+	else {
+		doit_redir($tmpin, $new, $bzip2_program, @args);
+	}
+	unless (-e $new) {
+		die("$bzip2_program failed, aborting");
+	}
+
+	# and compare the generated with the original
+	return !comparefiles($old, $new);
+}
+
+sub reproducebzip2 {
+	my $orig=shift;
+
+	my $wd=tempdir();
+	
+	my $tmpin="$wd/test";
+	doit_redir($orig, "$tmpin.bak", "bzip2", "-dc");
+
+	# read fields from bzip2 headers
+	my ($level) = readbzip2($orig);
+	debug("level: $level");
+
+	foreach my $program (@supported_bzip2_programs) {
+		# try to guess the bzip2 arguments that are needed by the
+		# header information
+		foreach my $args (predictbzip2args($level, $program)) {
+			testvariant($orig, $tmpin, $program, @$args)
+				&& return $program, @$args;
+		}
+	}
+
+	# 7z has a weird syntax, not supported yet, as not seen in the wild
+	#testvariant($orig, $tmpin, "7z", "-mx$level", "a", "$tmpin.bz2")
+	#	&& return "7z", "-mx$level", "a" ; # XXX need to include outfile
+
+	# pbzip2 -b option affects output, but cannot be detected from a 
+	# header.
+	if ($try) {
+		my @args = @{predictbzip2args($level, "pbzip2")->[0]};
+		print STDERR "pristine-bz2 will have to try especially hard to reproduce $orig\n";
+		print STDERR "(This could take a long time.)\n";
+		my %tried;
+		$tried{9}=1; # default
+ 		# Try searching for likely candidates first, and fill in.
+		# It could go higher than 100, but have to stop somewhere.
+		STDERR->autoflush(1);
+		foreach my $try (1..10, 
+		                 15, 20, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95,
+				 1..100) {
+			next if $tried{$try};
+			$tried{$try}=1;
+			print STDERR "\r\tblock size: $try   ";
+			testvariant($orig, $tmpin, "pbzip2", "-b${try}", @args) &&
+				return "pbzip2", "-b${try}", @args;
+		}
+		print STDERR "\n";
+	}
+
+	print STDERR "pristine-bz2 failed to reproduce build of $orig\n";
+	print STDERR "(Please file a bug report.)\n";
+	exit 1;
+}
+
+sub genbz2 {
+	my $deltafile=shift;
+	my $file=shift;
+
+	my $delta=Pristine::Tar::Delta::read(Tarball => $deltafile);
+	Pristine::Tar::Delta::assert($delta, type => "bz2", maxversion => 2, 
+		fields => [qw{params program}]);
+
+	my @params=split(' ', $delta->{params});
+	while (@params) {
+		my $param=shift @params;
+
+		next if $param=~/^(-[1-9])$/;
+		next if $param eq '--old-bzip2';
+		next if $param eq '--suse-bzip2';
+		next if $param eq '--suse-pbzip2';
+		die "paranoia check failed on params from delta (@params)";
+	}
+	@params=split(' ', $delta->{params});
+
+	my $program=$delta->{program};
+	if (! grep { $program eq $_ } @supported_bzip2_programs) {
+		die "paranoia check failed on program from delta ($program)";
+	}
+
+	if ($program eq 'zgz') {
+		# unlike bzip2, zgz only uses stdio
+		doit_redir($file, "$file.bz2", $program, @params);
+	}
+	else {
+		doit($program, @params, $file);
+	}
+	doit("rm", "-f", $file);
+}
+
+sub gendelta {
+	my $bzip2file=shift;
+	my $deltafile=shift;
+
+	my ($program, @params) = reproducebzip2($bzip2file);
+
+	Pristine::Tar::Delta::write(Tarball => $deltafile, {
+		version => '2.0',
+		type => 'bz2',
+		params => "@params",
+		program => $program,
+	});
+}

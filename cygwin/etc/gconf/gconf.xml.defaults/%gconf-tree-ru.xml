@@ -1,0 +1,627 @@
+<?xml version="1.0"?>
+<gconf>
+	<dir name="schemas">
+		<dir name="system">
+			<dir name="smb">
+				<entry name="workgroup">
+					<local_schema short_desc="Рабочая группа SMB">
+						<longdesc>Рабочая группа или домен Windows, к которым относится пользователь. Чтобы изменение рабочей группы вступило в силу, возможно потребуется повторная регистрация в системе.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="proxy">
+				<entry name="autoconfig_url">
+					<local_schema short_desc="URL автоматической настройки прокси">
+						<longdesc>Ссылка (URL), предоставляющая значения для автоматической конфигурации прокси-серверов.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="socks_port">
+					<local_schema short_desc="Порт прокси-сервера для протокола SOCKS">
+						<longdesc>Порт на машине, определённой ключом &quot;/system/proxy/socks_host&quot; для сервиса прокси.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="socks_host">
+					<local_schema short_desc="Имя прокси-сервера для протокола SOCKS">
+						<longdesc>Имя машины прокси-сервера для протокола SOCKS.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="ftp_port">
+					<local_schema short_desc="Порт прокси-сервера для протокола FTP">
+						<longdesc>Порт на машине, определённой ключом &quot;/system/proxy/ftp_host&quot; для сервиса прокси.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="ftp_host">
+					<local_schema short_desc="Имя прокси-сервера для протокола FTP">
+						<longdesc>Имя машины прокси-сервера для протокола FTP.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="secure_port">
+					<local_schema short_desc="Порт прокси-сервера для защищённого протокола HTTP">
+						<longdesc>Порт на машине, определённой ключом &quot;/system/proxy/secure_host&quot; для сервиса прокси.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="secure_host">
+					<local_schema short_desc="Имя прокси-сервера для защищённого протокола HTTP">
+						<longdesc>Имя машины прокси-сервера для защищённого протокола HTTP.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="mode">
+					<local_schema short_desc="Режим конфигурации прокси-серверов">
+						<longdesc>Режим конфигурации сервиса прокси. Возможные значения &quot;none&quot; (&quot;отсутствует&quot;), &quot;manual&quot; (&quot;ручной&quot;), &quot;auto&quot; (&quot;автоматический&quot;).</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="http_proxy">
+				<entry name="ignore_hosts">
+					<local_schema short_desc="Узлы, доступные без прокси">
+						<longdesc>Этот ключ содержит список узлов, соединение с которыми осуществляется напрямую, минуя прокси-сервер (если последний используется). Значения могут быть именами узлов, доменами (с использованием расширителей типа *.foo.com), адресами узлов протокола IP (в вариантах IPv4 и IPv6) и сетевыми адресами с использованием маски (наподобие 192.168.0.0/24).</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="authentication_password">
+					<local_schema short_desc="Пароль прокси-сервера для протокола HTTP">
+						<longdesc>Пароль для авторизации на прокси-сервере протокола HTTP.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="authentication_user">
+					<local_schema short_desc="Имя пользователя прокси-сервера для протокола HTTP">
+						<longdesc>Имя пользователя для использования при авторизации на прокси-сервере для протокола HTTP.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="use_authentication">
+					<local_schema short_desc="Соединения с прокси-сервером требуют авторизации">
+						<longdesc>Если этот ключ установлен, то соединения с прокси-сервером требуют авторизации. Пара значений имя_пользователя/пароль определяется ключами &quot;/system/http_proxy/authentication_user&quot; и &quot;/system/http_proxy/authentication_password&quot;.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="port">
+					<local_schema short_desc="Порт прокси-сервера для протокола HTTP">
+						<longdesc>Порт на машине, определённой ключом &quot;/system/http_proxy/host&quot; для сервиса прокси.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="host">
+					<local_schema short_desc="Имя прокси-сервера для протокола HTTP">
+						<longdesc>Имя машины прокси-сервера для протокола HTTP.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="use_http_proxy">
+					<local_schema short_desc="Использовать прокси-сервер для протокола HTTP">
+						<longdesc>Включает установки прокси-сервера для протокола HTTP через Интернет.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="dns_sd">
+				<entry name="extra_domains">
+					<local_schema short_desc="Дополнительные домены, в которых осуществлять поиск сервисов типа DNS-SD">
+						<longdesc>Разделённый запятыми список доменов типа DNS-SD, которые должны быть видимы по адресу &quot;network:///&quot;.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="display_local">
+					<local_schema short_desc="Как отображать локальный сервис типа DNS-SD">
+						<longdesc>Возможные значения &quot;merged&quot; (&quot;совместные&quot;), &quot;separate&quot; (&quot;раздельные&quot;) и &quot;disabled&quot; (&quot;отключено&quot;).</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+		</dir>
+		<dir name="desktop">
+			<dir name="gnome">
+				<dir name="typing_break">
+					<entry name="enabled">
+						<local_schema short_desc="Включено ли блокирование клавиатуры">
+							<longdesc>Включено ли блокирование клавиатуры.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="allow_postpone">
+						<local_schema short_desc="Разрешить откладывание перерыва">
+							<longdesc>Возможно ли отложить перерыв.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="break_time">
+						<local_schema short_desc="Период перерыва">
+							<longdesc>Продолжительность перерыва (в минутах).</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="type_time">
+						<local_schema short_desc="Период активности">
+							<longdesc>Продолжительность периода активности до начала перерыва.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="thumbnailers">
+					<entry name="disable_all">
+						<local_schema short_desc="Отключить все внешние миниатюризаторы">
+							<longdesc>Установите этот ключ, чтобы отключить все внешние программы миниатюризации, независимо от того, включены они или отключены другими способами.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="thumbnail_cache">
+					<entry name="maximum_size">
+						<local_schema>
+							<longdesc>Максимальный размер кэша, в мегабайтах. Установите в -1 для выключения очистки кэша.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="maximum_age">
+						<local_schema>
+							<longdesc>Максимальная давность миниатюр в кэше, в днях. Установите в -1 для выключения очистки кэша.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="sound">
+					<entry name="input_feedback_sounds">
+						<local_schema short_desc="Звуки реакции на действия пользователя">
+							<longdesc>Следует ли проигрывать звуки при возникновении событий.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="theme_name">
+						<local_schema short_desc="Имя звуковой темы">
+							<longdesc>Звуковая тема XDG для событий.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="event_sounds">
+						<local_schema short_desc="Звуки для событий">
+							<longdesc>Подавать ли звуки при наступлении событий.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="enable_esd">
+						<local_schema short_desc="Включить ESD">
+							<longdesc>Включить сервер звука.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="default_mixer_tracks">
+						<local_schema short_desc="Каналы микшера по умолчанию">
+							<longdesc>Каналы микшера, используемые по умолчанию для привязки мультимедийных клавиш.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="default_mixer_device">
+						<local_schema short_desc="Устройство микшера по умолчанию">
+							<longdesc>Устройство микшера, используемое по умолчанию для привязки мультимедийных клавиш.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="peripherals">
+					<dir name="mouse">
+						<entry name="cursor_size">
+							<local_schema short_desc="Размер курсора">
+								<longdesc>Размер курсора, на который ссылается ключ cursor_theme.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="cursor_theme">
+							<local_schema short_desc="Тема курсоров">
+								<longdesc>Имя темы курсоров. Используется только с X-серверами, которые поддерживают расширение Xcursor — такими, как XFree86 4.3 и более поздние.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="cursor_font">
+							<local_schema short_desc="Шрифт курсора">
+								<longdesc>Название шрифта курсора. Если не установлено, будет использован шрифт по умолчанию. Это значение передаётся X-серверу только в начале сеанса, так что изменения, внесённые во время сеанса, не вступят в действие до следующего входа в систему.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="locate_pointer">
+							<local_schema short_desc="Определять положение указателя">
+								<longdesc>Подсвечивать ли текущее положение указателя при нажатии и отпускании клавиши Control.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="double_click">
+							<local_schema short_desc="Время двойного щелчка">
+								<longdesc>Длительность двойного щелчка.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="drag_threshold">
+							<local_schema short_desc="Порог перетаскивания">
+								<longdesc>Расстояние до начала перетаскивания.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="motion_threshold">
+							<local_schema short_desc="Порог движения">
+								<longdesc>Расстояние в пикселах, на которое надо передвинуть указатель, прежде чем будет активировано ускорение движения мыши. Значение -1 является системным значением по умолчанию.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="motion_acceleration">
+							<local_schema short_desc="Одиночный щелчок">
+								<longdesc>Множитель ускорения движения мыши. Значение -1 является системным значением по умолчанию.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="single_click">
+							<local_schema short_desc="Одиночный щелчок">
+								<longdesc>Открывать значки одиночным щелчком.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="left_handed">
+							<local_schema short_desc="Ориентация кнопок мыши">
+								<longdesc>Поменять местами правую и левую кнопки для мышей под левую руку.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="keyboard">
+						<entry name="remember_numlock_state">
+							<local_schema short_desc="Запоминать состояние NumLock">
+								<longdesc>Если этот ключ установлен, GNOME будет сохранять состояние переключателя NumLock между сеансами.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bell_custom_file">
+							<local_schema short_desc="Имя файла клавиатурного гудка">
+								<longdesc>Имя файла для звука гудка.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bell_mode">
+							<local_schema>
+								<longdesc>возможные значения: «on», «off» и «custom».</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+				<dir name="lockdown">
+					<entry name="disable_application_handlers">
+						<local_schema short_desc="Выключить обработчики ссылок и типов MIME">
+							<longdesc>Запретить запуск любых приложений для открытия ссылок и обработки файлов различных типов.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_lock_screen">
+						<local_schema short_desc="Отключить блокировку экрана">
+							<longdesc>Запретить пользователю блокировку экрана.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_user_switching">
+						<local_schema short_desc="Отключить переключение пользователей">
+							<longdesc>Запрещает пользователю переключение на другую учётную запись, пока активен его сеанс.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_print_setup">
+						<local_schema short_desc="Отключить настройку печати">
+							<longdesc>Запрещает пользователю изменение параметров печати. Например, будет отключён доступ к диалогу «Настройка печати» во всех приложениях.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_printing">
+						<local_schema short_desc="Отключить печать">
+							<longdesc>Запрещает пользователю печать. Например, будет отключён доступ к диалогу «Печать» во всех приложениях.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_save_to_disk">
+						<local_schema short_desc="Отключить сохранение файлов на диск">
+							<longdesc>Запрещает пользователю сохранение файлов на диск. Например, будет отключён доступ к диалогу «Сохранить как» во всех приложениях.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_command_line">
+						<local_schema short_desc="Отключить командную строку">
+							<longdesc>Запрещает пользователю доступ к терминалу и командной строке. Например, будет отключён доступ к диалогу «Запуск приложения» панели.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="interface">
+					<entry name="show_unicode_menu">
+						<local_schema short_desc="Показывать меню «Вставить управляющий символ набора Юникод»">
+							<longdesc>Должны ли контекстные меню элементов ввода текста предлагать вставить управляющие символы.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="show_input_method_menu">
+						<local_schema short_desc="Показывать меню «Использовать методы ввода»">
+							<longdesc>Должны ли контекстные меню элементов ввода текста предлагать сменить метод ввода.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menubar_accel">
+						<local_schema short_desc="Клавиатурный ускоритель меню">
+							<longdesc>Комбинация клавиш клавиатуры для открытия меню.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="file_chooser_backend">
+						<local_schema short_desc="Модуль для GtkFileChooser">
+							<longdesc>Модуль для использования в качестве модели файловой системы в виджете GtkFileChooser. Возможные значения: «gio», «gnome-vfs» и «gtk+».</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="status_bar_meter_on_right">
+						<local_schema short_desc="Строка состояния справа">
+							<longdesc>Отображать ли область для переноса в строке состояния справа.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="use_custom_font">
+						<local_schema short_desc="Использовать другой шрифт">
+							<longdesc>Следует ли использовать другой шрифт в приложениях GTK+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="monospace_font_name">
+						<local_schema short_desc="Моноширинный шрифт">
+							<longdesc>Название моноширинного (как у пишущей машинки) шрифта, используемого в приложениях вроде терминала.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="document_font_name">
+						<local_schema short_desc="Шрифт документа">
+							<longdesc>Имя шрифта, используемого по умолчанию для чтения документов.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-module">
+						<local_schema short_desc="Модуль ввода GTK+">
+							<longdesc>Название метода ввода, используемого GTK+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-status-style">
+						<local_schema short_desc="Стиль состояния метода ввода GTK+">
+							<longdesc>Имя стиля состояния метода ввода GTK+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-preedit-style">
+						<local_schema short_desc="Стиль предправки метода ввода GTK+">
+							<longdesc>Имя стиля предправки метода ввода GTK+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="font_name">
+						<local_schema short_desc="Шрифт по умолчанию">
+							<longdesc>Название шрифта по умолчанию, используемого GTK+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_key_theme">
+						<local_schema short_desc="Тема GTK+">
+							<longdesc>Базовое имя темы по умолчанию, используемой GTK+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_theme">
+						<local_schema short_desc="Тема GTK+">
+							<longdesc>Базовое имя темы по умолчанию, используемой GTK+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="icon_theme">
+						<local_schema short_desc="Тема значков">
+							<longdesc>Тема значков, для использования в панели, Nautilus и других местах.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink_time">
+						<local_schema short_desc="Время мигания курсора">
+							<longdesc>Длина цикла мигания курсора (в миллисекундах).</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink">
+						<local_schema short_desc="Мигание курсора">
+							<longdesc>Должен ли курсор мигать.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_icons_size">
+						<local_schema short_desc="Размер значков на панелях инструментов">
+							<longdesc>Размер значков на панелях инструментов: либо «small-toolbar», либо «large-toolbar».</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_detachable">
+						<local_schema short_desc="Открепляемые панели инструментов">
+							<longdesc>Может ли пользователь откреплять панели инструментов и передвигать их по экрану.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menubar_detachable">
+						<local_schema short_desc="Открепляемые меню">
+							<longdesc>Может ли пользователь откреплять меню и передвигать их по экрану.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="buttons_have_icons">
+						<local_schema short_desc="Значки на кнопках">
+							<longdesc>Показывать ли значки в кнопках вместе с текстом.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menus_have_icons">
+						<local_schema short_desc="В меню показываются значки">
+							<longdesc>Показывать ли значки в пунктах меню.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_style">
+						<local_schema short_desc="Стиль панелей инструментов">
+							<longdesc>Стиль панелей инструментов. Возможные значения: «both», «both_horiz», «icon», «text».</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="can_change_accels">
+						<local_schema short_desc="Можно ли изменять комбинации клавиш">
+							<longdesc>Может ли пользователь динамически вводить новую комбинацию клавиш для пункта меню при указании на него.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menus_have_tearoff">
+						<local_schema short_desc="В меню есть линии разрыва">
+							<longdesc>Показывать ли линию отрыва в меню.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="enable_animations">
+						<local_schema short_desc="Включить анимацию">
+							<longdesc>Отображать ли анимацию. Обратите внимание: это глобальный ключ, его изменение повлияет на поведение оконного менеджера, панели и так далее.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="accessibility">
+						<local_schema short_desc="Включить специальные возможности">
+							<longdesc>Поддерживать ли специальные возможности в приложениях.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="file-views">
+					<entry name="icon_theme">
+						<local_schema short_desc="Тема файловых значков">
+							<longdesc>Тема, используемая для показа значков файлов.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="background">
+					<entry name="color_shading_type">
+						<local_schema short_desc="Тип цветового перехода">
+							<longdesc>Как изменять цвет фона. Возможные значения: «horizontal-gradient», «vertical-gradient» и «solid».</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="secondary_color">
+						<local_schema short_desc="Вторичный цвет">
+							<longdesc>Правый или нижний цвета при отрисовке градиента. Не используется при сплошном цвете.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="primary_color">
+						<local_schema short_desc="Первичный цвет">
+							<longdesc>Левый или верхний цвета при отрисовке градиента, либо сплошной цвет.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_opacity">
+						<local_schema short_desc="Непрозрачность картинки">
+							<longdesc>Непрозрачность, с которой следует отрисовывать фоновое изображение.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_filename">
+						<local_schema short_desc="Имя файла картинки">
+							<longdesc>Файл, используемый в качестве фона рабочего стола.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_options">
+						<local_schema short_desc="Параметры картинки">
+							<longdesc>Определяет, как будет отрисовываться изображение, установленное ключом wallpaper_filename. Возможные значения: «none», «wallpaper», «centered», «scaled», «stretched», «zoom», «spanned».</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="draw_background">
+						<local_schema short_desc="Отрисовывать фон рабочего стола">
+							<longdesc>Должна ли среда GNOME отрисовывать рабочий стол.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="applications">
+					<dir name="component_viewer">
+						<entry name="exec">
+							<local_schema short_desc="Приложение просмотра компонентов по умолчанию">
+								<longdesc>Приложение, используемое для просмотра файлов, требующих компонента для просмотра. Параметр %s будет заменён адресом (URI) файла, параметр %c - идентификатором (IID) компонента.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="window_manager">
+						<entry name="workspace_names">
+							<local_schema short_desc="Имена рабочих областей (устарело)">
+								<longdesc>Список имён рабочих областей первого оконного менеджера. Этот ключ считается устаревшим начиная с GNOME 2.12.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="number_of_workspaces">
+							<local_schema short_desc="Число рабочих областей (устарело)">
+								<longdesc>Число рабочих областей, которые следует иметь оконному менеджеру. Этот ключ является устаревшим начиная с GNOME 2.12.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="current">
+							<local_schema short_desc="Пользовательский оконный менеджер (устарело)">
+								<longdesc>Оконный менеджер, который необходимо пробовать первым. Этот ключ считается устаревшим начиная с GNOME 2.12.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="default">
+							<local_schema short_desc="Резервный оконный менеджер (устарело)">
+								<longdesc>Резервный оконный менеджер, если указанный пользователем не найден. Этот ключ является устаревшим начиная с GNOME 2.12.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="terminal">
+						<entry name="exec_arg">
+							<local_schema short_desc="Аргумент exec для терминала по умолчанию">
+								<longdesc>Аргумент exec, использующийся приложением терминала по умолчанию.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Приложение терминала по умолчанию">
+								<longdesc>Приложение терминала, используемое по умолчанию приложениями, нуждающимися в терминале.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="tasks">
+						<entry name="needs_term">
+							<local_schema short_desc="Задачам нужен терминал">
+								<longdesc>Нуждается ли приложение задач по умолчанию в терминале.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Задачи по умолчанию">
+								<longdesc>Приложение задач по умолчанию</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="calendar">
+						<entry name="needs_term">
+							<local_schema short_desc="Календарю нужен терминал">
+								<longdesc>Нуждается ли приложение календаря по умолчанию в терминале.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Календарь по умолчанию">
+								<longdesc>Приложение календаря по умолчанию</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="browser">
+						<entry name="nremote">
+							<local_schema short_desc="Браузер понимает удалённые команды">
+								<longdesc>Понимает ли браузер по умолчанию удалённые команды netscape.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="needs_term">
+							<local_schema short_desc="Браузеру нужен терминал">
+								<longdesc>Нуждается ли браузер по умолчанию в терминале.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Браузер по умолчанию">
+								<longdesc>Браузер по умолчанию для всех URL.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="at">
+						<dir name="visual">
+							<entry name="startup">
+								<local_schema short_desc="Запускать предпочтительное приложение помощи зрению">
+									<longdesc>Нужно ли запускать предпочтительное приложение помощи зрению при входе в среду.</longdesc>
+								</local_schema>
+							</entry>
+							<entry name="exec">
+								<local_schema short_desc="Предпочтительное приложение помощи зрению">
+									<longdesc>Предпочтительное приложение помощи зрению, которое следует использовать при входе в систему, в меню или в командной строке.</longdesc>
+								</local_schema>
+							</entry>
+						</dir>
+						<dir name="mobility">
+							<entry name="startup">
+								<local_schema short_desc="Запускать предпочтительное приложение помощи передвижению">
+									<longdesc>Нужно ли запускать предпочтительное приложение помощи передвижению при входе в среду.</longdesc>
+								</local_schema>
+							</entry>
+							<entry name="exec">
+								<local_schema short_desc="Предпочтительное приложение помощи передвижению">
+									<longdesc>Предпочтительное приложение помощи передвижению, которое следует использовать при входе в систему, в меню или в командной строке.</longdesc>
+								</local_schema>
+							</entry>
+						</dir>
+					</dir>
+				</dir>
+				<dir name="accessibility">
+					<dir name="startup">
+						<entry name="exec_ats">
+							<local_schema short_desc="Запускаемые при входе приложения специальных возможностей">
+								<longdesc>Список приложений для людей с ограниченными возможностями, запускаемых при входе в среду GNOME.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="keyboard">
+						<entry name="stickykeys_modifier_beep">
+							<local_schema>
+								<longdesc>Подавать сигнал, когда модификатор нажат.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="stickykeys_two_key_off">
+							<local_schema>
+								<longdesc>Отключать, если две клавиши нажаты одновременно.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="slowkeys_delay">
+							<local_schema short_desc="Минимальный интервал (в миллисекундах)">
+								<longdesc>Не принимать нажатие, если оно длилось менее @delay миллисекунд.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_init_delay">
+							<local_schema short_desc="Начальная задержка (в миллисекундах)">
+								<longdesc>Сколько миллисекунд ожидать, прежде чем включать клавиши передвижения мыши.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_accel_time">
+							<local_schema short_desc="Как долго ускоряться (в миллисекундах)">
+								<longdesc>Сколько миллисекунд требуется для набора скорости от 0 до максимальной.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_max_speed">
+							<local_schema short_desc="Пикселей в секунду">
+								<longdesc>Сколько пикселей в секунду составляет максимальная скорость.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bouncekeys_delay">
+							<local_schema short_desc="Минимальный интервал (в миллисекундах)">
+								<longdesc>Игнорировать многократные нажатия одной клавиши в период @delay миллисекунд.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+			</dir>
+		</dir>
+	</dir>
+</gconf>

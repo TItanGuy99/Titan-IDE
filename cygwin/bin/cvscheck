@@ -1,0 +1,385 @@
+#! /usr/bin/env perl
+
+use POSIX qw(mktime ctime);
+use Time::Local qw( timegm );
+
+# Offline check for status of files in a checked-out
+# CVS module. 
+# Artistic License, Dirk Mueller <mueller@kde.org> 2001-2003
+
+# based on cvschanged by
+# Sirtaj Singh Kang <taj@kde.org> Nov 1998.
+
+if ( defined $ARGV[0] && $ARGV[0] =~ /(?:-h|--help)/) {
+  print "cvscheck (c) 2001-2003 Dirk Mueller <mueller\@kde.org>\n\nUsage:\n";
+  print "   cvscheck [options] <dirs>\n\n";
+  print "Prints information about the status of your local CVS checkout without\n";
+  print "communicating with the server (therefore in speed only limited by your\n";
+  print "hard-disk throughput, much unlike cvs -n up).\n\n";
+  print "Every file is printed with a status character in front of its name:\n";
+  print "? foobar.c   file is not known to CVS - maybe you should add it?\n";
+  print "M foobar.c   file is for sure locally modified.\n";
+  print "m foobar.c   file *might* have local changes (needs a diff with the server).\n";
+  print "C foobar.c   file has a CVS conflict and therefore cannot be committed.\n";
+  print "U foobar.c   file is in CVS but its somehow missing in your local checkout.\n";
+  print "T foobar.c   file has an unusual sticky CVS tag.\n";
+  print "A foobar.c   you cvs add'ed this file but did not yet commit.\n";
+  print "R foobar.c   you cvs rm'ed this file but did not yet commit.\n";
+
+print <<EOF;
+
+
+Options: 
+
+-u | --unknown    Show only unknown (?) files
+-m | --modified   Show only modified (m/M) files
+--missing         Show only missing (U) files
+-t | --tagged     Show only tagged (T) files
+-a | --added      Show only added (A) files
+-r | --removed    Show only removed (R) files
+-c | --conflicts  Show only conflict (C) files
+
+If no option is given, it defaults to show all files and diagnostic messages.
+EOF
+  exit;
+}
+
+# default is HEAD
+$standardtag = "";
+%defaulttag = ();
+@dirqueue = ();
+@merged = ();
+@uncommitted = ();
+@missing = ();
+@tagged = ();
+@removed = ();
+@unknown = ();
+@modified = ();
+@conflicts = ();
+
+%months = ( 'Jan' => 0, 'Feb' => 1, 'Mar' => 2, 'Apr' => 3, 'May' => 4,
+            'Jun' => 5, 'Jul' => 6, 'Aug' => 7, 'Sep' => 8, 'Oct' => 9,
+            'Nov' => 10, 'Dec' => 11);
+
+%showoptions = ();
+$optionlocal = 0;
+
+sub printinfo($)
+{
+  print @_ if (defined($showoptions{"all"}));
+}
+
+# convert text stamp to GMT
+sub strToTime
+{
+	my( $timestr ) = @_;
+
+	if( ! ($timestr =~ 
+		/^(\w+)\s*(\w+)\s*(\d+)\s*(\d+):(\d+):(\d+)\s*(\d+)/) ) {
+
+		return -1;
+	}
+
+	# CVS timestamps are in GMT.
+
+	my( $tm ) = timegm( $6, $5, $4, $3, $months{ $2 }, $7 - 1900);
+
+	return $tm;
+}
+
+sub processEntries
+{
+	my ( $dir ) = @_;
+        my %dirunknown = ();
+
+        opendir (DIR, "$dir") || warn "Couldn't read '$dir'";
+        # first assume all are unknown
+        while ( $e = readdir(DIR) ) {
+          next if ($e eq ".");
+          next if ($e eq "..");
+          next if ($e eq "RCS");
+          next if ($e eq "SCCS");
+          next if ($e eq "CVS");
+          next if ($e eq "CVS.adm");
+          next if ($e eq "RCSLOG");
+          next if ($e eq "tags");
+          next if ($e eq "TAGS");
+          next if ($e eq ".make.state");
+          next if ($e eq ".nse_depinfo");
+          next if ($e eq "core");
+          next if ($e eq ".libs");
+          next if ($e eq ".deps");
+          next if ($e =~ /^.+~$/);
+          next if ($e =~ /^\#.+$/);
+          next if ($e =~ /^\.\#.+$/);
+          next if ($e =~ /^,.+$/);
+          next if ($e =~ /^_\$.+$/);
+          next if ($e =~ /^.+\$$/);
+          next if ($e =~ /^.+\.old$/);
+          next if ($e =~ /^.+\.bak$/);
+          next if ($e =~ /^.+\.BAK$/);
+          next if ($e =~ /^.+\.orig$/);
+          next if ($e =~ /^.+\.rej$/);
+          next if ($e =~ /^\.del-.+$/);
+          next if ($e =~ /^.+\.a$/);
+          next if ($e =~ /^.+\.olb$/);
+          next if ($e =~ /^.+\.o$/);
+          next if ($e =~ /^.*\.obj$/);
+          next if ($e =~ /^.+\.so$/);
+          next if ($e =~ /^.+\.Z$/);
+          next if ($e =~ /^.+\.elc$/);
+          next if ($e =~ /^.+\.ln$/);
+          next if ($e =~ /^cvslog\..*$/);
+
+          # kde specific entries
+          # TODO read from CVSROOT/cvsignore - if it's been checked out!
+          next if ($e eq "config.cache");
+          next if ($e eq "config.log");
+          next if ($e eq "config.status");
+          next if ($e eq "index.cache.bz2");
+          next if ($e eq ".memdump");
+          next if ($e eq "autom4te.cache");
+          next if ($e eq "autom4te.cache");
+	  next if ($e eq "Makefile.rules");
+	  next if ($e eq "Makefile.calls");
+	  next if ($e eq "Makefile.rules.in");
+	  next if ($e eq "Makefile.calls.in");
+          next if ($e =~ /^.*\.moc$/);
+          next if ($e =~ /^.+\.gmo$/);
+          next if ($e =~ /^.+\.moc\.[^\.]+$/);
+          next if ($e =~ /^.+\.lo$/);
+          next if ($e =~ /^.+\.la$/);
+          next if ($e =~ /^.+\.rpo$/);
+          next if ($e =~ /^.+\.closure$/);
+          next if ($e =~ /^.+\.all_cpp\.cpp$/);
+          next if ($e =~ /^.+\.all_C\.C$/);
+          next if ($e =~ /^.+\.all_cc\.cc$/);
+          next if ($e =~ /^.+_meta_unload\.[^\.]+$/);
+          next if ($e =~ /^.+\.kidl$/);
+          next if ($e =~ /^.+_skel\.[^\.]+$/);
+
+          # Qt specific entries
+          next if ($e eq ".ui");
+          next if ($e eq ".moc");
+          next if ($e eq ".obj");
+
+          $dirunknown{$e} = 1;
+        }
+        closedir(DIR);
+        if( open(CVSIGNORE, $dir."/.cvsignore") ) {
+          while(<CVSIGNORE>) {
+            s/\s*$//;
+            my $line = $_;
+            foreach my $entry ( split(/ /,$line) ) {
+              if ($entry =~ /[\*\?]/) {
+                my $pattern = quotemeta $entry;
+                $pattern =~ s/\\\*/.*/g;
+                $pattern =~ s/\\\?/./g;
+                foreach $m (keys (%dirunknown)) {
+                  $dirunknown{$m} = 0 if ($m =~ /^$pattern$/);
+                }
+                next;
+              }
+              $dirunknown{$entry} = 0;
+            }
+          }
+          close(CVSIGNORE);
+        }
+
+	if ( !open( ENTRIES, $dir."/CVS/Entries" ) ) {
+          &printinfo("I CVS/Entries missing in $dir\n");
+          return;
+        }
+        my $oldstandardtag = defined($defaulttag{$dir}) ? $defaulttag{$dir} : "";
+        my $staginfo = "";
+        if( open(CVSTAG, $dir."/CVS/Tag" ) ) {
+          my $line = <CVSTAG>;
+          if($line =~ /^[TDN](.+)$/) {
+            $standardtag = $1;
+            $staginfo = $1;
+          }
+          else {
+            # something with D - assume HEAD
+            $oldstandardtag = $standardtag = ""; # its HEAD
+            &printinfo("I $dir has unknown stickyness: $line");
+          }
+          close(CVSTAG);
+        }
+        else {
+          $standardtag = ""; # its HEAD
+          $staginfo = "(HEAD)";
+        }
+        &printinfo("I $dir has sticky tag $staginfo\n") if($standardtag ne $oldstandardtag);
+	while( <ENTRIES> ) {
+          if ( m#^\s*D/([^/]+)/# ) {
+               if (-d "$dir/$1" && !$optionlocal) {
+                 push ( @dirqueue, "$dir/$1" );
+                 $defaulttag{"$dir/$1"} = $standardtag;
+               }
+               $dirunknown{$1} = 0;
+               next;
+            }
+
+          next if !m#^\s*/([^/]+)/([-]*[\d\.]*)/([^/]+)/([^/]*)/(\S*)$#;
+          $fname = $1;
+          $ver = $2;
+          $stamp = $3;
+          $options = $4;
+          $tag = $5;
+          $tag = $1 if ($tag =~ /^[TD](.+)$/);
+
+          $dirunknown{$fname} = 0;
+
+          my $taginfo="";
+          if(defined($showoptions{"all"})) {
+            if ( $tag ne $standardtag ) {
+              if ($tag eq "") {
+                $taginfo = " (HEAD)";
+              }
+              else {
+                $taginfo = " ($tag)";
+              }
+            }
+            if ($options =~ /^\-k(.)$/) {
+              $taginfo .= " (no RCS-tags)" if($1 eq "o");
+              $taginfo .= " (RCS binary file)" if($1 eq "b");
+              $taginfo .= " (RCS values only)" if($1 eq "v");
+              $taginfo .= " (RCS keywords only)" if($1 eq "k");
+            }
+          }
+          my $state = $stamp;
+          if( $stamp =~ m(^(.+)\+(.+)$) ) {
+            $state = $1;
+            $stamp = $2;
+          }
+          if ( $state =~ /merge/ ) {
+            # modified version merged with update from server
+            # check for a conflict
+            if ( open (F, "$dir/$fname") ) {
+              my @conflict = grep /^<<<<<<</, <F>;
+              close (F);
+              if( @conflict ) {
+                push @conflicts, "$dir/$fname$taginfo";
+                next;
+              }
+            } 
+            else {
+              push @missing, "$dir/$fname$taginfo";
+              next;
+            }
+          }
+          if ( $ver =~ /^\-.*/ ) {
+            push @removed, "$dir/$fname$taginfo";
+            next;
+          }
+          $mtm = strToTime( $stamp );
+          if( $mtm < 0 ) {
+            if ( $ver eq "0" ) {
+              push @uncommitted, "$dir/$fname$taginfo";
+            }
+            else {
+              push @merged, "$dir/$fname$taginfo";
+            }
+            next;
+          }
+          @sparams = lstat( "$dir/$fname" );
+
+          if ( $#sparams < 0 ) {
+            push @missing, "$dir/$fname$taginfo";
+            next;
+          }
+          if( $mtm < $sparams[ 9 ] ) {
+            push @modified, "$dir/$fname$taginfo";
+            next;
+          }
+          if ( $tag ne $standardtag ) {
+            push @tagged, "$dir/$fname$taginfo";
+          }
+	}
+	close( ENTRIES );
+
+        my @unknownlist = sort keys (%dirunknown);
+        foreach $entry (@unknownlist) {
+          next if ($dirunknown{$entry} == 0);
+          # ignore unusual files
+          next if (-l "$dir/$entry" );
+          # its a CVS directory ? might be a different module
+          if (-d "$dir/$entry" and -d "$dir/$entry/CVS") {
+            $defaulttag{"$dir/$entry"} = $standardtag;
+            push ( @dirqueue, "$dir/$entry" );
+            next;
+          }
+          push @unknown, "$dir/$entry";
+        }
+}
+
+sub printlist($$@)
+{
+  my ($status, $type, @flist) = @_;
+
+  return if (not defined($showoptions{"all"}) and 
+             not defined($showoptions{"$type"}));
+
+  if(defined($showoptions{"all"})) {
+    foreach (@flist) {
+      s/\.\///;
+      print "$status $_\n";
+    }
+  }
+  else {
+    foreach(@flist) {
+      print "$_\n";
+    }
+  }
+}
+
+foreach $f ( @unknown ) {
+  $f =~ s/^\.\///;
+  print "? $f\n";
+}
+foreach (@ARGV) {
+   $showoptions{"unknown"}++ if(/^(?:-u|--unknown)$/);
+   $showoptions{"modified"}++ if(/^(?:-m|--modified)$/);
+   $showoptions{"missing"}++ if(/^(?:--missing)$/);
+   $showoptions{"tagged"}++ if(/^(?:-t|--tagged)$/);
+   $showoptions{"added"}++ if(/^(?:-a|--added)$/);
+   $showoptions{"removed"}++ if(/^(?:-r|--removed)$/);
+   $showoptions{"conflicts"}++ if(/^(?:-c|--conflicts)$/);
+   $optionlocal++ if(/^(?:-l|--local)$/);
+
+   next if (/^-/);
+   push (@dirqueue, "./$_");
+}
+
+# if no special flags set, show all files
+$showoptions{"all"}++ if(scalar(keys(%showoptions)) == 0);
+
+# Try current directory if none specified
+push(@dirqueue, ".") if( $#dirqueue < 0 );
+
+# process directory queue
+while ($#dirqueue >= 0) {
+  processEntries( pop @dirqueue );
+}
+
+&printlist("?", "unknown", @unknown);
+&printlist("M", "modified", @modified);
+&printlist("m", "modified", @merged);
+&printlist("U", "missing", @missing);
+&printlist("T", "tagged", @tagged);
+&printlist("A", "added", @uncommitted);
+&printlist("R", "removed", @removed);
+&printlist("C", "conflicts", @conflicts);
+
+=head1 NAME
+
+cvscheck -- Lists all files in checked out CVS modules that have been
+edited or changed locally. No connection is required to the CVS server,
+therefore being extremely fast. 
+
+=head1 AUTHOR
+
+Dirk Mueller <mueller@kde.org>
+based on cvschanged by Sirtaj Singh Kang <taj@kde.org>
+
+=cut

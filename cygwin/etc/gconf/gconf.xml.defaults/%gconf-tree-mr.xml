@@ -1,0 +1,626 @@
+<?xml version="1.0"?>
+<gconf>
+	<dir name="schemas">
+		<dir name="system">
+			<dir name="smb">
+				<entry name="workgroup">
+					<local_schema short_desc="SMB कार्यगट">
+						<longdesc>वापरकर्ता ज्या कार्यस्थानाचा किंवा विंडोज नेटवर्कीग करणाऱ्या गटाचा भाग असेल ते स्थान एखाद्या नव्या कार्यगटाचा पूर्ण उपयोग करायचा असेल तर वापर करत्याने प्रथम प्रवेशातून बाहेर जावे आणि पुन्हा प्रवेश करावा.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="proxy">
+				<entry name="autoconfig_url">
+					<local_schema short_desc="स्वयंसिद्ध पर्यायी संयोजना URL अधिकृतपणे तपासून पहा">
+						<longdesc>पर्यायी संयोजना मुल्य दर्शविणारा URL.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="socks_port">
+					<local_schema short_desc="SOCKS पर्यायी स्थान">
+						<longdesc>संगणकावरील स्थान जे यंत्रणा  &quot;/system/proxy/socks_host&quot;  द्वारे पर्यायासाठी तुम्ही वापरू शकता.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="socks_host">
+					<local_schema short_desc="SOCKS पर्यायी यजमान नाव">
+						<longdesc>पर्यायी सॉक्स साठी यात्रिक नाव.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="ftp_port">
+					<local_schema short_desc="FTP पर्यायी पोर्ट">
+						<longdesc>संगणकावरील स्थान जे यंत्रणा &quot;/system/proxy/ftp_host&quot;  द्वारे पर्यायासाठी तुम्ही वापरू शकता.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="ftp_host">
+					<local_schema short_desc="FTP पर्यायी यजमान नाव">
+						<longdesc>पर्यायी FTP साठी यांत्रिक नाव.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="secure_port">
+					<local_schema short_desc="HTTP पर्यायी स्थान सुरक्षित आहे">
+						<longdesc>संगणकावरील स्थान जे यंत्रणा &quot;/system/proxy/secure_host&quot; द्वारे पर्यायासाठी तुम्ही वापरू शकता.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="secure_host">
+					<local_schema short_desc="HTTP पर्यायी यजमान नाव सुरक्षित करा">
+						<longdesc>सुरक्षित पर्यायी HTTP साठी प्रणाली नाव.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="mode">
+					<local_schema short_desc="पर्यायी संयोजनाची रीत">
+						<longdesc>पर्यायी संयोजनाची रीत निवडा. &quot;एकही नाही&quot;, &quot;स्वयंसिद्ध&quot;, &quot;हस्ते&quot; ही स्वीकृत मूल्ये आहेत.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="http_proxy">
+				<entry name="ignore_hosts">
+					<local_schema short_desc="पर्याय विहीत स्वागतकर्ते">
+						<longdesc>या किल्लीत प्रत्यक्षरित्या जुळलेली यजमानची यादी, प्रॉक्सीच्या (सक्रीय असल्यास) ऐवजी समाविष्टीत आहे. मुल्य यजमाननाव, क्षेत्र (प्रारंभीक वाईल्डकार्ड जसे की *.foo.com), IP यजमान पत्ता (दोन्ही IPv4 व IPv6) व संजाळ पत्ता सह नेटमास्क (काहितरी यासारखे 192.168.0.0/24).</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="authentication_password">
+					<local_schema short_desc="HTTP पर्यायी गुप्तशब्द">
+						<longdesc>निश्चितीकरणासाठी  गुप्तशब्द टाकून HTTP पर्यायीकरण होत असल्याचे पहा.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="authentication_user">
+					<local_schema short_desc="HTTP पर्यायी वापरकर्त्याचे नाव">
+						<longdesc>HTTP साठी प्रॉक्सी निवडतेवेळी वापरकर्त्याचे नाव टाकून अधिकृतपणे निश्चित करा.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="use_authentication">
+					<local_schema short_desc="पर्यायी सर्वर जोडणी अधिकृतपणे तपासून पहा">
+						<longdesc>जर ठिक असेल तर, पर्यायी सर्वर जोडणीला होकार द्यावा लागेल. वापरकर्ता/गुप्तशब्दाचे  निश्चितीकरण &quot;/system/http_proxy/authentication_user&quot; आणि &quot;/system/http_proxy/authentication_password&quot;.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="port">
+					<local_schema short_desc="HTTP पर्यायी पोर्ट">
+						<longdesc>संगणकावरील स्थान जे यंत्रणा &quot;/system/http_proxy/host&quot; द्वारे पर्यायासाठी तुम्ही वापरू शकता.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="host">
+					<local_schema short_desc="HTTP पर्यायी यजमान नाव">
+						<longdesc>पर्यायी HTTP साठी यांत्रिक नाव.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="use_http_proxy">
+					<local_schema short_desc="HTTP प्रॉक्सी वापरा">
+						<longdesc>महाजाल वरील HTTP प्रवेश दाखल करतेवेळी प्रॉक्सी संयोजना कार्यान्वीत करतो.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="dns_sd">
+				<entry name="extra_domains">
+					<local_schema short_desc="DNS-SD सेवांकरीता पहाचे ते अगाऊ क्षेत्र">
+						<longdesc>&quot;network:///&quot; स्थानावर दिसण्यायोग्य अल्पविरामद्वारा वेगळी केलेली DNS-SD क्षेत्र.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="display_local">
+					<local_schema short_desc="स्थानीक DNS-SD सेवा कसे दर्शवायचे">
+						<longdesc>संभाव्य मूल्ये &quot;विलीन&quot;, &quot;विभाजीत&quot; आणि &quot;अकार्यान्वीत&quot; अशी आहेत.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+		</dir>
+		<dir name="desktop">
+			<dir name="gnome">
+				<dir name="typing_break">
+					<entry name="enabled">
+						<local_schema short_desc="कळफलक कुलुप बंद करण्याची सुविधा उपलब्ध आहे का">
+							<longdesc>कळफलक कुलुप बंद करण्याची सुविधा उपलब्ध आहे का.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="allow_postpone">
+						<local_schema short_desc="विश्राम प्रलंबीत करायला परवानगी द्या">
+							<longdesc>टायपिंग अवकाश पडदा स्थगित करता येतो का.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="break_time">
+						<local_schema short_desc="विश्रांती कालावधी">
+							<longdesc>टायपिंग अवकाश इतके मिनीटे रहायला पाहिजे.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="type_time">
+						<local_schema short_desc="वेळेचे प्रकार">
+							<longdesc>विश्रांती पध्दती सुरू होण्यापूर्वी इतक्या मिनिटाचा टायपिंग कालावधी असतो.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="thumbnailers">
+					<entry name="disable_all">
+						<local_schema short_desc="बाहेरील सर्व लघुरूप अनुपलब्धता करा">
+							<longdesc>सर्व बाहेरील थंबनेल जरी ते स्वतंत्ररित्या अकार्यान्वीत/कार्यान्वीत असो किंवा नसो, कार्यक्रम अकार्यान्वीत करण्याकरीता खरे निश्चित करा.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="thumbnail_cache">
+					<entry name="maximum_size">
+						<local_schema>
+							<longdesc>कॅश मधिल थंबनेल करीता कमाल कालावधी, मेगाबाइटस् मध्ये. काढून टाकण्याकरीता कालवधीस -1 असे निश्चित करा.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="maximum_age">
+						<local_schema>
+							<longdesc>कॅश मधिल थंबनेल करीता कमाल कालावधी, दिवसात. काढून टाकण्याकरीता कालवधीस -1 असे निश्चित करा.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="sound">
+					<entry name="input_feedback_sounds">
+						<local_schema short_desc="इनपुट प्रतिसाद करीता संगीत">
+							<longdesc>इनपुट घटनांकरीता संगीत चालवायचे.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="theme_name">
+						<local_schema short_desc="संगीत सुत्रयोजनाचे नाव">
+							<longdesc>घटना संगीत करीता वापरण्याजोगी XDG संगीत सुत्रयोजना.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="event_sounds">
+						<local_schema short_desc="घटनांकरीता ध्वनी">
+							<longdesc>वापरकर्त्याच्या घटनांसाठी ध्वनी करायचा का.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="enable_esd">
+						<local_schema short_desc="ESD कार्यान्वीत करा">
+							<longdesc>ध्वनी सर्वर सुरवात कार्यान्वीत करा.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="default_mixer_tracks">
+						<local_schema short_desc="मुलभूत मीक्सर मार्ग">
+							<longdesc>बहुमाध्यम किल्ली बांधणी द्वारे वापरल्या जाणारे मुलभूत मीक्सर साधन.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="default_mixer_device">
+						<local_schema short_desc="मुलभूत मीक्सर साधन">
+							<longdesc>बहुमाध्यम किल्ली बांधणी द्वारे वापरल्या जाणारे मुलभूत मीक्सर साधन.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="peripherals">
+					<dir name="mouse">
+						<entry name="cursor_size">
+							<local_schema short_desc="कर्सर आकार">
+								<longdesc>cursor_theme च्या संदर्भ अंतर्गत कर्सरचे आकार.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="cursor_theme">
+							<local_schema short_desc="कर्सर सुत्रयोजना">
+								<longdesc>कर्सर सुत्रयोजना नाव. Xcursor, जसे XFree86 4.3 व पुढील समर्थीत Xserver तर्फेच वापर केला जातो.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="cursor_font">
+							<local_schema short_desc="कर्सर फॉन्ट">
+								<longdesc>कर्सरचे फॉन्ट नाव. अनिश्चित केल्यास, मुलभूत फॉन्ट वापरले जाईल. मुल्य X सर्वरवरकडे प्रत्येक स्त्राच्या सुरवातीस पाठविल्या जाईल, त्यामुळे सत्र चालू असतेवेळी बदलाव केल्यास त्याचा प्रभाव दिसून पडणार नाही जोपर्यंत तुम्ही पुढच्यावेळी प्रवेश दाखलन करीता नाही.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="locate_pointer">
+							<local_schema short_desc="पॉइंटर शोधा">
+								<longdesc>कंट्रोल कळ दाबून ठेवल्यावर व त्यास सोडल्यास पॉइंटरचे सद्याचे स्थान ठळकरित्या दर्शवितो.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="double_click">
+							<local_schema short_desc="दुहेरी क्लिक करण्याची वेळ">
+								<longdesc>दुहेरी क्लिकचा कालावधी.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="drag_threshold">
+							<local_schema short_desc="ड्रॅग मर्यादा">
+								<longdesc>ड्रॅग सुरू करण्यापूर्वीचे अंतर.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="motion_threshold">
+							<local_schema short_desc="हालचालीची मर्यादा">
+								<longdesc>प्रवेगक माउस हालचाली सक्रिय करण्यापूर्वी पॉइंटर किती बींदू हलवील्या पाहिजे. -1 हे प्रणालीचे मुलभूत मुल्य आहे.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="motion_acceleration">
+							<local_schema short_desc="एकदा क्लिक करा">
+								<longdesc>माउस हालचालींकरीता प्रवेगक गुणांक. -1 प्रणाली मुलभूत मुल्य आहे.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="single_click">
+							<local_schema short_desc="एकदा क्लिक करा">
+								<longdesc>चिन्ह उघडण्यासाठी एकदा क्लिक करा.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="left_handed">
+							<local_schema short_desc="माउस बटनाची दिशा">
+								<longdesc>डाव्या हाताच्या माउससाठी डाव्या व उजव्या बटणांची अदला-बदल करा.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="keyboard">
+						<entry name="remember_numlock_state">
+							<local_schema short_desc="NumLock स्थिती लक्षात ठेवा">
+								<longdesc>खरे निश्चित असल्यास, GNOME सत्रांमधील NumLock LED स्थिती लक्षात ठेवा.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bell_custom_file">
+							<local_schema short_desc="कळफलक घंटा इच्छिक फाइलनाव">
+								<longdesc>घंट्याचे आवाज चालवायची त्या फाइलचे नाव.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bell_mode">
+							<local_schema>
+								<longdesc>संभाव्य मूल्य &quot;चालू&quot;, &quot;बंद&quot;, आणि &quot;इच्छित&quot;.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+				<dir name="lockdown">
+					<entry name="disable_application_handlers">
+						<local_schema short_desc="URL व MIME प्रकार हाताळणी अकार्यान्वीत करायचे">
+							<longdesc>कुठलेही URL किंवा MIME प्रकार हॅन्डलर अनुप्रयोग चालविण्यापासून रोखा.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_lock_screen">
+						<local_schema short_desc="पडदा कुलूप बंद करणे अकार्यान्वीत करा">
+							<longdesc>वापरकर्त्यास पडदा कुलूप बंद करण्यापासून थांबवा.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_user_switching">
+						<local_schema short_desc="वापरकर्ता बदलणे अकार्यान्वीत करा">
+							<longdesc>सत्र सक्रीय असल्यास वापरकर्त्यास इतर खाते उघडण्यापासून थांबवा.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_print_setup">
+						<local_schema short_desc="छपाई मांडणी अकार्यान्वीत करा">
+							<longdesc>वापरकर्त्याला छपाई संरचना संपादित करण्यापासून थांबवा. उदाहरणार्थ, यामुळे सर्व अनुप्रयोगांचे &quot;छपाई रचना&quot; संवाद अकार्यान्वीत होईल.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_printing">
+						<local_schema short_desc="छपाई अकार्यान्वीत करा">
+							<longdesc>वापरकर्त्यास छपाई करण्यापासून थांबवा. उदाहरणार्थ, यामुळे सर्व अनुप्रयोगांचे &quot;छपाई&quot; संवाद अकार्यान्वीत होईल.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_save_to_disk">
+						<local_schema short_desc="डीस्कवर फाइल संचयन अकार्यान्वीत करा">
+							<longdesc>वापरकर्त्यांना डीस्कवर फाइल संचयीत करण्यापासून थांबवा. उदाहरणार्थ, यामुळे सर्व अनुप्रयोगांचे &quot;असे संचयन करा&quot; संवाद अकार्यान्वीत होईल.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_command_line">
+						<local_schema short_desc="आदेशओळ अकार्यान्वीत करा">
+							<longdesc>वापरकर्त्याला टर्मिनल किंवा आदेश ओळ कार्यान्वीत करण्यापासून थांबवा. उदाहरणार्थ, यामुळे पटलावरील &quot;अनुप्रयोग चालवा&quot; संवाद अकार्यान्वीत होईल.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="interface">
+					<entry name="show_unicode_menu">
+						<local_schema short_desc="&apos;युनीकोड नियंत्रण अक्षर&apos; मेन्यु दर्शवा">
+							<longdesc>नोंदणी व पाठ्य दृश्यच्या संदर्भ मेन्युने कंट्रोल अक्षर प्रविष्ट केले पाहिजे का.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="show_input_method_menu">
+						<local_schema short_desc="&apos;प्रदान कार्यपध्दती&apos; मेन्यु दर्शवा">
+							<longdesc>नोंदणी व पाठ्य दृश्यच्या संदर्भ मेन्युने इनपुट पध्दती बदलविले पाहिजे का.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menubar_accel">
+						<local_schema short_desc="मेन्युबार प्रवेगक">
+							<longdesc>मेन्युपट्टी उघडण्याकरीता कळफलक शॉर्टकट.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="file_chooser_backend">
+						<local_schema short_desc="GtkFileChooser करीता विभाग">
+							<longdesc>GtkFileChooser विजेट करीता वापरण्याजोगी फाइलप्रणाली विभाग नुरूप घटक.संभाव्य मुल्य खालिलनुरूप आहे  &quot;gio&quot;, &quot;gnome-vfs&quot; व &quot;gtk+&quot;.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="status_bar_meter_on_right">
+						<local_schema short_desc="उजव्या बाजूस स्थितीदर्शिका">
+							<longdesc>स्थिती दर्शिका उजवीकडे दर्शवू शकतो का.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="use_custom_font">
+						<local_schema short_desc="इच्छिक फॉन्ट वापरा">
+							<longdesc>gtk+ अनुप्रयोगांमध्ये इच्छिक फॉन्ट वापरायचे का.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="monospace_font_name">
+						<local_schema short_desc="मोनोस्पेस फॉन्ट">
+							<longdesc>टर्मानल मध्ये वापरण्याजोगी मोनोस्पेस (ठरलेली-रूंदी) फॉन्ट फाइलचे नाव.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="document_font_name">
+						<local_schema short_desc="दस्तऐवज लिपी">
+							<longdesc>दस्तऐवज वाचण्याकरीताचे मुलभूत फॉन्टचे नाव.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-module">
+						<local_schema short_desc="GTK IM विभाग">
+							<longdesc>GTK+ द्वारे वापरल्या जाणारी इंपुट पध्दत विभागाचे नाव.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-status-style">
+						<local_schema short_desc="GTK IM स्थिती शैली">
+							<longdesc>gtk+ द्वारे वापरल्या जाणारी GTK+ आदान स्थिती शैलीचे नाव.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-preedit-style">
+						<local_schema short_desc="GTK IM Preedit शैलीनुरूप">
+							<longdesc>gtk+ द्वारे वापरल्या जाणारी GTK+ आदान कार्यपध्दती Preedit शैलीचे नाव.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="font_name">
+						<local_schema short_desc="मूळ लिपी">
+							<longdesc>gtk+ द्वारे वापरल्या जाणाऱ्या मुलभूत फॉन्टचे नाव.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_key_theme">
+						<local_schema short_desc="Gtk+ सुत्रयोजना">
+							<longdesc>gtk+ द्वारा वापरले जाणारी मुलभूत सुत्रयोजनाचे मुळनाव.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_theme">
+						<local_schema short_desc="Gtk+ सुत्रयोजना">
+							<longdesc>gtk+ द्वारा वापरले जाणारी मुलभूत सुत्रयोजनाचे मुळनाव.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="icon_theme">
+						<local_schema short_desc="चिन्ह सुत्रयोजना">
+							<longdesc>चिन्ह सुत्रयोजनाकरीता पटल, नॉटिलस इत्यादी.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink_time">
+						<local_schema short_desc="कर्सर लुकलुकण्याचा काळ">
+							<longdesc>कर्सर लुकलुकण्याचे चक्राची लांबी, मिलीसेकंदात.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink">
+						<local_schema short_desc="कर्सर लुकलुकणे">
+							<longdesc>कर्सरने लुकलुक करायचे का.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_icons_size">
+						<local_schema short_desc="साधनपट्टी चिन्ह आकार">
+							<longdesc>साधनपट्टीमध्ये दिसणाऱ्या चिन्हचे आकार, एकतर &quot;लहान-साधनपट्टी&quot; किंवा &quot;मोठी-साधनपट्टी&quot; असायला हवी.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_detachable">
+						<local_schema short_desc="साधनपट्टी काढुणटाकताजोगी">
+							<longdesc>वापरकर्ता साधनपट्टी काढून टाकल्यावर त्यास हलवु शकतो का.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menubar_detachable">
+						<local_schema short_desc="मेन्युबार काढाण्याजोगी">
+							<longdesc>वापरकर्ता मेन्युपट्टी काढून टाकल्यावर त्यास हलवु शकतो का.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="buttons_have_icons">
+						<local_schema short_desc="बटणास चिन्ह आहे">
+							<longdesc>बटणावरील पाठ्यच्या व्यतिरिक्त चिन्ह दर्शवायचे का.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menus_have_icons">
+						<local_schema short_desc="मेन्यु मध्ये चिन्ह समाविष्ट आहे">
+							<longdesc>चिन्ह जवळील मेन्यु नोंदणी करीता मेन्यु दर्शविले पाहिजे का.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_style">
+						<local_schema short_desc="साधनपट्टीची शैली">
+							<longdesc>साधनपट्टीची शैली. वैध मुल्य आहे &quot;दोन्ही&quot;, &quot;दोन्ही-आडवे&quot;, &quot;चिन्ह&quot;, व &quot;पाठ्य&quot;.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="can_change_accels">
+						<local_schema short_desc="Accels बदल्या जावू शकते">
+							<longdesc>सक्रीय मेन्युघटकावर स्थायीत केल्यास वापरकर्ता गतिकरीत्या नविन प्रवेगक टाइप करु शकता का.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menus_have_tearoff">
+						<local_schema short_desc="मेन्यु नष्ट झाले">
+							<longdesc>मेन्यु काढुन टाकण्याकरीताचे घटक असायला हवे का.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="enable_animations">
+						<local_schema short_desc="चित्रचेतनीकरण कार्यान्वीत करा">
+							<longdesc>चित्रचेतनीकरण दर्शविल्या गेले पाहिजे का. टिप: ही जागतिक किल्ली आहे, चौकट व्यवस्थापकाची, पटलाची इत्यादी वागणुक बदलवु शकते.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="accessibility">
+						<local_schema short_desc="प्रवेश कार्यान्वीत करा">
+							<longdesc>अनुप्रयोगांकरीता प्रवेशीय समर्थन असायला हवे का.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="file-views">
+					<entry name="icon_theme">
+						<local_schema short_desc="फाइल चिन्ह सुत्रयोजना">
+							<longdesc>फाइल चिन्ह दर्शविण्याकरीताची सुत्रयोजना.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="background">
+					<entry name="color_shading_type">
+						<local_schema short_desc="रंग छटाचे प्रकार">
+							<longdesc>पार्श्वभूमीतील रंगाची छटा कशी बदलवायची. संभाव्य मुल्य आहे &quot;आडवे-ग्रेडीयंट&quot;, &quot;उभे-ग्रेडीयंट&quot;, व &quot;गडद&quot;.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="secondary_color">
+						<local_schema short_desc="दुय्यम रंग">
+							<longdesc>गडद रंगाकरीता ग्रेडीयंट काढतेवेळी उजवे किंवा तळ रंगाशी वापरल्या जात नाही.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="primary_color">
+						<local_schema short_desc="प्राथमिक रंग">
+							<longdesc>ग्रेडीयंट काढतेवेळी डावे किंवा शिर्ष रंग, किंवा गडद रंग.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_opacity">
+						<local_schema short_desc="चित्र अपारदर्शीता">
+							<longdesc>पार्श्वभूमी चित्र रेखाटतेवेळी गडदता किती ठेवायची.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_filename">
+						<local_schema short_desc="चित्र फाइलनाव">
+							<longdesc>पार्श्वभूमीतील प्रतिमाकरीताचे फाइल.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_options">
+						<local_schema short_desc="चित्र पर्याय">
+						</local_schema>
+					</entry>
+					<entry name="draw_background">
+						<local_schema short_desc="डेस्कटॉपची पार्श्वभूमी तयार करा">
+							<longdesc>GNOME ला डेस्कटॉप पार्श्वभूमी रेखाटू द्या.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="applications">
+					<dir name="component_viewer">
+						<entry name="exec">
+							<local_schema short_desc="मुलभूत भाग दर्शक कार्यक्रम">
+								<longdesc>घटकाची आवश्यकता लागत असणाऱ्या फाइलला पहाण्याकरीताचे अनुप्रयोग. घटक %s फाइलच्या URI बदलविले जाईल, बाब %c घटकाच्या IID शी बदलविले जाईल.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="window_manager">
+						<entry name="workspace_names">
+							<local_schema short_desc="कार्यस्थळांची नावे (वापरणीत नाही)">
+								<longdesc>चौकट व्सवस्थापक कार्यस्थळ नावांची यादी. ही किल्ली GNOME 2.12 पासून वापरल्या जात नाही.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="number_of_workspaces">
+							<local_schema short_desc="कार्यस्थळांची संख्या (वापरणीत नाही)">
+								<longdesc>चौकट व्यव्सथापकाने जे कार्यस्थळ वापरण्याची संख्या ही किल्ली GNOME 2.12 पासून वापरल्या जात नाही.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="current">
+							<local_schema short_desc="वापरकर्ता चौकट व्यवस्थापक (लहान)">
+								<longdesc>पहिल्यांदा वापरून बघायचा चौकट व्यवस्थापक. GNOME 2.12 पासून ही किल्ली वापरणीत नाही.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="default">
+							<local_schema short_desc="विश्वासर्ह विंडो व्यवस्थापक (वापरणीत नाही)">
+								<longdesc>वापरकर्ता चौकट व्यवस्थापक न आढळल्यास विश्वासर्ह विंडो व्यवस्थापक. ही किल्ली GNOME 2.12 पासून वापरल्या जात नाही.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="terminal">
+						<entry name="exec_arg">
+							<local_schema short_desc="मुलभूत कार्यक्रमांसाठी Exec बाब">
+								<longdesc>मुलभूत टर्मिनल कार्यक्रमासाठी लागणारी exec बाब.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="मुलभूत टर्मिनल कार्यक्रम">
+								<longdesc>ज्या कार्यक्रमासाठी टर्मिनलची गरज आहे अशा कार्यासाठी मुलभूत टर्मिनल.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="tasks">
+						<entry name="needs_term">
+							<local_schema short_desc="कार्य करीता टर्मीनल आवश्य आहे">
+								<longdesc>मुलभूत कार्य अनुप्रयोग चालविण्याकरीता टर्मीनल आवश्यक आहे</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="मुलभूत कार्य">
+								<longdesc>मुलभूत कार्य अनुप्रयोग</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="calendar">
+						<entry name="needs_term">
+							<local_schema short_desc="दिनदर्शीका करीता टर्मीनल आवश्य आहे">
+								<longdesc>मुलभूत दिनदर्शीका अनुप्रयोग चालविण्याकरीता टर्मीनल आवश्यक आहे</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="मुलभूत दिनदर्शीका">
+								<longdesc>मुलभूत दिनदर्शीका अनुप्रयोग</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="browser">
+						<entry name="nremote">
+							<local_schema short_desc="ब्राउजरला दुरस्त समझते">
+								<longdesc>मुलभूत ब्राउजरासाठी नेटस्केप दूरस्थरित्या समझते का.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="needs_term">
+							<local_schema short_desc="ब्राउजरकरीता टर्मीनल आवश्य आहे">
+								<longdesc>मुलभूत ब्राउजर कार्यरत करीता टर्मीनल आवश्यक आहे का.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="मुलभूत ब्राउजर">
+								<longdesc>सर्व URL करीता मुलभूत ब्राउजर.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="at">
+						<dir name="visual">
+							<entry name="startup">
+								<local_schema short_desc="अधिमान्यता दृश्य संयुक्त तंत्रज्ञाण अनुप्रयोग सुरू करा">
+									<longdesc>GNOME अधिमान्यता दृश्य संयुक्त तंत्रज्ञाण अनुप्रयोग दाखलनवेळी सुरू करणार आहे.</longdesc>
+								</local_schema>
+							</entry>
+							<entry name="exec">
+								<local_schema short_desc="अधिमान्यता दृश्य संयुक्त तंत्रज्ञाण अनुप्रयोग">
+									<longdesc>दाखलन, मेन्यु, किंवा आदेश ओळकरीता अधिमान्यता दृश्य संयुक्त तंत्रज्ञाण अनुप्रयोग वापरा.</longdesc>
+								</local_schema>
+							</entry>
+						</dir>
+						<dir name="mobility">
+							<entry name="startup">
+								<local_schema short_desc="अधिमान्यता चलनशीलता संयुक्त तंत्रज्ञाण अनुप्रयोग सुरू करा">
+									<longdesc>GNOME दाखलन करतेवेळी अधिमान्यता चलनशीलता तंत्रज्ञाण अनुप्रयोग सुरू करणार आहे.</longdesc>
+								</local_schema>
+							</entry>
+							<entry name="exec">
+								<local_schema short_desc="अधिमान्यता चलनशीलता संयुक्त तंत्रज्ञाण अनुप्रयोग">
+									<longdesc>.दाखलन, मेन्यु, किंवा आदेश ओळकरीता अधिमान्यता चलनशीलता संयुक्त तंत्रज्ञाण अनुप्रयोग वापरा.</longdesc>
+								</local_schema>
+							</entry>
+						</dir>
+					</dir>
+				</dir>
+				<dir name="accessibility">
+					<dir name="startup">
+						<entry name="exec_ats">
+							<local_schema short_desc="सुरूवातीचे संयुक्त तंत्रज्ञाण अनुप्रयोग">
+								<longdesc>GNOME डेस्कटॉपवर दाखलन करतेवेळी संयुक्त तंत्रज्ञाण अनुप्रयोगांची यादी.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="keyboard">
+						<entry name="stickykeys_modifier_beep">
+							<local_schema>
+								<longdesc>परिवर्तक दाबल्यावर बीप आवाज येईल.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="stickykeys_two_key_off">
+							<local_schema>
+								<longdesc>एकाच वेळी दोन कळ दाबल्यास अकार्यान्वीत करा.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="slowkeys_delay">
+							<local_schema short_desc="किमान अवधी मिलीसेकंदा मध्ये">
+								<longdesc>जोपर्यंत @delay मिलीसेकंदकरीता कळ दाबुन टेवले असल्यास तोपर्यंत कळ स्वीकारू नका.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_init_delay">
+							<local_schema short_desc="प्रारंभीक उशीर मिलीसेकंदा मध्ये">
+								<longdesc>माउस हालचालीकरीता कळ कार्यान्वीत होण्यापासून किती मिलिसेकंद थांबायचे.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_accel_time">
+							<local_schema short_desc="मिलीसेकंदमध्ये किती वेळ प्रवेग करायचे">
+								<longdesc>0 पासून जास्तीत जास्त वेगांनी जाण्यासाठी किती मिलिसेकंद लागतात.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_max_speed">
+							<local_schema short_desc="प्रत्येक सेकंदाकरीता पीक्सेल">
+								<longdesc>सर्वाधिक वेगाने जाताना एका सेकंदात किती मेगा पिक्सेल हलवायचे.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bouncekeys_delay">
+							<local_schema short_desc="किमान अवधी मिलीसेकंदात">
+								<longdesc>@delay निलीसेकंदच्या अंतर्गत _same_ key अनेकदा दाबल्यास दुर्लक्ष करा.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+			</dir>
+		</dir>
+	</dir>
+</gconf>

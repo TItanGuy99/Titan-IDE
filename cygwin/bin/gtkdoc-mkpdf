@@ -1,0 +1,133 @@
+#!/bin/sh
+#
+
+usage() {
+cat <<EOF
+gtkdoc-mkpdf version 1.24 - generate documentation in pdf format
+
+--verbose               Print extra output while processing
+--path=SEARCH_PATH      Extra source directories
+--imgdir=DIR            Extra image directories
+MODULE                  Name of the doc module being parsed
+DRIVER_FILE             File containing the toplevel DocBook file.
+--version               Print the version of this program
+--help                  Print this help
+EOF
+}
+
+#echo "args $0\n";
+
+cleanexit() {
+    rm -f $module.fo
+    exit $1
+}
+
+# parse options, ignore unknown options for future extensions
+
+verbose="0"
+searchpath=
+uninstalled=no
+imgdirs=
+while true; do
+    case "X$1" in
+        X--version) echo "1.24"; exit 0;;
+        X--help) usage; exit 0;;
+        X--uninstalled) uninstalled=yes; shift;;
+        X--verbose) verbose="1"; shift;;
+        X--path=*) searchpath=`echo $1 | sed s/.*=//`; shift;;
+        X--imgdir=*) imgdirs="$imgdirs -I `echo $1 | sed s/.*=//`"; shift;;
+        X--*) shift;;
+        X*) break;;
+    esac
+done
+
+if test $# -lt 2; then
+    usage 1>&2
+    exit 1
+fi
+
+module=$1
+shift
+document=$1
+shift
+
+quiet="1"
+if test $verbose = "1"; then
+    quiet="0"
+fi
+
+if test $uninstalled = yes; then
+      # this does not work from buiddir!=srcdir
+      # we could try this
+      # MAKE_SCRDIR=$(abs_srcdir) MAKE_BUILDDIR=$(abs_builddir) gtkdoc-mkpdf ...
+      gtkdocdir=`dirname $0`
+      #echo "uninstalled, gtkdocdir=$gtkdocdir"
+else
+      # the first two are needed to resolve datadir
+      prefix=/usr
+      datarootdir=${prefix}/share
+      gtkdocdir=${datarootdir}/gtk-doc/data
+fi
+
+if head -n 1 $document | grep "<?xml" > /dev/null; then
+    is_xml=true
+    path_option='--path'
+else
+    is_xml=false
+    path_option='--directory'
+fi
+
+# we could do "$path_option $PWD "
+# to avoid needing rewriting entities that are copied from the header
+# into docs under xml
+if test "X$searchpath" = "X"; then
+    path_arg=
+else
+    path_arg="$path_option $searchpath"
+fi
+
+if $is_xml; then
+  if test -n "/usr/bin/dblatex"; then
+      # extra options to consider
+      # -I FIG_PATH
+      # -V is useful for debugging
+      # -T db2latex : different style
+      # -d : keep transient files (for debugging)
+      # -P abc.def=$quiet : once the stylesheets have a quiet mode
+      # xsltproc is already called with --xinclude
+      # does not work: --xslt-opts "$path_arg --nonet $@"
+      dblatex_options="-o $module.pdf $imgdirs $document"
+      #echo "calling: /usr/bin/dblatex $dblatex_options"
+      if test $verbose = "0"; then
+          /usr/bin/dblatex 2>&1 --help | grep  >/dev/null "\-\-quiet"
+          if test "$?" = "0"; then
+            dblatex_options="--quiet $dblatex_options";
+          fi;
+          /usr/bin/dblatex 2>&1 >/dev/null $dblatex_options | grep -v 'programlisting or screen'
+      else
+          { /usr/bin/dblatex 2>&1 >&3 $dblatex_options | grep -v 'programlisting or screen' >&2; } 3>&1
+      fi
+  else
+    if test -n ""; then
+        /usr/bin/xsltproc $path_arg --nonet --xinclude \
+            --stringparam gtkdoc.bookname $module \
+            --stringparam gtkdoc.version "1.24" \
+            --stringparam chunk.quietly $quiet \
+            --stringparam chunker.output.quiet $quiet \
+            "$@" -o $module.fo $gtkdocdir/gtk-doc-fo.xsl $document || cleanexit $?
+        # fop dies too easily :(
+        #  $module.fo $module.pdf
+    else
+      echo "dblatex or fop must be installed to use gtkdoc-mkpdf." >&2
+      cleanexit 1
+    fi
+  fi
+else
+    # not very good output
+    # also for xxx-docs.sgml it will produce xxx-docs.pdf
+    docbook2pdf -e no-valid $document
+fi
+
+echo "timestamp" > pdf.stamp
+cleanexit 0
+

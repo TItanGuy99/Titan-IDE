@@ -1,0 +1,87 @@
+V "GNAT Lib v5"
+A -gnatwa
+A -nostdinc
+A -O2
+A -Wextra
+A -Wall
+A -g
+A -gnatp
+A -gnatg
+A -mtune=generic
+A -march=i686
+P SS ZX
+
+RN
+RV NO_DIRECT_BOOLEAN_OPERATORS
+RV SPARK_05
+
+U ada.directories.validity%b  a-dirval.adb	1b6c1696 NE OL PK
+W ada%s			ada.ads			ada.ali
+W ada.characters%s	a-charac.ads		a-charac.ali
+W ada.characters.latin_1%s  a-chlat1.ads	a-chlat1.ali
+W ada.directories%s	a-direct.adb		a-direct.ali
+
+U ada.directories.validity%s  a-dirval.ads	d34bdf62 NE OL PK
+W ada.directories%s	a-direct.adb		a-direct.ali
+
+D ada.ads		20070406091342 3ffc8e18 ada%s
+D a-calend.ads		20141120112812 d986d312 ada.calendar%s
+D a-charac.ads		20070912115821 2d3ec45b ada.characters%s
+D a-chlat1.ads		20140225151544 66457d31 ada.characters.latin_1%s
+D a-direct.ads		20140801100131 9d42e46d ada.directories%s
+D a-dirval.ads		20140801093848 4e093b0f ada.directories.validity%s
+D a-dirval.adb		20140801093848 332050a8 ada.directories.validity%b
+D a-except.ads		20140730140058 5250cb69 ada.exceptions%s
+D a-finali.ads		20140611123707 69f99942 ada.finalization%s
+D a-ioexce.ads		20140225151544 e4a01f64 ada.io_exceptions%s
+D a-stream.ads		20141120112812 119b8fb3 ada.streams%s
+D a-string.ads		20070406091342 90ac6797 ada.strings%s
+D a-strmap.ads		20140611123156 e8bb714a ada.strings.maps%s
+D a-strunb.ads		20140717072738 3f91d4c5 ada.strings.unbounded%s
+D a-tags.ads		20140730140058 dc4d0634 ada.tags%s
+D a-unccon.ads		20070406091342 f9eb8f06 ada.unchecked_conversion%s
+D system.ads		20141030114420 f4ce8c3a system%s
+D s-atocou.ads		20141017084241 cd7c94ca system.atomic_counters%s
+D s-exctab.ads		20140225151139 54135002 system.exception_table%s
+D s-finmas.ads		20140225151139 814daec4 system.finalization_masters%s
+D s-finroo.ads		20120426095924 4ff27390 system.finalization_root%s
+D s-parame.ads		20140801093848 7e2a0d7f system.parameters%s
+D s-secsta.ads		20140225151139 86a2856d system.secondary_stack%s
+D s-soflin.ads		20140801100131 aa763b52 system.soft_links%s
+D s-stache.ads		20140225151139 a37c21ec system.stack_checking%s
+D s-stalib.ads		20150220094550 fa0a3617 system.standard_library%s
+D s-stoele.ads		20140225151139 2dc34a04 system.storage_elements%s
+D s-stopoo.ads		20131010103753 b16154c2 system.storage_pools%s
+D s-stposu.ads		20140718101241 97a6219c system.storage_pools.subpools%s
+D s-stratt.ads		20131014135145 aedef97e system.stream_attributes%s
+D s-traent.ads		20140730135025 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20140731130224 9d58a4c0 system.unsigned_types%s
+X 1 ada.ads
+16K9*Ada 19e8 6|35r17 49r5 7|35r6 35r34 37r14 173r5
+X 3 a-charac.ads
+16K13*Characters 18e19 7|35r10 35r38
+X 4 a-chlat1.ads
+18K24*Latin_1 296e27 7|35w21 35r49
+25e4*NUL{character} 7|40r7
+57e4*US{character} 7|40r14
+130e4*DEL{character} 7|43r7
+183e4*NBSP=183:52{character} 7|43r14
+X 5 a-direct.ads
+76K13*Directories 1|16k9 5|487e20 6|35r21 49r9 7|37r18 173r9
+X 6 a-dirval.ads
+35K33*Validity 5|76k13 6|49l21 49e29 7|37b30 173l21 173t29
+37V13*Is_Valid_Simple_Name{boolean} 37>35 7|117s20 136b13 162l8 162t28
+37a35 Name{string} 7|136b35 143r10 143r34 150r19 151r35 153r19
+40V13*Is_Valid_Path_Name{boolean} 40>33 7|59b13 130l8 130t26
+40a33 Name{string} 7|59b33 60r27 68r10 68r34 74r13 75r22 77r14 78r14 86r24
+. 87r24 87r53 96r28 97r16 97r38 104r31 110r26 111r26 111r51 117r42
+43V13*Is_Path_Name_Case_Sensitive{boolean} 7|50b13 53l8 53t35
+46V13*Windows{boolean} 7|168b13 171l8 171t15
+X 7 a-dirval.adb
+39a4 Invalid_Character(boolean) 151r16
+60i7 Start{positive} 75r28 77r20 78r20 80m13 80r22 86r16 87r30 87r59 96r19
+. 97r22 97r44 99m16 99r25 104r23 106r21 117r48 123m13
+61i7 Last{natural} 106m13 110r19 111r32 111r57 112m16 112r24 117r57 123r22
+137b7 Only_Spaces{boolean} 149m10 154m16 160r21
+150i14 J{integer} 151r41 153r25
+

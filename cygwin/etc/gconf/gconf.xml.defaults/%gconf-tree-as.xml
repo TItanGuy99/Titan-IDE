@@ -1,0 +1,626 @@
+<?xml version="1.0"?>
+<gconf>
+	<dir name="schemas">
+		<dir name="system">
+			<dir name="smb">
+				<entry name="workgroup">
+					<local_schema short_desc="SMB ৱৰ্ক-গ্ৰুপ">
+						<longdesc>ব্যবহাৰকাৰী যে Windows নেটৱৰ্কিং ৱৰ্কগ্ৰুপ অথবা ডোমেইনেৰ অংশ । নতুন ৱৰ্কগ্ৰুপ সম্পূৰ্ণৰূপে সক্ৰিয় কৰাৰ জন্য ব্যবহাৰকাৰীকে সম্ভবত লগ-আউট কৰে পুনৰায় লগ-ইন কৰতে হবে ।</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="proxy">
+				<entry name="autoconfig_url">
+					<local_schema short_desc="স্বয়ংক্ৰিয় প্ৰক্সি বিন্যাসেৰ URL">
+						<longdesc>প্ৰক্সি কনফিগাৰ কৰাৰ জন্য ব্যবহৃত মান প্ৰস্তুতকাৰী URL ।</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="socks_port">
+					<local_schema short_desc="SOCKS প্ৰক্সি পোৰ্ট">
+						<longdesc>প্ৰক্সি কৰাৰ উদ্দেশ্যে ব্যবহৃত মেশিনেৰ পোৰ্ট &quot;/system/proxy/socks_host&quot; দ্বাৰা ব্যাখ্যা কৰা হয় ।</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="socks_host">
+					<local_schema short_desc="SOCKS প্ৰক্সি হোস্ট-নেম">
+						<longdesc>socks প্ৰক্সিৰ জন্য ব্যবহাৰযোগ্য মেশিনেৰ নাম ।</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="ftp_port">
+					<local_schema short_desc="FTP প্ৰক্সি পোৰ্ট">
+						<longdesc>প্ৰক্সি কৰাৰ উদ্দেশ্যে ব্যবহৃত মেশিনেৰ পোৰ্ট &quot;/system/proxy/ftp_host&quot; দ্বাৰা ব্যাখ্যা কৰা হয় ।</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="ftp_host">
+					<local_schema short_desc="FTP প্ৰক্সিৰ হোস্ট-নেম">
+						<longdesc>FTP প্ৰক্সিৰ জন্য ব্যবহাৰযোগ্য মেশিনেৰ নাম ।</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="secure_port">
+					<local_schema short_desc="নিৰাপদ HTTP প্ৰক্সি পোৰ্ট">
+						<longdesc>প্ৰক্সি কৰাৰ উদ্দেশ্যে ব্যবহৃত মেশিনেৰ পোৰ্ট &quot;/system/proxy/secure_host&quot; দ্বাৰা ব্যাখ্যা কৰা হয় ।</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="secure_host">
+					<local_schema short_desc="নিৰাপদ HTTP প্ৰক্সি হোস্ট-নেম">
+						<longdesc>নিৰাপদ HTTP প্ৰক্সিৰ জন্য ব্যবহাৰযোগ্য মেশিনেৰ নাম ।</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="mode">
+					<local_schema short_desc="প্ৰক্সি বিন্যাস মোড">
+						<longdesc>প্ৰক্সি বিন্যাস মোড নিৰ্বাচন কৰুন । সমৰ্থিত মান হল &quot;none&quot;, &quot;manual&quot;, &quot;auto&quot; ।</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="http_proxy">
+				<entry name="ignore_hosts">
+					<local_schema short_desc="প্ৰক্সি-বিহীন হোস্ট">
+						<longdesc>প্ৰক্সিৰ (যদি সক্ৰিয়) পৰিবৰ্তে সৰাসৰি সংযোগকাৰী হোস্টেৰ তালিকা এই কি দ্বাৰা উল্লিখিত হয়েছে । হোস্ট-নেম, ডোমেইন (প্ৰাৰম্ভিক ৱইল্ডকাৰ্ডসহ যেমন *.foo.com), IP হোস্ট ঠিকানা (IPv4 ও IPv6) ও নেটমাস্কসহ নেটৱৰ্ক ঠিকানাৰ (যেমন 192.168.0.0/24) মান এই ক্ষেত্ৰে অন্তৰ্ভুক্ত কৰা যাবে ।</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="authentication_password">
+					<local_schema short_desc="HTTP প্ৰক্সি পাসৱৰ্ড">
+						<longdesc>HTTP প্ৰক্সিৰ ক্ষেত্ৰে অনুমোদনেৰ জন্য প্ৰযোজ্য পাসৱৰ্ড</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="authentication_user">
+					<local_schema short_desc="HTTP প্ৰক্সি ব্যবহাৰকাৰীৰ নাম">
+						<longdesc>HTTP প্ৰক্সিৰ ক্ষেত্ৰে অনুমোদনেৰ জন্য প্ৰযোজ্য ব্যবহাৰকাৰীৰ নাম ।</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="use_authentication">
+					<local_schema short_desc="প্ৰক্সি সাৰ্ভাৰেৰ সংযোগ অনুমোদন কৰা হবে">
+						<longdesc>মান true (সত্য) হলে প্ৰক্সি সাৰ্ভাৰেৰ সাথে সংযোগেৰ জন্য অনুমোদন আবশ্যক । ব্যবহাৰকাৰীৰ নাম/পাসৱৰ্ড জুটি &quot;/system/http_proxy/authentication_user&quot; ও &quot;/system/http_proxy/authentication_password&quot; দ্বাৰা ব্যাখ্যা কৰা হয় ।</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="port">
+					<local_schema short_desc="HTTP প্ৰক্সি পোৰ্ট">
+						<longdesc>প্ৰক্সি কৰাৰ উদ্দেশ্যে ব্যবহৃত মেশিনেৰ পোৰ্ট &quot;/system/http_proxy/host&quot; দ্বাৰা ব্যাখ্যা কৰা হয় ।</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="host">
+					<local_schema short_desc="HTTP প্ৰক্সি হোস্ট-নেম">
+						<longdesc>HTTP প্ৰক্সিৰ জন্য ব্যবহাৰযোগ্য মেশিনেৰ নাম ।</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="use_http_proxy">
+					<local_schema short_desc="HTTP প্ৰক্সি ব্যবহাৰ কৰা হবে">
+						<longdesc>ইন্টাৰনেটেৰ মাধ্যমে HTTP ব্যবহাৰেৰ সময় প্ৰক্সি সংক্ৰান্ত বৈশিষ্ট্য সক্ৰিয় কৰা হবে</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="dns_sd">
+				<entry name="extra_domains">
+					<local_schema short_desc="DNS-SD পৰিসেবাৰ জন্য অতিৰিক্ত ডোমেইন অনুসন্ধান কৰা হবে">
+						<longdesc>&quot;network:///&quot; location&apos;ত প্ৰদৰ্শনযোগ্য DNS-SD&apos;ৰ তালিকা, কমা চিহ্ন দ্বাৰা বিভাজিত</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="display_local">
+					<local_schema short_desc="স্থানীয় DNS-SD পৰিসেবা প্ৰদৰ্শনেৰ প্ৰণালী">
+						<longdesc>সম্ভব মান &quot;merged&quot;, &quot;separate&quot; ও &quot;disabled&quot; ।</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+		</dir>
+		<dir name="desktop">
+			<dir name="gnome">
+				<dir name="typing_break">
+					<entry name="enabled">
+						<local_schema short_desc="চাবিৰ ফলকৰ লক কৰাৰ সুবিধা সক্ৰিয় আছে নে নাই">
+							<longdesc>চাবিৰ ফলকৰ লক কৰাৰ সুবিধা সক্ৰিয় আছে নে নাই ।</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="allow_postpone">
+						<local_schema short_desc="বিৰতিকাল মুলতুবি কৰাৰ সুবিধা উপলব্ধ কৰা হ&apos;ব">
+							<longdesc>টাইপৰ বিৰতিকালৰ পৰ্দা প্ৰদৰ্শন মুলতুবি কৰা হ&apos;ব নে নহয় ।</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="break_time">
+						<local_schema short_desc="বিৰতিকাল">
+							<longdesc>টাইপৰ বিৰতিকালৰ স্থিতিসময়, মিনিট অনুযায়ী ব্যক্ত ।</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="type_time">
+						<local_schema short_desc="টাইপ কৰাৰ সময়">
+							<longdesc>বিৰতিকাল আৰম্ভৰ পূৰ্বৰ টাইপ কৰাৰ সময়, মিনিট অনুযায়ী ব্যক্ত ।</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="thumbnailers">
+					<entry name="disable_all">
+						<local_schema short_desc="সমস্ত বহিস্থিত থাম্ব-নেইল নিষ্ক্ৰিয় কৰা হ&apos;ব">
+							<longdesc>থাম্ব-নেইল অনুপ্ৰয়োগসমূহ স্বতন্ত্ৰৰূপে নিষ্ক্ৰিয়/সক্ৰিয় থাকিলেও সমস্ত বহিস্থিত থাম্ব-নেইল অনুপ্ৰয়োগ নিষ্ক্ৰিয় কৰিবলৈ মান true (সত্য) নিৰ্ধাৰণ কৰক ।</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="thumbnail_cache">
+					<entry name="maximum_size">
+						<local_schema>
+							<longdesc>কেছে থাম্বনেইলৰ সৰ্বাধিক আকাৰ, megabytes ত । পৰিষ্কাৰ কৰা নিষ্ক্ৰিয় কৰিবলৈ -১ লৈ নিৰ্ধাৰণ কৰক ।</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="maximum_age">
+						<local_schema>
+							<longdesc>কেছে থাম্বনেইলৰ সৰ্বাধিক বয়স, দিনত । পৰিষ্কাৰ কৰা নিষ্ক্ৰিয় কৰিবলৈ -১ লৈ নিৰ্ধাৰণ কৰক ।</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="sound">
+					<entry name="input_feedback_sounds">
+						<local_schema short_desc="নিবেশ মন্তব্যৰ ধ্বনি">
+							<longdesc>ব্যৱহাৰকৰ্তাৰ ঘটনাৰ বাবে শব্দ বজোৱা হ&apos;ব ।</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="theme_name">
+						<local_schema short_desc="ধ্বনিৰ থিমৰ নাম">
+							<longdesc>পেনেল, nautilus প্ৰভৃতিৰ বাবে ব্যৱহৃত প্ৰতীকচিহ্নৰ থিম</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="event_sounds">
+						<local_schema short_desc="বিভিন্ন ঘটনাৰ শব্দ">
+							<longdesc>ব্যৱহাৰকৰ্তাদৰ ঘটনাৰ বাবে শব্দ বজোৱা হ&apos;ব ।</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="enable_esd">
+						<local_schema short_desc="ESD সক্ৰিয় কৰা হ&apos;ব">
+							<longdesc>প্ৰাৰম্ভিক ধ্বনি সেৱক সক্ৰিয় কৰা হ&apos;ব ।</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="default_mixer_tracks">
+						<local_schema short_desc="অবিকল্পিত মিক্সাৰ ট্ৰেক">
+							<longdesc>মাল্টিমিডিয়া কি বাইন্ডিং দ্বাৰা ব্যৱহৃত অবিকল্পিত মিক্সাৰ ট্ৰেক ।</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="default_mixer_device">
+						<local_schema short_desc="অবিকল্পিত মিক্সাৰ যন্ত্ৰ">
+							<longdesc>মাল্টিমিডিয়া কি বাইন্ডিং দ্বাৰা ব্যৱহৃত অবিকল্পিত মিক্সাৰ যন্ত্ৰ ।</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="peripherals">
+					<dir name="mouse">
+						<entry name="cursor_size">
+							<local_schema short_desc="কাৰ্ছাৰৰ মাপ">
+								<longdesc>cursor_theme&apos;ৰ মান দ্বাৰা উল্লিখিত কাৰ্ছাৰৰ মাপ ।</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="cursor_theme">
+							<local_schema short_desc="কাৰ্ছাৰৰ থিম">
+								<longdesc>কাৰ্ছাৰৰ থিমৰ নাম । অকল Xcursor সমৰ্থনকাৰী Xservers যেনে XFree86 4.3 বা ঊৰ্ধ্বতন সংস্কৰণ দ্বাৰা সমৰ্থিত ।</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="cursor_font">
+							<local_schema short_desc="কাৰ্ছাৰ ফন্ট">
+								<longdesc>কাৰ্ছাৰৰ ফন্টৰ নাম । মান নিৰ্ধাৰিত ন&apos;হ&apos;লে অবিকল্পিত ফন্ট ব্যৱহৃত হ&apos;ব । প্ৰতি অধিবেশনত X সেৱক আৰম্ভৰ সময়ত এই মান প্ৰেৰিত হয় আৰু অধিবেশনৰ মধ্যবৰ্তী কোনো সময়ত এই মান পৰিবৰ্তনৰ ফলত মান পৰিবৰ্তিত ন&apos;হ&apos;ব আৰু পুনঃ প্ৰৱেশ কৰা আৱশ্যক ।</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="locate_pointer">
+							<local_schema short_desc="মাউছ নিৰ্দেশকৰ অৱস্থান অনুসন্ধান">
+								<longdesc>কন্ট্ৰোল চাবি চপা হ&apos;লে নিৰ্দেশকৰ বৰ্তমান অৱস্থান উজ্জ্বল কৰা হয় ।</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="double_click">
+							<local_schema short_desc="দুবাৰ ক্লিক কৰিবলৈ ব্যতীত সময়">
+								<longdesc>দুবাৰ ক্লিকৰ দৈৰ্ঘ্য</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="drag_threshold">
+							<local_schema short_desc="ড্ৰেগ কৰাৰ প্ৰান্তিক মাপ">
+								<longdesc>ড্ৰেগ আৰম্ভ হোৱাৰ আগৰ অবধি মধ্যবৰ্তী দূৰত্ব</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="motion_threshold">
+							<local_schema short_desc="গতিবিধিৰ প্ৰান্তিক মাপ">
+								<longdesc>গতিবৰ্ধিত মাউছ গতিবিধি সক্ৰিয় কৰাৰ পূৰ্বে মাউছ নিৰ্দেশক স্থানান্তৰণৰ ন্যূনতম দুৰত্ব, পিক্সেল অনুসাৰে ব্যক্ত । ব্যৱস্থাপ্ৰণালীৰ অবিকল্পিত মান -১ ।</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="motion_acceleration">
+							<local_schema short_desc="এবাৰ ক্লিক">
+								<longdesc>মাউছৰ গতিবিধিৰ ক্ষেত্ৰত প্ৰযোজ্য গতিবৰ্ধকৰ গুণক । ব্যৱস্থাপ্ৰণালীৰ অবিকল্পিত মান -১ ।</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="single_click">
+							<local_schema short_desc="এবাৰ ক্লিক">
+								<longdesc>প্ৰতীকচিহ্ন খোলোঁতে এটা ক্লিক ব্যৱহাৰ কৰা হ&apos;ব</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="left_handed">
+							<local_schema short_desc="মাউছ বুটামৰ দিশ">
+								<longdesc>বাওঁ হাতৰ মাউছৰ ক্ষেত্ৰত সোঁ আৰু বাওঁফালৰ বুটাম অদলবদল কৰা হ&apos;ব</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="keyboard">
+						<entry name="remember_numlock_state">
+							<local_schema short_desc="NumLock ৰ সৰ্বশেষ অৱস্থা মনত ৰখা হ&apos;ব">
+								<longdesc>মান true (সত্য) হ&apos;লে, GNOME&apos;ৰ দ্বাৰা বিভিন্ন অধিবেশনত NumLock LED&apos;ৰ সৰ্বশেষ অৱস্থা সংৰক্ষিত হ&apos;ব ।</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bell_custom_file">
+							<local_schema short_desc="চাবিৰ ফলকৰ বেল ৰূপে ব্যৱহৃত স্বনিৰ্বাচিত নথিপত্ৰৰ নাম">
+								<longdesc>ঘন্টাধ্বনিৰ বাবে ব্যৱহৃত নথিপত্ৰৰ নাম</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bell_mode">
+							<local_schema>
+								<longdesc>সম্ভাব্য মান হল &quot;on &quot;, &quot;off&quot; আৰু &quot;custom &quot; ।</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+				<dir name="lockdown">
+					<entry name="disable_application_handlers">
+						<local_schema short_desc="URL আৰু MIME type handlers নিষ্ক্ৰিয় কৰক">
+							<longdesc>কোনো URL বা MIME type handler অনুপ্ৰয়োগ চলাব নিদিব ।</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_lock_screen">
+						<local_schema short_desc="পৰ্দা লক কৰাৰ প্ৰক্ৰিয় নিষ্ক্ৰিয় কৰা হ&apos;ব">
+							<longdesc>ব্যৱহাৰকৰ্তাক পৰ্দা লক কৰিবলৈ দিয়া ন&apos;হ&apos;ব ।</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_user_switching">
+						<local_schema short_desc="ব্যৱহাৰকৰ্তা পৰিবৰ্তনৰ প্ৰক্ৰিয়া নিষ্ক্ৰিয় কৰা হ&apos;ব">
+							<longdesc>সক্ৰিয় অধিবেশনত ব্যৱহাৰকৰ্তাক ভিন্ন হিচাপ পৰিবৰ্তন কৰিবলৈ দিয়া ন&apos;হ&apos;ব ।</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_print_setup">
+						<local_schema short_desc="প্ৰিন্ট ব্যৱস্থাৰ বৈশিষ্ট্য নিষ্ক্ৰিয় কৰা হ&apos;ব">
+							<longdesc>ব্যৱহাৰকৰ্তাৰ দ্বাৰা প্ৰিন্ট সংক্ৰান্ত বৈশিষ্ট্য পৰিবৰ্তনে প্ৰতিৰোধ কৰা হ&apos;ব । উদাহৰণস্বৰূপ, ইয়াৰ ফলত সৰ্বধৰনৰ অনুপ্ৰয়োগৰ &quot;প্ৰিন্ট কৰ্মৰ বৈশিষ্ট্য&quot; শীৰ্ষক সম্বাদ ব্যৱহাৰ কৰা নাযাব ।</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_printing">
+						<local_schema short_desc="প্ৰিন্ট ব্যৱস্থা নিষ্ক্ৰিয় কৰা হ&apos;ব">
+							<longdesc>ব্যৱহাৰকৰ্তাক প্ৰিন্ট কৰিবলৈ বাধা দিয়া হ&apos;ব । উদাহৰণস্বৰূপ, ইয়াৰ ফলত সৰ্বধৰনৰ অনুপ্ৰয়োগৰ &quot;প্ৰিন্ট&quot; সম্বাদ ব্যৱহাৰ কৰা নাযাব ।</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_save_to_disk">
+						<local_schema short_desc="ডিস্কত নথিপত্ৰ সংৰক্ষণ ব্যৱস্থা নিষ্ক্ৰিয় কৰা হ&apos;ব">
+							<longdesc>ব্যৱহাৰকৰ্তাক ডিস্কত নথিপত্ৰ সংৰক্ষণত বাধা দিয়া হ&apos;ব । উদাহৰণস্বৰূপ, ইয়াৰ ফলত সৰ্বধৰনৰ অনুপ্ৰয়োগৰ &quot;নতুন ৰূপে সংৰক্ষণ&quot; সম্বাদ ব্যৱহাৰ কৰা নাযাব ।</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_command_line">
+						<local_schema short_desc="আদেশ লাইন নিষ্ক্ৰিয় কৰা হ&apos;ব">
+							<longdesc>ব্যৱহাৰকৰ্তাৰ দ্বাৰা টাৰ্মিনেল বা কোনো আদেশ-লাইন চলোৱা প্ৰতিৰোধ কৰা হ&apos;ব । উদাহৰণস্বৰূপ, ইয়াৰ ফলত পেনেলৰ &quot;অনুপ্ৰয়োগ চালনা&quot; সম্বাদৰ ব্যৱহাৰ বন্ধ হ&apos;ব ।</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="interface">
+					<entry name="show_unicode_menu">
+						<local_schema short_desc="&apos;ইউনিকোড কনট্ৰোল কেৰেকটাৰ&apos; শীৰ্ষক তালিকা প্ৰদৰ্শন কৰা হ&apos;ব">
+							<longdesc>নিবেশৰ কনটেক্সট তালিকা আৰু টেক্সট প্ৰদৰ্শন ব্যৱস্থাৰ দ্বাৰা কন্ট্ৰোল কেৰেক্টাৰ সন্নিবেশৰ সুবিধা উপলব্ধ কৰা হ&apos;ব নে নহয়</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="show_input_method_menu">
+						<local_schema short_desc="&apos;নিবেশ পদ্ধতি&apos; নামক তালিকা প্ৰদৰ্শিত হ&apos;ব">
+							<longdesc>নিবেশৰ কনটেক্সট তালিকা আৰু টেক্সট প্ৰদৰ্শন ব্যৱস্থাৰ দ্বাৰা নিবেশ পদ্ধতি পৰিবৰ্তনৰ সুবিধা উপলব্ধ কৰা হ&apos;ব নে নহয়</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menubar_accel">
+						<local_schema short_desc="তালিকা-বাৰ গতিবৰ্দ্ধক">
+							<longdesc>তালিকা-বাৰ খোলোঁতে ব্যৱহৃত চাবিৰ ফলকৰ শোৰ্টকাট</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="file_chooser_backend">
+						<local_schema short_desc="GtkFileChooser&apos;ৰ অংশ">
+							<longdesc>GtkFileChooser উইজেটৰ ক্ষেত্ৰত নথিপত্ৰপ্ৰণালী অংশৰূপে ব্যৱহাৰযোগ্য অংশ । সম্ভাব্য মান &quot;gnome-vfs&quot; আৰু &quot;gtk+&quot; ।</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="status_bar_meter_on_right">
+						<local_schema short_desc="অৱস্থাসূচক বাৰ সোঁফালে">
+							<longdesc>সোঁফালৰ অৱস্থাসূচক-বাৰৰ মাত্ৰা প্ৰদৰ্শন কৰা হ&apos;ব নে নহয়</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="use_custom_font">
+						<local_schema short_desc="স্বনিৰ্বাচিত ফন্ট ব্যৱহাৰ কৰা হ&apos;ব">
+							<longdesc>gtk+ অনুপ্ৰয়োগৰ ক্ষেত্ৰত স্বনিৰ্বাচিত ফন্ট ব্যৱহৃত হ&apos;ব নে নহয় ।</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="monospace_font_name">
+						<local_schema short_desc="Monospace font">
+							<longdesc>টাৰ্মিনেলৰ দৰে স্থানত ব্যৱহাৰৰ বাবে monospaced (স্থায়ী-প্ৰস্থেৰ) ফন্টৰ নাম ।</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="document_font_name">
+						<local_schema short_desc="আলেখ্যনত ব্যৱহৃত ফন্ট">
+							<longdesc>নথিপত্ৰ পঢ়াৰ উদ্দেশ্যে ব্যৱহৃত অবিকল্পিত ফন্টৰ নাম</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-module">
+						<local_schema short_desc="GTK IM অংশ">
+							<longdesc>GTK+ দ্বাৰা ব্যৱহৃত নিবেশ পদ্ধতিৰ অংশৰ নাম ।</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-status-style">
+						<local_schema short_desc="GTK IM অৱস্থাসূচক বিন্যাস">
+							<longdesc>gtk+ দ্বাৰা ব্যৱহৃত GTK+ নিবেশ পদ্ধতিৰ অৱস্থাৰ বিন্যাস ।</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-preedit-style">
+						<local_schema short_desc="GTK IM Preedit ধৰণ">
+							<longdesc>gtk+ দ্বাৰা ব্যৱহৃত GTK+ নিবেশ পদ্ধতিৰ Preedit বিন্যাস ।</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="font_name">
+						<local_schema short_desc="অবিকল্পিতৰূপে ব্যৱহৃত ফন্ট">
+							<longdesc>gtk+ দ্বাৰা ব্যৱহৃত অবিকল্পিত ফন্টৰ নাম ।</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_key_theme">
+						<local_schema short_desc="Gtk+ Theme">
+							<longdesc>gtk+&apos;ৰ দ্বাৰা ব্যৱহৃত অবিকল্পিত থিমৰ Basename ।</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_theme">
+						<local_schema short_desc="Gtk+ Theme">
+							<longdesc>gtk+&apos;ৰ দ্বাৰা ব্যৱহৃত অবিকল্পিত থিমৰ Basename ।</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="icon_theme">
+						<local_schema short_desc="প্ৰতীকচিহ্নৰ থিম">
+							<longdesc>পেনেল, nautilus প্ৰভৃতিৰ বাবে ব্যৱহৃত প্ৰতীকচিহ্নৰ থিম</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink_time">
+						<local_schema short_desc="কাৰ্ছাৰ ব্লিঙ্কৰ সময়">
+							<longdesc>কাৰ্ছাৰ ব্লিঙ্কৰ সময়কালৰ দৈৰ্ঘ্য, milliseconds ত</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink">
+						<local_schema short_desc="কাৰ্ছাৰৰ ব্লিঙ্ক">
+							<longdesc>কাৰ্ছাৰ ব্লিঙ্ক হ&apos;ব নে নহয়</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_icons_size">
+						<local_schema short_desc="টুল-বাৰ প্ৰতীকৰ মাপ">
+							<longdesc>টুলবাৰত আইকণৰ আকাৰ, &quot;small-toolbar&quot; বা &quot;large-toolbar&quot; ।</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_detachable">
+						<local_schema short_desc="টুল-বাৰ বিচ্ছিন্ন কৰা সম্ভব">
+							<longdesc>ব্যৱহাৰকৰ্তাৰ দ্বাৰা টুল-বাৰ বিচ্ছিন্ন কৰি স্থানান্তৰণ কৰা সম্ভব নে নহয়</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menubar_detachable">
+						<local_schema short_desc="তালিকা-বাৰ বিচ্ছন্ন কৰা সম্ভৱ">
+							<longdesc>ব্যৱহাৰকৰ্তাৰ দ্বাৰা তালিকা-বাৰ বিচ্ছিন্ন কৰি স্থানান্তৰণ কৰা সম্ভব নে নহয়</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="buttons_have_icons">
+						<local_schema short_desc="বুটামত প্ৰতীকচিহ্ন উপস্থিত">
+							<longdesc>বুটামৰ ক্ষেত্ৰত বুটামৰ লিপিৰ উপৰিও প্ৰতীকচিহ্ন প্ৰদৰ্শিত হ&apos;ব নে নহয়</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menus_have_icons">
+						<local_schema short_desc="তালিকাত প্ৰতীকচিহ্ন উপস্থিত">
+							<longdesc>তালিকাৰ ক্ষেত্ৰত তালিকাৰ বস্তুৰ ওচৰত প্ৰতীকচিহ্ন প্ৰদৰ্শিত হ&apos;ব নে নহয়</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_style">
+						<local_schema short_desc="টুল-বাৰৰ বিন্যাস">
+							<longdesc>টুল-বাৰৰ বিন্যাস । বৈধ মান হল &quot;both (উভয়)&quot;, &quot;both-horiz (উভয়-অনুভূমিক)&quot;, &quot;icons (প্ৰতীকচিহ্ন)&quot; আৰু &quot;text (টেক্সট)&quot;</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="can_change_accels">
+						<local_schema short_desc="গতিবৰ্দ্ধক পৰিৰ্তন কৰা সম্ভব">
+							<longdesc>ব্যৱহাৰকৰ্তাৰ দ্বাৰা কোনো সক্ৰিয় তালিকাৰ বস্তুৰ ওপৰত পৰিবৰ্তনশীল অৱস্থাত নতুন গতিবৰ্দ্ধক যোগ কৰা সম্ভব নে নহয়</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menus_have_tearoff">
+						<local_schema short_desc="তালিকা Tearoff বৈশিষ্ট্যযুক্ত">
+							<longdesc>তালিকাত tearoff বৈশিষ্ট্য হ&apos;ব নে নহয় ।</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="enable_animations">
+						<local_schema short_desc="এনিমেশন সক্ৰিয় কৰা হ&apos;ব">
+							<longdesc>এনিমেশন প্ৰদৰ্শিত হ&apos;ব নে নহয় । উল্লেখ্য: এইটো এটা সৰ্বব্যাপী চাবি আৰু ইয়াৰ দ্বাৰা সংযোগক্ষেত্ৰ পৰিচালন ব্যৱস্থা, পেনেল প্ৰভৃতিৰ মান প্ৰভাবিত হ&apos;ব</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="accessibility">
+						<local_schema short_desc="বিশেষ ব্যৱহাৰযোগ্যতা সক্ৰিয় কৰা হ&apos;ব">
+							<longdesc>অনুপ্ৰয়োগসমূহৰ দ্বাৰা বিশেষ ব্যৱহাৰযোগ্যতা সমৰ্থিত হ&apos;ব নে নহয়</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="file-views">
+					<entry name="icon_theme">
+						<local_schema short_desc="নথিপত্ৰ প্ৰতীকচিহ্নৰ থিম">
+							<longdesc>নথিপত্ৰ প্ৰতীকচিহ্ন প্ৰদৰ্শনৰ বাবে ব্যৱহৃত থিম</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="background">
+					<entry name="color_shading_type">
+						<local_schema short_desc="ৰং কৰাৰ প্ৰণালী">
+							<longdesc>পটভূমিৰ ৰং সহযোগে ছায়ান্বিত কৰাৰ পদ্ধতি । সম্ভাব্য মান &quot;horizontal-gradient&quot;, &quot;vertical-gradient&quot;, and &quot;solid&quot; ।</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="secondary_color">
+						<local_schema short_desc="দ্বিতীয় ৰং">
+							<longdesc>পৰ্যায়ক্ৰমে প্ৰদৰ্শিত ৰংৰ ক্ষেত্ৰত তলৰ বা সোঁফালৰ ৰং, গাঢ় ৰংৰ ক্ষেত্ৰত ব্যৱহৃত নহয় ।</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="primary_color">
+						<local_schema short_desc="প্ৰাথমিক ৰং">
+							<longdesc>পৰ্যায়ক্ৰমে প্ৰদৰ্শিত ৰঙৰ ক্ষেত্ৰত ওপৰ বা বাওঁফালৰ ৰং, বা গাঢ় ৰং ।</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_opacity">
+						<local_schema short_desc="ছবিৰ স্বচ্ছতা">
+							<longdesc>পটভুমিৰ ছবি আঁকাৰ উদ্দেশ্যে স্বচ্ছতাৰ মাত্ৰা ।</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_filename">
+						<local_schema short_desc="ছবিৰ নথিপত্ৰৰ নাম">
+							<longdesc>পটভূমিৰ ছবি ৰূপে ব্যৱহাৰৰ বাবে নথিপত্ৰ ।</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_options">
+						<local_schema short_desc="ছবি সংক্ৰান্ত বিকল্প">
+						</local_schema>
+					</entry>
+					<entry name="draw_background">
+						<local_schema short_desc="ডেস্কটপেৰ পটভূমি আঁকক">
+							<longdesc>GNOME&apos;ৰ দ্বাৰা পটভূমিৰ ছবি আঁকা হ&apos;ব ।</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="applications">
+					<dir name="component_viewer">
+						<entry name="exec">
+							<local_schema short_desc="কম্পোনেন্ট প্ৰদৰ্শনেৰ ডিফল্ট অ্যাপ্লিকেশন">
+								<longdesc>আবশ্যকৰূপে কোনো কম্পোনেন্ট সহযোগে প্ৰদৰ্শনেৰ উদ্দেশ্যে চিহ্নিত নথিপত্ৰ প্ৰদৰ্শনেৰ জন্য ব্যবহৃত অ্যাপ্লিকেশন । %s পৰামিতিৰ দ্বাৰা নথিপত্ৰেৰ URI উল্লিখিত হবে ও পৰামিতি %c দ্বাৰা কম্পোনেন্টেৰ IID নিৰ্দিষ্ট কৰা হবে ।</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="window_manager">
+						<entry name="workspace_names">
+							<local_schema short_desc="কৰ্মক্ষেত্ৰতৰ নাম (অবচিত)">
+								<longdesc>প্ৰথম সংযোগক্ষেত্ৰ পৰিচালন ব্যৱস্থাৰ কৰ্মক্ষেত্ৰতৰ নাম এটা তালিকা । GNOME 2.12 সংস্কৰণৰ পিছত এই চাবি অবচিত হৈছে ।</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="number_of_workspaces">
+							<local_schema short_desc="কৰ্মক্ষেত্ৰতৰ সংখ্যা (অবচিত)">
+								<longdesc>সংযোগক্ষেত্ৰ পৰিচালনব্যৱস্থাৰ দ্বাৰা ব্যৱহৃত কৰ্মক্ষেত্ৰতৰ সংখ্যা । GNOME 2.12 সংস্কৰণৰ পিছত এই চাবি অবচিত হৈছে ।</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="current">
+							<local_schema short_desc="ব্যৱহাৰকৰ্তাৰ সংযোগক্ষেত্ৰ পৰিচালন ব্যৱস্থা (অবচিত)">
+								<longdesc>প্ৰথমে ব্যৱহাৰৰ বাবে চিহ্নিত সংযোগক্ষেত্ৰ পৰিচালনব্যৱস্থা । GNOME 2.12 সংস্কৰণৰ পিছত এই চাবি অবচিত হৈছে ।</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="default">
+							<local_schema short_desc="ফলবেক সংযোগক্ষেত্ৰ পৰিচালন ব্যৱস্থা (অবচিত)">
+								<longdesc>ব্যৱহাৰকৰ্তাৰ সংযোগক্ষেত্ৰ পৰিচালনব্যৱস্থা অনুপস্থিত থাকিলে ব্যৱহৃত ফলবেক সংযোগক্ষেত্ৰ পৰিচালন ব্যৱস্থা । GNOME 2.12 সংস্কৰণৰ পিছত এই চাবি অবচিত হৈছে ।</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="terminal">
+						<entry name="exec_arg">
+							<local_schema short_desc="ডিফল্ট টাৰ্মিনালেৰ জন্য exec আৰ্গুমেন্ট">
+								<longdesc>ডিফল্ট টাৰ্মিনাল অ্যাপ্লিকেশনেৰ জন্য ব্যবহাৰযোগ্য exec আৰ্গুমেন্ট ।</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="ডিফল্ট টাৰ্মিনাল অ্যাপ্লিকেশন">
+								<longdesc>আবশ্যকৰূপে টাৰ্মিনাল প্ৰয়োগকাৰী অ্যাপ্লিকেশনগুলিৰ দ্বাৰা ব্যবহাৰযোগ্য ডিফল্ট টাৰ্মিনাল ।</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="tasks">
+						<entry name="needs_term">
+							<local_schema short_desc="কাৰ্য্যক টাৰ্মিনেলৰ আৱশ্যক">
+								<longdesc>অবিকল্পিত কাৰ্য্য ব্যৱহাৰৰ বাবে টাৰ্মিনেল প্ৰয়োগ কৰা আৱশ্যক নে নহয়</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="অবিকল্পিত কাৰ্য্য">
+								<longdesc>অবিকল্পিত কাৰ্য্য অনুপ্ৰয়োগ</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="calendar">
+						<entry name="needs_term">
+							<local_schema short_desc="পঞ্জিকাক টাৰ্মিনেল আৱশ্যক">
+								<longdesc>অবিকল্পিত পঞ্জিকা ব্যৱহাৰৰ বাবে টাৰ্মিনেল প্ৰয়োগ কৰা আৱশ্যক নে নহয়</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="অবিকল্পিত পঞ্জিকা">
+								<longdesc>অবিকল্পিত পঞ্জিকা অনুপ্ৰয়োগ</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="browser">
+						<entry name="nremote">
+							<local_schema short_desc="চৰকৰ দ্বাৰা দূৰবৰ্তী কৰ্ম বোধগম্য">
+								<longdesc>অবিকল্পিত চৰক দ্বাৰা netscape ৰ দূৰবৰ্তী কৰ্ম বোধগম্য নে নহয়</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="needs_term">
+							<local_schema short_desc="চৰকৰ ক্ষেত্ৰত টাৰ্মিনেল আৱশ্যক">
+								<longdesc>অবিকল্পিত চৰক ব্যৱহাৰৰ বাবে টাৰ্মিনেল প্ৰয়োগ কৰা আৱশ্যক নে নহয়</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="অবিকল্পিত চৰক">
+								<longdesc>সমস্ত URL ৰ বাবে ব্যৱহৃত অবিকল্পিত চৰক</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="at">
+						<dir name="visual">
+							<entry name="startup">
+								<local_schema short_desc="প্ৰদৰ্শন সহায়ক প্ৰযুক্তিগত অনুপ্ৰয়োগসমূহ আৰম্ভ কৰা হ&apos;ব">
+									<longdesc>প্ৰৱেশৰ সময়ত GNOME দ্বাৰা চলাচল সহায়ক পছন্দ প্ৰযুক্তিগত অনুপ্ৰয়োগ আৰম্ভ কৰা হ&apos;ব</longdesc>
+								</local_schema>
+							</entry>
+							<entry name="exec">
+								<local_schema short_desc="প্ৰদৰ্শন সহায়ক পছন্দ প্ৰযুক্তিগত অনুপ্ৰয়োগ">
+									<longdesc>প্ৰৱেশ, তালিকা আৰু আদেশ-লাইনত ব্যৱহাৰযোগ্য প্ৰদৰ্শন সহায়ক পছন্দ প্ৰযুক্তিগত অনুপ্ৰয়োগ</longdesc>
+								</local_schema>
+							</entry>
+						</dir>
+						<dir name="mobility">
+							<entry name="startup">
+								<local_schema short_desc="চলাচল সহায়ক প্ৰযুক্তিগত অনুপ্ৰয়োগসমূহ আৰম্ভ কৰা হ&apos;ব">
+									<longdesc>প্ৰৱেশৰ সময়ত GNOME দ্বাৰা চলাচল সহায়ক পছন্দ প্ৰযুক্তিগত অনুপ্ৰয়োগ আৰম্ভ কৰা হ&apos;ব</longdesc>
+								</local_schema>
+							</entry>
+							<entry name="exec">
+								<local_schema short_desc="চলাচল সহায়ক পছন্দ প্ৰযুক্তিগত অনুপ্ৰয়োগ">
+									<longdesc>প্ৰৱেশ, তালিকা আৰু আদেশ-লাইনত ব্যৱহাৰযোগ্য চলাচল সহায়ক পছন্দ প্ৰযুক্তিগত অনুপ্ৰয়োগ</longdesc>
+								</local_schema>
+							</entry>
+						</dir>
+					</dir>
+				</dir>
+				<dir name="accessibility">
+					<dir name="startup">
+						<entry name="exec_ats">
+							<local_schema short_desc="সহায়ক প্ৰযুক্তিগত অনুপ্ৰয়োগ আৰম্ভ কৰা হ&apos;ব">
+								<longdesc>GNOME ডেস্কটপত প্ৰৱেশ কৰাৰ পিছত আৰম্ভ কৰাৰ উদ্দেশ্যে চিহ্নিত সহায়ক প্ৰযুক্তিগত অনুপ্ৰয়োগৰ তালিকা</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="keyboard">
+						<entry name="stickykeys_modifier_beep">
+							<local_schema>
+								<longdesc>কোনো পৰিবৰ্তনকাৰী টিপিলে বিপ শব্দ কৰা হ&apos;ব</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="stickykeys_two_key_off">
+							<local_schema>
+								<longdesc>একেলগে দুটা চাবি টিপিলে নিষ্ক্ৰিয় কৰা হ&apos;ব ।</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="slowkeys_delay">
+							<local_schema short_desc="সৰ্বনিম্ন বিৰতি milliseconds ত ব্যক্ত">
+								<longdesc>@delay দ্বাৰা উল্লিখিত millisecondsৰ কম সময়ৰ বাবে চাবি টিপিলে গ্ৰাহ্য কৰা ন&apos;হ&apos;ব</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_init_delay">
+							<local_schema short_desc="প্ৰাৰম্ভিক বিলম্ব milliseconds ত ব্যক্ত">
+								<longdesc>মাউছৰ চাবি লৰচৰ কৰাৰ পূৰ্বে যি সংখ্যক milliseconds অপেক্ষা কৰা হ&apos;ব</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_accel_time">
+							<local_schema short_desc="যি সময় অবধি গতিবৰ্ধন কৰা হ&apos;ব, milliseconds ত ব্যক্ত">
+								<longdesc>০ ৰ পৰা সৰ্বোচ্চ গতি পাবলৈ লোৱা milliseconds</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_max_speed">
+							<local_schema short_desc="পিক্সেল প্ৰতি ছেকেণ্ডত">
+								<longdesc>সৰ্বোচ্চ গতিত প্ৰতি ছেকেণ্ডত যি সংখ্যক পিক্সেল লৰোৱা হ&apos;ব</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bouncekeys_delay">
+							<local_schema short_desc="সৰ্বনিম্ন বিৰতি milliseconds ত ব্যক্ত">
+								<longdesc>@delay দ্বাৰা উল্লিখিত milliseconds ত _একেই_ চাবি পুনঃ টিপিলে অগ্ৰাহ্য কৰা হ&apos;ব</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+			</dir>
+		</dir>
+	</dir>
+</gconf>

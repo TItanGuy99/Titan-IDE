@@ -1,0 +1,627 @@
+<?xml version="1.0"?>
+<gconf>
+	<dir name="schemas">
+		<dir name="system">
+			<dir name="smb">
+				<entry name="workgroup">
+					<local_schema short_desc="Grup de treball d&apos;SMB">
+						<longdesc>El grup de treball o domini de la xarxa de Windows al qual pertany l&apos;usuari. Per a que un grup de treball nou tinga efecte, és possible que l&apos;usuari necessite eixir i tornar a entrar.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="proxy">
+				<entry name="autoconfig_url">
+					<local_schema short_desc="URL de configuració automàtica del servidor intermediari">
+						<longdesc>URL que proveeix valors de configuració del servidor intermediari.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="socks_port">
+					<local_schema short_desc="Port del servidor intemediari de SOCKS">
+						<longdesc>El port a l&apos;ordinador definit per «/system/proxy/socks_host» pel que escolta el servidor intermediari.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="socks_host">
+					<local_schema short_desc="Nom del servidor intermediari de SOCKS">
+						<longdesc>El nom del servidor que fa de servidor intermediari de socks.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="ftp_port">
+					<local_schema short_desc="Port del servidor intermediari d&apos;FTP">
+						<longdesc>El port a l&apos;ordinador definit per «/system/proxy/ftp_host» pel que escolta el servidor intermediari.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="ftp_host">
+					<local_schema short_desc="Nom del servidor intermediari d&apos;FTP">
+						<longdesc>El nom del servidor que fa de servidor intermediari d&apos;FTP.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="secure_port">
+					<local_schema short_desc="Port del servidor intermediari d&apos;HTTP segur">
+						<longdesc>El port a l&apos;ordinador definit per «/system/proxy/secure_host» pel que escolta el servidor intermediari.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="secure_host">
+					<local_schema short_desc="Port del servidor intermediari d&apos;HTTP segur">
+						<longdesc>El nom del servidor que fa de servidor intermediari d&apos;HTTP segur.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="mode">
+					<local_schema short_desc="Mode de configuració del servidor intermediari">
+						<longdesc>Selecciona el mode de configuració del servidor intermediari. Els valors disponibles són «none» (cap), «manual», «auto».</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="http_proxy">
+				<entry name="ignore_hosts">
+					<local_schema short_desc="Ordinadors sense servidor intermediari">
+						<longdesc>Esta clau conté una llista d&apos;ordinadors als que s&apos;està connectat directament, i no a través d&apos;un servidor intermediari (si és actiu). Els valors poden ser noms d&apos;ordinador, dominis (usant un comodí inicial, com *.foo.com), adreces IP d&apos;ordinadors (tant IPv4 com IPv6) i adreces de xarxa amb una màscara de xarxa (alguna cosa com 192.168.0.0/24).</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="authentication_password">
+					<local_schema short_desc="Contrasenya del servidor intermediari d&apos;HTTP">
+						<longdesc>Contrasenya a passar com autenticació quan es fa servir el servidor intermediari d&apos;HTTP.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="authentication_user">
+					<local_schema short_desc="Nom d&apos;usuari del servidor intermediari d&apos;HTTP">
+						<longdesc>Nom d&apos;usuari a passar com autenticació quan es fa servir el servidor intermediari d&apos;HTTP.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="use_authentication">
+					<local_schema short_desc="Autentica les connexions al servidor intermediari">
+						<longdesc>Si és vertader, les connexions al servidor intermediari requereixen autenticació. La combinació usuari/contrasenya és definida per «/system/http_proxy/authentication_user» i «/system/http_proxy/authentication_password».</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="port">
+					<local_schema short_desc="Port del servidor intermediari d&apos;HTTP">
+						<longdesc>El port a l&apos;ordinador definit per «/system/http_proxy/host» pel que escolta el servidor intermediari.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="host">
+					<local_schema short_desc="Nom del servidor intermediari d&apos;HTTP">
+						<longdesc>El nom del servidor que fa de servidor intemediari d&apos;HTTP.</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="use_http_proxy">
+					<local_schema short_desc="Utilitza un servidor intermediari d&apos;HTTP">
+						<longdesc>Habilita els paràmetres del servidor intermediari quan s&apos;accedeix a HTTP per Internet.</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+			<dir name="dns_sd">
+				<entry name="extra_domains">
+					<local_schema short_desc="Dominis extra dins dels quals cercar serveis DNS-SD">
+						<longdesc>Llista separada per comes de dominis DNS-SD que haurien de ser visibles a la ubicació «network:///».</longdesc>
+					</local_schema>
+				</entry>
+				<entry name="display_local">
+					<local_schema short_desc="Com mostrar serveis DNS-SD locals">
+						<longdesc>Els valors possibles són «merged», «separate» i «disabled».</longdesc>
+					</local_schema>
+				</entry>
+			</dir>
+		</dir>
+		<dir name="desktop">
+			<dir name="gnome">
+				<dir name="typing_break">
+					<entry name="enabled">
+						<local_schema short_desc="Si està habilitat el bloqueig de teclat">
+							<longdesc>Si està habilitat el bloqueig de teclat.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="allow_postpone">
+						<local_schema short_desc="Permet retardar els descansos">
+							<longdesc>Si es pot retardar el descans.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="break_time">
+						<local_schema short_desc="Temps de descans">
+							<longdesc>Nombre de minuts que ha de durar el descans.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="type_time">
+						<local_schema short_desc="Temps d&apos;escriptura">
+							<longdesc>Nombre de minuts de temps de tecleig abans que comence el mode de descans.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="thumbnailers">
+					<entry name="disable_all">
+						<local_schema short_desc="Inhabilita tots els creadors de miniatures externs">
+							<longdesc>Establiu-ho a cert per inhabilitar tots els programes externs de creació de miniatures, independentment de si estan habilitats o inhabilitats.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="thumbnail_cache">
+					<entry name="maximum_size">
+						<local_schema>
+							<longdesc>Mida màxima, en megabytes, de la memòria cau de miniatures. Establiu-la a -1 per inhabilitar la neteja.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="maximum_age">
+						<local_schema>
+							<longdesc>Edat màxima, en dies, de les miniatures en la que poden estar en la memòria cau. Establiu-la a -1 per inhabilitar la neteja.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="sound">
+					<entry name="input_feedback_sounds">
+						<local_schema short_desc="Sons de suggeriment d&apos;entrada">
+							<longdesc>Si s&apos;han de reproduir sons en els esdeveniments d&apos;entrada.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="theme_name">
+						<local_schema short_desc="Nom del tema de so">
+							<longdesc>El tema de sons XDG a utilitzar en els sons dels esdeveniments.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="event_sounds">
+						<local_schema short_desc="Sons per a esdeveniments">
+							<longdesc>Si s&apos;han de reproduir sons en els esdeveniments de l&apos;usuari.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="enable_esd">
+						<local_schema short_desc="Habilita l&apos;ESD">
+							<longdesc>Habilita l&apos;inici del servidor de so.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="default_mixer_tracks">
+						<local_schema short_desc="Pistes predeterminades del mesclador">
+							<longdesc>Les pistes predeterminades del mesclador que s&apos;utilitzen en les vinculacions de tecles multimèdia.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="default_mixer_device">
+						<local_schema short_desc="Dispositiu mesclador predeterminat">
+							<longdesc>El dispositiu mesclador predeterminat que s&apos;utilitza en les vinculacions de tecles multimèdia.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="peripherals">
+					<dir name="mouse">
+						<entry name="cursor_size">
+							<local_schema short_desc="Mida del cursor">
+								<longdesc>Mida del cursor referit pel «cursor_theme».</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="cursor_theme">
+							<local_schema short_desc="Tema del cursor">
+								<longdesc>Nom del tema del cursor. Només s&apos;utilitza en servidors X que permeten utilitzar Xcursor, com ara el XFree86 4.3 o superior.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="cursor_font">
+							<local_schema short_desc="Tipus de lletra del cursor">
+								<longdesc>Tipus de lletra del cursor. Si no està establit, s&apos;utilitza el tipus de lletra predeterminat. Este valor només es propaga al servidor d&apos;X a l&apos;inici de cada sessió, així que canviar-lo en mig de la sessió no tindrà cap efecte fins que torneu a entrar.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="locate_pointer">
+							<local_schema short_desc="Ubica el punter">
+								<longdesc>Ressalta la ubicació actual del punter quan es prem i es deixa anar la tecla Control.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="double_click">
+							<local_schema short_desc="Temps de doble clic">
+								<longdesc>Durada d&apos;un doble clic.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="drag_threshold">
+							<local_schema short_desc="Llindar d&apos;inici de l&apos;arrossegament">
+								<longdesc>Distància abans que es comence un arrossegament.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="motion_threshold">
+							<local_schema short_desc="Llindar del moviment">
+								<longdesc>Distància en píxels que s&apos;ha de moure el punter abans que s&apos;active el moviment accelerat del ratolí. Un valor de -1 és el predeterminat del sistema.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="motion_acceleration">
+							<local_schema short_desc="Un clic">
+								<longdesc>Multiplicador d&apos;acceleració per al moviment del ratolí. Un valor de -1 és el predeterminat del sistema.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="single_click">
+							<local_schema short_desc="Un clic">
+								<longdesc>Un sol clic per obrir les icones.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="left_handed">
+							<local_schema short_desc="Orientació del botó del ratolí">
+								<longdesc>Intercanvia els botons esquerre i dret per a ratolins per a esquerrans.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="keyboard">
+						<entry name="remember_numlock_state">
+							<local_schema short_desc="Recorda l&apos;estat de la tecla de fixació de teclat numèric">
+								<longdesc>Quan s&apos;estableix a cert, el GNOME recordarà l&apos;estat del LED de la tecla de fixació de teclat numèric entre sessions.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bell_custom_file">
+							<local_schema short_desc="Fitxer personalitzat de la campana del teclat">
+								<longdesc>El nom del fitxer del so de la campana a reproduir.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bell_mode">
+							<local_schema>
+								<longdesc>els valors possibles són «on» (actiu), «off» (apagat) i «custom» (personalitzat).</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+				<dir name="lockdown">
+					<entry name="disable_application_handlers">
+						<local_schema short_desc="Inhabilita els gestors d&apos;URL i de tipus MIME">
+							<longdesc>Evita que s&apos;execute cap aplicació de gestió d&apos;URL o de tipus MIME.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_lock_screen">
+						<local_schema short_desc="Inhabilita el blocatge de la pantalla">
+							<longdesc>Evita que l&apos;usuari bloqui la pantalla.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_user_switching">
+						<local_schema short_desc="Inhabilita el canvi d&apos;usuari">
+							<longdesc>Evita que es canvie d&apos;usuari mentre la sessió estiga activa.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_print_setup">
+						<local_schema short_desc="Inhabilita la configuració de la impressió">
+							<longdesc>Evita que l&apos;usuari puga modificar la configuració de la impressió. Per exemple, això inhabilitaria l&apos;accés al diàleg «Configuració de la impressió» de totes les aplicacions.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_printing">
+						<local_schema short_desc="Inhabilita la impressió">
+							<longdesc>Evita que l&apos;usuari puga imprimir. Per exemple, això inhabilitaria l&apos;accés al diàleg «Imprimeix» de totes les aplicacions.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_save_to_disk">
+						<local_schema short_desc="Inhabilita l&apos;alçat de fitxers al disc">
+							<longdesc>Evita que l&apos;usuari puga alçar fitxers al disc. Per exemple, això inhabilitaria l&apos;accés als diàlegs «Anomena i alça» de totes les aplicacions.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="disable_command_line">
+						<local_schema short_desc="Inhabilita la línia d&apos;ordes">
+							<longdesc>Evita que l&apos;usuari puga accedir al terminal o puga especificar una línia d&apos;ordes per ser executada. Per exemple, això inhabilitaria l&apos;accés al diàleg «Executa una aplicació» del quadre.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="interface">
+					<entry name="show_unicode_menu">
+						<local_schema short_desc="Mostra el menú «Caràcters de control Unicode»">
+							<longdesc>Si els menús contextuals de les entrades i els visualitzadors de text haurien de permetre la inserció de caràcters de control.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="show_input_method_menu">
+						<local_schema short_desc="Mostra el menú de «Mètodes d&apos;entrada»">
+							<longdesc>Si els menús contextuals de les entrades i els visualitzadors de text haurien de permetre canviar el mètode d&apos;entrada.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menubar_accel">
+						<local_schema short_desc="Accelerador de la barra de menú">
+							<longdesc>Drecera de teclat per obrir les barres de menú.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="file_chooser_backend">
+						<local_schema short_desc="Mòdul pel GtkFileChooser">
+							<longdesc>Mòdul a utilitzar com a model de sistema de fitxers per al giny  GtkFileChooser. Els valors possibles són «gio», «gnome-vfs» i «gtk+».</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="status_bar_meter_on_right">
+						<local_schema short_desc="La barra d&apos;estat és a la dreta">
+							<longdesc>Si s&apos;hauria de mostrar un mesurador de barra d&apos;estat a la dreta.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="use_custom_font">
+						<local_schema short_desc="Utilitza un tipus de lletra personalitzat">
+							<longdesc>Si s&apos;ha d&apos;utilitzar un tipus de lletra personalitzat a les aplicacions de GTK+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="monospace_font_name">
+						<local_schema short_desc="Tipus de lletra de mida fixa">
+							<longdesc>Nom d&apos;un tipus de lletra de mida fixa per utilitzar a ubicacions com el terminal.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="document_font_name">
+						<local_schema short_desc="Tipus de lletra del document">
+							<longdesc>Nom del tipus de lletra predeterminada per llegir documents.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-module">
+						<local_schema short_desc="Mòdul del mètode d&apos;entrada del GTK">
+							<longdesc>Nom del mòdul del mètode d&apos;entrada que utilitza el GTK+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-status-style">
+						<local_schema short_desc="Estil de l&apos;estat del mètode d&apos;entrada de GTK">
+							<longdesc>Nom de l&apos;estat de l&apos;estil del mètode d&apos;entrada de GTK+ que utilitza el GTK+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-preedit-style">
+						<local_schema short_desc="Estil de pre-edició del mètode d&apos;entrada de GTK">
+							<longdesc>Nom de l&apos;estil de preedició del mètode d&apos;entrada de GTK+ que utilitza el GTK+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="font_name">
+						<local_schema short_desc="Tipus de lletra predeterminat">
+							<longdesc>Nom del tipus de lletra predeterminat que utilitza el GTK+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_key_theme">
+						<local_schema short_desc="Tema del GTK+">
+							<longdesc>Nom base del tema predeterminat que utilitza el GTK+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_theme">
+						<local_schema short_desc="Tema del GTK+">
+							<longdesc>Nom base del tema predeterminat que utilitza el GTK+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="icon_theme">
+						<local_schema short_desc="Tema d&apos;icones">
+							<longdesc>Tema d&apos;icones que s&apos;utilitza per al quadre, el nautilus, etc.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink_time">
+						<local_schema short_desc="Temps de parpelleig del cursor">
+							<longdesc>Durada del cicle de parpelleig del cursor, en mil·lisegons.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink">
+						<local_schema short_desc="Parpelleig del cursor">
+							<longdesc>Si el cursor hauria de parpellejar.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_icons_size">
+						<local_schema short_desc="Mida de les icones de les barres d&apos;eines">
+							<longdesc>Mida de les icones en les barres d&apos;eines, pot ser «small-toolbar» (barra d&apos;eines petita) o «large-toolbar» (barra d&apos;eines gran).</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_detachable">
+						<local_schema short_desc="Les barres d&apos;eines es poden desacoblar">
+							<longdesc>Si l&apos;usuari pot desacoblar les barres d&apos;eines i moure-les.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menubar_detachable">
+						<local_schema short_desc="La barra de menú es pot desacoblar">
+							<longdesc>Si l&apos;usuari pot desacoblar les barres de menú i moure-les.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="buttons_have_icons">
+						<local_schema short_desc="Els botons tenen icones">
+							<longdesc>Si els botons han de mostrar una icona a més del text del botó.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menus_have_icons">
+						<local_schema short_desc="Els menús tenen icones">
+							<longdesc>Si els menús han de mostrar una icona al costat de l&apos;entrada del menú.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="toolbar_style">
+						<local_schema short_desc="Estil de les barres d&apos;eines">
+							<longdesc>Estil de les barres d&apos;eines. Els valors vàlids són «both» (ambdós), «both-horiz» (ambdós horitzontal), «icons» (icona) i «text».</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="can_change_accels">
+						<local_schema short_desc="Es poden canviar els acceleradors">
+							<longdesc>Si l&apos;usuari pot prémer dinàmicament un accelerador nou quan estiga sobre un element de menú actiu.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="menus_have_tearoff">
+						<local_schema short_desc="Els menús tenen separadors">
+							<longdesc>Si els menús haurien de tindre separadors.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="enable_animations">
+						<local_schema short_desc="Habilita les animacions">
+							<longdesc>Si s&apos;ha de mostrar les animacions. Nota: és una clau global, canvia el comportament del gestor de finestres, el quadre, etc.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="accessibility">
+						<local_schema short_desc="Habilita l&apos;accessibilitat">
+							<longdesc>Si les aplicacions haurien d&apos;habilitar l&apos;accessibilitat.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="file-views">
+					<entry name="icon_theme">
+						<local_schema short_desc="Tema d&apos;icones de fitxers">
+							<longdesc>Tema que s&apos;utilitza per mostrar les icones de fitxers.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="background">
+					<entry name="color_shading_type">
+						<local_schema short_desc="Tipus d&apos;ombreig de color">
+							<longdesc>Com ombrejar el color de fons. Els valors possibles són «horizontal-gradient» (degradat horitzontal), «vertical-gradient» (degradat vertical) i «solid» (sòlid).</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="secondary_color">
+						<local_schema short_desc="Color secundari">
+							<longdesc>Color de la dreta o inferior quan es dibuixi el degradat, no s&apos;utilitza per a colors sòlids.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="primary_color">
+						<local_schema short_desc="Color primari">
+							<longdesc>Color de l&apos;esquerra o superior quan es dibuixi el degradat, o el color sòlid.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_opacity">
+						<local_schema short_desc="Opacitat de la imatge">
+							<longdesc>Opacitat amb la qual dibuixar la imatge de fons.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_filename">
+						<local_schema short_desc="Nom del fitxer de la imatge">
+							<longdesc>Fitxer a utilitzar per a la imatge de fons.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_options">
+						<local_schema short_desc="Opcions de la imatge">
+							<longdesc>Determina com es representa la imatge establerta per la clau «wallpaper_filename». Els valors possibles són «none» (cap), «wallpaper» (fons de pantalla), «centered» (centrat), «scaled» (escalat), «stretched» (ajustat) «zoom» (ampliat) i «spanned» (estirat).</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="draw_background">
+						<local_schema short_desc="Dibuixa el fons de l&apos;escriptori">
+							<longdesc>Fes que el GNOME dibuixi el fons de l&apos;escriptori.</longdesc>
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="applications">
+					<dir name="component_viewer">
+						<entry name="exec">
+							<local_schema short_desc="Aplicació de visualització de components predeterminada">
+								<longdesc>L&apos;aplicació a usar per a visualitzar fitxers que requereixen un component per a poder ser visualitzats. Es reemplaçarà el paràmetre %s amb l&apos;URI del fitxer, i es reemplaçarà el paràmetre %c amb l&apos;IID del component.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="window_manager">
+						<entry name="workspace_names">
+							<local_schema short_desc="Noms dels espais de treball (en desús)">
+								<longdesc>Una llista amb noms dels primers espais de treball del gestor de finestres. Esta clau està en desús des del GNOME 2.12.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="number_of_workspaces">
+							<local_schema short_desc="Nombre d&apos;espais de treball (en desús)">
+								<longdesc>El nombre d&apos;espais de treball que pot utilitzar el gestor de finestres. Esta clau està en desús des del GNOME 2.12.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="current">
+							<local_schema short_desc="Gestor de finestres de l&apos;usuari (en desús)">
+								<longdesc>El gestor de finestres que s&apos;ha de provar en primer lloc. Esta clau està en desús des del GNOME 2.12.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="default">
+							<local_schema short_desc="Gestor de finestres d&apos;emergència (en desús)">
+								<longdesc>Gestor de finestres d&apos;emergència si no es pot executar el gestor de finestres de l&apos;usuari. Esta clau està en desús des del GNOME 2.12.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="terminal">
+						<entry name="exec_arg">
+							<local_schema short_desc="Argument d&apos;execució per al terminal predeterminat">
+								<longdesc>L&apos;argument d&apos;execució a usar per a l&apos;aplicació de terminal predeterminada.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Aplicació de terminal predeterminada">
+								<longdesc>L&apos;aplicació de terminal a usar per defecte per a aplicacions que requerisquen un terminal.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="tasks">
+						<entry name="needs_term">
+							<local_schema short_desc="L&apos;aplicació de tasques necessita un terminal">
+								<longdesc>Si l&apos;aplicació de tasques predeterminada necessita un terminal per executar-se</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Aplicació de tasques predeterminada">
+								<longdesc>Aplicació de tasques predeterminat</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="calendar">
+						<entry name="needs_term">
+							<local_schema short_desc="El calendari necessita un terminal">
+								<longdesc>Si l&apos;aplicació de calendari predeterminada necessita un terminal per executar-se</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Calendari predeterminat">
+								<longdesc>Aplicació de calendari predeterminada</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="browser">
+						<entry name="nremote">
+							<local_schema short_desc="El navegador permet ordes remotes">
+								<longdesc>Si el navegador predeterminat permet «netscape remot».</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="needs_term">
+							<local_schema short_desc="El navegador necessita un terminal">
+								<longdesc>Si el navegador predeterminat necessita un terminal per executar-se.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Navegador predeterminat">
+								<longdesc>Navegador predeterminat per a tots els URL.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="at">
+						<dir name="visual">
+							<entry name="startup">
+								<local_schema short_desc="Inicia l&apos;aplicació de tecnologia assistiva visual preferida">
+									<longdesc>Si el GNOME ha d&apos;iniciar l&apos;aplicació de tecnologia assistiva visual preferida en entrar.</longdesc>
+								</local_schema>
+							</entry>
+							<entry name="exec">
+								<local_schema short_desc="Aplicació de tecnologia assistiva visual preferida">
+									<longdesc>Aplicació de tecnologia assistiva visual preferida utilitzada a l&apos;entrada, al menú i a la línia d&apos;ordes.</longdesc>
+								</local_schema>
+							</entry>
+						</dir>
+						<dir name="mobility">
+							<entry name="startup">
+								<local_schema short_desc="Inicia l&apos;aplicació de tecnologia assistiva de mobilitat preferida">
+									<longdesc>Si el GNOME ha d&apos;iniciar l&apos;aplicació de tecnologia assistiva de mobilitat preferida en entrar.</longdesc>
+								</local_schema>
+							</entry>
+							<entry name="exec">
+								<local_schema short_desc="Aplicació preferida de tecnologia assistiva de mobilitat">
+									<longdesc>Aplicació de tecnologia assistiva de mobilitat preferida per utilitzar a l&apos;entrada, al menú o la línia d&apos;ordes.</longdesc>
+								</local_schema>
+							</entry>
+						</dir>
+					</dir>
+				</dir>
+				<dir name="accessibility">
+					<dir name="startup">
+						<entry name="exec_ats">
+							<local_schema short_desc="Aplicacions de tecnologia assistiva que s&apos;executaran en iniciar">
+								<longdesc>Llista d&apos;aplicacions de tecnologia assistiva a iniciar quan s&apos;entri a l&apos;escriptori GNOME.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="keyboard">
+						<entry name="stickykeys_modifier_beep">
+							<local_schema>
+								<longdesc>Fes un avís sonor quan es premi un modificador.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="stickykeys_two_key_off">
+							<local_schema>
+								<longdesc>Inhabilita-ho si es premen dues tecles a la vegada.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="slowkeys_delay">
+							<local_schema short_desc="Interval mínim en mil·lisegons">
+								<longdesc>Accepta només les tecles premudes almenys durant @retard mil·lisegons.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_init_delay">
+							<local_schema short_desc="Retard inicial en mil·lisegons">
+								<longdesc>Quants mil·lisegons s&apos;ha d&apos;esperar abans que les tecles de moviment del ratolí comencen a funcionar.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_accel_time">
+							<local_schema short_desc="Durant quant de temps s&apos;ha d&apos;accelerar, en mil·lisegons">
+								<longdesc>Quants mil·lisegons es tarda en anar de 0 a la velocitat màxima.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="mousekeys_max_speed">
+							<local_schema short_desc="Píxels per segon">
+								<longdesc>Quants píxels per segon es mourà a la velocitat màxima.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="bouncekeys_delay">
+							<local_schema short_desc="interval mínim en mil·lisegons">
+								<longdesc>Descarta les pressions múltiples de la mateixa tecla en @retard mil·lisegons.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+			</dir>
+		</dir>
+	</dir>
+</gconf>

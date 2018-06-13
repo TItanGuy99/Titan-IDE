@@ -1,0 +1,3 @@
+/usr/bin/update-desktop-database
+/usr/bin/update-mime-database /usr/share/mime
+

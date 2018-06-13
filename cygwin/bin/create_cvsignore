@@ -1,0 +1,55 @@
+#!/bin/sh
+# This script makes a preliminary .cvsignore in the current dir by
+# adding some standard stuff according to Makefile.am.
+# License: GPL
+
+addignore() {
+	test -f .cvsignore || \
+	( touch .cvsignore && echo "created new .cvsignore" && cvs add .cvsignore )
+	grep -q "^$1\$" .cvsignore || \
+	( echo "$1" >> .cvsignore && echo "added $1 to .cvsignore" )
+}
+
+recurse=0
+if test $# -eq 1; then
+	if test "$1" = "-r"; then
+		recurse=1
+	fi
+fi
+
+handledir() {
+	(
+	cd $1
+	if test -f Makefile.am; then
+		if test $recurse -eq 1; then
+			echo "Entering $1"
+		fi
+		addignore Makefile
+		addignore Makefile.in
+
+		bins=`perl -p -e 's/\\\s*\n/ /g' Makefile.am | grep _PROGRAMS | sed -e 's/.*=\s*//;s/#.*//;s/\$([^)]*)//'`
+		if test -n "$bins"; then
+			for prog in $bins; do
+				addignore "$prog"
+			done
+		fi
+	else
+		echo "Skipping $1"
+	fi
+	)
+}
+
+
+if test -f Makefile.am; then
+	if test $recurse -eq 1; then
+		find . -type d | grep -v CVS | sed -e 's,/$,,' | \
+		while read dir; do
+			handledir $dir
+		done
+	else
+		handledir .
+	fi
+else
+	echo "No Makefile.am found!"
+fi
+

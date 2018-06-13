@@ -1,0 +1,197 @@
+<?xml version="1.0"?>
+<gconf>
+	<dir name="schemas">
+		<dir name="desktop">
+			<dir name="gnome">
+				<dir name="interface">
+					<entry name="show_unicode_menu">
+						<local_schema short_desc="Mostre il menu &quot;Caratàrs di control Unicode&quot;&quot;">
+						</local_schema>
+					</entry>
+					<entry name="show_input_method_menu">
+						<local_schema short_desc="Mostre il menu &quot;Metodos di input&quot;&quot;">
+						</local_schema>
+					</entry>
+					<entry name="menubar_accel">
+						<local_schema short_desc="Aceleradôr da bare dai menu">
+							<longdesc>Scurtadorie di tastiere par vierzi lis baris dai menu</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="file_chooser_backend">
+						<local_schema short_desc="Modul par GtkFileChooser">
+						</local_schema>
+					</entry>
+					<entry name="status_bar_meter_on_right">
+						<local_schema short_desc="Bare di stât a gjestre">
+						</local_schema>
+					</entry>
+					<entry name="use_custom_font">
+						<local_schema short_desc="Dopre caràtar personalizât">
+						</local_schema>
+					</entry>
+					<entry name="monospace_font_name">
+						<local_schema short_desc="Carâtar Monospace">
+							<longdesc>Il nom di un carâtar monospace (largjece fisse) di doprâ in posizions come i terminâi.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="document_font_name">
+						<local_schema short_desc="Tipo di carâtar par i documents">
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-module">
+						<local_schema>
+							<longdesc>Nom dal metodo di input des GTK+ Status Style doprât.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-status-style">
+						<local_schema>
+							<longdesc>Nom dal metodo di input des GTK+ Status Style doprât.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk-im-preedit-style">
+						<local_schema>
+							<longdesc>Nom dal metodo di input des GTK+ Preedit Style doprât.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="font_name">
+						<local_schema short_desc="Tipo di caràtar predefinît">
+							<longdesc>Nom dal tipo di caràtar doprât in mût predefinit des GTK+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_key_theme">
+						<local_schema short_desc="Teme GTK+">
+							<longdesc>Nom di base dal teme predefinît doprât das GTK+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="gtk_theme">
+						<local_schema short_desc="Teme GTK+">
+							<longdesc>Nom di base dal teme predefinît doprât das GTK+.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="icon_theme">
+						<local_schema short_desc="Teme des iconis">
+							<longdesc>Teme des iconis doprât par il panel, nautilus, ecc.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink_time">
+						<local_schema short_desc="Interval di lampament dal cursôr">
+						</local_schema>
+					</entry>
+					<entry name="cursor_blink">
+						<local_schema short_desc="Cursôr ch&apos;al lampe">
+						</local_schema>
+					</entry>
+					<entry name="toolbar_icons_size">
+						<local_schema short_desc="Dimension des iconis ta bare dai imprescj">
+						</local_schema>
+					</entry>
+					<entry name="toolbar_detachable">
+						<local_schema short_desc="Bare dai imprescj stacabil">
+						</local_schema>
+					</entry>
+					<entry name="menubar_detachable">
+						<local_schema short_desc="Bare dai menu stacabil">
+						</local_schema>
+					</entry>
+					<entry name="menus_have_icons">
+						<local_schema short_desc="Menu cun iconis">
+						</local_schema>
+					</entry>
+					<entry name="toolbar_style">
+						<local_schema short_desc="Stîl da bare dai imprescj">
+						</local_schema>
+					</entry>
+					<entry name="can_change_accels">
+						<local_schema short_desc="Lasse gambiâ i aceleradôrs">
+						</local_schema>
+					</entry>
+					<entry name="menus_have_tearoff">
+						<local_schema short_desc="menu cun stacadôr">
+						</local_schema>
+					</entry>
+					<entry name="enable_animations">
+						<local_schema short_desc="Abilite animazions">
+						</local_schema>
+					</entry>
+					<entry name="accessibility">
+						<local_schema short_desc="Abilite acessibilitât">
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="file-views">
+					<entry name="icon_theme">
+						<local_schema short_desc="Teme icone dai files">
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="background">
+					<entry name="color_shading_type">
+						<local_schema short_desc="Tipo sfumadure colôr">
+						</local_schema>
+					</entry>
+					<entry name="secondary_color">
+						<local_schema short_desc="Colôr secondari">
+							<longdesc>Colôr a gjestre o in bas cuant ch&apos;a si dopre un gradient, opûr il colôr pa tinte unide.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="primary_color">
+						<local_schema short_desc="Colôr primari">
+							<longdesc>Colôr in alt o a bande çampe cuant ch&apos;a si dopre un gradient, opûr il colôr pa tinte unide.</longdesc>
+						</local_schema>
+					</entry>
+					<entry name="picture_opacity">
+						<local_schema short_desc="Opacitât da l&apos;imagjine">
+						</local_schema>
+					</entry>
+					<entry name="picture_filename">
+						<local_schema short_desc="Nom dal file di imagjine">
+						</local_schema>
+					</entry>
+					<entry name="picture_options">
+						<local_schema short_desc="Opzions da l&apos;imagjine">
+						</local_schema>
+					</entry>
+					<entry name="draw_background">
+						<local_schema short_desc="Disegne fondâl dal desktop">
+						</local_schema>
+					</entry>
+				</dir>
+				<dir name="applications">
+					<dir name="window_manager">
+						<entry name="workspace_names">
+							<local_schema short_desc="Noms dai spazis di lavôr (deprecât)">
+								<longdesc>Une liste cui noms dai spazis di lavôr dal window manager primari. Cheste clâf je stade deprecade a partì di Gnome 2.12.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="number_of_workspaces">
+							<local_schema short_desc="Il numar dai spazis di lavôr (deprecât)">
+								<longdesc>Il numar dai spazis di lavôr che il window manager al vares di doprâ. Cheste clâf je stade deprecade a partì di Gnome 2.12.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="current">
+							<local_schema short_desc="Window manager da l&apos;utent (deprecât)">
+								<longdesc>Window manager di doprâ par prin. Cheste clâf je stade deprecade a partì di Gnome 2.12.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="default">
+							<local_schema short_desc="Window manager di ripiego (deprecât)">
+								<longdesc>Window manager di doprâ come ripiego se chel sielt da l&apos;utent nol ven cjatât. Cheste clâf je stade deprecade a partì di Gnome 2.12.</longdesc>
+							</local_schema>
+						</entry>
+					</dir>
+					<dir name="terminal">
+						<entry name="exec_arg">
+							<local_schema short_desc="Argoments Exec">
+								<longdesc>Argoment doprât par inviâ programs tal terminâl definît da clâf &apos;exec&apos;.</longdesc>
+							</local_schema>
+						</entry>
+						<entry name="exec">
+							<local_schema short_desc="Aplicazion di terminâl">
+							</local_schema>
+						</entry>
+					</dir>
+				</dir>
+			</dir>
+		</dir>
+	</dir>
+</gconf>

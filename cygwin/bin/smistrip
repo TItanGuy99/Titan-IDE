@@ -1,0 +1,187 @@
+#!/usr/bin/sh
+#
+# smistrip --
+#
+#	Extract MIB and PIB modules from text files, like RFCs or I-Ds.
+#
+# Copyright (c) 1999 Frank Strauss, Technical University of Braunschweig.
+#
+# See the file "COPYING" for information on usage and redistribution
+# of this file, and for a DISCLAIMER OF ALL WARRANTIES.
+#
+# $Id: smistrip.in 1452 2006-04-07 07:02:51Z strauss $
+#
+# NOTE, that this script relies on awk (tested with GNU awk) and getopts
+# (shell builtin like in bash or standalone).
+#
+
+AWK=/usr/bin/awk
+GETOPTS=getopts
+VERSION=0.5.0
+
+
+do_version () {
+    echo "smistrip $VERSION"
+}
+
+
+
+do_usage () {
+    echo "Usage: smistrip [-Vhn] [-i dir] [-d dir] [-m module] file1 [file2 [...]]"
+    echo "-V         show version and license information"
+    echo "-h         show usage information"
+    echo "-n         do not write module files"
+    echo "-i dir     try to read files from directory dir"
+    echo "-d dir     write module to directory dir"
+    echo "-m module  strip only the specified module"
+    echo "file1 ...  input files to parse (RFCs, I-Ds, ...)"
+}
+
+
+
+do_strip () {
+    if [ "$indir" ] ; then
+	FILE="$indir/$1"
+    else
+	FILE="$1"
+    fi
+    if [ ! -f "$FILE" -a -f "$FILE.gz" ] ; then
+	FILE="$FILE.gz"
+    fi
+    echo "$FILE" | grep -q '\.gz$'
+    if [ $? -ne 0 ] ; then
+    	CMD=cat
+    else
+    	CMD=zcat
+    fi
+
+    $CMD "$FILE" | \
+    tr -d '\015' | \
+    grep -i -v '^[ ]*Internet[ \-]Draft' | \
+    $AWK -vtest="$test" -vdir="$dir" -vsingle="$single" '
+
+    # start of module
+    /^[ \t]*[A-Za-z0-9-]* *(PIB-)?DEFINITIONS *(::=)? *(BEGIN)? *$/ {
+	module = $1
+	skip = 9
+	skipped = -1
+	macro = 0
+	n = 0
+    }
+
+    # process each line
+    {
+	# at the end of a page we go back one line (which is expected to
+	# be a separator line), and start the counter skipped to skip the
+	# next few lines.
+	if ($0 ~ /\[[pP]age [iv0-9]*\] */) {
+            # some drafts do not use that separator line. so keep it if
+            # there are non-blank characters.
+            if (!(line[n] ~ /^[ \t]*$/)) { print "WARNING: the line ::"line[n]":: should be a separator before a page break. It was kept. " ; n-- }
+	    skipped = 0
+	}
+
+	# if we are skipping...
+	if (skipped >= 0) {
+	    skipped++
+
+	    # if we have skipped enough lines to the top of the next page...
+	    if (skipped >= skip) {
+		skipped = -1
+	    } else {
+    
+	    	# finish skipping, if we find a non-empty line, but not before
+	    	# we have skipped four lines. remember the miminum of lines
+	    	# we have ever skipped to keep empty lines in a modules that
+	    	# appear near the top of a page.
+	    	if ((skipped >= 4) && ($0 ~ /[^ \t]/)) {
+		    if (skipped < skip) { skip = skipped }
+		    skipped = -1
+	    	}   
+	    }
+	}
+
+	# so, if we are not skipping and inside a module, remember the line.
+        if ((skipped == -1) && (length(module) > 0)) {
+	    line[n++] = $0
+	}
+    }
+
+    # remember when we enter a macro definition
+    /^[ \t]*[A-Za-z0-9-]* *MACRO *::=/ {
+	macro = 1
+    }
+
+    # end of module
+    /^[ \t]*END[ \t]*$/ {
+	if (macro == 0) {
+	    if ((length(single) == 0) || (single == module)) {
+		strip = 99
+		for (i=0 ; i < n ; i++) {
+		    # find the minimum column that contains non-blank characters
+		    # in order to cut a blank prefix off. Ignore lines that only
+                    # contain white spaces.
+                    if (!(line[i] ~ /^[ \t]*$/)) {
+        	        p = match(line[i], "[^ ]")
+		        if ((p < strip) && (length(line[i]) > p)) { strip = p }
+                    }
+		}
+    
+		if (test != "1") {
+		    if (dir) {
+		       f = dir"/"module
+		    } else {
+		       f = module
+		    }
+		    for (i=0 ; i < n ; i++) {
+			print substr(line[i], strip) >f
+		    }
+		}
+    
+		print module ": " n " lines."
+	    }
+	    module = ""
+	} else {
+	    macro = 0
+	}
+    }
+    '
+}
+
+
+
+while $GETOPTS Vhnm:i:d: c ; do
+    case $c in
+	n)	test=1
+		;;
+	m)	single=$OPTARG
+		;;
+	i)	indir=$OPTARG
+		;;
+	d)	dir=$OPTARG
+		;;
+	h)	do_usage
+		exit 0
+		;;
+	V)	do_version
+		exit 0
+		;;
+	*)	do_usage
+		exit 1
+		;;
+    esac
+done
+
+shift `expr $OPTIND - 1`
+
+
+
+if [ $# -eq 0 ] ; then
+    do_strip -
+else 
+    for f in "$@" ; do
+	do_strip "$f"
+    done
+fi
+
+exit 0

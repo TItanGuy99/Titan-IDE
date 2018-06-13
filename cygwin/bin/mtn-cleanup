@@ -1,0 +1,239 @@
+#!/usr/bin/env perl
+##############################################################################
+#
+#   File Name    - mtn-cleanup
+#
+#   Description  - Remove all extra files from a Monotone workspace and then
+#                  revert the revision based files.
+#
+#   Author       - A.E.Cooper.
+#
+#   Legal Stuff  - Copyright (c) 2007 Anthony Edward Cooper
+#                  <aecooper@coosoft.plus.com>.
+#
+#                  This program is free software; you can redistribute it
+#                  and/or modify it under the terms of the GNU General Public
+#                  License as published by the Free Software Foundation;
+#                  either version 3 of the License, or (at your option) any
+#                  later version.
+#
+#                  This program is distributed in the hope that it will be
+#                  useful, but WITHOUT ANY WARRANTY; without even the implied
+#                  warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+#                  PURPOSE. See the GNU General Public License for more
+#                  details.
+#
+#                  You should have received a copy of the GNU General Public
+#                  License along with this software; if not, write to the Free
+#                  Software Foundation, Inc., 59 Temple Place - Suite 330,
+#                  Boston, MA 02111-1307 USA.
+#
+##############################################################################
+#
+##############################################################################
+#
+#   GLOBAL DATA FOR THIS MODULE
+#
+##############################################################################
+
+
+
+# ***** DIRECTIVES *****
+
+require 5.008005;
+
+use strict;
+use English;
+use integer;
+use warnings;
+
+# ***** REQUIRED PACKAGES *****
+
+use File::Basename;
+use File::Spec;
+
+# ***** GLOBAL DATA DECLARATIONS *****
+
+# The name of this script.
+
+use constant SCRIPT => basename($PROGRAM_NAME);
+
+# The manifest hit list hash. The key is the file name relative to the
+# work-space, the value is unimportant. If you do a lookup of a file against
+# this hash and the result is defined then that file exists in the Monotone
+# manifest.
+
+my %manifest;
+
+# ***** FUNCTIONAL PROTOTYPES FOR THIS FILE *****
+
+sub cleanup_workspace($);
+sub get_manifest_hit_list($);
+#
+##############################################################################
+#
+#   Routine      - Main Body Of Code
+#
+#   Description  - This is the main body of code for the tools script.
+#
+#   Data         - @_           : The command line arguments.
+#                  Return Value : Unix exit code.
+#
+##############################################################################
+
+
+
+my $response;
+
+# First check that we are at the top level of a Monotone work-space.
+
+if (! -d "_MTN")
+{
+    printf(STDERR
+	   "%s: This command must be run from the work-space's base "
+	       . "directory.\n",
+	   SCRIPT);
+    exit(1);
+}
+
+# This is a dangerous command to run, so warn the user.
+
+printf("%s: Warning - This will remove all files that have not been "
+           . "committed.\n",
+       SCRIPT);
+printf("Proceed (Y/N)[N]: ");
+$response = readline(STDIN);
+chomp($response);
+if ($response =~ m/^[yY]$/)
+{
+    get_manifest_hit_list(\%manifest);
+    cleanup_workspace("");
+    printf("Now reverting files...\n");
+    system("mtn", "revert", ".");
+}
+
+exit 0;
+#
+##############################################################################
+#
+#   Routine      - cleanup_workspace
+#
+#   Description  - Traverse the workspace removing anything that isn't listed
+#                  in the manifest.
+#
+#   Data         - $directory : The directory that is to be cleaned.
+#
+##############################################################################
+
+
+
+sub cleanup_workspace($)
+{
+
+    my ($directory) = @_;
+
+    my ($dir_handle,
+	$file,
+	@files,
+	$rel_path);
+
+    if ($directory eq "")
+    {
+	opendir($dir_handle, ".") or die("opendir failed: $!");
+    }
+    else
+    {
+	opendir($dir_handle, $directory) or die("opendir failed: $!");
+    }
+    @files = sort readdir($dir_handle);
+    close($dir_handle);
+
+    foreach $file (@files)
+    {
+	if ($directory eq "")
+	{
+	    $rel_path = $file;
+	}
+	else
+	{
+	    $rel_path = File::Spec->catfile($directory, $file);
+	}
+	if (-d $rel_path)
+	{
+	    if ($file ne "." && $file ne ".." && $file ne "_MTN")
+	    {
+		if ($manifest{$rel_path})
+		{
+		    cleanup_workspace($rel_path);
+		}
+		else
+		{
+		    printf("Removing directory %s...\n", $rel_path);
+		    system("/bin/rm", "-rf", $rel_path);
+		}
+	    }
+	}
+	else
+	{
+	    if (! $manifest{$rel_path})
+	    {
+		printf("Removing file %s...\n", $rel_path);
+		unlink($rel_path);
+	    }
+	}
+    }
+
+}
+#
+##############################################################################
+#
+#   Routine      - get_manifest_hit_list
+#
+#   Description  - Generates a boolean hash keyed on manifest file names, the
+#                  value is not important but is just set to 1.
+#
+#   Data         - $manifest_ref : A reference to a hash that is to contain
+#                                  the manifest hit list hash.
+#
+##############################################################################
+
+
+
+sub get_manifest_hit_list($)
+{
+
+    my ($manifest_ref) = @_;
+
+    my ($entry,
+	$handle,
+        $line,
+        $rev_id);
+
+    %$manifest_ref = ();
+
+    $rev_id = `mtn automate get_base_revision_id 2> /dev/null`
+	or die("mtn automate get_base_revision_id failed: $!");
+    chomp($rev_id);
+
+    open($handle, "-|", "mtn automate get_manifest_of " . $rev_id)
+	or die("open failed: $!");
+    for ($line = readline($handle); $line; $line = readline($handle))
+    {
+	chomp($line);
+	$entry = undef;
+	if ($line =~ m/^   file \"/)
+	{
+	    ($entry) = ($line =~ m/^   file \"([^\"]+)\"$/);
+	}
+	if ($line =~ m/^dir \"/)
+	{
+	    ($entry) = ($line =~ m/^dir \"([^\"]+)\"$/);
+	}
+	if ($entry)
+	{
+	    $$manifest_ref{$entry} = 1;
+	}
+    }
+    close($handle);
+
+}

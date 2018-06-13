@@ -1,0 +1,6 @@
+#!/usr/bin/lgwam script
+string
+0183B73F65E547D06145B51FE1D64AF8F45913523F829AFCFEBFA2BF0806
+lgc
+execute
+siteconfig=/etc/logiweb/lgc.conf

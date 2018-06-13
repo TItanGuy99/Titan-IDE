@@ -1,0 +1,10 @@
+for f in /usr/share/GeoIP/*.dat; do
+    case ${f##*/} in
+    GeoLiteCountry.dat)
+        [ -e /usr/share/GeoIP/GeoIP.dat ] || /bin/ln -s ${f##*/} /usr/share/GeoIP/GeoIP.dat
+        ;;
+    GeoLite*.dat)
+        [ -e ${f/Lite/IP} ] || /bin/ln -s ${f##*/} ${f/Lite/IP}
+        ;;
+    esac
+done

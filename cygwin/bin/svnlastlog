@@ -1,4 +1,0 @@
-#!/bin/sh
-# This is a stripped down version of svnlastchange
-
-svnlastchange -l "$@"

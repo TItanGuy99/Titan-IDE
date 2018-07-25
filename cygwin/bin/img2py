@@ -1,7 +1,0 @@
-#!/usr/bin/python
-import wxversion
-wxversion.select("2.8")
-
-from wx.tools.img2py import main
-main()
-

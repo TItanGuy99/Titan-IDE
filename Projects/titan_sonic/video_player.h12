@@ -1,0 +1,17 @@
+/*Code and engine made by Titan Game Studios 2016/2017 coded by Luiz Nai.*/
+#include <kos.h>
+#include "dreamroqlib.h"
+#ifndef VIDEO_PLAYER_H
+#define VIDEO_PLAYER_H
+
+class video_player{
+	public:
+		int quit_cb();
+		int render_cb(void *buf, int width, int height, int stride, int texture_height, int colorspace);
+	    int audio_cb(unsigned char *buf_rgb565, int samples, int channels);
+		int finish_cb();
+	
+	     video_player();
+		~video_player();
+};
+#endif

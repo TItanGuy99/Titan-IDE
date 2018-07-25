@@ -1,6 +1,0 @@
-if [ ! -f /usr/share/t1lib/t1lib.config ]
-then
-    /usr/bin/mkdir -p /usr/share/t1lib
-    /usr/bin/cp /etc/defaults/usr/share/t1lib/t1lib.config /usr/share/t1lib/t1lib.config
-fi
-

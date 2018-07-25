@@ -1,2 +1,0 @@
-[ -d /var/empty ] && setfacl -d g:18: /var/empty
-exit 0

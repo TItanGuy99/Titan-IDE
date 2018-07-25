@@ -1,4 +1,0 @@
-#!/usr/bin/python
-
-from buildslave.scripts import runner
-runner.run()

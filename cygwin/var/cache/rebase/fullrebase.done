@@ -1,2 +1,0 @@
-# _autorebase will do a rebuild of the rebase database if this file
-# exists and then rename it to fullrebase.done

@@ -1,3 +1,0 @@
-if [ -x /usr/bin/xmlcatalog ] ; then
-    /usr/bin/xmlcatalog --noout --add "system" "fonts.dtd" /usr/share/xml/fontconfig/fonts.dtd /etc/xml/catalog
-fi

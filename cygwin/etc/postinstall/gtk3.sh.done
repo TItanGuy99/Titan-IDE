@@ -1,3 +1,0 @@
-rm -f /usr/share/icons/hicolor/icon-theme.cache
-/usr/bin/gtk-query-immodules-3.0 --update-cache
-

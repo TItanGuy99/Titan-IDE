@@ -1,5 +1,0 @@
-if [ -x /usr/bin/gtk-update-icon-cache.exe ]
-then
-    /usr/bin/gtk-update-icon-cache --force /usr/x86_64-w64-mingw32/sys-root/mingw/share/icons/HighContrast
-fi
-

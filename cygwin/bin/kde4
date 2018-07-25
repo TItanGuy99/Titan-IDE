@@ -1,9 +1,0 @@
-#!/bin/sh
-#
-#  Script for launching KDE4 applications from outside of the KDE4 desktop
-#
-#  Modify this to match your specific needs, such as setting up needed env. variables,
-#  and make sure this script is in $PATH (e.g. make a symlink if necessary).
-#
-
-exec "$@"

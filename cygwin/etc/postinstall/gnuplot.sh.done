@@ -1,6 +1,0 @@
-if [ ! -f /etc/X11/app-defaults/Gnuplot ]
-then
-    /usr/bin/mkdir -p /etc/X11/app-defaults
-    /usr/bin/cp /etc/defaults/etc/X11/app-defaults/Gnuplot /etc/X11/app-defaults/Gnuplot
-fi
-

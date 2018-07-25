@@ -1,6 +1,0 @@
-# This file is provided by texlive-collection-basic to indicate which
-# tlmgr actions are allowed in system mode on Cygwin.  Do not edit it
-# unless you know what you’re doing.  Any edits will be lost when
-# texlive-collection-basic is updated.
-
-allowed-actions = conf,generate,get-mirror,info,init-usertree,key,paper,search

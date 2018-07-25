@@ -1,3 +1,0 @@
-#!/bin/sh
-echo "There is no equivalent to cvsgettags for Subversion"
-exit 1

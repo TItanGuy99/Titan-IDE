@@ -1,6 +1,0 @@
-# Install this package as a unison alternative.
-
-UNISON_VERSION=2.32
-UNISON_PRIORITY=2032
-
-/usr/sbin/alternatives --install /usr/bin/unison unison /usr/bin/unison-$UNISON_VERSION $UNISON_PRIORITY

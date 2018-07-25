@@ -1,4 +1,0 @@
-#!/bin/sh
-# This script lists files not in the Subversion repository
-
-svn status --no-ignore "$1" | sed '/^[\?I]/{s/^.......//;p};d'

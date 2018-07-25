@@ -1,7 +1,0 @@
-CATALOG /etc/sgml/sgml-docbook.cat
-CATALOG /etc/sgml/xml-docbook-4.1.2.cat
-CATALOG /etc/sgml/xml-docbook-4.2.cat
-CATALOG /etc/sgml/xml-docbook-4.3.cat
-CATALOG /etc/sgml/xml-docbook-4.4.cat
-CATALOG /etc/sgml/xml-docbook-4.5.cat
-CATALOG /etc/sgml/gtk-doc.cat

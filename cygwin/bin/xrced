@@ -1,6 +1,0 @@
-#!/usr/bin/python
-import wxversion
-wxversion.select("2.8")
-
-from wx.tools.XRCed.xrced import main
-main()

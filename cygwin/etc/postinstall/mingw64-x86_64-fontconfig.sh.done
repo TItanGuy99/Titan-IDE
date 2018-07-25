@@ -1,1 +1,0 @@
-sed -i -e "s|CYGWINFONTDIR|`cygpath -m /usr/share/fonts`|" /usr/x86_64-w64-mingw32/sys-root/mingw/etc/fonts/fonts.conf

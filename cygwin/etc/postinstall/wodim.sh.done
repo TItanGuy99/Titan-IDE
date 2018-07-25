@@ -1,9 +1,0 @@
-#!/bin/sh
-
-if [ ! -e /etc/netscsid.conf ]; then
-  cp -p /etc/defaults/etc/netscsid.conf /etc/netscsid.conf
-fi
-if [ ! -e /etc/wodim.conf ]; then
-  cp -p /etc/defaults/etc/wodim.conf /etc/wodim.conf
-fi
-

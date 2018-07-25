@@ -1,8 +1,0 @@
-#!/bin/sh
-# cvslastlog - prints log of last commit for a file
-# Depends on the version of the local file, not the one on the server
-# Requires cvsversion
-# David Faure, faure@kde.org
-
-cvs log -N -r`cvsversion "$1"` "$1"
-

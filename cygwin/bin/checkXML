@@ -1,6 +1,0 @@
-#! /bin/sh
-
-prefix=/usr
-exec_prefix=/usr/bin
-exit `/usr/bin/meinproc4 --check --stdout $@ > /dev/null`
-

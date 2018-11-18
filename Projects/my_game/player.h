@@ -9,7 +9,7 @@
 class player:baseclass{
 	SDL_Rect box;
 	SDL_Surface* image;
-	int xvel, yvel, upvel, countvel, speed, player_size, count_standing, count_running;
+	int xvel, yvel, upvel, countvel, speed, player_size, count_standing, count_running, my_x, my_y;
 	SDL_Rect clips[32];
 	bool ground,on_top,animation_limit,is_colliding, is_shooting, on_wall, looking_up, looking_down;
 	char direction;
@@ -35,6 +35,7 @@ class player:baseclass{
 	bool getMoving();
 	void setDirection(char);
 	char getDirection();
+	void set_x_y(int x, int y);
 	int getHealth();
 	int getY();
 	int getX();

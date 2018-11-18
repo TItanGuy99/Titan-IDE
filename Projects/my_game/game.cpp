@@ -1,4 +1,4 @@
-/*Code and engine made by Titan Game Studios 2016/2017 coded by Luiz Nai.*/
+ /*Code and engine made by Titan Game Studios 2016/2017 coded by Luiz Nai.*/
 #include "game.h"
 
 SDL_Rect baseclass::coord; //we have to actually reserve memory for the static SDL_Rect from the baseclass
@@ -469,12 +469,11 @@ void game::showmap()
 			{
 				SDL_Rect blockrect={(map[i][j]-1)*baseclass::TILE_SIZE,0,baseclass::TILE_SIZE,baseclass::TILE_SIZE};
 				SDL_Rect destrect = {j*baseclass::TILE_SIZE-baseclass::coord.x,i*baseclass::TILE_SIZE};
-								
-				//baseclass::coord.y = (player1->get_mapy()-map.size()/2+96);
+										
 				destrect.y += baseclass::coord.y;
-				destrect.x -= baseclass::coord.x;
-				//destrect.w += baseclass::coord.x;
+				destrect.x -= 1;
 				SDL_BlitSurface(block,&blockrect,screen,&destrect);
+				player1->set_x_y(0, 0);
 			}
 		}
 	}

@@ -8,13 +8,15 @@ player::player(SDL_Surface *img)
 	image=img;
 	count_standing=0;
 	player_size = 32;
-	box.x=130;
-	box.y=90;
+	box.x=140;
+	box.y=100;
 	box.w=32;
 	box.h=player_size;
 	lives=3;
 	countvel=0;
 	xvel=0;
+	my_x=0;
+	my_y=0;
 	yvel=0;
 	upvel=0;
 	map_y=0;
@@ -76,47 +78,80 @@ void player::show(SDL_Surface* screen)
 void player::move(const std:: vector<std::vector<int> >&map)
 {
 	
-	if(direction!='z')
-	{
-		frame+=0.1;
-			
-		if(direction=='u' && frame >= 15.4)
-		{
-			frame=12;
-		} 
-		else if(direction=='d' && frame >= 3.4)
-		{
-			frame=0;
-		}	
-		else if(direction=='l' && frame >= 7.4)
-		{
-			frame=4;
-		}	
-		else if(direction=='r' && frame >= 11.4)
-		{
-			frame=8;
-		}	
-	}
-	else
-	{
-		if(direction=='u')
-		{
-			frame=12;
-		} 
-		else if(direction=='d')
-		{
-			frame=0;
-		}	
-		else if(direction=='l')
-		{
-			frame=4;
-		}	
-		else if(direction=='r')
-		{
-			frame=8;
-		}		
-	}
+	int start=(baseclass::coord.x-(baseclass::coord.x%baseclass::TILE_SIZE))/baseclass::TILE_SIZE;
+	int end=(baseclass::coord.x+baseclass::coord.w+(baseclass::TILE_SIZE-
+	(baseclass::coord.x+baseclass::coord.w)%baseclass::TILE_SIZE))/baseclass::TILE_SIZE;
+	
+	if(start<0)
+		start=0;
+	if(end>map[0].size())
+       end=map[0].size();	
 
+	bool nc=0;
+	ground=0;
+   
+	for(int i=0; i<map.size(); i++)
+		for(int j=start; j<end;j++)
+		{
+			if(map[i][j]==0)
+            continue;		  
+				  
+			 SDL_Rect destrect={my_x,my_y};
+			  
+			 if(collision(&box,&destrect))
+			 {
+				 is_colliding = false;
+				
+			 }
+			 else
+			 {
+				is_colliding = true;
+			 }
+		}		
+	
+	if(is_colliding)
+	{
+		if(direction!='z')
+		{
+			frame+=0.1;
+				
+			if(direction=='u' && frame >= 15.4)
+			{
+				frame=12;
+			} 
+			else if(direction=='d' && frame >= 3.4)
+			{
+				frame=0;
+			}	
+			else if(direction=='l' && frame >= 7.4)
+			{
+				frame=4;
+			}	
+			else if(direction=='r' && frame >= 11.4)
+			{
+				frame=8;
+			}	
+		}
+		else
+		{
+			if(direction=='u')
+			{
+				frame=12;
+			} 
+			else if(direction=='d')
+			{
+				frame=0;
+			}	
+			else if(direction=='l')
+			{
+				frame=4;
+			}	
+			else if(direction=='r')
+			{
+				frame=8;
+			}		
+		}
+	}
 }
 
 /////Set that the player is moving
@@ -203,6 +238,12 @@ int player::getYvel()
 	return yvel;
 }
 
+void player::set_x_y(int x, int y)
+{
+    my_x=x;
+	my_y=y;
+}
+
 ///// Set the player's health
 void player::setHealth(int h)
 {
@@ -228,8 +269,8 @@ void player::resetPosition()
 	frame=0;
 	is_shooting=false;
 	health=200;
-	box.x=130;
-	box.y=90;
+	box.x=140;
+	box.y=100;
 	map_y=0;
 }
 

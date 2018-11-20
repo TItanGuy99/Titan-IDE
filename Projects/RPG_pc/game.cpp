@@ -7,17 +7,10 @@ SDL_Rect baseclass::coord; //we have to actually reserve memory for the static S
 int save_clock;
  
 game::game()    //constructor
-{	
-	//init kos
-    vid_init(DM_GENERIC_FIRST, PM_RGB565);
-    pvr_init_defaults();
-	
+{		
 	SDL_Init(SDL_INIT_JOYSTICK);
-	
-	snd_stream_init();
 			
-	screen=SDL_SetVideoMode(SCREEN_WIDTH,SCREEN_HEIGHT,16,SDL_FULLSCREEN);
-	PVR_SET(PVR_SCALER_CFG, 0x400);
+	screen=SDL_SetVideoMode(SCREEN_WIDTH,SCREEN_HEIGHT,16,SDL_SWSURFACE);
 	
 	SDL_ShowCursor(SDL_DISABLE);
 	SDL_JoystickEventState(SDL_ENABLE);
@@ -120,7 +113,6 @@ game::~game()
 		delete obstacles_bkp[i];
 	
 	SDL_Quit();
-	pvr_shutdown();
 }
 
 //// Function to control the bg (not using on this code)
@@ -551,12 +543,12 @@ void game::menu()
 					switch(event.key.keysym.sym)
 					{
 						case SDLK_RETURN:
-							thd_sleep(10);
+							//thd_sleep(10);
 							menu_running=false;						
 						break;
 						
 						case SDLK_KP_ENTER:
-							thd_sleep(10);
+							//thd_sleep(10);
 							menu_running=false;
 						break;
 						
@@ -572,7 +564,7 @@ void game::menu()
 					switch(event.jbutton.button)
 					{                   
 						case 4:
-							thd_sleep(10);
+							//thd_sleep(10);
 							menu_running=false;
 						break;						
 					}
@@ -655,11 +647,8 @@ void game::start()
 	int min;
 	int output;
 	bool all_runing=true;
-	static pvr_poly_hdr_t hdr[2];
-	pvr_poly_cxt_t cxt;
 	Uint32 start;
 	loadmap("rd/map/map.map");	
-	vmu();
 	player1->setDirection('z');
 	
 	while(all_runing)
@@ -817,11 +806,11 @@ void game::start()
 			
 			if(SDL_GetTicks()-start<=20)
 			{
-				SDL_Delay(5);
+				SDL_Delay(10);
 			}
 			else
 			{
-				SDL_Delay(2);
+				SDL_Delay(5);
 			}
 			
 			//////////////////////////////////////////////////////////

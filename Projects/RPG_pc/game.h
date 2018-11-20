@@ -12,10 +12,8 @@
 //#include "bullet.h"
 //#include "enemy.h"
 #include "obstacle.h"
-#include "vmu.h"
 #ifndef GAME_H
 #define GAME_H
-#include <kos.h>
 
 class game:public baseclass{
 	SDL_Joystick *joystick;

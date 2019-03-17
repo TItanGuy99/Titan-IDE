@@ -4,7 +4,7 @@ include $(KOS_BASE)/Makefile.rules
 
 OBJS = main.o game.o base.o player.o enemy.o vmu.o dreamroqlib.o item.o bullet.o
 
-KOS_LOCAL_CFLAGS = -I$(KOS_BASE)/addons/zlib
+KOS_LOCAL_CFLAGS = -I$(KOS_BASE)/addons/zlib -0s
 	
 clean:
 	-rm -f main.elf $(OBJS)

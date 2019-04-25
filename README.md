@@ -5,5 +5,5 @@ Here are the templates that are used together with the tool. All the templates a
 own game. After you install the tool, download the template you wish and put it inside the following directory: 
 C:\cygwin\home\(Your Computer name)\dc\kos\Projects\
 
-The toll can be downloaded here: 
+The tool can be downloaded here: 
 https://titangamestudios.com/2017/04/22/tutorial-how-to-make-a-dreamcast-game-using-the-titan-ide/

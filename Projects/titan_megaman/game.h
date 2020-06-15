@@ -22,12 +22,13 @@ class game:public baseclass{
 	SDL_Joystick *joystick;
 	int joystickCount;
 	int buttonCount;
-	SDL_Surface *screen, *background, *parallax_layer, *block, *bul, *ene, *ene2, *hud, *energy;
+	SDL_Surface *screen, *block, *blocksBG, *bul, *ene, *ene2, *hud, *energy;
 	SDL_Surface *energy_life, *numb, *goat, *m_screen, *press_start, *titan_logo, *game_over, *final_screen;
 	SDL_Surface  *n0, *n1, *n2, *n3, *n4, *n5, *n6, *n7, *n8, *n9;  
-	SDL_Rect camera,rect_parallax0, rect_parallax1, rect_parallax2, energy1, energy2, energy3, energy4, numb1, press_start1;
+	SDL_Rect camera, energy1, energy2, energy3, energy4, numb1, press_start1;
 	SDL_Rect clip_number[10];
 	std::vector<std::vector<int> > map;
+	std::vector<std::vector<int> > mapBG;
 	std::vector<rain*> goats;
 	std::vector<bullet*> bullets;
 	std::vector<enemy*> enemies;
@@ -39,6 +40,8 @@ class game:public baseclass{
 	SDL_Surface* load_image3(const char* filename); 
 	void loadmap(const char* filename);
 	void showmap();
+	void showmapBG();
+	void loadBG(const char* filename);
 	void menu();
 	void load_image();
 	void load_image2();

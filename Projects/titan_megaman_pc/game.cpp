@@ -7,7 +7,7 @@ game::game()    //constructor
 {		
 	SDL_Init(SDL_INIT_JOYSTICK);
 			
-	screen=SDL_SetVideoMode(SCREEN_WIDTH,SCREEN_HEIGHT,16,SDL_FULLSCREEN);
+	screen=SDL_SetVideoMode(SCREEN_WIDTH,SCREEN_HEIGHT,16,SDL_SWSURFACE);
 	
 	SDL_ShowCursor(SDL_DISABLE);
 	SDL_JoystickEventState(SDL_ENABLE);
@@ -22,8 +22,9 @@ game::game()    //constructor
 	m_screen = load_image2("rd/images/menu/menu.bmp");
 	game_over  = load_image2("rd/images/menu/game_over.bmp");
 	final_screen = load_image2("rd/images/menu/final_screen.bmp");
-	block= load_image3("rd/images/blocks/blocks.bmp");
-	background=load_image2("rd/images/BG/BG.bmp");
+	block = load_image3("rd/images/blocks/blocks.bmp");
+	blocksBG = load_image3("rd/images/BG/blocks.bmp");
+	//background=load_image2("rd/images/BG/BG.bmp");
 	bul=load_image("rd/images/bullets/BLT.bmp");
 	ene=load_image3("rd/images/enemy/enemy.bmp");
 	ene2=load_image3("rd/images/enemy/enemy2.bmp");
@@ -53,22 +54,7 @@ game::game()    //constructor
 	camera.w=SCREEN_WIDTH;
 	baseclass::coord.h=SCREEN_HEIGHT;
 	camera.h=SCREEN_HEIGHT;
-	
-	rect_parallax0.x=-320;
-	rect_parallax0.y=20;
-	rect_parallax0.w=320;
-	rect_parallax0.h=-149;
-	
-	rect_parallax1.x=0;
-	rect_parallax1.y=20;
-	rect_parallax1.w=320;
-	rect_parallax1.h=-149;
-	
-	rect_parallax2.x=320;
-	rect_parallax2.y=20;
-	rect_parallax2.w=320;
-	rect_parallax2.h=-149;
-	
+		
     numb1.x=-8;
 	numb1.y=-6;
 	numb1.w=-16;
@@ -114,7 +100,8 @@ game::~game()
 	SDL_FreeSurface(press_start);
 	SDL_FreeSurface(m_screen);
 	SDL_FreeSurface(block);
-	SDL_FreeSurface(background);
+	SDL_FreeSurface(blocksBG);
+	//SDL_FreeSurface(background);
 	SDL_FreeSurface(bul);
 	SDL_FreeSurface(ene);
 	SDL_FreeSurface(ene2);
@@ -126,49 +113,6 @@ game::~game()
 	SDL_FreeSurface(bul);
 		
 	SDL_Quit();
-}
-
-//// Function to control the parallax (not using on this code)
-void game::control_parallax(char d)
-{
-	if(d=='r')
-	{
-		rect_parallax0.x+=1;
-		rect_parallax1.x+=1;
-		rect_parallax2.x+=1;
-	}
-	else
-	{
-		rect_parallax0.x-=1;
-		rect_parallax1.x-=1;
-		rect_parallax2.x-=1;
-	}
-	
-		if (rect_parallax1.x < -320)
-		{
-			rect_parallax1.x = 320;
-		}
-		if (rect_parallax0.x < -320)
-		{
-			rect_parallax0.x = 320;
-		}
-		if (rect_parallax2.x < -320)
-		{
-			rect_parallax2.x = 320;
-		}
-
-		if (rect_parallax1.x > 320)
-		{
-			rect_parallax1.x = -320;
-		}
-		if (rect_parallax0.x > 320)
-		{
-			rect_parallax0.x = -320;
-		}
-		if (rect_parallax2.x > 320)
-		{
-			rect_parallax2.x = -320;
-		}
 }
 
 ///////Function to load the images without black
@@ -500,6 +444,77 @@ void game::showmap()
 	}
 }
 
+
+///// Function to load the map for the background
+void game::loadBG(const char* filename)
+{
+        std::ifstream in(filename);     //open the file
+        if(!in.is_open())       //if we are not succeded
+        {
+                std::cout << "Problem with loading the file" << std::endl;      //write out end exit
+                return;
+        }
+        //read the width and the height from the file
+        int width,height;
+        in >> width;
+        in >> height;
+        int current;
+        for(int i=0;i<height;i++)       //with two for loops go throught the file
+        {
+                std::vector<int> vec;   //every time we create a vector, and later we push that vector to the end of another vector
+                //so it's like a 2D array (matrix)
+                for(int j=0;j<width;j++)
+                {
+                        if(in.eof())    //if we reached the file before we end with the read in
+                        {
+                                std::cout << "File end reached too soon" << std::endl;  //write out and exit
+                                return;
+                        }
+                        in >> current;  //read the current number
+                        if(current>=0 && current<=13)    //if the current is greater or equal then 0 (so nothing) and less or equal than the max number of tiles
+                        //change the 7 to a bigger number, if you want to add more tile to the tiles.bmp image, don't forget 50x50 tiles
+                        {
+                            if(current==3)  //if the current is 3
+                            {
+                                 finish.x=j*50;  //set the finish coordinate
+                                 finish.y=i*50;
+                            }
+                            vec.push_back(current); //put the current into our matrix which represent the map in the game
+                        }else{
+                            vec.push_back(0);       //if the tile number is not known than just push 0 (so nothing) in the current position
+                        }
+                }
+                mapBG.push_back(vec);     //finally we push the vector to the end of the vector (dynamically allocated matrix :D)
+        }
+				
+        in.close();     //close the file
+}
+
+////// Function to show the mapBG on the screen
+void game::showmapBG()
+{	
+	int start=(baseclass::coord.x-(baseclass::coord.x%baseclass::TILE_SIZE))/baseclass::TILE_SIZE;
+	int end=(baseclass::coord.x+baseclass::coord.w+(baseclass::TILE_SIZE-
+	(baseclass::coord.x+baseclass::coord.w)%baseclass::TILE_SIZE))/baseclass::TILE_SIZE;
+	
+	if(start<0)
+		start=0;
+	if(end>mapBG[0].size())
+       end=mapBG[0].size();		
+	for(int i=0; i<mapBG.size(); i++)
+	{
+		for(int j=start; j<end;j++)
+		{
+			if(mapBG[i][j]!=0)
+			{
+				SDL_Rect blockrect={(mapBG[i][j]-1)*baseclass::TILE_SIZE,0,baseclass::TILE_SIZE,baseclass::TILE_SIZE};
+				SDL_Rect destrect = {j*baseclass::TILE_SIZE-baseclass::coord.x,i*baseclass::TILE_SIZE};			
+				SDL_BlitSurface(blocksBG,&blockrect,screen,&destrect);
+			}
+		}
+	}
+}
+
 ////// Main menu of the game
 void game::menu()
 {
@@ -627,7 +642,8 @@ void game::start()
 	int output;
 	bool all_runing=true;
 	Uint32 start;
-	loadmap("rd/map/map.map");	
+	loadmap("rd/map/map.map");
+	loadBG("rd/map/mapBG.map");	
 	
 	while(all_runing)
 	{		
@@ -659,7 +675,6 @@ void game::start()
 				   player1->setXvel(0);
 				   camera.x-=3;
 				   baseclass::coord.x-=3;
-				   control_parallax('l');
 			   }
 			   if(camera.x<0)
 				 camera.x=320-SCREEN_WIDTH;	   
@@ -676,7 +691,6 @@ void game::start()
 				   player1->setXvel(0);
 				   camera.x+=3;
 				   baseclass::coord.x+=3;
-				   control_parallax('r');
 			   }
 
 			   if(camera.x>=320-SCREEN_WIDTH)
@@ -792,13 +806,14 @@ void game::start()
 			}
 			
 			start=SDL_GetTicks();
-			SDL_BlitSurface(background,&camera,screen,NULL);		
+			//SDL_BlitSurface(background,&camera,screen,NULL);		
 			
 			for(int i=0;i<goats.size();i++)
 			{
 				goats[i]->show(screen);
 			}	
 			
+			showmapBG();
 			showmap();
 
 			player1->show(screen);

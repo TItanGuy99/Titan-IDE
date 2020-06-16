@@ -38,10 +38,8 @@ class game:public baseclass{
 	SDL_Surface* load_image(const char* filename); 
 	SDL_Surface* load_image2(const char* filename); 
 	SDL_Surface* load_image3(const char* filename); 
-	void loadmap(const char* filename);
-	void showmap();
-	void showmapBG();
-	void loadBG(const char* filename);
+	void loadmap(const char* filename, bool isBG);
+	void showmap(std::vector<std::vector<int> > currentMap, bool checkY, SDL_Surface *currentBlock);
 	void menu();
 	void load_image();
 	void load_image2();

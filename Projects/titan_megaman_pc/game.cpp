@@ -354,7 +354,7 @@ void game::handleEvents()
 }
 
 ///// Function to load the map
-void game::loadmap(const char* filename)
+void game::loadmap(const char* filename, bool isBG)
 {
         std::ifstream in(filename);     //open the file
         if(!in.is_open())       //if we are not succeded
@@ -379,7 +379,7 @@ void game::loadmap(const char* filename)
                                 return;
                         }
                         in >> current;  //read the current number
-                        if(current<0) //if it's -1 than we put a new enemy to the position
+                        if(current<0 && !isBG) //if it's -1 than we put a new enemy to the position
                         {
 							if(current==-1)
 							{
@@ -395,7 +395,9 @@ void game::loadmap(const char* filename)
 								//where they start by multiplying it with the i or j
                                 vec.push_back(0);       //and we push back 0 to the vector (so nothing will be visible there)	
 							}
-                        }else{
+                        }
+                        else
+                        {
                                 if(current>=0 && current<=13)    //if the current is greater or equal then 0 (so nothing) and less or equal than the max number of tiles
                                 //change the 7 to a bigger number, if you want to add more tile to the tiles.bmp image, don't forget 50x50 tiles
                                 {
@@ -410,14 +412,21 @@ void game::loadmap(const char* filename)
                                 }
                         }
                 }
-                map.push_back(vec);     //finally we push the vector to the end of the vector (dynamically allocated matrix :D)
+                if(!isBG) 
+                {
+                    map.push_back(vec);     //finally we push the vector to the end of the vector (dynamically allocated matrix :D)
+                }
+                else 
+                {
+                    mapBG.push_back(vec);
+                }
         }
 				
         in.close();     //close the file
 }
 
 ////// Function to show the map on the screen
-void game::showmap()
+void game::showmap(std::vector<std::vector<int> > currentMap, bool checkY, SDL_Surface *currentBlock)
 {	
 	int start=(baseclass::coord.x-(baseclass::coord.x%baseclass::TILE_SIZE))/baseclass::TILE_SIZE;
 	int end=(baseclass::coord.x+baseclass::coord.w+(baseclass::TILE_SIZE-
@@ -425,91 +434,24 @@ void game::showmap()
 	
 	if(start<0)
 		start=0;
-	if(end>map[0].size())
-       end=map[0].size();		
+	if(end>currentMap[0].size())
+       end=currentMap[0].size();		
 	for(int i=0; i<map.size(); i++)
 	{
 		for(int j=start; j<end;j++)
 		{
-			if(map[i][j]!=0)
+			if(currentMap[i][j]!=0)
 			{
-				SDL_Rect blockrect={(map[i][j]-1)*baseclass::TILE_SIZE,0,baseclass::TILE_SIZE,baseclass::TILE_SIZE};
+				SDL_Rect blockrect={(currentMap[i][j]-1)*baseclass::TILE_SIZE,0,baseclass::TILE_SIZE,baseclass::TILE_SIZE};
 				SDL_Rect destrect = {j*baseclass::TILE_SIZE-baseclass::coord.x,i*baseclass::TILE_SIZE};
 								
-				baseclass::coord.y = (player1->get_mapy()-map.size()/2+96);
-				destrect.y += (player1->get_mapy()-map.size()/2+96)*-1;				
-				SDL_BlitSurface(block,&blockrect,screen,&destrect);
-			}
-		}
-	}
-}
-
-
-///// Function to load the map for the background
-void game::loadBG(const char* filename)
-{
-        std::ifstream in(filename);     //open the file
-        if(!in.is_open())       //if we are not succeded
-        {
-                std::cout << "Problem with loading the file" << std::endl;      //write out end exit
-                return;
-        }
-        //read the width and the height from the file
-        int width,height;
-        in >> width;
-        in >> height;
-        int current;
-        for(int i=0;i<height;i++)       //with two for loops go throught the file
-        {
-                std::vector<int> vec;   //every time we create a vector, and later we push that vector to the end of another vector
-                //so it's like a 2D array (matrix)
-                for(int j=0;j<width;j++)
+                if(checkY) 
                 {
-                        if(in.eof())    //if we reached the file before we end with the read in
-                        {
-                                std::cout << "File end reached too soon" << std::endl;  //write out and exit
-                                return;
-                        }
-                        in >> current;  //read the current number
-                        if(current>=0 && current<=13)    //if the current is greater or equal then 0 (so nothing) and less or equal than the max number of tiles
-                        //change the 7 to a bigger number, if you want to add more tile to the tiles.bmp image, don't forget 50x50 tiles
-                        {
-                            if(current==3)  //if the current is 3
-                            {
-                                 finish.x=j*50;  //set the finish coordinate
-                                 finish.y=i*50;
-                            }
-                            vec.push_back(current); //put the current into our matrix which represent the map in the game
-                        }else{
-                            vec.push_back(0);       //if the tile number is not known than just push 0 (so nothing) in the current position
-                        }
+                    baseclass::coord.y = (player1->get_mapy()-currentMap.size()/2+96);
+                    destrect.y += (player1->get_mapy()-currentMap.size()/2+96)*-1;
                 }
-                mapBG.push_back(vec);     //finally we push the vector to the end of the vector (dynamically allocated matrix :D)
-        }
-				
-        in.close();     //close the file
-}
 
-////// Function to show the mapBG on the screen
-void game::showmapBG()
-{	
-	int start=(baseclass::coord.x-(baseclass::coord.x%baseclass::TILE_SIZE))/baseclass::TILE_SIZE;
-	int end=(baseclass::coord.x+baseclass::coord.w+(baseclass::TILE_SIZE-
-	(baseclass::coord.x+baseclass::coord.w)%baseclass::TILE_SIZE))/baseclass::TILE_SIZE;
-	
-	if(start<0)
-		start=0;
-	if(end>mapBG[0].size())
-       end=mapBG[0].size();		
-	for(int i=0; i<mapBG.size(); i++)
-	{
-		for(int j=start; j<end;j++)
-		{
-			if(mapBG[i][j]!=0)
-			{
-				SDL_Rect blockrect={(mapBG[i][j]-1)*baseclass::TILE_SIZE,0,baseclass::TILE_SIZE,baseclass::TILE_SIZE};
-				SDL_Rect destrect = {j*baseclass::TILE_SIZE-baseclass::coord.x,i*baseclass::TILE_SIZE};			
-				SDL_BlitSurface(blocksBG,&blockrect,screen,&destrect);
+				SDL_BlitSurface(currentBlock,&blockrect,screen,&destrect);
 			}
 		}
 	}
@@ -642,8 +584,8 @@ void game::start()
 	int output;
 	bool all_runing=true;
 	Uint32 start;
-	loadmap("rd/map/map.map");
-	loadBG("rd/map/mapBG.map");	
+	loadmap("rd/map/map.map", false);
+	loadmap("rd/map/mapBG.map", true);	
 	
 	while(all_runing)
 	{		
@@ -779,7 +721,6 @@ void game::start()
 					goats.erase(goats.begin()+i);
 				}
 			
-			
 			////////////////////////////////////////////////// Function goats
 		   
 			max=5;
@@ -813,8 +754,8 @@ void game::start()
 				goats[i]->show(screen);
 			}	
 			
-			showmapBG();
-			showmap();
+			showmap(mapBG, false, blocksBG);
+			showmap(map, true, block);
 
 			player1->show(screen);
 			for(int i=0;i<bullets.size();i++)
@@ -826,7 +767,6 @@ void game::start()
 				enemies[i]->show(screen);
 			}
 			
-
 			SDL_BlitSurface(hud,&camera,screen,NULL);	
 			
 			if(player1->getHealth()>5)
@@ -844,15 +784,11 @@ void game::start()
 				//snd_sfx_play(sfx_hurt,255,128);
 			}
 			
-			
 			SDL_BlitSurface(numb,&numb1,screen,NULL);		
 			SDL_Flip(screen);
-		
-		
-
+	
 			SDL_Delay(15);
-
-			
+		
 			//////////////////////////////////////////////////////////
 					
 		   if(player1->getHealth()<=0 || player1->get_mapy() >=400)
@@ -950,5 +886,4 @@ void game::start()
 			}
 		}
 	}
-
 }

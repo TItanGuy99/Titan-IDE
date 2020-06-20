@@ -1,4 +1,4 @@
-/*Code and engine made by Titan Game Studios 2016/2017 coded by Luiz Nai.*/
+/*Code and engine made by Titan Game Studios 2016/2020 coded by Luiz Nai.*/
 #include "boss.h"
 
 /////Main function for the boss
@@ -130,7 +130,6 @@ void boss::move(std::vector<std::vector<int> >& map)
 					  setDirection('l');
 					  box.x-=2;
 					  xvel=-2;     //else change the direction in the x axis
-					  printf ("%d\n",8);
 				  }
 				  else if(box.x-coord.x<=destrect.x+destrect.w && box.y-coord.y+box.h>=destrect.y+6.1)
 				  {
@@ -138,7 +137,6 @@ void boss::move(std::vector<std::vector<int> >& map)
 					  setDirection('r');
 					  box.x+=2;
 					  xvel=+2;     //else change the direction in the x axis
-					  printf ("%d\n",9);
 				  }	  
 			  }
 		  }

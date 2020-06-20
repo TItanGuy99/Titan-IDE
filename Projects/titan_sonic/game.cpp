@@ -1,4 +1,4 @@
-/*Code and engine made by Titan Game Studios 2016/2017 coded by Luiz Nai.*/
+/*Code and engine made by Titan Game Studios 2016/2020 coded by Luiz Nai.*/
 #include "game.h"
 
 SDL_Rect baseclass::coord; //we have to actually reserve memory for the static SDL_Rect from the baseclass
@@ -28,67 +28,43 @@ game::game()    //constructor
 		
 	SDL_Delay(200);
 	
-	titan_logo = load_image2("rd/images/menu/Titan.bmp");
-	press_start = load_image("rd/images/menu/Start_Game.bmp");
-	m_screen = load_image2("rd/images/menu/menu.bmp");
-	game_over  = load_image2("rd/images/menu/game_over.bmp");
-	final_screen = load_image2("rd/images/menu/final_screen.bmp");
-	block= load_image3("rd/images/blocks/blocks.bmp");
-	bg1=load_image2("rd/images/BG/BG1.bmp");
-	bg2=load_image2("rd/images/BG/BG1.bmp");
-	bg3=load_image2("rd/images/BG/BG2.bmp");
-	bg4=load_image2("rd/images/BG/BG2.bmp");
-	/*bg5=load_image2("rd/images/BG/BG5.bmp");
-	bg6=load_image2("rd/images/BG/BG6.bmp");
-	bg7=load_image2("rd/images/BG/BG7.bmp");*/
-	background=bg2;
-	ite=load_image3("rd/images/itens/rings.bmp");
-	ene=load_image4("rd/images/enemy/enemy.bmp");
-	ene2=load_image4("rd/images/enemy/enemy2.bmp");
-	bos=load_image3("rd/images/boss/boss.bmp");
-	hud=load_image("rd/images/hud/HUD.bmp");
-	numb=load_image("rd/images/numbers/N3.bmp");
+	titan_logo = load_image("rd/images/menu/Titan.bmp",1,1,1);
+	press_start = load_image("rd/images/menu/Start_Game.bmp",0x00,0x00,0x00);
+	m_screen = load_image("rd/images/menu/menu.bmp",1,1,1);
+	game_over  = load_image("rd/images/menu/game_over.bmp",1,1,1);
+	final_screen = load_image("rd/images/menu/final_screen.bmp",1,1,1);
+	block= load_image("rd/images/blocks/blocks.bmp",0xff,0x00,0xff);
+	blocksBG = load_image("rd/images/BG/blocks.bmp", 0xff,0x00,0x00);
+	ite=load_image("rd/images/itens/rings.bmp",0xff,0x00,0xff);
+	ene=load_image("rd/images/enemy/enemy.bmp",0x00,0xff,0x00);
+	ene2=load_image("rd/images/enemy/enemy2.bmp",0x00,0xff,0x00);
+	bos=load_image("rd/images/boss/boss.bmp",0xff,0x00,0xff);
+	hud=load_image("rd/images/hud/HUD.bmp",0x00,0x00,0x00);
+	numb=load_image("rd/images/numbers/N3.bmp",0x00,0x00,0x00);
+	n9=load_image("rd/images/numbers/N9.bmp",0x00,0x00,0x00);
+	n8=load_image("rd/images/numbers/N8.bmp",0x00,0x00,0x00);
+	n7=load_image("rd/images/numbers/N7.bmp",0x00,0x00,0x00);
+	n6=load_image("rd/images/numbers/N6.bmp",0x00,0x00,0x00);
+	n5=load_image("rd/images/numbers/N5.bmp",0x00,0x00,0x00);
+	n4=load_image("rd/images/numbers/N4.bmp",0x00,0x00,0x00);
+	n3=load_image("rd/images/numbers/N3.bmp",0x00,0x00,0x00);
+	n2=load_image("rd/images/numbers/N2.bmp",0x00,0x00,0x00);
+	n1=load_image("rd/images/numbers/N1.bmp",0x00,0x00,0x00);
+	n0=load_image("rd/images/numbers/N0.bmp",0x00,0x00,0x00);
 	sfx_enemies = snd_sfx_load("/rd/enemies.wav"); 
 	sfx_hurt = snd_sfx_load("/rd/death.wav"); 
-	sfx_ring = snd_sfx_load("/rd/ring.wav"); 
-	n9=load_image("rd/images/numbers/N9.bmp");
-	n8=load_image("rd/images/numbers/N8.bmp");
-	n7=load_image("rd/images/numbers/N7.bmp");
-	n6=load_image("rd/images/numbers/N6.bmp");
-	n5=load_image("rd/images/numbers/N5.bmp");
-	n4=load_image("rd/images/numbers/N4.bmp");
-	n3=load_image("rd/images/numbers/N3.bmp");
-	n2=load_image("rd/images/numbers/N2.bmp");
-	n1=load_image("rd/images/numbers/N1.bmp");
-	n0=load_image("rd/images/numbers/N0.bmp");
+	sfx_ring = snd_sfx_load("/rd/ring.wav");
 		
 	baseclass::coord.x = 0;
 	baseclass::coord.y=0;
 	camera.x=0;
 	camera.y=0;
-	count_animation=0;
-	count_background=0;
 	///////////////
 	baseclass::coord.w=SCREEN_WIDTH;
 	///////////////
 	camera.w=SCREEN_WIDTH;
 	baseclass::coord.h=SCREEN_HEIGHT;
 	camera.h=SCREEN_HEIGHT;
-	
-	rect_bg.w=SCREEN_WIDTH;
-	rect_bg.h=SCREEN_HEIGHT;
-	rect_bg2.w=SCREEN_WIDTH;
-	rect_bg2.h=SCREEN_HEIGHT;
-	rect_bg3.w=SCREEN_WIDTH;
-	rect_bg3.h=SCREEN_HEIGHT;
-		
-	rect_bg.x=-320;
-	rect_bg.y=0;
-	rect_bg2.x=0;
-	rect_bg2.y=0;
-	rect_bg3.x=320;
-	rect_bg3.y=0;
-	
 
     numb1.x=-25;
 	numb1.y=-2;
@@ -97,7 +73,7 @@ game::game()    //constructor
 	
 	direction[0]=direction[1]=0;
 	running=true;
-	player1=new player(load_image3("rd/images/player/player.bmp"));
+	player1=new player(load_image("rd/images/player/player.bmp",0xff,0x00,0xff));
 	finish.x=0;
     finish.y=0;
 	finish.w=50;
@@ -110,7 +86,6 @@ game::game()    //constructor
 	music_boss=false;
 	boss_defeated=false;
 	count_end=0;
-	count_moving=0;
 }
 
 ///// Destroy all the variables in the memory for the game.
@@ -119,12 +94,26 @@ game::~game()
 	SDL_FreeSurface(titan_logo);
 	SDL_FreeSurface(press_start);
 	SDL_FreeSurface(m_screen);
+	SDL_FreeSurface(game_over);
+	SDL_FreeSurface(final_screen);
 	SDL_FreeSurface(block);
-	SDL_FreeSurface(background);
+	SDL_FreeSurface(blocksBG);
+	SDL_FreeSurface(ite);
 	SDL_FreeSurface(ene);
 	SDL_FreeSurface(ene2);
+	SDL_FreeSurface(bos);
 	SDL_FreeSurface(hud);
 	SDL_FreeSurface(numb);
+	SDL_FreeSurface(n9);
+	SDL_FreeSurface(n8);
+	SDL_FreeSurface(n7);
+	SDL_FreeSurface(n6);
+	SDL_FreeSurface(n5);
+	SDL_FreeSurface(n4);
+	SDL_FreeSurface(n3);
+	SDL_FreeSurface(n2);
+	SDL_FreeSurface(n1);
+	SDL_FreeSurface(n0);
 	
 	for(int i =0;i<enemies.size();i++)
 		delete enemies[i];
@@ -135,141 +124,22 @@ game::~game()
 	for(int i =0;i<items_bkp.size();i++)
 		delete items_bkp[i];
 	
-	
 	SDL_Quit();
 	pvr_shutdown();
 }
 
-//// Function to control the bg (not using on this code)
-void game::control_bg(char d)
-{
-	if(count_moving>20)
-	{
-		if(d=='r')
-		{
-			rect_bg.x+=1;
-			rect_bg2.x+=1;
-			rect_bg3.x+=1;
-		}
-		else
-		{
-			rect_bg.x-=1;
-			rect_bg2.x-=1;
-			rect_bg3.x-=1;
-		}
-		
-		count_moving=0;
-	}
-
-	if(rect_bg.x<-320)
-	{
-		rect_bg.x=320;
-	}
-	
-	if(rect_bg2.x<-320)
-	{
-		rect_bg2.x=320;
-	}
-	
-	if(rect_bg3.x<-320)
-	{
-		rect_bg3.x=320;
-	}
-	
-	if(rect_bg.x>320)
-	{
-		rect_bg.x=-320;
-	}
-	
-	if(rect_bg2.x>320)
-	{
-		rect_bg2.x=-320;
-	}
-	
-	if(rect_bg3.x>320)
-	{
-		rect_bg3.x=-320;
-	}
-}
-
-//// Control animation
-void game::control_animation()
-{
-	count_background++;
-	
-	switch(count_background)
-	{
-		case 1:
-			background = bg1;
-		break;
-		
-		case 2:
-			background = bg2;
-		break;
-		
-		case 3:
-			background = bg3;
-		break;
-		
-		case 4:
-			background = bg4;
-			count_background=0;
-		break;
-		
-		/*case 5:
-			background = bg5;
-		break;
-		
-		case 6:
-			background = bg6;
-		break;
-		
-		case 7:
-			background = bg6;
-			count_background=0;
-		break;*/
-	}
-}
-
 ///////Function to load the images without black
-SDL_Surface* game::load_image(const char* filename)     //it will load an image
+SDL_Surface* game::load_image(const char* filename, int r, int g, int b)     //it will load an image
 {
         SDL_Surface* tmp=SDL_LoadBMP(filename); //load the BMP to a tmp variable
-        SDL_Surface* tmp2=SDL_DisplayFormat(tmp);       //change it to the format of the screen
-        SDL_SetColorKey(tmp2,SDL_SRCCOLORKEY,SDL_MapRGB(screen->format,0x00,0x00,0x00)); //set the colorkey, so the 00ffff color is transparent
+        SDL_Surface* tmp2=SDL_DisplayFormat(tmp);    //change it to the format of the screen
+		if(r != 1 && g != 1 && b != 1) {
+			SDL_SetColorKey(tmp2,SDL_SRCCOLORKEY,SDL_MapRGB(screen->format,r,g,b)); //set the colorkey, so the 00ffff color is transparent
+		}
+		
         SDL_FreeSurface(tmp);   //free the tmp, we don't need it anymore
         return tmp2;    //return
 }
-
-///////Function to load the images with black
-SDL_Surface* game::load_image2(const char* filename)     //it will load an image
-{
-        SDL_Surface* tmp=SDL_LoadBMP(filename); //load the BMP to a tmp variable
-        SDL_Surface* tmp2=SDL_DisplayFormat(tmp);       //change it to the format of the screen
-        SDL_FreeSurface(tmp);   //free the tmp, we don't need it anymore
-        return tmp2;    //return
-}
-
-///////Function to load the images without magenta
-SDL_Surface* game::load_image3(const char* filename)     //it will load an image
-{
-        SDL_Surface* tmp=SDL_LoadBMP(filename); //load the BMP to a tmp variable
-        SDL_Surface* tmp2=SDL_DisplayFormat(tmp);       //change it to the format of the screen
-        SDL_SetColorKey(tmp2,SDL_SRCCOLORKEY,SDL_MapRGB(screen->format,0xff,0x00,0xff)); //set the colorkey, so the 00ffff color is transparent
-        SDL_FreeSurface(tmp);   //free the tmp, we don't need it anymore
-        return tmp2;    //return
-}
-
-///////Function to load the images without green
-SDL_Surface* game::load_image4(const char* filename)     //it will load an image
-{
-        SDL_Surface* tmp=SDL_LoadBMP(filename); //load the BMP to a tmp variable
-        SDL_Surface* tmp2=SDL_DisplayFormat(tmp);       //change it to the format of the screen
-        SDL_SetColorKey(tmp2,SDL_SRCCOLORKEY,SDL_MapRGB(screen->format,0x00,0xff,0x00)); //set the colorkey, so the 00ffff color is transparent
-        SDL_FreeSurface(tmp);   //free the tmp, we don't need it anymore
-        return tmp2;    //return
-}
-
 
 ////Function to handle all the Joystick/Keyboard events
 void game::handleEvents()
@@ -425,7 +295,7 @@ void game::handleEvents()
 }
 
 ///// Function to load the map
-void game::loadmap(const char* filename)
+void game::loadmap(const char* filename, bool isBG)
 {
         std::ifstream in(filename);     //open the file
         if(!in.is_open())       //if we are not succeded
@@ -450,7 +320,7 @@ void game::loadmap(const char* filename)
                                 return;
                         }
                         in >> current;  //read the current number
-                        if(current<0) //if it's -1 than we put a new enemy to the position
+                        if(current<0 && !isBG) //if it's -1 than we put a new enemy to the position
                         {
 							if(current==-1)
 							{
@@ -481,31 +351,38 @@ void game::loadmap(const char* filename)
                                 vec.push_back(0);       //and we push back 0 to the vector (so nothing will be visible there)
 							
 							}
-                        }else{
+                        }
+                        else
+                        {
                                 if(current>=0 && current<=13)    //if the current is greater or equal then 0 (so nothing) and less or equal than the max number of tiles
                                 //change the 7 to a bigger number, if you want to add more tile to the tiles.bmp image, don't forget 50x50 tiles
                                 {
-                                    if(current==3)  //if the current is 3
-                                    {
-                                        finish.x=j*50;  //set the finish coordinate
-                                        finish.y=i*50;
-                                    }
-                                    vec.push_back(current); //put the current into our matrix which represent the map in the game
-                                }
-								else
-								{
-                                    vec.push_back(0);       //if the tile number is not known than just push 0 (so nothing) in the current position
+                                        if(current==3)  //if the current is 3
+                                        {
+                                                finish.x=j*50;  //set the finish coordinate
+                                                finish.y=i*50;
+                                        }
+                                        vec.push_back(current); //put the current into our matrix which represent the map in the game
+                                }else{
+                                        vec.push_back(0);       //if the tile number is not known than just push 0 (so nothing) in the current position
                                 }
                         }
                 }
-                map.push_back(vec);     //finally we push the vector to the end of the vector (dynamically allocated matrix :D)
+                if(!isBG) 
+                {
+                    map.push_back(vec);     //finally we push the vector to the end of the vector (dynamically allocated matrix :D)
+                }
+                else 
+                {
+                    mapBG.push_back(vec);
+                }
         }
 				
         in.close();     //close the file
 }
 
 ////// Function to show the map on the screen
-void game::showmap()
+void game::showmap(std::vector<std::vector<int> > currentMap, bool checkY, SDL_Surface *currentBlock)
 {	
 	int start=(baseclass::coord.x-(baseclass::coord.x%baseclass::TILE_SIZE))/baseclass::TILE_SIZE;
 	int end=(baseclass::coord.x+baseclass::coord.w+(baseclass::TILE_SIZE-
@@ -513,20 +390,24 @@ void game::showmap()
 	
 	if(start<0)
 		start=0;
-	if(end>map[0].size())
-       end=map[0].size();		
+	if(end>currentMap[0].size())
+       end=currentMap[0].size();		
 	for(int i=0; i<map.size(); i++)
 	{
 		for(int j=start; j<end;j++)
 		{
-			if(map[i][j]!=0)
+			if(currentMap[i][j]!=0)
 			{
-				SDL_Rect blockrect={(map[i][j]-1)*baseclass::TILE_SIZE,0,baseclass::TILE_SIZE,baseclass::TILE_SIZE};
+				SDL_Rect blockrect={(currentMap[i][j]-1)*baseclass::TILE_SIZE,0,baseclass::TILE_SIZE,baseclass::TILE_SIZE};
 				SDL_Rect destrect = {j*baseclass::TILE_SIZE-baseclass::coord.x,i*baseclass::TILE_SIZE};
 								
-				baseclass::coord.y = (player1->get_mapy()-map.size()/2+96);
-				destrect.y += (player1->get_mapy()-map.size()/2+96)*-1;				
-				SDL_BlitSurface(block,&blockrect,screen,&destrect);
+                if(checkY) 
+                {
+                    baseclass::coord.y = (player1->get_mapy()-currentMap.size()/2+96);
+                    destrect.y += (player1->get_mapy()-currentMap.size()/2+96)*-1;
+                }
+
+				SDL_BlitSurface(currentBlock,&blockrect,screen,&destrect);
 			}
 		}
 	}
@@ -630,181 +511,6 @@ void game::menu()
 	}
 }
 
-///////////////////////////////////// Functions to play video
-
-static pvr_ptr_t textures[2];
-static int current_frame = 0;
-
-static int render_cb(void *buf_ptr, int width, int height, int stride,
-    int texture_height, int colorspace)
-{	
-    pvr_poly_cxt_t cxt;
-    static pvr_poly_hdr_t hdr[2];
-    static pvr_vertex_t vert[4];
-    unsigned short *buf = (unsigned short*)buf_ptr;
-
-    float ratio;
-    /* screen coordinates of upper left and bottom right corners */
-    static int ul_x, ul_y, br_x, br_y;
-    static int graphics_initialized = 0;
-
-    if (colorspace != ROQ_RGB565)
-        return ROQ_RENDER_PROBLEM;
-
-    /* on first call, initialize textures and drawing coordinates */
-    if (!graphics_initialized)
-    {
-        textures[0] = pvr_mem_malloc(stride * texture_height * 2);
-        textures[1] = pvr_mem_malloc(stride * texture_height * 2);
-        if (!textures[0] || !textures[1])
-        {
-            return ROQ_RENDER_PROBLEM;
-        }
-
-        /* Precompile the poly headers */
-        pvr_poly_cxt_txr(&cxt, PVR_LIST_OP_POLY, PVR_TXRFMT_RGB565 | PVR_TXRFMT_NONTWIDDLED, stride, texture_height, textures[0], PVR_FILTER_NONE);
-        pvr_poly_compile(&hdr[0], &cxt);
-        pvr_poly_cxt_txr(&cxt, PVR_LIST_OP_POLY, PVR_TXRFMT_RGB565 | PVR_TXRFMT_NONTWIDDLED, stride, texture_height, textures[1], PVR_FILTER_NONE);
-        pvr_poly_compile(&hdr[1], &cxt);
-
-        /* this only works if width ratio <= height ratio */
-        ratio = 320.0 / width;
-        ul_x = 0;
-        br_x = (ratio * stride);
-        ul_y = ((240 - ratio * height) / 2);
-        br_y = ul_y + ratio * texture_height;
-
-        /* Things common to vertices */
-        vert[0].z     = vert[1].z     = vert[2].z     = vert[3].z     = 1.0f; 
-        vert[0].argb  = vert[1].argb  = vert[2].argb  = vert[3].argb  = PVR_PACK_COLOR(1.0f, 1.0f, 1.0f, 1.0f);    
-        vert[0].oargb = vert[1].oargb = vert[2].oargb = vert[3].oargb = 0;  
-        vert[0].flags = vert[1].flags = vert[2].flags = PVR_CMD_VERTEX;         
-        vert[3].flags = PVR_CMD_VERTEX_EOL; 
-
-        vert[0].x = ul_x;
-        vert[0].y = ul_y;
-        vert[0].u = 0.0;
-        vert[0].v = 0.0;
-
-        vert[1].x = br_x;
-        vert[1].y = ul_y;
-        vert[1].u = 1.0;
-        vert[1].v = 0.0;
-
-        vert[2].x = ul_x;
-        vert[2].y = br_y;
-        vert[2].u = 0.0;
-        vert[2].v = 1.0;
-
-        vert[3].x = br_x;
-        vert[3].y = br_y;
-        vert[3].u = 1.0;
-        vert[3].v = 1.0;
-
-        graphics_initialized = 1;
-    }
-	
-    /* send the video frame as a texture over to video RAM */
-    pvr_txr_load(buf, textures[current_frame], stride * texture_height * 2);
-
-    pvr_wait_ready();
-    pvr_scene_begin();
-    pvr_list_begin(PVR_LIST_OP_POLY);
-
-    pvr_prim(&hdr[current_frame], sizeof(pvr_poly_hdr_t));
-    pvr_prim(&vert[0], sizeof(pvr_vertex_t));
-    pvr_prim(&vert[1], sizeof(pvr_vertex_t));
-    pvr_prim(&vert[2], sizeof(pvr_vertex_t));
-    pvr_prim(&vert[3], sizeof(pvr_vertex_t));
-
-    pvr_list_finish();
-    pvr_scene_finish();
-
-    if (current_frame)
-        current_frame = 0;
-    else
-        current_frame = 1;
-	
-    return ROQ_SUCCESS;
-}
-
-int audio_cb(unsigned char *buf_rgb565, int samples, int channels)
-{
-    return ROQ_SUCCESS;
-}
-
-static int quit_cb()
-{
-	SDL_Event event;
-	
-    if(SDL_PollEvent(&event))
-    {
-        switch(event.type)
-        {
-		    case SDL_KEYDOWN:
-
-			    switch(event.key.keysym.sym)
-				{
-					case SDLK_RETURN:
-					    return 1;
-					break;
-					
-					case SDLK_KP_ENTER:
-						return 1;
-					break;
-				}
-					
-			break;
-				
-			case SDL_JOYBUTTONDOWN:
-				
-				switch(event.jbutton.button)
-				{                   
-					case 4:
-						return 1;
-					break;					
-				}
-					
-			break;
-		}
-	}	
-	
-    return 0;
-}
-
-int finish_cb()
-{
-    return ROQ_SUCCESS;
-}
-
-int play_video(int number_video)
-{
-    int status;
-    roq_callbacks_t cbs;
-
-    cbs.render_cb = render_cb;
-    cbs.audio_cb = audio_cb;
-    cbs.quit_cb = quit_cb;
-    cbs.finish_cb = finish_cb;
-	
-	switch(number_video)
-	{
-		case 1:
-			status = dreamroq_play("/rd/megaman.roq", ROQ_RGB565, 0, &cbs);
-		break;
-		
-		case 2:
-		
-		break;
-	}
-
-    printf("dreamroq_play() status = %d\n", status);
-
-    return 0;
-}
-
-
-
 ////////////////////////////////////////////////////////////////////////////
 
 void game::restart_game()
@@ -831,14 +537,7 @@ void game::restart_game()
 	boss_defeated=false;
 	music_boss=false;
 	count_end=0;
-	count_moving=0;
 	running=false;
-	rect_bg.x=-320;
-	rect_bg.y=0;
-	rect_bg2.x=0;
-	rect_bg2.y=0;
-	rect_bg3.x=320;
-	rect_bg3.y=0;
 	direction[0]=0;
 	direction[1]=0;
 	player1->setMoving(0);
@@ -867,12 +566,6 @@ void game::end_game()
 	baseclass::coord.y=0;
 	camera.x=0;
 	camera.y=0;	
-	rect_bg.x=-320;
-	rect_bg.y=0;
-	rect_bg2.x=0;
-	rect_bg2.y=0;
-	rect_bg3.x=320;
-	rect_bg3.y=0;	
 	numb=n3;			
 	SDL_FillRect(screen,NULL, 0x000000); 
 	SDL_UpdateRect(screen, 0, 0, 0, 0);
@@ -894,7 +587,8 @@ void game::start()
 	static pvr_poly_hdr_t hdr[2];
 	pvr_poly_cxt_t cxt;
 	Uint32 start;
-	loadmap("rd/map/map.map");	
+	loadmap("rd/map/map.map", false);
+	loadmap("rd/map/mapBG.map", true);
 	vmu();
 	
 	while(all_runing)
@@ -927,7 +621,6 @@ void game::start()
 				   player1->setXvel(0);
 				   camera.x-=2;
 				   baseclass::coord.x-=2;
-				   control_bg('l');
 			   }
 			   if(camera.x<0)
 				 camera.x=320-SCREEN_WIDTH;	   
@@ -944,7 +637,6 @@ void game::start()
 				   player1->setXvel(0);
 				   camera.x+=2;
 				   baseclass::coord.x+=2;
-				   control_bg('r');
 			   }
 
 			   if(camera.x>=320-SCREEN_WIDTH)
@@ -953,7 +645,6 @@ void game::start()
 			{
 				player1->setXvel(0);
 			}
-			
 			
 			//calculate the start and the end coordinate (see a little bit above)
 			int str=(baseclass::coord.x-(baseclass::coord.x%baseclass::TILE_SIZE))/baseclass::TILE_SIZE;
@@ -1005,15 +696,6 @@ void game::start()
 					}
 			}
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			////Collisions between the boss and the player
 			for(int j=0;j<the_boss.size();j++)       //go through the bosses
 			{
@@ -1028,7 +710,6 @@ void game::start()
 								//cdrom_cdda_play(3, 3, 10, CDDA_TRACKS);
 								music_boss=true;
 							}
-						
 						
 							if(collision(&tmprect,&tmp_player))      //if we collide with an boss
 							{
@@ -1049,7 +730,6 @@ void game::start()
 					
 					if(the_boss[j]->getLife()<=0)
 					{
-						
 						count_end++;
 						
 						if(!boss_defeated)
@@ -1066,48 +746,29 @@ void game::start()
 					}
 			}			
 			
-			
-			
-			
-			
-			
 			////Collisions between the items and the player
 			for(int j=0;j<items.size();j++)       //go through the enemies
 			{
-					SDL_Rect tmprect={items[j]->getRect()->x-baseclass::coord.x,items[j]->getRect()->y-baseclass::coord.y,40,40}; //calculate relative coordinates see above
-					SDL_Rect tmpbase={baseclass::coord.x,baseclass::coord.y,300,240}; 
+				SDL_Rect tmprect={items[j]->getRect()->x-baseclass::coord.x,items[j]->getRect()->y-baseclass::coord.y,40,40}; //calculate relative coordinates see above
+				SDL_Rect tmpbase={baseclass::coord.x,baseclass::coord.y,300,240}; 
 					
-					if(collision(&tmpbase,items[j]->getRect()))  //if the enemy is on the screen, (change thanks for TheAngelbrothers to point out a bug :D)
+				if(collision(&tmpbase,items[j]->getRect()))  //if the enemy is on the screen, (change thanks for TheAngelbrothers to point out a bug :D)
+				{
+					if(collision(&tmprect,player1->getRect())) //if we collide with an enemy
 					{
-							if(collision(&tmprect,player1->getRect()))      //if we collide with an enemy
-							{
-								snd_sfx_play(sfx_ring,255,128);
-								items.erase(items.begin()+j);
-							}
+						snd_sfx_play(sfx_ring,255,128);
+						items.erase(items.begin()+j);
 					}
+				}
 			}
 									 
 			player1->move(map);
-			
-			count_moving++;
-			count_animation++;
-			
-			if(count_animation>5)
-			{
-				count_animation=0;
-				control_animation();
-			}
-			
-			start=SDL_GetTicks();
-			SDL_BlitSurface(background,&rect_bg,screen,NULL);	
-			SDL_BlitSurface(background,&rect_bg2,screen,NULL);	
-			SDL_BlitSurface(background,&rect_bg3,screen,NULL);	
-			
-									
-			showmap();
+						
+			start=SDL_GetTicks();									
+			showmap(mapBG, false, blocksBG);
+			showmap(map, true, block);
 
 			player1->show(screen);
-			
 
 			for(int i=0;i<enemies.size();i++)
 			{
@@ -1123,7 +784,6 @@ void game::start()
 				items[i]->move();
 			}
 			
-
 			SDL_BlitSurface(hud,&camera,screen,NULL);	
 					
 			if(player1->getHealth()==5 || player1->getHealth()==50 || player1->getHealth()==100 || player1->getHealth()==150)
@@ -1132,13 +792,9 @@ void game::start()
 				snd_sfx_play(sfx_hurt,255,128);
 			}
 			
-			
 			SDL_BlitSurface(numb,&numb1,screen,NULL);		
 			SDL_UpdateRect(screen, 0, 0, 0, 0);
 		
-		
-			///////////////////////////////////Em teste/////////////////
-			
 			///////////////////////////////////Em teste/////////////////
 			
 			save_clock=SDL_GetTicks()-start;
@@ -1153,7 +809,6 @@ void game::start()
 			}
 			
 			//////////////////////////////////////////////////////////
-					
 					
 		   if(player1->getHealth()<=0 || player1->get_mapy() >=400)
 			{
@@ -1239,12 +894,6 @@ void game::start()
 					music_boss=false;
 					count_end=0;
 					running=false;
-					rect_bg.x=-320;
-					rect_bg.y=0;
-					rect_bg2.x=0;
-					rect_bg2.y=0;
-					rect_bg3.x=320;
-					rect_bg3.y=0;
 					direction[0]=0;
 					direction[1]=0;
 					player1->setMoving(0);

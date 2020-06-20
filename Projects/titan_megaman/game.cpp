@@ -1,4 +1,4 @@
-/*Code and engine made by Titan Game Studios 2016/2017 coded by Luiz Nai.*/
+/*Code and engine made by Titan Game Studios 2016/2020 coded by Luiz Nai.*/
 #include "game.h"
 
 SDL_Rect baseclass::coord; //we have to actually reserve memory for the static SDL_Rect from the baseclass
@@ -28,34 +28,34 @@ game::game()    //constructor
 		
 	SDL_Delay(200);
 	
-	titan_logo = load_image2("rd/images/menu/Titan.bmp");
-	press_start = load_image2("rd/images/menu/Start_Game.bmp");
-	m_screen = load_image2("rd/images/menu/menu.bmp");
-	game_over  = load_image2("rd/images/menu/game_over.bmp");
-	final_screen = load_image2("rd/images/menu/final_screen.bmp");
-	block = load_image3("rd/images/blocks/blocks.bmp");
-	blocksBG = load_image3("rd/images/BG/blocks.bmp");
-	bul=load_image("rd/images/bullets/BLT.bmp");
-	ene=load_image3("rd/images/enemy/enemy.bmp");
-	ene2=load_image3("rd/images/enemy/enemy2.bmp");
-	hud=load_image("rd/images/hud/HUD.bmp");
-	energy=load_image("rd/images/hud/LIFE.bmp");
-	energy_life=load_image("rd/images/hud/LIFE2.bmp");
-	numb=load_image("rd/images/numbers/N3.bmp");
-	goat=load_image("rd/images/effects/goat.bmp");
+	titan_logo = load_image("rd/images/menu/Titan.bmp",1,1,1);
+	press_start = load_image("rd/images/menu/Start_Game.bmp",0x00,0x00,0x00);
+	m_screen = load_image("rd/images/menu/menu.bmp",1,1,1);
+	game_over  = load_image("rd/images/menu/game_over.bmp",1,1,1);
+	final_screen = load_image("rd/images/menu/final_screen.bmp",1,1,1);
+	block = load_image("rd/images/blocks/blocks.bmp", 0xff,0x00,0x00);
+	blocksBG = load_image("rd/images/BG/blocks.bmp", 0xff,0x00,0x00);
+	bul=load_image("rd/images/bullets/BLT.bmp",0x00,0x00,0x00);
+	ene=load_image("rd/images/enemy/enemy.bmp",0xff,0x00,0x00);
+	ene2=load_image("rd/images/enemy/enemy2.bmp",0xff,0x00,0x00);
+	hud=load_image("rd/images/hud/HUD.bmp",0x00,0x00,0x00);
+	energy=load_image("rd/images/hud/LIFE.bmp",0x00,0x00,0x00);
+	energy_life=load_image("rd/images/hud/LIFE2.bmp",0x00,0x00,0x00);
+	numb=load_image("rd/images/numbers/N3.bmp",0x00,0x00,0x00);
+	n9=load_image("rd/images/numbers/N9.bmp",0x00,0x00,0x00);
+	n8=load_image("rd/images/numbers/N8.bmp",0x00,0x00,0x00);
+	n7=load_image("rd/images/numbers/N7.bmp",0x00,0x00,0x00);
+	n6=load_image("rd/images/numbers/N6.bmp",0x00,0x00,0x00);
+	n5=load_image("rd/images/numbers/N5.bmp",0x00,0x00,0x00);
+	n4=load_image("rd/images/numbers/N4.bmp",0x00,0x00,0x00);
+	n3=load_image("rd/images/numbers/N3.bmp",0x00,0x00,0x00);
+	n2=load_image("rd/images/numbers/N2.bmp",0x00,0x00,0x00);
+	n1=load_image("rd/images/numbers/N1.bmp",0x00,0x00,0x00);
+	n0=load_image("rd/images/numbers/N0.bmp",0x00,0x00,0x00);
+
 	sfx_bullet = snd_sfx_load("/rd/shooting.wav");
 	sfx_alien = snd_sfx_load("/rd/enemy.wav"); 
 	sfx_hurt = snd_sfx_load("/rd/hurt.wav"); 
-	n9=load_image("rd/images/numbers/N9.bmp");
-	n8=load_image("rd/images/numbers/N8.bmp");
-	n7=load_image("rd/images/numbers/N7.bmp");
-	n6=load_image("rd/images/numbers/N6.bmp");
-	n5=load_image("rd/images/numbers/N5.bmp");
-	n4=load_image("rd/images/numbers/N4.bmp");
-	n3=load_image("rd/images/numbers/N3.bmp");
-	n2=load_image("rd/images/numbers/N2.bmp");
-	n1=load_image("rd/images/numbers/N1.bmp");
-	n0=load_image("rd/images/numbers/N0.bmp");
 		
 	baseclass::coord.x = 0;
 	baseclass::coord.y=0;
@@ -96,7 +96,7 @@ game::game()    //constructor
 	
 	direction[0]=direction[1]=0;
 	running=true;
-	player1=new player(load_image3("rd/images/player/player.bmp"));
+	player1=new player(load_image("rd/images/player/player.bmp",0xff,0x00,0x00));
 	finish.x=0;
     finish.y=0;
 	finish.w=50;
@@ -112,7 +112,10 @@ game::~game()
 	SDL_FreeSurface(titan_logo);
 	SDL_FreeSurface(press_start);
 	SDL_FreeSurface(m_screen);
+	SDL_FreeSurface(game_over);
+	SDL_FreeSurface(final_screen);
 	SDL_FreeSurface(block);
+	SDL_FreeSurface(blocksBG);
 	SDL_FreeSurface(bul);
 	SDL_FreeSurface(ene);
 	SDL_FreeSurface(ene2);
@@ -120,8 +123,16 @@ game::~game()
 	SDL_FreeSurface(energy);
 	SDL_FreeSurface(energy_life);
 	SDL_FreeSurface(numb);
-	SDL_FreeSurface(goat);
-	SDL_FreeSurface(bul);
+	SDL_FreeSurface(n9);
+	SDL_FreeSurface(n8);
+	SDL_FreeSurface(n7);
+	SDL_FreeSurface(n6);
+	SDL_FreeSurface(n5);
+	SDL_FreeSurface(n4);
+	SDL_FreeSurface(n3);
+	SDL_FreeSurface(n2);
+	SDL_FreeSurface(n1);
+	SDL_FreeSurface(n0);
 	
 	for(int i=0;i<bullets.size();i++)
 		delete bullets[i];
@@ -130,40 +141,22 @@ game::~game()
 	for(int i =0;i<enemies_bkp.size();i++)
 		delete enemies_bkp[i];
 	
-	
 	SDL_Quit();
 	pvr_shutdown();
 }
 
 ///////Function to load the images without black
-SDL_Surface* game::load_image(const char* filename)     //it will load an image
+SDL_Surface* game::load_image(const char* filename, int r, int g, int b)     //it will load an image
 {
         SDL_Surface* tmp=SDL_LoadBMP(filename); //load the BMP to a tmp variable
-        SDL_Surface* tmp2=SDL_DisplayFormat(tmp);       //change it to the format of the screen
-        SDL_SetColorKey(tmp2,SDL_SRCCOLORKEY,SDL_MapRGB(screen->format,0x00,0x00,0x00)); //set the colorkey, so the 00ffff color is transparent
+        SDL_Surface* tmp2=SDL_DisplayFormat(tmp);    //change it to the format of the screen
+		if(r != 1 && g != 1 && b != 1) {
+			SDL_SetColorKey(tmp2,SDL_SRCCOLORKEY,SDL_MapRGB(screen->format,r,g,b)); //set the colorkey, so the 00ffff color is transparent
+		}
+		
         SDL_FreeSurface(tmp);   //free the tmp, we don't need it anymore
         return tmp2;    //return
 }
-
-///////Function to load the images with black
-SDL_Surface* game::load_image2(const char* filename)     //it will load an image
-{
-        SDL_Surface* tmp=SDL_LoadBMP(filename); //load the BMP to a tmp variable
-        SDL_Surface* tmp2=SDL_DisplayFormat(tmp);       //change it to the format of the screen
-        SDL_FreeSurface(tmp);   //free the tmp, we don't need it anymore
-        return tmp2;    //return
-}
-
-///////Function to load the images without red
-SDL_Surface* game::load_image3(const char* filename)     //it will load an image
-{
-        SDL_Surface* tmp=SDL_LoadBMP(filename); //load the BMP to a tmp variable
-        SDL_Surface* tmp2=SDL_DisplayFormat(tmp);       //change it to the format of the screen
-        SDL_SetColorKey(tmp2,SDL_SRCCOLORKEY,SDL_MapRGB(screen->format,0xff,0x00,0x00)); //set the colorkey, so the 00ffff color is transparent
-        SDL_FreeSurface(tmp);   //free the tmp, we don't need it anymore
-        return tmp2;    //return
-}
-
 
 ////Function to handle all the Joystick/Keyboard events
 void game::handleEvents()
@@ -262,7 +255,6 @@ void game::handleEvents()
 						}
 						
 						break;
-					
 				}
 			break;	
 
@@ -280,16 +272,13 @@ void game::handleEvents()
 				}
 			break;
 
-
             case SDL_JOYBUTTONUP:
 			    switch(event.jbutton.button)
 				{
                     case 2:
 					    
 						snd_sfx_stop(sfx_bullet);
-					    snd_sfx_play(sfx_bullet,255,128);
-						printf ("%d\n",baseclass::coord.x);
-												
+					    snd_sfx_play(sfx_bullet,255,128);												
 					
                         if(player1->getDirection()=='r')   
 						{
@@ -360,10 +349,7 @@ void game::handleEvents()
 			break;	
 
             default:
-				/*direction[0]=0;
-				player1->setMoving(0);
-				direction[1]=0; 
-				player1->setMoving(0);*/
+
             break;			
 			
 		}
@@ -740,8 +726,6 @@ int play_video(int number_video)
 		break;
 	}
 
-    printf("dreamroq_play() status = %d\n", status);
-
     return 0;
 }
 
@@ -904,59 +888,21 @@ void game::start()
 					{
 							if(collision(&tmprect,player1->getRect()))      //if we collide with an enemy
 							{
-									//if(player1->getRect()->y+player1->getRect()->h>=enemies[j]->getRect()->y && player1->getRect()->y+player1->getRect()->h<=enemies[j]->getRect()->y+10)   //if we are on the 'head' of the enemy
-									//{
-											//delete enemies[j];      //kill the enemy
-											//enemies.erase(enemies.begin()+j);
-									//}else{
-											player1->setHealth(player1->getHealth()-2); //else decrease the health of the player with 1	
-									//}
+								player1->setHealth(player1->getHealth()-2); //else decrease the health of the player with 1	
 							}
 							
 								enemies[j]->move(map);  //only move, when the enemy is on the screen. (change)
 					}
 			}
-			
-			/////////////////Go through the goats
-			for(int i=0;i<goats.size();i++)       //go through the goats
-				if(goats[i]->getRect()->y >= screen->h) //and if it's outside of the screen
-				{
-					delete goats[i];      //delete them
-					goats.erase(goats.begin()+i);
-				}
-			
-			
-			////////////////////////////////////////////////// Function goats
-		   
-			max=5;
-			min=0;
-			output = min + (rand() % (int)(max - min + 1));
-				
-			if(output>3)
-			{
-				max=340;
-				output = min + (rand() % (int)(max - min + 1));
-				goats.push_back(new rain(goat,output,0,-1,5));		
-			}
-								 
+
 			//move everything
 			player1->move(map);
 			for(int i=0;i<bullets.size();i++)
 			{
 				bullets[i]->move();
 			}
-			
-			for(int i=0;i<goats.size();i++)
-			{
-				goats[i]->move();
-			}
-			
-			start=SDL_GetTicks();	
-			
-			for(int i=0;i<goats.size();i++)
-			{
-				goats[i]->show(screen);
-			}	
+
+			start=SDL_GetTicks();
 			
 			showmap(mapBG, false, blocksBG);
 			showmap(map, true, block);
@@ -971,7 +917,6 @@ void game::start()
 				enemies[i]->show(screen);
 			}
 			
-
 			SDL_BlitSurface(hud,&camera,screen,NULL);	
 			
 			if(player1->getHealth()>5)
@@ -989,12 +934,11 @@ void game::start()
 				snd_sfx_play(sfx_hurt,255,128);
 			}
 			
-			
 			SDL_BlitSurface(numb,&numb1,screen,NULL);		
 			SDL_Flip(screen);
 		
 		
-			///////////////////////////////////Em teste/////////////////
+			///////////////////////////////////still in test/////////////////
 			
 			save_clock=SDL_GetTicks()-start;
 			
@@ -1104,5 +1048,4 @@ void game::start()
 			}
 		}
 	}
-
 }

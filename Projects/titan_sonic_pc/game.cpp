@@ -352,18 +352,12 @@ void game::loadmap(const char* filename, bool isBG)
                         }
                         else
                         {
-                                if(current>=0 && current<=13)    //if the current is greater or equal then 0 (so nothing) and less or equal than the max number of tiles
-                                //change the 7 to a bigger number, if you want to add more tile to the tiles.bmp image, don't forget 50x50 tiles
-                                {
-                                        if(current==3)  //if the current is 3
-                                        {
-                                                finish.x=j*50;  //set the finish coordinate
-                                                finish.y=i*50;
-                                        }
-                                        vec.push_back(current); //put the current into our matrix which represent the map in the game
-                                }else{
-                                        vec.push_back(0);       //if the tile number is not known than just push 0 (so nothing) in the current position
-                                }
+							if(current>=0) {
+								vec.push_back(current); //put the current into our matrix which represent the map in the game
+							}
+							else {
+								vec.push_back(0);       //if the tile number is not known than just push 0 (so nothing) in the current position
+							}
                         }
                 }
                 if(!isBG) 
@@ -390,7 +384,7 @@ void game::showmap(std::vector<std::vector<int> > currentMap, bool checkY, SDL_S
 		start=0;
 	if(end>currentMap[0].size())
        end=currentMap[0].size();		
-	for(int i=0; i<map.size(); i++)
+	for(int i=0; i<currentMap.size(); i++)
 	{
 		for(int j=start; j<end;j++)
 		{

@@ -1,4 +1,4 @@
-/*Code and engine made by Titan Game Studios 2016/2017 coded by Luiz Nai.*/
+/*Code and engine made by Titan Game Studios 2016/2020 coded by Luiz Nai.*/
 #include <SDL/SDL.h>    //for SDL
 #include <iostream>             //if we want to write out something, probobly it can be deleted if you don't want
  

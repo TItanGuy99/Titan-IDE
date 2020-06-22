@@ -590,17 +590,17 @@ void game::start()
 			//calculate the start and the end coordinate (see a little bit above)
 			int str=(baseclass::coord.x-(baseclass::coord.x%baseclass::TILE_SIZE))/baseclass::TILE_SIZE;
 			int end=(baseclass::coord.x+baseclass::coord.w+(baseclass::TILE_SIZE-(baseclass::coord.x+baseclass::coord.w)%baseclass::TILE_SIZE))/32;
-						if(start<0)
-								start=0;
-						if(end>map[0].size())
-								end=map[0].size();
-						for(int i=0;i<map.size();i++)   //go throuh the map
-								for(int j=str;j<end;j++)
-								{
-									if(map[i][j]==0)        //if it's nothing, we don't have to check collision
-										continue;
-									SDL_Rect destrect={j*32-baseclass::coord.x,i*32-baseclass::coord.y,32,32}; //calculate the relative coordinate to the screen (see above)
-								}
+			if(start<0)
+				start=0;
+			if(end>map[0].size())
+				end=map[0].size();
+			for(int i=0;i<map.size();i++)   //go throuh the map
+				for(int j=str;j<end;j++)
+				{
+					if(map[i][j]==0)        //if it's nothing, we don't have to check collision
+						continue;
+					SDL_Rect destrect={j*32-baseclass::coord.x,i*32-baseclass::coord.y,32,32}; //calculate the relative coordinate to the screen (see above)
+				}
 	 	 			
 			////Collisions between the enemies and the player
 			for(int j=0;j<enemies.size();j++)       //go through the enemies

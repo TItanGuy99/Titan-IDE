@@ -1,4 +1,4 @@
-/*Code and engine made by Titan Game Studios 2016/2017 coded by Luiz Nai.*/
+/*Code and engine made by Titan Game Studios 2016/2020 coded by Luiz Nai.*/
 #include "game.h"
 
 SDL_Rect baseclass::coord; //we have to actually reserve memory for the static SDL_Rect from the baseclass
@@ -27,67 +27,42 @@ game::game()    //constructor
 		
 	SDL_Delay(200);
 	
-	titan_logo = load_image2("rd/images/menu/Titan.bmp");
-	press_start = load_image("rd/images/menu/Start_Game.bmp");
-	m_screen = load_image2("rd/images/menu/menu.bmp");
-	game_over  = load_image2("rd/images/menu/game_over.bmp");
-	final_screen = load_image2("rd/images/menu/final_screen.bmp");
-	//block= load_image3("rd/images/blocks/blocks.bmp");
-	bg1=load_image2("rd/images/BG/BG1.bmp");
-	bg2=load_image2("rd/images/BG/BG2.bmp");
-	bg3=load_image2("rd/images/BG/BG3.bmp");
-	bg4=load_image2("rd/images/BG/BG4.bmp");
-	bg5=load_image2("rd/images/BG/BG5.bmp");
-	bg6=load_image2("rd/images/BG/BG6.bmp");
-	bg7=load_image2("rd/images/BG/BG7.bmp");
-	bg8=load_image2("rd/images/BG/BG8.bmp");
-	background=bg8;
-	//background=load_image2("rd/images/BG/BG.bmp");
-	bul=load_image("rd/images/bullets/BLT.bmp");
-	ite=load_image3("rd/images/itens/rings.bmp");
-	ene=load_image3("rd/images/enemy/enemy.bmp");
-	ene2=load_image3("rd/images/enemy/enemy2.bmp");
-	hud=load_image3("rd/images/hud/HUD.bmp");
-	numb=load_image("rd/images/numbers/N3.bmp");
+	titan_logo = load_image("rd/images/menu/Titan.bmp",1,1,1);
+	press_start = load_image("rd/images/menu/Start_Game.bmp",0x00,0x00,0x00);
+	m_screen = load_image("rd/images/menu/menu.bmp",1,1,1);
+	game_over  = load_image("rd/images/menu/game_over.bmp",1,1,1);
+	final_screen = load_image("rd/images/menu/final_screen.bmp",1,1,1);
+	blocksBG = load_image("rd/images/BG/blocks.bmp", 0xff,0x00,0x00);
+	bul=load_image("rd/images/bullets/BLT.bmp",0x00,0x00,0x00);
+	ite=load_image("rd/images/itens/rings.bmp",0xff,0x00,0xff);
+	ene=load_image("rd/images/enemy/enemy.bmp",0xff,0x00,0xff);
+	ene2=load_image("rd/images/enemy/enemy2.bmp",0xff,0x00,0xff);
+	hud=load_image("rd/images/hud/HUD.bmp",0xff,0x00,0xff);
+	numb=load_image("rd/images/numbers/N3.bmp",0x00,0x00,0x00);
+	n9=load_image("rd/images/numbers/N9.bmp",0x00,0x00,0x00);
+	n8=load_image("rd/images/numbers/N8.bmp",0x00,0x00,0x00);
+	n7=load_image("rd/images/numbers/N7.bmp",0x00,0x00,0x00);
+	n6=load_image("rd/images/numbers/N6.bmp",0x00,0x00,0x00);
+	n5=load_image("rd/images/numbers/N5.bmp",0x00,0x00,0x00);
+	n4=load_image("rd/images/numbers/N4.bmp",0x00,0x00,0x00);
+	n3=load_image("rd/images/numbers/N3.bmp",0x00,0x00,0x00);
+	n2=load_image("rd/images/numbers/N2.bmp",0x00,0x00,0x00);
+	n1=load_image("rd/images/numbers/N1.bmp",0x00,0x00,0x00);
+	n0=load_image("rd/images/numbers/N0.bmp",0x00,0x00,0x00);
 	sfx_laser = snd_sfx_load("/rd/laser.wav"); 
 	sfx_explosion = snd_sfx_load("/rd/explosion.wav"); 
-	n9=load_image("rd/images/numbers/N9.bmp");
-	n8=load_image("rd/images/numbers/N8.bmp");
-	n7=load_image("rd/images/numbers/N7.bmp");
-	n6=load_image("rd/images/numbers/N6.bmp");
-	n5=load_image("rd/images/numbers/N5.bmp");
-	n4=load_image("rd/images/numbers/N4.bmp");
-	n3=load_image("rd/images/numbers/N3.bmp");
-	n2=load_image("rd/images/numbers/N2.bmp");
-	n1=load_image("rd/images/numbers/N1.bmp");
-	n0=load_image("rd/images/numbers/N0.bmp");
 		
 	baseclass::coord.x = 0;
 	baseclass::coord.y=0;
 	camera.x=0;
 	camera.y=0;
 
-	//count_animation=0;
 	///////////////
 	baseclass::coord.w=SCREEN_WIDTH;
 	///////////////
 	camera.w=SCREEN_WIDTH;
 	baseclass::coord.h=SCREEN_HEIGHT;
 	camera.h=SCREEN_HEIGHT;
-	
-	rect_bg.w=SCREEN_WIDTH;
-	rect_bg.h=SCREEN_HEIGHT;
-	rect_bg2.w=SCREEN_WIDTH;
-	rect_bg2.h=SCREEN_HEIGHT;
-	rect_bg3.w=SCREEN_WIDTH;
-	rect_bg3.h=SCREEN_HEIGHT;
-		
-	rect_bg.x=0;
-	rect_bg.y=-240;
-	rect_bg2.x=0;
-	rect_bg2.y=0;
-	rect_bg3.x=0;
-	rect_bg3.y=240;
 			
     numb1.x=-25;
 	numb1.y=-2;
@@ -98,7 +73,7 @@ game::game()    //constructor
 	
 	direction[0]=direction[1]=0;
 	running=true;
-	player1=new player(load_image3("rd/images/player/player.bmp"));
+	player1=new player(load_image("rd/images/player/player.bmp",0xff,0x00,0xff));
 	finish.x=0;
     finish.y=0;
 	finish.w=50;
@@ -110,7 +85,6 @@ game::game()    //constructor
 	press_start1.h = SCREEN_HEIGHT;
 	count_end=0;
 	count_frames=0;
-	count_background=0;
 }
 
 ///// Destroy all the variables in the memory for the game.
@@ -119,13 +93,25 @@ game::~game()
 	SDL_FreeSurface(titan_logo);
 	SDL_FreeSurface(press_start);
 	SDL_FreeSurface(m_screen);
-	SDL_FreeSurface(block);
-	SDL_FreeSurface(background);
+	SDL_FreeSurface(game_over);
+	SDL_FreeSurface(final_screen);
+	SDL_FreeSurface(blocksBG);
 	SDL_FreeSurface(bul);
+	SDL_FreeSurface(ite);
 	SDL_FreeSurface(ene);
 	SDL_FreeSurface(ene2);
 	SDL_FreeSurface(hud);
 	SDL_FreeSurface(numb);
+	SDL_FreeSurface(n9);
+	SDL_FreeSurface(n8);
+	SDL_FreeSurface(n7);
+	SDL_FreeSurface(n6);
+	SDL_FreeSurface(n5);
+	SDL_FreeSurface(n4);
+	SDL_FreeSurface(n3);
+	SDL_FreeSurface(n2);
+	SDL_FreeSurface(n1);
+	SDL_FreeSurface(n0);
 	
 	for(int i =0;i<enemies.size();i++)
 		delete enemies[i];
@@ -136,116 +122,22 @@ game::~game()
 	for(int i =0;i<items_bkp.size();i++)
 		delete items_bkp[i];
 	
-	
 	SDL_Quit();
 	pvr_shutdown();
 }
 
-//// Function to control the bg (not using on this code)
-void game::control_bg(char d)
-{	
-	rect_bg.y-=1;
-	rect_bg2.y-=1;
-	rect_bg3.y-=1;
-	baseclass::coord.y-=1;
-	
-	if(rect_bg.y<-240)
-	{
-		rect_bg.y=240;
-	}
-	
-	if(rect_bg2.y<-240)
-	{
-		rect_bg2.y=240;
-	}
-	
-	if(rect_bg3.y<240)
-	{
-		rect_bg3.y=240;
-	}
-}
-
-//// Control animation
-void game::control_animation()
-{
-	count_background++;
-	
-	switch(count_background)
-	{
-		case 1:
-			background = bg1;
-		break;
-		
-		case 2:
-			background = bg2;
-		break;
-		
-		case 3:
-			background = bg3;
-		break;
-		
-		case 4:
-			background = bg4;
-		break;
-		
-		case 5:
-			background = bg5;
-		break;
-		
-		case 6:
-			background = bg6;
-		break;
-		
-		case 7:
-			background = bg7;
-		break;
-		
-		case 8:
-			background = bg8;
-			count_background=0;
-		break;
-	}
-}
-
 ///////Function to load the images without black
-SDL_Surface* game::load_image(const char* filename)     //it will load an image
+SDL_Surface* game::load_image(const char* filename, int r, int g, int b)     //it will load an image
 {
         SDL_Surface* tmp=SDL_LoadBMP(filename); //load the BMP to a tmp variable
-        SDL_Surface* tmp2=SDL_DisplayFormat(tmp);       //change it to the format of the screen
-        SDL_SetColorKey(tmp2,SDL_SRCCOLORKEY,SDL_MapRGB(screen->format,0x00,0x00,0x00)); //set the colorkey, so the 00ffff color is transparent
+        SDL_Surface* tmp2=SDL_DisplayFormat(tmp);    //change it to the format of the screen
+		if(r != 1 && g != 1 && b != 1) {
+			SDL_SetColorKey(tmp2,SDL_SRCCOLORKEY,SDL_MapRGB(screen->format,r,g,b)); //set the colorkey, so the 00ffff color is transparent
+		}
+		
         SDL_FreeSurface(tmp);   //free the tmp, we don't need it anymore
         return tmp2;    //return
 }
-
-///////Function to load the images with black
-SDL_Surface* game::load_image2(const char* filename)     //it will load an image
-{
-        SDL_Surface* tmp=SDL_LoadBMP(filename); //load the BMP to a tmp variable
-        SDL_Surface* tmp2=SDL_DisplayFormat(tmp);       //change it to the format of the screen
-        SDL_FreeSurface(tmp);   //free the tmp, we don't need it anymore
-        return tmp2;    //return
-}
-
-///////Function to load the images without magenta
-SDL_Surface* game::load_image3(const char* filename)     //it will load an image
-{
-        SDL_Surface* tmp=SDL_LoadBMP(filename); //load the BMP to a tmp variable
-        SDL_Surface* tmp2=SDL_DisplayFormat(tmp);       //change it to the format of the screen
-        SDL_SetColorKey(tmp2,SDL_SRCCOLORKEY,SDL_MapRGB(screen->format,0xff,0x00,0xff)); //set the colorkey, so the 00ffff color is transparent
-        SDL_FreeSurface(tmp);   //free the tmp, we don't need it anymore
-        return tmp2;    //return
-}
-
-///////Function to load the images without green
-SDL_Surface* game::load_image4(const char* filename)     //it will load an image
-{
-        SDL_Surface* tmp=SDL_LoadBMP(filename); //load the BMP to a tmp variable
-        SDL_Surface* tmp2=SDL_DisplayFormat(tmp);       //change it to the format of the screen
-        SDL_SetColorKey(tmp2,SDL_SRCCOLORKEY,SDL_MapRGB(screen->format,0x00,0xff,0x00)); //set the colorkey, so the 00ffff color is transparent
-        SDL_FreeSurface(tmp);   //free the tmp, we don't need it anymore
-        return tmp2;    //return
-}
-
 
 ////Function to handle all the Joystick/Keyboard events
 void game::handleEvents()
@@ -386,7 +278,7 @@ void game::handleEvents()
 }
 
 ///// Function to load the map
-void game::loadmap(const char* filename)
+void game::loadmap(const char* filename, bool isBG)
 {
         std::ifstream in(filename);     //open the file
         if(!in.is_open())       //if we are not succeded
@@ -411,7 +303,7 @@ void game::loadmap(const char* filename)
                                 return;
                         }
                         in >> current;  //read the current number
-                        if(current<0) //if it's -1 than we put a new enemy to the position
+                        if(current<0 && !isBG) //if it's -1 than we put a new enemy to the position
                         {
 							if(current==-1)
 							{
@@ -442,8 +334,10 @@ void game::loadmap(const char* filename)
                                 vec.push_back(0);       //and we push back 0 to the vector (so nothing will be visible there)
 							
 							}
-                        }else{
-                                if(current>=0 && current<=13)    //if the current is greater or equal then 0 (so nothing) and less or equal than the max number of tiles
+                        }
+						else if(!isBG) 
+						{
+                             if(current>=0 && current<=13)    //if the current is greater or equal then 0 (so nothing) and less or equal than the max number of tiles
                                 //change the 7 to a bigger number, if you want to add more tile to the tiles.bmp image, don't forget 50x50 tiles
                                 {
                                     if(current==3)  //if the current is 3
@@ -457,16 +351,32 @@ void game::loadmap(const char* filename)
 								{
                                     vec.push_back(0);       //if the tile number is not known than just push 0 (so nothing) in the current position
                                 }
+						}
+                        else
+                        {
+							if(current>=0) {
+								vec.push_back(current); //put the current into our matrix which represent the map in the game
+							}
+							else {
+								vec.push_back(0);       //if the tile number is not known than just push 0 (so nothing) in the current position
+							}
                         }
                 }
-                map.push_back(vec);     //finally we push the vector to the end of the vector (dynamically allocated matrix :D)
+                if(!isBG) 
+                {
+                    map.push_back(vec);     //finally we push the vector to the end of the vector (dynamically allocated matrix :D)
+                }
+                else 
+                {
+                    mapBG.push_back(vec);
+                }
         }
 				
         in.close();     //close the file
 }
 
 ////// Function to show the map on the screen
-void game::showmap()
+void game::showmap(std::vector<std::vector<int> > currentMap, SDL_Surface *currentBlock)
 {	
 	int start=(baseclass::coord.x-(baseclass::coord.x%baseclass::TILE_SIZE))/baseclass::TILE_SIZE;
 	int end=(baseclass::coord.x+baseclass::coord.w+(baseclass::TILE_SIZE-
@@ -474,20 +384,17 @@ void game::showmap()
 	
 	if(start<0)
 		start=0;
-	if(end>map[0].size())
-       end=map[0].size();		
-	for(int i=0; i<map.size(); i++)
+	if(end>currentMap[0].size())
+       end=currentMap[0].size();		
+	for(int i=0; i<currentMap.size(); i++)
 	{
 		for(int j=start; j<end;j++)
 		{
-			if(map[i][j]!=0)
+			if(currentMap[i][j]!=0)
 			{
-				SDL_Rect blockrect={(map[i][j]-1)*baseclass::TILE_SIZE,0,baseclass::TILE_SIZE,baseclass::TILE_SIZE};
-				SDL_Rect destrect = {j*baseclass::TILE_SIZE-baseclass::coord.x,i*baseclass::TILE_SIZE};
-								
-				baseclass::coord.y = (player1->get_mapy()-map.size()/2+96);
-				destrect.y += (player1->get_mapy()-map.size()/2+96)*-1;				
-				SDL_BlitSurface(block,&blockrect,screen,&destrect);
+				SDL_Rect blockrect={(currentMap[i][j]-1)*baseclass::TILE_SIZE,0,baseclass::TILE_SIZE,baseclass::TILE_SIZE};
+				SDL_Rect destrect = {j*baseclass::TILE_SIZE-baseclass::coord.x,i*baseclass::TILE_SIZE-baseclass::coord.y};		
+				SDL_BlitSurface(currentBlock,&blockrect,screen,&destrect);
 			}
 		}
 	}
@@ -607,21 +514,8 @@ void game::restart_game()
 		enemies_bkp[i]->setLife();
 	}
 	
-	/*for(int i=0;i<the_boss_bkp.size();i++)
-	{
-		the_boss_bkp[i]->setLife();
-	}*/
-		
-	//boss_defeated=false;
-	//music_boss=false;
 	count_end=0;
 	running=false;
-	rect_bg.x=0;
-	rect_bg.y=-240;
-	rect_bg2.x=0;
-	rect_bg2.y=0;
-	rect_bg3.x=0;
-	rect_bg3.y=240;
 	direction[0]=0;
 	direction[1]=0;
 	player1->setMoving(0);
@@ -649,12 +543,6 @@ void game::end_game()
 	player1->setLives(3);
 	player1->resetPosition();
 	baseclass::coord.x = 0;
-	rect_bg.x=0;
-	rect_bg.y=-240;
-	rect_bg2.x=0;
-	rect_bg2.y=0;
-	rect_bg3.x=0;
-	rect_bg3.y=240;
 	baseclass::coord.y=1808;	
 	camera.x=0;
 	camera.y=0;		
@@ -669,6 +557,11 @@ void game::end_game()
 	restart_game();
 }
 
+void game::control_bg()
+{
+	baseclass::coord.y-=1;
+}
+
 ///// Function to start the game
 void game::start()
 {	
@@ -679,7 +572,8 @@ void game::start()
 	static pvr_poly_hdr_t hdr[2];
 	pvr_poly_cxt_t cxt;
 	Uint32 start;
-	loadmap("rd/map/map.map");	
+	loadmap("rd/map/map.map", false);
+	loadmap("rd/map/mapBG.map", true);
 	vmu();
 	player1->setDirection('z');
 	
@@ -699,17 +593,17 @@ void game::start()
 			//calculate the start and the end coordinate (see a little bit above)
 			int str=(baseclass::coord.x-(baseclass::coord.x%baseclass::TILE_SIZE))/baseclass::TILE_SIZE;
 			int end=(baseclass::coord.x+baseclass::coord.w+(baseclass::TILE_SIZE-(baseclass::coord.x+baseclass::coord.w)%baseclass::TILE_SIZE))/32;
-						if(start<0)
-								start=0;
-						if(end>map[0].size())
-								end=map[0].size();
-						for(int i=0;i<map.size();i++)   //go throuh the map
-								for(int j=str;j<end;j++)
-								{
-									if(map[i][j]==0)        //if it's nothing, we don't have to check collision
-										continue;
-									SDL_Rect destrect={j*32-baseclass::coord.x,i*32-baseclass::coord.y,32,32}; //calculate the relative coordinate to the screen (see above)
-								}
+			if(start<0)
+				start=0;
+			if(end>map[0].size())
+				end=map[0].size();
+			for(int i=0;i<map.size();i++)   //go throuh the map
+				for(int j=str;j<end;j++)
+				{
+					if(map[i][j]==0)        //if it's nothing, we don't have to check collision
+						continue;
+					SDL_Rect destrect={j*32-baseclass::coord.x,i*32-baseclass::coord.y,32,32}; //calculate the relative coordinate to the screen (see above)
+				}
 	 	 			
 			////Collisions between the enemies and the player
 			for(int j=0;j<enemies.size();j++)       //go through the enemies
@@ -717,9 +611,6 @@ void game::start()
 					SDL_Rect tmprect={enemies[j]->getRect()->x-baseclass::coord.x,enemies[j]->getRect()->y-baseclass::coord.y,32,32}; //calculate relative coordinates see above
 					SDL_Rect tmpbase={baseclass::coord.x,baseclass::coord.y+5,320,240};
 					SDL_Rect tmp_player={player1->getRect()->x,player1->getRect()->y,16,16};
-					
-					//printf(" ");
-					//printf("%d", enemies[j]->getRect()->y-baseclass::coord.y);
 					
 					if(collision(&tmpbase,enemies[j]->getRect()))  //if the enemy is on the screen, (change thanks for TheAngelbrothers to point out a bug :D)
 					{
@@ -835,27 +726,21 @@ void game::start()
 			
 			player1->move(map);
 			
-			start=SDL_GetTicks();
-			control_bg('l');
 			count_frames++;
 			
 			if(count_frames>=4)
 			{
-				control_animation();
+				control_bg();
 				count_frames=0;
 			}
-			
-			
-			SDL_BlitSurface(background,&rect_bg,screen,NULL);	
-			SDL_BlitSurface(background,&rect_bg2,screen,NULL);	
-			SDL_BlitSurface(background,&rect_bg3,screen,NULL);
-			
+						
 			for(int i=0;i<bullets.size();i++)
 			{
 				bullets[i]->move();
 			}
 			
-			showmap();
+			showmap(mapBG, blocksBG);
+			showmap(map, block);
 
 			player1->show(screen);
 
@@ -887,9 +772,6 @@ void game::start()
 			SDL_BlitSurface(numb,&numb1,screen,NULL);		
 			SDL_UpdateRect(screen, 0, 0, 0, 0);
 		
-		
-			///////////////////////////////////Em teste/////////////////
-			
 			///////////////////////////////////Em teste/////////////////
 			
 			save_clock=SDL_GetTicks()-start;
@@ -906,7 +788,7 @@ void game::start()
 			//////////////////////////////////////////////////////////
 					
 					
-		   if(player1->getHealth()<=0 || player1->get_mapy() >=400)
+		   if(player1->getHealth()<=0)
 			{
 				player1->setLives(player1->getLives()-1);	
 								
@@ -923,12 +805,7 @@ void game::start()
 				{
 					enemies_bkp[i]->setLife();
 				}
-				
-				/*for(int i=0;i<the_boss_bkp.size();i++)
-				{
-					the_boss_bkp[i]->setLife();
-				}*/
-								
+						
 				switch(player1->getLives())
 				{
 					case 9:
@@ -976,12 +853,6 @@ void game::start()
 				{
 					player1->resetPosition();
 					baseclass::coord.x = 0;
-					rect_bg.x=0;
-					rect_bg.y=-240;
-					rect_bg2.x=0;
-					rect_bg2.y=0;
-					rect_bg3.x=0;
-					rect_bg3.y=240;
 					baseclass::coord.y=1808;	
 					camera.x=0;
 					camera.y=0;	
@@ -996,12 +867,6 @@ void game::start()
 					//music_boss=false;
 					count_end=0;
 					running=false;
-					rect_bg.x=0;
-					rect_bg.y=-240;
-					rect_bg2.x=0;
-					rect_bg2.y=0;
-					rect_bg3.x=0;
-					rect_bg3.y=240;
 					direction[0]=0;
 					direction[1]=0;
 					player1->setMoving(0);

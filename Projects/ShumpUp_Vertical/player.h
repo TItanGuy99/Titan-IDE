@@ -1,4 +1,4 @@
-/*Code and engine made by Titan Game Studios 2016/2017 coded by Luiz Nai.*/
+/*Code and engine made by Titan Game Studios 2016/2020 coded by Luiz Nai.*/
 #include <SDL/SDL.h>
 #include <vector>
 #include <kos.h>
@@ -18,7 +18,6 @@ class player:baseclass{
 	int lives;
 	int health;
 	int count_shooting;
-	int map_y;
 	public:
 	SDL_Surface* getImage();
 	player(SDL_Surface* img);
@@ -39,7 +38,6 @@ class player:baseclass{
 	int getY();
 	int getX();
 	int getYvel();
-	int get_mapy();
 	void setHealth(int);
 	void setLives(int h);
 	int getLives();

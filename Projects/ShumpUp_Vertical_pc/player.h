@@ -17,7 +17,6 @@ class player:baseclass{
 	int lives;
 	int health;
 	int count_shooting;
-	int map_y;
 	public:
 	SDL_Surface* getImage();
 	player(SDL_Surface* img);
@@ -38,7 +37,6 @@ class player:baseclass{
 	int getY();
 	int getX();
 	int getYvel();
-	int get_mapy();
 	void setHealth(int);
 	void setLives(int h);
 	int getLives();

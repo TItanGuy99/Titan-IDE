@@ -17,7 +17,6 @@ player::player(SDL_Surface *img)
 	xvel=0;
 	yvel=0;
 	upvel=0;
-	map_y=0;
 	on_wall=false;
 	is_colliding=false;
 	looking_up=false;
@@ -143,12 +142,6 @@ void player::setDirection(char c)
 	direction=c;
 }
 
-/////Get a value for the variable mapy
-int player::get_mapy()
-{
-	return map_y;
-}
-
 /////Get y of the player
 int player::getY()
 {
@@ -200,7 +193,6 @@ void player::resetPosition()
 	health=200;
 	box.x=130;
 	box.y=90;
-	map_y=0;
 }
 
 ///// Check the direction

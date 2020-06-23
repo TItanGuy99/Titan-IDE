@@ -2,9 +2,6 @@
 #include "game.h"
 
 SDL_Rect baseclass::coord; //we have to actually reserve memory for the static SDL_Rect from the baseclass
-int sfx_laser; 
-int sfx_explosion; 
-int save_clock;
  
 game::game()    //constructor
 {	
@@ -83,11 +80,46 @@ game::game()    //constructor
 	press_start1.h = SCREEN_HEIGHT;
 	count_end=0;
 	count_frames=0;
+
+	// start SDL with audio support
+	if(SDL_Init(SDL_INIT_AUDIO)==-1) {
+		printf("SDL_Init: %s\n", SDL_GetError());
+		exit(1);
+	}
+	// open 44.1KHz, signed 16bit, system byte order,
+	//      stereo audio, using 1024 byte chunks
+	if(Mix_OpenAudio(44000, MIX_DEFAULT_FORMAT, 2, 1024)==-1) {
+		printf("Mix_OpenAudio: %s\n", Mix_GetError());
+		exit(2);
+	}
+
+	Mix_AllocateChannels(64);
+	//music = Mix_LoadMUS("rd/wav1.wav");
+	sfx_laser = Mix_LoadWAV("rd/laser.ogg");
+	sfx_explosion = Mix_LoadWAV("rd/explosion.ogg");
+}
+
+/// Play Music
+void game::play_music(Mix_Music *myAudio, int repeat) 
+{
+	Mix_PlayMusic(myAudio, repeat);
+}
+
+/// Play Music sfx
+void game::play_sfx(Mix_Chunk *mysfx, int channel, int volume, int repeat) 
+{
+	Mix_Volume(channel,MIX_MAX_VOLUME/volume);
+	Mix_PlayChannel(channel, mysfx, repeat);
 }
 
 ///// Destroy all the variables in the memory for the game.
 game::~game()
 {
+	Mix_FreeChunk(sfx_laser);
+	sfx_laser = NULL;
+	Mix_FreeChunk(sfx_explosion);
+	sfx_explosion = NULL;
+
 	SDL_FreeSurface(titan_logo);
 	SDL_FreeSurface(press_start);
 	SDL_FreeSurface(m_screen);
@@ -176,7 +208,7 @@ void game::handleEvents()
                    
                     case SDLK_SPACE:
 						bullets.push_back(new bullet(bul,player1->getRect()->x+24,player1->getRect()->y-10,0,-8,false));
-						//snd_sfx_play(sfx_laser,225,128);
+						play_sfx(sfx_laser,1,1,0);
                     break;	
 					
                     case SDLK_UP:
@@ -216,7 +248,7 @@ void game::handleEvents()
 				{				
                     case 0:
 						bullets.push_back(new bullet(bul,player1->getRect()->x+24,player1->getRect()->y-10,0,-8,false));
-						//snd_sfx_play(sfx_laser,225,128);
+						play_sfx(sfx_laser,2,1,0);
                     break;	
 
 					case 4:
@@ -617,7 +649,7 @@ void game::start()
 							{
 								if(enemies[j]->getLife()>0)
 								{
-									//snd_sfx_play(sfx_explosion,225,128);
+									play_sfx(sfx_explosion,3,1,0);
 								}
 										
 								enemies[j]->subtractLife();
@@ -634,6 +666,7 @@ void game::start()
 							
 							if(enemies[j]->getDead())
 							{
+								play_sfx(sfx_explosion,8,1,0);
 								enemies.erase(enemies.begin()+j);
 							}
 						}	
@@ -643,6 +676,7 @@ void game::start()
 						if(enemies[j]->getCount_Bullets()==0 && enemies[j]->getLife()>0)
 						{
 							bullets.push_back(new bullet(bul,enemies[j]->getRect()->x+24,enemies[j]->getRect()->y-baseclass::coord.y+64,0,2,true));
+							play_sfx(sfx_laser,6,1,0);
 						}	
 					}
 			}
@@ -672,6 +706,7 @@ void game::start()
 						
 						if(enemies[j]->getDead())
 						{
+							play_sfx(sfx_explosion,7,1,0);
 							enemies.erase(enemies.begin()+j);
 						}
 					}
@@ -683,7 +718,7 @@ void game::start()
 							delete bullets[z];
 							bullets.erase(bullets.begin()+z);	
 						}
-							//snd_sfx_play(sfx_explosion,225,128);
+							play_sfx(sfx_explosion,5,1,0);
 							player1->setHealth(player1->getHealth()-200);	
 							break;
 							break;

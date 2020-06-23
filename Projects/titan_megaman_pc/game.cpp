@@ -126,6 +126,15 @@ void game::play_sfx(Mix_Chunk *mysfx, int channel, int volume, int repeat)
 ///// Destroy all the variables in the memory for the game.
 game::~game()
 {
+	Mix_FreeChunk(sfx_enemy);
+	sfx_enemy = NULL;
+	Mix_FreeChunk(sfx_hurt);
+	sfx_hurt = NULL;
+	Mix_FreeChunk(sfx_jump);
+	sfx_jump = NULL;
+	Mix_FreeChunk(sfx_bullet);
+	sfx_bullet = NULL;
+
 	SDL_FreeSurface(titan_logo);
 	SDL_FreeSurface(press_start);
 	SDL_FreeSurface(m_screen);

@@ -89,6 +89,38 @@ game::game()    //constructor
 	
 	press_start1.x = -100; 
 	press_start1.y = -180;
+
+	// start SDL with audio support
+	if(SDL_Init(SDL_INIT_AUDIO)==-1) {
+		printf("SDL_Init: %s\n", SDL_GetError());
+		exit(1);
+	}
+	// open 44.1KHz, signed 16bit, system byte order,
+	//      stereo audio, using 1024 byte chunks
+	if(Mix_OpenAudio(44000, MIX_DEFAULT_FORMAT, 2, 1024)==-1) {
+		printf("Mix_OpenAudio: %s\n", Mix_GetError());
+		exit(2);
+	}
+
+	Mix_AllocateChannels(64);
+	//music = Mix_LoadMUS("rd/wav1.wav");
+	sfx_enemy = Mix_LoadWAV("rd/enemy.ogg");
+	sfx_hurt = Mix_LoadWAV("rd/hurt.ogg");
+	sfx_jump = Mix_LoadWAV("rd/jump.ogg");
+	sfx_bullet = Mix_LoadWAV("rd/shooting.ogg");
+}
+
+/// Play Music
+void game::play_music(Mix_Music *myAudio, int repeat) 
+{
+	Mix_PlayMusic(myAudio, repeat);
+}
+
+/// Play Music sfx
+void game::play_sfx(Mix_Chunk *mysfx, int channel, int volume, int repeat) 
+{
+	Mix_Volume(channel,MIX_MAX_VOLUME/volume);
+	Mix_PlayChannel(channel, mysfx, repeat);
 }
 
 ///// Destroy all the variables in the memory for the game.
@@ -170,6 +202,7 @@ void game::handleEvents()
                    
                     case SDLK_SPACE:
                         player1->setJump();
+						play_sfx(sfx_jump,3,1,0);
                     break;						
 				}
 			break;
@@ -188,8 +221,7 @@ void game::handleEvents()
 					break;	
 
                     case SDLK_f:
-					    //snd_sfx_stop(sfx_bullet);
-					    //snd_sfx_play(sfx_bullet,255,128);	
+						play_sfx(sfx_bullet,4,1,0);
 						
                         if(player1->getDirection()=='r')   
 						{
@@ -240,6 +272,7 @@ void game::handleEvents()
 				{                   
                     case 0:
                         player1->setJump();
+						play_sfx(sfx_jump,3,1,0);
                     break;	
 
 					case 7:
@@ -252,8 +285,7 @@ void game::handleEvents()
 			    switch(event.jbutton.button)
 				{
                     case 2:
-						//snd_sfx_stop(sfx_bullet);
-					    //snd_sfx_play(sfx_bullet,255,128);
+						play_sfx(sfx_bullet,4,1,0);
 					
                         if(player1->getDirection()=='r')   
 						{
@@ -430,6 +462,7 @@ void game::showmap(std::vector<std::vector<int> > currentMap, bool checkY, SDL_S
 ////// Main menu of the game
 void game::menu()
 {
+	//play_music(music,-1);
 	//cdrom_cdda_play(1, 1, 10, CDDA_TRACKS);
 	SDL_Event event;
 	bool menu_running=true;
@@ -650,7 +683,7 @@ void game::start()
 							{
 								//delete enemies[j];      //delete the bullet and the enemy
 								enemies.erase(enemies.begin()+j);
-								//snd_sfx_play(sfx_alien,225,128);								
+								play_sfx(sfx_enemy,1,1,0);							
 							}
 										
 								delete bullets[i];
@@ -718,7 +751,7 @@ void game::start()
 			if(player1->getHealth()==5 || player1->getHealth()==50 || player1->getHealth()==100 || player1->getHealth()==150)
 			{
 				player1->setHealth(player1->getHealth()-1);
-				//snd_sfx_play(sfx_hurt,255,128);
+				play_sfx(sfx_hurt,2,1,0);
 			}
 			
 			SDL_BlitSurface(numb,&numb1,screen,NULL);		

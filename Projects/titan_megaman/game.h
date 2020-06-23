@@ -19,8 +19,7 @@
 
 class game:public baseclass{
 	SDL_Joystick *joystick;
-	int joystickCount;
-	int buttonCount;
+	int joystickCount, buttonCount, sfx_bullet, sfx_alien, sfx_hurt, save_clock;
 	SDL_Surface *screen, *block, *blocksBG, *bul, *ene, *ene2, *hud, *energy;
 	SDL_Surface *energy_life, *numb, *m_screen, *press_start, *titan_logo, *game_over, *final_screen;
 	SDL_Surface  *n0, *n1, *n2, *n3, *n4, *n5, *n6, *n7, *n8, *n9;  

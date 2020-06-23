@@ -16,7 +16,6 @@ class player:baseclass{
 	bool moving;
 	int lives;
 	int health;
-	int sfx_jump;
 	int count_shooting;
 	int map_y;
 	public:

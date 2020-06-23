@@ -2,7 +2,7 @@ all: rm-elf main.elf
 
 include $(KOS_BASE)/Makefile.rules
 
-OBJS = main.o game.o base.o player.o bullet.o enemy.o rain.o vmu.o dreamroqlib.o
+OBJS = main.o game.o base.o player.o bullet.o enemy.o vmu.o dreamroqlib.o
 
 KOS_LOCAL_CFLAGS = -I -Os
 	

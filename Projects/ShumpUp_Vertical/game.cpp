@@ -2,9 +2,6 @@
 #include "game.h"
 
 SDL_Rect baseclass::coord; //we have to actually reserve memory for the static SDL_Rect from the baseclass
-int sfx_laser; 
-int sfx_explosion; 
-int save_clock;
  
 game::game()    //constructor
 {	

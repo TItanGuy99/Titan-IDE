@@ -9,8 +9,6 @@
 #include <time.h>
 #include "base.h"
 #include "player.h"
-//#include "bullet.h"
-//#include "enemy.h"
 #include "obstacle.h"
 #include "vmu.h"
 #ifndef GAME_H

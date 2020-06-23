@@ -3,6 +3,7 @@
 #include <iostream>             //if we want to write out something, probobly it can be deleted if you don't want
 #include <vector>
 #include <SDL/SDL.h>
+#include <SDL/SDL_mixer.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -17,8 +18,7 @@
 
 class game:public baseclass{
 	SDL_Joystick *joystick;
-	int joystickCount;
-	int buttonCount;
+	int joystickCount, buttonCount, save_clock;
 	SDL_Surface *screen, *block, *blocksBG, *hud;
 	SDL_Surface *numb, *m_screen, *press_start, *titan_logo, *game_over, *final_screen;
 	SDL_Surface *n0, *n1, *n2, *n3, *n4, *n5, *n6, *n7, *n8, *n9;  
@@ -36,6 +36,8 @@ class game:public baseclass{
 	void end_game();
 	void handleEvents();
 	void restart_game();
+	void play_music(Mix_Music *myAudio, int repeat);
+	void play_sfx(Mix_Chunk *mysfx, int channel, int volume, int repeat);
 	void control_bg(char d);
 	bool running;
 	static const int SCREEN_WIDTH=320;

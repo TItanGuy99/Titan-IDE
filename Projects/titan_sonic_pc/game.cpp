@@ -2,10 +2,6 @@
 #include "game.h"
 
 SDL_Rect baseclass::coord; //we have to actually reserve memory for the static SDL_Rect from the baseclass
-int sfx_enemies; 
-int sfx_hurt; 
-int save_clock;
-int sfx_ring;
  
 game::game()    //constructor
 {	
@@ -83,11 +79,52 @@ game::game()    //constructor
 	music_boss=false;
 	boss_defeated=false;
 	count_end=0;
+
+	// start SDL with audio support
+	if(SDL_Init(SDL_INIT_AUDIO)==-1) {
+		printf("SDL_Init: %s\n", SDL_GetError());
+		exit(1);
+	}
+	// open 44.1KHz, signed 16bit, system byte order,
+	//      stereo audio, using 1024 byte chunks
+	if(Mix_OpenAudio(44000, MIX_DEFAULT_FORMAT, 2, 1024)==-1) {
+		printf("Mix_OpenAudio: %s\n", Mix_GetError());
+		exit(2);
+	}
+
+	Mix_AllocateChannels(64);
+	//music = Mix_LoadMUS("rd/wav1.wav");
+	sfx_enemies = Mix_LoadWAV("rd/enemies.ogg");
+	sfx_hurt = Mix_LoadWAV("rd/death.ogg");
+	sfx_ring = Mix_LoadWAV("rd/ring.ogg");
+	sfx_jump = Mix_LoadWAV("rd/jump.ogg");
+}
+
+/// Play Music
+void game::play_music(Mix_Music *myAudio, int repeat) 
+{
+	Mix_PlayMusic(myAudio, repeat);
+}
+
+/// Play Music sfx
+void game::play_sfx(Mix_Chunk *mysfx, int channel, int volume, int repeat) 
+{
+	Mix_Volume(channel,MIX_MAX_VOLUME/volume);
+	Mix_PlayChannel(channel, mysfx, repeat);
 }
 
 ///// Destroy all the variables in the memory for the game.
 game::~game()
 {
+	Mix_FreeChunk(sfx_enemies);
+	sfx_enemies = NULL;
+	Mix_FreeChunk(sfx_hurt);
+	sfx_hurt = NULL;
+	Mix_FreeChunk(sfx_jump);
+	sfx_jump = NULL;
+	Mix_FreeChunk(sfx_ring);
+	sfx_ring = NULL;
+
 	SDL_FreeSurface(titan_logo);
 	SDL_FreeSurface(press_start);
 	SDL_FreeSurface(m_screen);
@@ -180,6 +217,7 @@ void game::handleEvents()
                    
                     case SDLK_SPACE:
                         player1->setJump();
+						play_sfx(sfx_jump,4,1,0);
                     break;	
 					
                     case SDLK_UP:
@@ -226,6 +264,7 @@ void game::handleEvents()
 				{				
                     case 0:
                         player1->setJump();
+						play_sfx(sfx_jump,4,1,0);
                     break;	
 
 					case 4:
@@ -664,7 +703,7 @@ void game::start()
 							{
 								if(enemies[j]->getLife()>0)
 								{
-									//snd_sfx_play(sfx_enemies,225,128);
+									play_sfx(sfx_enemies,1,1,0);
 								}
 										
 								enemies[j]->subtractLife();
@@ -706,7 +745,7 @@ void game::start()
 								{
 									the_boss[j]->setCollision(true); 
 									the_boss[j]->subtractLife();
-									//snd_sfx_play(sfx_enemies,225,128);
+									play_sfx(sfx_enemies,1,1,0);
 								}
 							}
 							else
@@ -746,7 +785,7 @@ void game::start()
 					{
 							if(collision(&tmprect,player1->getRect()))      //if we collide with an enemy
 							{
-								//snd_sfx_play(sfx_ring,255,128);
+								play_sfx(sfx_ring,3,1,0);	
 								items.erase(items.begin()+j);
 							}
 					}
@@ -782,7 +821,7 @@ void game::start()
 			if(player1->getHealth()==5 || player1->getHealth()==50 || player1->getHealth()==100 || player1->getHealth()==150)
 			{
 				player1->setHealth(player1->getHealth()-1);
-				//snd_sfx_play(sfx_hurt,255,128);
+				play_sfx(sfx_hurt,2,1,0);	
 			}
 			
 			

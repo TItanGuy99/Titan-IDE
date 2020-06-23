@@ -2,9 +2,6 @@
 #include "game.h"
 
 SDL_Rect baseclass::coord; //we have to actually reserve memory for the static SDL_Rect from the baseclass
-//int sfx_laser; 
-//int sfx_explosion; 
-int save_clock;
  
 game::game()    //constructor
 {		
@@ -69,6 +66,31 @@ game::game()    //constructor
 	press_start1.y = -215;
 	press_start1.w = SCREEN_WIDTH;
 	press_start1.h = SCREEN_HEIGHT;
+
+	// start SDL with audio support
+	if(SDL_Init(SDL_INIT_AUDIO)==-1) {
+		printf("SDL_Init: %s\n", SDL_GetError());
+		exit(1);
+	}
+	// open 44.1KHz, signed 16bit, system byte order,
+	//      stereo audio, using 1024 byte chunks
+	if(Mix_OpenAudio(44000, MIX_DEFAULT_FORMAT, 2, 1024)==-1) {
+		printf("Mix_OpenAudio: %s\n", Mix_GetError());
+		exit(2);
+	}
+}
+
+/// Play Music
+void game::play_music(Mix_Music *myAudio, int repeat) 
+{
+	Mix_PlayMusic(myAudio, repeat);
+}
+
+/// Play Music sfx
+void game::play_sfx(Mix_Chunk *mysfx, int channel, int volume, int repeat) 
+{
+	Mix_Volume(channel,MIX_MAX_VOLUME/volume);
+	Mix_PlayChannel(channel, mysfx, repeat);
 }
 
 ///// Destroy all the variables in the memory for the game.

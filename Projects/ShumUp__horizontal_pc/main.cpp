@@ -1,4 +1,4 @@
-/*Code and engine made by Titan Game Studios 2016/2017 coded by Luiz Nai.*/
+/*Code and engine made by Titan Game Studios 2016/2020 coded by Luiz Nai.*/
 #include "game.h"
 //#include <kos.h>
 

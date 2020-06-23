@@ -1,4 +1,4 @@
-/*Code and engine made by Titan Game Studios 2016/2017 coded by Luiz Nai.*/
+/*Code and engine made by Titan Game Studios 2016/2020 coded by Luiz Nai.*/
 #include "player.h"
 
 ////Main function for the player
@@ -141,12 +141,6 @@ bool player::getMoving()
 void player::setDirection(char c)
 {
 	direction=c;
-}
-
-/////Get a value for the variable mapy
-int player::get_mapy()
-{
-	return map_y;
 }
 
 /////Get y of the player

@@ -2,9 +2,9 @@ all: rm-elf main.elf
 
 include $(KOS_BASE)/Makefile.rules
 
-OBJS = main.o game.o base.o player.o enemy.o vmu.o dreamroqlib.o item.o bullet.o
+OBJS = main.o game.o base.o player.o enemy.o vmu.o item.o bullet.o
 
-KOS_LOCAL_CFLAGS = -I$(KOS_BASE)/addons/zlib -0s
+KOS_LOCAL_CFLAGS = -I -Os
 	
 clean:
 	-rm -f main.elf $(OBJS)

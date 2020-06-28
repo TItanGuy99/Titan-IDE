@@ -90,6 +90,8 @@ game::game() //constructor
 
 	press_start1.x = -100;
 	press_start1.y = -180;
+	press_start1.w = -118;
+	press_start1.h = -11;
 }
 
 ///// Destroy all the variables in the memory for the game.
@@ -328,8 +330,9 @@ void game::showmap(std::vector<std::vector<int> > currentMap, bool checkY, SDL_S
 void game::menu()
 {
 	SDL_Event event;
-	bool menu_running = true;
-	bool logo_running = true;
+	//bool menu_running = true;
+	//bool logo_running = true;
+	bool done = false;
 	bool check_limit = false;
 	int alpha = 255;
 
@@ -349,8 +352,12 @@ void game::menu()
 
 	alpha = 0;
 
-	while (menu_running)
+	while (!done)
 	{
+		// scans if a button was pressed
+        WPAD_ScanPads();
+		u32 held = WPAD_ButtonsHeld(0);
+
 		if (check_limit)
 		{
 			if (alpha < 255)
@@ -374,24 +381,17 @@ void game::menu()
 			}
 		}
 
+		if(held & WPAD_BUTTON_A){
+			done=true;
+		}
+
+		SDL_FillRect(screen,NULL, 0x000000);
 		SDL_BlitSurface(m_screen, &camera, screen, NULL);
 		SDL_BlitSurface(press_start, &press_start1, screen, NULL);
 
 		SDL_SetAlpha(press_start, SDL_SRCALPHA, alpha);
 
-		WPAD_ScanPads();
-		u32 held = WPAD_ButtonsHeld(0);
-
-		if (held & WPAD_BUTTON_HOME)
-		{
-			SDL_Quit();
-		}
-		else if (held & WPAD_BUTTON_A)
-		{
-			menu_running = false;
-		}
-
-		SDL_Delay(100);
+		SDL_Delay(1);
 		SDL_UpdateRect(screen, 0, 0, 0, 0);
 	}
 }
@@ -589,7 +589,8 @@ void game::start()
 
 		SDL_BlitSurface(numb, &numb1, screen, NULL);
 		
-		SDL_Flip(screen);
+		SDL_Delay(1);
+		SDL_UpdateRect(screen, 0, 0, 0, 0);
 
 		//////////////////////////////////////////////////////////
 

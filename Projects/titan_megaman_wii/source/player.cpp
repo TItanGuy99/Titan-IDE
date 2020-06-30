@@ -67,7 +67,6 @@ void player::setXvel(int vel)
 void player::show(SDL_Surface* screen)
 {
 	SDL_BlitSurface(image,&clips[(int)(frame)],screen,&box);
-	SDL_UpdateRect(image,0,0,0,0);
 }
 
 ///// Move the player

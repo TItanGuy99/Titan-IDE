@@ -1,5 +1,4 @@
 /*Code and engine made by Titan Game Studios 2016/2020 coded by Luiz Nai.*/
-
 // normal includes
 #include <stdlib.h>
 #include <time.h>
@@ -11,6 +10,8 @@
 // SDL includes
 #include <SDL/sdl.h>
 #include <SDL/sdl_image.h>
+#include <SDL/SDL_mixer.h>
+
 
 #include <fstream>
 #include <vector>
@@ -20,6 +21,8 @@
 #include "player.h"
 #include "bullet.h"
 #include "enemy.h"
+// include generated header
+#include "sample_mp3.h"
 #ifndef GAME_H
 #define GAME_H
 
@@ -44,7 +47,6 @@ class game:public baseclass{
 	void showmap(std::vector<std::vector<int> > currentMap, bool checkY, SDL_Surface *currentBlock);
 	void menu();
 	void handleEvents();
-	void restart_game();
 	bool running;
 	static const int SCREEN_WIDTH=320;
 	static const int SCREEN_HEIGHT=240;

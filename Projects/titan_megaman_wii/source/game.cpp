@@ -2,21 +2,21 @@
 #include "game.h"
 
 SDL_Rect baseclass::coord; //we have to actually reserve memory for the static SDL_Rect from the baseclass
+int save_clock;
+ 
+game::game()    //constructor
+{					
+	SDL_Init(SDL_INIT_JOYSTICK);
 
-game::game() //constructor
-{
 	screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 16, SDL_HWSURFACE);
 
-	// button initialization
 	SDL_ShowCursor(SDL_DISABLE);
+	SDL_JoystickEventState(SDL_ENABLE);
+
+	joystick = SDL_JoystickOpen(0);
+	buttonCount = SDL_JoystickNumButtons(joystick);
+
 	SDL_Delay(200);
-
-	// button initialization
-	WPAD_Init();
-
-	// Initialise the audio subsystem
-	ASND_Init();
-	MP3Player_Init();
 
 	titan_logo = load_image("sd:/apps/Titan_Megaman/rd/images/menu/Titan.bmp", 1, 1, 1);
 	press_start = load_image("sd:/apps/Titan_Megaman/rd/images/menu/Start_Game.bmp", 0x00, 0x00, 0x00);
@@ -47,13 +47,12 @@ game::game() //constructor
 	baseclass::coord.y = 0;
 	camera.x = 0;
 	camera.y = 0;
-
 	///////////////
-	baseclass::coord.w=SCREEN_WIDTH;
+	baseclass::coord.w = SCREEN_WIDTH;
 	///////////////
-	camera.w=SCREEN_WIDTH;
-	baseclass::coord.h=SCREEN_HEIGHT;
-	camera.h=SCREEN_HEIGHT;
+	camera.w = SCREEN_WIDTH;
+	baseclass::coord.h = SCREEN_HEIGHT;
+	camera.h = SCREEN_HEIGHT;
 
 	numb1.x = -8;
 	numb1.y = -6;
@@ -137,94 +136,6 @@ SDL_Surface *game::load_image(const char *filename, int r, int g, int b) //it wi
 
 	SDL_FreeSurface(tmp); //free the tmp, we don't need it anymore
 	return tmp2;		  //return
-}
-
-////Function to handle all the Joystick/Keyboard events
-void game::handleEvents()
-{
-	WPAD_ScanPads();
-	u32 buttonsDown = WPAD_ButtonsDown(0);
-	u32 buttonsHeld = WPAD_ButtonsHeld(0);
-	u32 buttonsUp = WPAD_ButtonsUp(0);
-
-	if (buttonsDown & WPAD_BUTTON_LEFT)
-	{
-		direction[0] = 1;
-		player1->setMoving(1);
-	}
-	else if (buttonsDown & WPAD_BUTTON_RIGHT)
-	{
-		direction[1] = 1;
-		player1->setMoving(1);
-	}
-	else if (buttonsDown & WPAD_BUTTON_HOME)
-	{
-		SDL_Quit();
-	}
-	else if (buttonsDown & WPAD_BUTTON_A)
-	{
-		player1->setJump();
-	}
-
-	if (buttonsUp & WPAD_BUTTON_LEFT)
-	{
-		direction[0] = 0;
-		player1->setMoving(0);
-	}
-	else if (buttonsUp & WPAD_BUTTON_RIGHT)
-	{
-		direction[1] = 0;
-		player1->setMoving(0);
-	}
-	else if (buttonsUp & WPAD_BUTTON_1)
-	{
-		if (player1->getDirection() == 'r')
-		{
-			if (!player1->getJump())
-			{
-				if (!player1->getMoving())
-				{
-					player1->setFrame();
-					bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 15, 8, 0));
-				}
-				else
-				{
-					bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 15, 8, 0));
-				}
-			}
-			else
-			{
-				bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 8, 8, 0));
-			}
-		}
-		else
-		{
-			if (!player1->getJump())
-			{
-				if (!player1->getMoving())
-				{
-					player1->setFrame();
-					bullets.push_back(new bullet(bul, player1->getRect()->x, player1->getRect()->y + 15, -8, 0));
-				}
-				else
-				{
-					bullets.push_back(new bullet(bul, player1->getRect()->x, player1->getRect()->y + 15, -8, 0));
-				}
-			}
-			else
-			{
-				bullets.push_back(new bullet(bul, player1->getRect()->x, player1->getRect()->y + 8, -8, 0));
-			}
-		}
-	}
-
-	if (!buttonsDown & !buttonsHeld & !buttonsUp)
-	{
-		direction[0] = 0;
-		player1->setMoving(0);
-		direction[1] = 0;
-		player1->setMoving(0);
-	}
 }
 
 ///// Function to load the map
@@ -326,13 +237,204 @@ void game::showmap(std::vector<std::vector<int> > currentMap, bool checkY, SDL_S
 	}
 }
 
+////Function to handle all the Joystick/Keyboard events
+void game::handleEvents()
+{
+	SDL_Event event;
+
+	while (SDL_PollEvent(&event))
+	{
+		switch (event.type)
+		{
+		case SDL_QUIT:
+			running = false;
+			return;
+		case SDL_KEYDOWN:
+			switch (event.key.keysym.sym)
+			{
+			case SDLK_LEFT:
+				direction[0] = 1;
+				player1->setMoving(1);
+				break;
+
+			case SDLK_RETURN:
+				//restart_game();
+				break;
+
+			case SDLK_KP_ENTER:
+				//restart_game();
+				break;
+
+			case SDLK_RIGHT:
+				direction[1] = 1;
+				player1->setMoving(1);
+				break;
+
+			case SDLK_SPACE:
+				player1->setJump();
+				break;
+			}
+			break;
+
+		case SDL_KEYUP:
+			switch (event.key.keysym.sym)
+			{
+			case SDLK_LEFT:
+				direction[0] = 0;
+				player1->setMoving(0);
+				break;
+
+			case SDLK_RIGHT:
+				direction[1] = 0;
+				player1->setMoving(0);
+				break;
+
+			case SDLK_f:
+
+				if (player1->getDirection() == 'r')
+				{
+					if (!player1->getJump())
+					{
+						if (!player1->getMoving())
+						{
+							player1->setFrame();
+							bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 15, 8, 0));
+						}
+						else
+						{
+							bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 15, 8, 0));
+						}
+					}
+					else
+					{
+						bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 8, 8, 0));
+					}
+				}
+				else
+				{
+					if (!player1->getJump())
+					{
+						if (!player1->getMoving())
+						{
+							player1->setFrame();
+							bullets.push_back(new bullet(bul, player1->getRect()->x, player1->getRect()->y + 15, -8, 0));
+						}
+						else
+						{
+							bullets.push_back(new bullet(bul, player1->getRect()->x, player1->getRect()->y + 15, -8, 0));
+						}
+					}
+					else
+					{
+						bullets.push_back(new bullet(bul, player1->getRect()->x, player1->getRect()->y + 8, -8, 0));
+					}
+				}
+
+				break;
+			}
+			break;
+
+		case SDL_JOYBUTTONDOWN:
+
+			switch (event.jbutton.button)
+			{
+			case 2:
+				player1->setJump();
+				break;
+
+			case 7:
+				//restart_game();
+				break;
+			}
+			break;
+
+		case SDL_JOYBUTTONUP:
+			switch (event.jbutton.button)
+			{
+			case 3:
+
+				if (player1->getDirection() == 'r')
+				{
+					if (!player1->getJump())
+					{
+						if (!player1->getMoving())
+						{
+							player1->setFrame();
+							bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 15, 8, 0));
+						}
+						else
+						{
+							bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 15, 8, 0));
+						}
+					}
+					else
+					{
+						bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 8, 8, 0));
+					}
+				}
+				else
+				{
+					if (!player1->getJump())
+					{
+						if (!player1->getMoving())
+						{
+							player1->setFrame();
+							bullets.push_back(new bullet(bul, player1->getRect()->x, player1->getRect()->y + 15, -8, 0));
+						}
+						else
+						{
+							bullets.push_back(new bullet(bul, player1->getRect()->x, player1->getRect()->y + 15, -8, 0));
+						}
+					}
+					else
+					{
+						bullets.push_back(new bullet(bul, player1->getRect()->x, player1->getRect()->y + 8, -8, 0));
+					}
+				}
+				break;
+			}
+			break;
+
+		case SDL_JOYHATMOTION:
+
+			switch (event.jhat.value)
+			{
+			case 4: //right
+				direction[0] = 0;
+				direction[1] = 1;
+				player1->setMoving(1);
+				break;
+
+			case 1: //left
+				direction[0] = 1;
+				direction[1] = 0;
+				player1->setMoving(1);
+				break;
+
+			case 0: //neutral
+				direction[0] = 0;
+				player1->setMoving(0);
+				direction[1] = 0;
+				player1->setMoving(0);
+				break;
+			}
+			break;
+
+		default:
+
+			break;
+		}
+	}
+}
+
 ////// Main menu of the game
 void game::menu()
 {
+	//play_music(music,-1);
+	//cdrom_cdda_play(1, 1, 10, CDDA_TRACKS);
 	SDL_Event event;
-	//bool menu_running = true;
-	//bool logo_running = true;
-	bool done = false;
+	bool menu_running = true;
+	bool logo_running = true;
 	bool check_limit = false;
 	int alpha = 255;
 
@@ -352,12 +454,8 @@ void game::menu()
 
 	alpha = 0;
 
-	while (!done)
+	while (menu_running)
 	{
-		// scans if a button was pressed
-        WPAD_ScanPads();
-		u32 held = WPAD_ButtonsHeld(0);
-
 		if (check_limit)
 		{
 			if (alpha < 255)
@@ -381,48 +479,53 @@ void game::menu()
 			}
 		}
 
-		if(held & WPAD_BUTTON_A){
-			done=true;
-		}
-
-		SDL_FillRect(screen,NULL, 0x000000);
 		SDL_BlitSurface(m_screen, &camera, screen, NULL);
 		SDL_BlitSurface(press_start, &press_start1, screen, NULL);
 
 		SDL_SetAlpha(press_start, SDL_SRCALPHA, alpha);
 
-		SDL_Delay(1);
+		while (SDL_PollEvent(&event))
+		{
+			switch (event.type)
+			{
+			case SDL_KEYDOWN:
+
+				switch (event.key.keysym.sym)
+				{
+				case SDLK_RETURN:
+					menu_running = false;
+					break;
+
+				case SDLK_KP_ENTER:
+					menu_running = false;
+					break;
+
+				case SDLK_ESCAPE:
+					SDL_Quit();
+					break;
+				}
+
+				break;
+
+			case SDL_JOYBUTTONDOWN:
+
+				switch (event.jbutton.button)
+				{
+				case 3:
+					menu_running = false;
+					break;
+				}
+
+				break;
+			}
+		}
 		SDL_UpdateRect(screen, 0, 0, 0, 0);
 	}
 }
 
-void game::restart_game()
-{
-	enemies.clear();
-	enemies.assign(enemies_bkp.begin(), enemies_bkp.end());
-
-	for (int i = 0; i < enemies_bkp.size(); i++)
-	{
-		enemies_bkp[i]->setLife();
-	}
-
-	running = false;
-	direction[0] = 0;
-	direction[1] = 0;
-	player1->setMoving(0);
-	player1->setLives(3);
-	player1->resetPosition();
-	baseclass::coord.x = 0;
-	baseclass::coord.y = 0;
-	camera.x = 0;
-	camera.y = 0;
-	SDL_FillRect(screen, NULL, 0x000000);
-	SDL_Flip(screen);
-}
-
 ///// Function to start the game
 void game::start()
-{
+{	
 	int max;
 	int min;
 	int output;
@@ -437,10 +540,8 @@ void game::start()
 	//cdrom_cdda_play(2, 2, 10, CDDA_TRACKS);
 
 	while (running)
-	{
-		//start=SDL_GetTicks();
+    {
 		handleEvents();
-
 		if (direction[0])
 		{
 			player1->setDirection('l');
@@ -487,7 +588,7 @@ void game::start()
 		}
 
 		//calculate the start and the end coordinate (see a little bit above)
-		int str = 0;
+		int str = (baseclass::coord.x - (baseclass::coord.x % baseclass::TILE_SIZE)) / baseclass::TILE_SIZE;
 		int end = (baseclass::coord.x + baseclass::coord.w + (baseclass::TILE_SIZE - (baseclass::coord.x + baseclass::coord.w) % baseclass::TILE_SIZE)) / 32;
 		if (start < 0)
 			start = 0;
@@ -556,7 +657,7 @@ void game::start()
 			bullets[i]->move();
 		}
 
-		//start=SDL_GetTicks();
+		start = SDL_GetTicks();
 
 		showmap(mapBG, false, blocksBG);
 		showmap(map, true, block);
@@ -588,103 +689,10 @@ void game::start()
 		}
 
 		SDL_BlitSurface(numb, &numb1, screen, NULL);
-		
-		SDL_Delay(1);
 		SDL_UpdateRect(screen, 0, 0, 0, 0);
 
+		SDL_Delay(15);
+
 		//////////////////////////////////////////////////////////
-
-		if (player1->getHealth() <= 0 || player1->get_mapy() >= 400)
-		{
-			player1->setLives(player1->getLives() - 1);
-
-			enemies.clear();
-			enemies.assign(enemies_bkp.begin(), enemies_bkp.end());
-
-			for (int i = 0; i < enemies_bkp.size(); i++)
-			{
-				enemies_bkp[i]->setLife();
-			}
-
-			switch (player1->getLives())
-			{
-			case 9:
-				numb = n9;
-				break;
-
-			case 8:
-				numb = n8;
-				break;
-
-			case 7:
-				numb = n7;
-				break;
-
-			case 6:
-				numb = n6;
-				break;
-
-			case 5:
-				numb = n5;
-				break;
-
-			case 4:
-				numb = n4;
-				break;
-
-			case 3:
-				numb = n3;
-				break;
-
-			case 2:
-				numb = n2;
-				break;
-
-			case 1:
-				numb = n1;
-				break;
-
-			case 0:
-				numb = n0;
-				break;
-			}
-
-			if (player1->getLives() > 0)
-			{
-				player1->resetPosition();
-				baseclass::coord.x = 0;
-				baseclass::coord.y = 0;
-				camera.x = 0;
-				camera.y = 0;
-			}
-			else
-			{
-				running = false;
-				direction[0] = 0;
-				direction[1] = 0;
-				player1->setMoving(0);
-				player1->setLives(3);
-				player1->resetPosition();
-				baseclass::coord.x = 0;
-				baseclass::coord.y = 0;
-				camera.x = 0;
-				camera.y = 0;
-				//cdrom_cdda_play(3, 3, 10, CDDA_TRACKS);
-				numb = n3;
-				SDL_FillRect(screen, NULL, 0x000000);
-				SDL_Flip(screen);
-				SDL_BlitSurface(game_over, &camera, screen, NULL);
-				SDL_Flip(screen);
-				SDL_FillRect(screen, NULL, 0x000000);
-				SDL_Flip(screen);
-				//delete this;
-			}
-		}
-
-		///////////// Go to end screen
-		if (baseclass::coord.x > 5080)
-		{
-			restart_game();
-		}
-	}
+    }
 }

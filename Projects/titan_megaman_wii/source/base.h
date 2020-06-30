@@ -6,7 +6,8 @@
 class baseclass{
 	   protected:
                 bool collision(SDL_Rect* rec1,SDL_Rect* rec2);  //make the collision function, it'll return true if there was a collision between rec1 and rec2
-
+		   
+	   
 	   public:
 	   static SDL_Rect coord;
 	   static const int TILE_SIZE=32;

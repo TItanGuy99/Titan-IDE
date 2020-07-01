@@ -22,7 +22,6 @@
 #include "bullet.h"
 #include "enemy.h"
 // include generated header
-#include "sample_mp3.h"
 #ifndef GAME_H
 #define GAME_H
 
@@ -47,7 +46,8 @@ class game:public baseclass{
 	void showmap(std::vector<std::vector<int> > currentMap, bool checkY, SDL_Surface *currentBlock);
 	void menu();
 	void handleEvents();
-	bool running;
+	void restart_game();
+	bool running, all_running;
 	static const int SCREEN_WIDTH=320;
 	static const int SCREEN_HEIGHT=240;
 	player* player1;

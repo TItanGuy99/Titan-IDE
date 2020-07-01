@@ -37,7 +37,7 @@ class game:public baseclass{
 	void handleEvents();
 	void restart_game();
 	void control_bg(char d);
-	bool running;
+	bool running, all_running;
 	static const int SCREEN_WIDTH=320;
 	static const int SCREEN_HEIGHT=240;
 	player* player1;

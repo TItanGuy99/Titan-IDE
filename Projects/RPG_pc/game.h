@@ -39,7 +39,7 @@ class game:public baseclass{
 	void play_music(Mix_Music *myAudio, int repeat);
 	void play_sfx(Mix_Chunk *mysfx, int channel, int volume, int repeat);
 	void control_bg(char d);
-	bool running;
+	bool running, all_running;
 	static const int SCREEN_WIDTH=320;
 	static const int SCREEN_HEIGHT=240;
 	player* player1;

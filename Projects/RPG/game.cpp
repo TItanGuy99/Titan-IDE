@@ -64,6 +64,7 @@ game::game() //constructor
 
 	direction[0] = direction[1] = 0;
 	running = true;
+	all_running = true;
 	player1 = new player(load_image("rd/images/player/player.bmp", 0xff, 0x00, 0xff));
 	finish.x = 0;
 	finish.y = 0;
@@ -214,7 +215,8 @@ void game::handleEvents()
 				break;
 
 			case SDLK_ESCAPE:
-				SDL_Quit();
+				running = false;
+				all_running = false;
 				break;
 
 			case SDLK_SPACE:
@@ -584,165 +586,168 @@ void game::start()
 	vmu();
 	player1->setDirection('z');
 
-	menu();
-	SDL_FillRect(screen, NULL, 0x000000);
-	SDL_UpdateRect(screen, 0, 0, 0, 0);
-	running = true;
-	//cdrom_cdda_play(2, 2, 10, CDDA_TRACKS);
-
-	while (running)
+	while (all_running)
 	{
-		start = SDL_GetTicks();
-		handleEvents();
-
-		//calculate the start and the end coordinate (see a little bit above)
-		int str = (baseclass::coord.x - (baseclass::coord.x % baseclass::TILE_SIZE)) / baseclass::TILE_SIZE;
-		int end = (baseclass::coord.x + baseclass::coord.w + (baseclass::TILE_SIZE - (baseclass::coord.x + baseclass::coord.w) % baseclass::TILE_SIZE)) / 32;
-		if (start < 0)
-			start = 0;
-		if (end > map[0].size())
-			end = map[0].size();
-		for (int i = 0; i < map.size(); i++) //go throuh the map
-			for (int j = str; j < end; j++)
-			{
-				if (map[i][j] == 0) //if it's nothing, we don't have to check collision
-					continue;
-				SDL_Rect destrect = {j * 32 - baseclass::coord.x, i * 32 - baseclass::coord.y, 32, 32}; //calculate the relative coordinate to the screen (see above)
-			}
-
-		////Collisions between the obstacles and the player
-		for (int j = 0; j < obstacles.size(); j++) //go through the obstacles
-		{
-			SDL_Rect tmprect = {obstacles[j]->getRect()->x - baseclass::coord.x, obstacles[j]->getRect()->y - baseclass::coord.y + 16, 22, 24};
-			SDL_Rect tmpbase = {baseclass::coord.x, baseclass::coord.y, 300, 240};
-
-			if (collision(&tmpbase, obstacles[j]->getRect())) //if the obstacle is on the screen, (change thanks for TheAngelbrothers to point out a bug :D)
-			{
-				if (collision(&tmprect, player1->getRect())) //if we collide with an enemy
-				{
-					player1->set_colliding(true);
-					break;
-					break;
-				}
-				else
-				{
-					player1->set_colliding(false);
-				}
-			}
-		}
-
-		//move everything
-
-		player1->move(map);
-
-		start = SDL_GetTicks();
-		control_bg(player1->getDirection());
-
-		showmap(mapBG, false, blocksBG);
-		showmap(map, true, block);
-
-		player1->show(screen);
-
-		SDL_BlitSurface(hud, &camera, screen, NULL);
-		SDL_BlitSurface(numb, &numb1, screen, NULL);
+		menu();
+		SDL_FillRect(screen, NULL, 0x000000);
 		SDL_UpdateRect(screen, 0, 0, 0, 0);
+		running = true;
+		//cdrom_cdda_play(2, 2, 10, CDDA_TRACKS);
 
-		///////////////////////////////////Em teste/////////////////
-
-		save_clock = SDL_GetTicks() - start;
-
-		if (SDL_GetTicks() - start <= 20)
+		while (running)
 		{
-			SDL_Delay(5);
-		}
-		else
-		{
-			SDL_Delay(2);
-		}
+			start = SDL_GetTicks();
+			handleEvents();
 
-		//////////////////////////////////////////////////////////
+			//calculate the start and the end coordinate (see a little bit above)
+			int str = (baseclass::coord.x - (baseclass::coord.x % baseclass::TILE_SIZE)) / baseclass::TILE_SIZE;
+			int end = (baseclass::coord.x + baseclass::coord.w + (baseclass::TILE_SIZE - (baseclass::coord.x + baseclass::coord.w) % baseclass::TILE_SIZE)) / 32;
+			if (start < 0)
+				start = 0;
+			if (end > map[0].size())
+				end = map[0].size();
+			for (int i = 0; i < map.size(); i++) //go throuh the map
+				for (int j = str; j < end; j++)
+				{
+					if (map[i][j] == 0) //if it's nothing, we don't have to check collision
+						continue;
+					SDL_Rect destrect = {j * 32 - baseclass::coord.x, i * 32 - baseclass::coord.y, 32, 32}; //calculate the relative coordinate to the screen (see above)
+				}
 
-		if (player1->getHealth() <= 0 || player1->get_mapy() >= 400)
-		{
-			player1->setLives(player1->getLives() - 1);
-			obstacles.clear();
-			obstacles.assign(obstacles_bkp.begin(), obstacles_bkp.end());
-
-			switch (player1->getLives())
+			////Collisions between the obstacles and the player
+			for (int j = 0; j < obstacles.size(); j++) //go through the obstacles
 			{
-			case 9:
-				numb = n9;
-				break;
+				SDL_Rect tmprect = {obstacles[j]->getRect()->x - baseclass::coord.x, obstacles[j]->getRect()->y - baseclass::coord.y + 16, 22, 24};
+				SDL_Rect tmpbase = {baseclass::coord.x, baseclass::coord.y, 300, 240};
 
-			case 8:
-				numb = n8;
-				break;
-
-			case 7:
-				numb = n7;
-				break;
-
-			case 6:
-				numb = n6;
-				break;
-
-			case 5:
-				numb = n5;
-				break;
-
-			case 4:
-				numb = n4;
-				break;
-
-			case 3:
-				numb = n3;
-				break;
-
-			case 2:
-				numb = n2;
-				break;
-
-			case 1:
-				numb = n1;
-				break;
-
-			case 0:
-				numb = n0;
-				break;
+				if (collision(&tmpbase, obstacles[j]->getRect())) //if the obstacle is on the screen, (change thanks for TheAngelbrothers to point out a bug :D)
+				{
+					if (collision(&tmprect, player1->getRect())) //if we collide with an enemy
+					{
+						player1->set_colliding(true);
+						break;
+						break;
+					}
+					else
+					{
+						player1->set_colliding(false);
+					}
+				}
 			}
 
-			if (player1->getLives() > 0)
+			//move everything
+
+			player1->move(map);
+
+			start = SDL_GetTicks();
+			control_bg(player1->getDirection());
+
+			showmap(mapBG, false, blocksBG);
+			showmap(map, true, block);
+
+			player1->show(screen);
+
+			SDL_BlitSurface(hud, &camera, screen, NULL);
+			SDL_BlitSurface(numb, &numb1, screen, NULL);
+			SDL_UpdateRect(screen, 0, 0, 0, 0);
+
+			///////////////////////////////////Em teste/////////////////
+
+			save_clock = SDL_GetTicks() - start;
+
+			if (SDL_GetTicks() - start <= 20)
 			{
-				player1->resetPosition();
-				baseclass::coord.x = 0;
-				baseclass::coord.y = 0;
-				camera.x = 0;
-				camera.y = 0;
-				direction[0] = 0;
-				direction[1] = 0;
-				player1->setMoving(0);
+				SDL_Delay(5);
 			}
 			else
 			{
-				running = false;
-				direction[0] = 0;
-				direction[1] = 0;
-				player1->setMoving(0);
-				player1->setLives(3);
-				player1->setHealth(200);
-				player1->resetPosition();
-				baseclass::coord.x = 0;
-				baseclass::coord.y = 0;
-				camera.x = 0;
-				camera.y = 0;
-				numb = n3;
-				SDL_FillRect(screen, NULL, 0x000000);
-				SDL_UpdateRect(screen, 0, 0, 0, 0);
-				SDL_BlitSurface(game_over, &camera, screen, NULL);
-				SDL_UpdateRect(screen, 0, 0, 0, 0);
-				SDL_Delay(11000);
-				SDL_FillRect(screen, NULL, 0x000000);
-				SDL_UpdateRect(screen, 0, 0, 0, 0);
+				SDL_Delay(2);
+			}
+
+			//////////////////////////////////////////////////////////
+
+			if (player1->getHealth() <= 0 || player1->get_mapy() >= 400)
+			{
+				player1->setLives(player1->getLives() - 1);
+				obstacles.clear();
+				obstacles.assign(obstacles_bkp.begin(), obstacles_bkp.end());
+
+				switch (player1->getLives())
+				{
+				case 9:
+					numb = n9;
+					break;
+
+				case 8:
+					numb = n8;
+					break;
+
+				case 7:
+					numb = n7;
+					break;
+
+				case 6:
+					numb = n6;
+					break;
+
+				case 5:
+					numb = n5;
+					break;
+
+				case 4:
+					numb = n4;
+					break;
+
+				case 3:
+					numb = n3;
+					break;
+
+				case 2:
+					numb = n2;
+					break;
+
+				case 1:
+					numb = n1;
+					break;
+
+				case 0:
+					numb = n0;
+					break;
+				}
+
+				if (player1->getLives() > 0)
+				{
+					player1->resetPosition();
+					baseclass::coord.x = 0;
+					baseclass::coord.y = 0;
+					camera.x = 0;
+					camera.y = 0;
+					direction[0] = 0;
+					direction[1] = 0;
+					player1->setMoving(0);
+				}
+				else
+				{
+					running = false;
+					direction[0] = 0;
+					direction[1] = 0;
+					player1->setMoving(0);
+					player1->setLives(3);
+					player1->setHealth(200);
+					player1->resetPosition();
+					baseclass::coord.x = 0;
+					baseclass::coord.y = 0;
+					camera.x = 0;
+					camera.y = 0;
+					numb = n3;
+					SDL_FillRect(screen, NULL, 0x000000);
+					SDL_UpdateRect(screen, 0, 0, 0, 0);
+					SDL_BlitSurface(game_over, &camera, screen, NULL);
+					SDL_UpdateRect(screen, 0, 0, 0, 0);
+					SDL_Delay(11000);
+					SDL_FillRect(screen, NULL, 0x000000);
+					SDL_UpdateRect(screen, 0, 0, 0, 0);
+				}
 			}
 		}
 	}

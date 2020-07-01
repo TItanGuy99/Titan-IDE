@@ -510,6 +510,7 @@ void game::menu()
 
 				case SDLK_ESCAPE:
 					running = false;
+					all_running = false;
 					break;
 				}
 

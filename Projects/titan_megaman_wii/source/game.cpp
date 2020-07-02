@@ -50,13 +50,23 @@ game::game() //constructor
 	baseclass::coord.x = 0;
 	baseclass::coord.y = 0;
 	camera.x = 0;
-	camera.y = -15;
+	camera.y = 0;
 	///////////////
 	baseclass::coord.w = SCREEN_WIDTH;
 	///////////////
 	camera.w = SCREEN_WIDTH;
 	baseclass::coord.h = SCREEN_HEIGHT;
 	camera.h = SCREEN_HEIGHT;
+
+	m_screen_rect.x=0;
+	m_screen_rect.y=-5;
+	m_screen_rect.h=SCREEN_HEIGHT;
+	m_screen_rect.w=SCREEN_WIDTH;
+	
+	rect_hud.x = 0;
+	rect_hud.y = -15;
+	rect_hud.w = -144;
+	rect_hud.h = -32;
 
 	numb1.x = -8;
 	numb1.y = -21;
@@ -454,7 +464,7 @@ void game::menu()
 	while (alpha > 0)
 	{
 		alpha -= 5;
-		SDL_BlitSurface(m_screen, &camera, screen, NULL);
+		SDL_BlitSurface(m_screen, &m_screen_rect, screen, NULL);
 		SDL_BlitSurface(titan_logo, &camera, screen, NULL);
 		SDL_SetAlpha(titan_logo, SDL_SRCALPHA, alpha);
 		SDL_UpdateRect(screen, 0, 0, 0, 0);
@@ -487,7 +497,7 @@ void game::menu()
 			}
 		}
 
-		SDL_BlitSurface(m_screen, &camera, screen, NULL);
+		SDL_BlitSurface(m_screen, &m_screen_rect, screen, NULL);
 		SDL_BlitSurface(press_start, &press_start1, screen, NULL);
 
 		SDL_SetAlpha(press_start, SDL_SRCALPHA, alpha);
@@ -520,7 +530,7 @@ void game::menu()
 
 				switch (event.jbutton.button)
 				{
-				case 3:
+				case 4:
 					menu_running = false;
 					break;
 				}
@@ -707,7 +717,7 @@ void game::start()
 				enemies[i]->show(screen);
 			}
 
-			SDL_BlitSurface(hud, &camera, screen, NULL);
+			SDL_BlitSurface(hud, &rect_hud, screen, NULL);
 
 			if (player1->getHealth() > 5)
 				SDL_BlitSurface(energy, &energy1, screen, NULL);

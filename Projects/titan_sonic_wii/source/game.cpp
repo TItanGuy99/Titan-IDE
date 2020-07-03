@@ -262,13 +262,17 @@ void game::handleEvents()
 				player1->setLookingUp(1);
 				break;
 
-			case 0: //down
+			case 0: //neutral
 				direction[0] = 0;
 				player1->setMoving(0);
 				direction[1] = 0;
 				player1->setMoving(0);
 				player1->setLookingUp(0);
 				player1->setDown(0);
+				break;
+				
+			case 8: //down
+				player1->setDown(1);
 				break;
 
 			case 4: //right

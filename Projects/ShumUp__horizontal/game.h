@@ -41,6 +41,7 @@ class game:public baseclass{
 	void end_game();
 	void handleEvents();
 	void restart_game();
+	void erase_bullets();
 	void control_bg();
 	bool running, all_running;
 	static const int SCREEN_WIDTH=320;

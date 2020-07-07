@@ -41,6 +41,7 @@ class game:public baseclass{
 	void end_game();
 	void handleEvents();
 	void restart_game();
+	void erase_bullets();
 	void play_music(Mix_Music *myAudio, int repeat);
 	void play_sfx(Mix_Chunk *mysfx, int channel, int volume, int repeat);
 	void control_bg();

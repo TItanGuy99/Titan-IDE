@@ -400,6 +400,16 @@ void game::showmap(std::vector<std::vector<int> > currentMap, SDL_Surface *curre
 	}
 }
 
+/////// Clean arrays of enemies and bullets
+void game::erase_bullets()
+{
+	for (int i = 0; i < bullets.size(); i++) //go through the bullets
+	{
+		delete bullets[i];
+		bullets.erase(bullets.begin() + i);
+	}
+}
+
 ////// Main menu of the game
 void game::menu()
 {
@@ -603,7 +613,7 @@ void game::start()
 				SDL_Rect tmpbase = {baseclass::coord.x, baseclass::coord.y + 5, 320, 240};
 				SDL_Rect tmp_player = {player1->getRect()->x, player1->getRect()->y, 16, 16};
 
-				if (collision(&tmpbase, enemies[j]->getRect())) //if the enemy is on the screen, (change thanks for TheAngelbrothers to point out a bug :D)
+				if (collision(&tmpbase, enemies[j]->getRect())) //if the enemy is on the screen
 				{
 					if (collision(&tmprect, &tmp_player)) //if we collide with an enemy
 					{
@@ -672,17 +682,8 @@ void game::start()
 
 				if (collision(player1->getRect(), bullets[i]->getRect())) //if a bullet collide with the player
 				{
-					for (int z = 0; z < bullets.size(); z++)
-					{
-						delete bullets[z];
-						bullets.erase(bullets.begin() + z);
-					}
+					erase_bullets();
 					player1->setHealth(player1->getHealth() - 200);
-					break;
-					break;
-					break;
-					break;
-					break;
 					break;
 				}
 			}
@@ -693,12 +694,12 @@ void game::start()
 			}
 
 			////Collisions between the items and the player
-			for (int j = 0; j < items.size(); j++) //go through the enemies
+			for (int j = 0; j < items.size(); j++) //go through the items
 			{
 				SDL_Rect tmprect = {items[j]->getRect()->x - baseclass::coord.x, items[j]->getRect()->y - baseclass::coord.y, 40, 40}; //calculate relative coordinates see above
 				SDL_Rect tmpbase = {baseclass::coord.x, baseclass::coord.y, 300, 240};
 
-				if (collision(&tmpbase, items[j]->getRect())) //if the enemy is on the screen, (change thanks for TheAngelbrothers to point out a bug :D)
+				if (collision(&tmpbase, items[j]->getRect())) //if the items is on the screen
 				{
 					if (collision(&tmprect, player1->getRect())) //if we collide with an enemy
 					{
@@ -759,6 +760,7 @@ void game::start()
 
 			if (player1->getHealth() <= 0)
 			{
+				erase_bullets();
 				player1->setLives(player1->getLives() - 1);
 
 				enemies.clear();

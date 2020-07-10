@@ -12,7 +12,7 @@
 #include <SDL/sdl_image.h>
 #include <SDL/SDL_mixer.h>
 
-
+#include <malloc.h>
 #include <fstream>
 #include <vector>
 #include <string.h>
@@ -21,6 +21,13 @@
 #include "player.h"
 #include "bullet.h"
 #include "enemy.h"
+
+// Audio
+#include "sfxbullet_raw.h"
+#include "sfxenemy_raw.h"
+#include "sfxhurt_raw.h"
+#include "sfxjump_raw.h"
+
 // include generated header
 #ifndef GAME_H
 #define GAME_H
@@ -29,6 +36,8 @@ class game:public baseclass{
 	SDL_Joystick *joystick;
 	int joystickCount;
 	int buttonCount;
+	void *sounds[4];
+	size_t sound_size[4];
 	SDL_Surface *screen, *background, *block, *blocksBG, *bul, *ene, *ene2, *hud, *energy;
 	SDL_Surface *energy_life, *numb, *m_screen, *press_start, *titan_logo, *game_over, *final_screen;
 	SDL_Surface  *n0, *n1, *n2, *n3, *n4, *n5, *n6, *n7, *n8, *n9;  

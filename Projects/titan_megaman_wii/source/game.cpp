@@ -18,6 +18,7 @@ game::game() //constructor
 
 	// Initialise the audio subsystem
 	ASND_Init();
+	ASND_Pause(0);
 	MP3Player_Init();
 
 	SDL_Delay(200);
@@ -106,6 +107,21 @@ game::game() //constructor
 	press_start1.y = -180;
 	press_start1.w = -118;
 	press_start1.h = -11;
+
+	sound_size[0] = sfxbullet_raw_size;
+	sound_size[1] = sfxenemy_raw_size;
+	sound_size[2] = sfxhurt_raw_size;
+	sound_size[3] = sfxjump_raw_size;
+
+	for(int i=0; i< 4; i++) {
+		sounds[i] = memalign(32,sound_size[i]);
+		memset(sounds[i],0,sound_size[i]);
+	}
+
+	memmove(sounds[0], sfxbullet_raw, sfxbullet_raw_size);
+	//memmove(sounds[1], sfxenemy_raw, sfxenemy_raw_size);
+	//memmove(sounds[2], sfxhurt_raw, sfxhurt_raw_size);
+	//memmove(sounds[3], sfxjump_raw, sfxjump_raw_size);
 }
 
 ///// Destroy all the variables in the memory for the game.
@@ -287,6 +303,7 @@ void game::handleEvents()
 
 			case SDLK_SPACE:
 				player1->setJump();
+				//ASND_SetVoice(3, VOICE_MONO_8BIT, 44100, 0, (void *)sounds[3], sound_size[3],  MAX_VOLUME, MAX_VOLUME, NULL);
 				break;
 			}
 			break;
@@ -305,6 +322,7 @@ void game::handleEvents()
 				break;
 
 			case SDLK_f:
+				ASND_SetVoice(0, VOICE_MONO_8BIT, 44100, 0, (void *)sounds[0], sound_size[0],  MAX_VOLUME, MAX_VOLUME, NULL);
 				if (player1->getDirection() == 'r')
 				{
 					if (!player1->getJump())
@@ -354,6 +372,7 @@ void game::handleEvents()
 			{
 			case 2:
 				player1->setJump();
+				//ASND_SetVoice(3, VOICE_MONO_8BIT, 44100, 0, (void *)sounds[3], sound_size[3],  MAX_VOLUME, MAX_VOLUME, NULL);
 				break;
 
 			case 4:
@@ -371,6 +390,7 @@ void game::handleEvents()
 			switch (event.jbutton.button)
 			{
 			case 3:
+				ASND_SetVoice(0, VOICE_MONO_8BIT, 44100, 0, (void *)sounds[0], sound_size[0],  MAX_VOLUME, MAX_VOLUME, NULL);
 				if (player1->getDirection() == 'r')
 				{
 					if (!player1->getJump())
@@ -670,6 +690,7 @@ void game::start()
 						{
 							//delete enemies[j];      //delete the bullet and the enemy
 							enemies.erase(enemies.begin() + j);
+							//ASND_SetVoice(1, VOICE_MONO_8BIT, 44100, 0, (void *)sounds[1], sound_size[1],  MAX_VOLUME, MAX_VOLUME, NULL);
 						}
 
 						delete bullets[i];
@@ -731,6 +752,7 @@ void game::start()
 			if (player1->getHealth() == 5 || player1->getHealth() == 50 || player1->getHealth() == 100 || player1->getHealth() == 150)
 			{
 				player1->setHealth(player1->getHealth() - 1);
+				//ASND_SetVoice(2, VOICE_MONO_8BIT, 44100, 0, (void *)sounds[2], sound_size[2],  MAX_VOLUME, MAX_VOLUME, NULL);
 			}
 
 			SDL_BlitSurface(numb, &numb1, screen, NULL);

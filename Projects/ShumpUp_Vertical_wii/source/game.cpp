@@ -583,8 +583,8 @@ void game::start()
 	//static pvr_poly_hdr_t hdr[2];
 	//pvr_poly_cxt_t cxt;
 	Uint32 start;
-	loadmap("rd/map/map.map", false);
-	loadmap("rd/map/mapBG.map", true);
+	loadmap("sd:/apps/Titan_ShumUpVertical/rd/map/map.map", false);
+	loadmap("sd:/apps/Titan_ShumUpVertical/rd/map/mapBG.map", true);
 	//vmu();
 	player1->setDirection('z');
 

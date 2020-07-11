@@ -315,7 +315,7 @@ void game::loadmap(const char *filename, bool isBG)
 	std::ifstream in(filename); //open the file
 	if (!in.is_open())			//if we are not succeded
 	{
-		std::cout << "Problem with loading the file" << std::endl; //write out end exit
+		std::cout << "File end reached too soon" << std::endl; //write out and exit
 		return;
 	}
 	//read the width and the height from the file
@@ -587,8 +587,8 @@ void game::start()
 	//static pvr_poly_hdr_t hdr[2];
 	//pvr_poly_cxt_t cxt;
 	Uint32 start;
-	loadmap("rd/map/map.map", false);
-	loadmap("rd/map/mapBG.map", true);
+	loadmap("sd:/apps/Titan_Sonic/rd/map/map.map", false);
+	loadmap("sd:/apps/Titan_Sonic/rd/map/mapBG.map", true);
 	//vmu();
 
 	while (all_running)

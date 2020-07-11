@@ -12,7 +12,7 @@
 #include <SDL/sdl_image.h>
 #include <SDL/SDL_mixer.h>
 
-
+#include <malloc.h>
 #include <fstream>
 #include <vector>
 #include <string.h>

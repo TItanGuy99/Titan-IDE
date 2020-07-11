@@ -578,8 +578,8 @@ void game::start()
 	int min;
 	int output;
 	Uint32 start;
-	loadmap("rd/map/map.map", false);
-	loadmap("rd/map/mapBG.map", true);
+	loadmap("sd:/apps/Titan_RPG/rd/map/map.map", false);
+	loadmap("sd:/apps/Titan_RPG/rd/map/mapBG.map", true);
 	player1->setDirection('z');
 
 	while (all_running)

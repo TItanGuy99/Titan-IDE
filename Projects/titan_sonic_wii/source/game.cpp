@@ -17,6 +17,7 @@ game::game() //constructor
 
 	// Initialise the audio subsystem
 	ASND_Init();
+	ASND_Pause(0);
 	MP3Player_Init();
 
 	SDL_Delay(200);
@@ -88,6 +89,16 @@ game::game() //constructor
 	music_boss = false;
 	boss_defeated = false;
 	count_end = 0;
+	
+	sound_size[0] = ((sfxdeath_raw_size + 31)/32) * 32;
+	sound_size[1] = ((sfxenemies_raw_size + 31)/32) * 32;
+	sound_size[2] = ((sfxring_raw_size + 31)/32) * 32;
+	sound_size[3] = ((sfxjump_raw_size + 31)/32) * 32;
+	
+	sounds[0] = (void *)sfxdeath_raw;
+	sounds[1] = (void *)sfxenemies_raw;
+	sounds[2] = (void *)sfxring_raw;
+	sounds[3] = (void *)sfxjump_raw;
 }
 
 ///// Destroy all the variables in the memory for the game.
@@ -186,6 +197,7 @@ void game::handleEvents()
 
 			case SDLK_SPACE:
 				player1->setJump();
+				ASND_SetVoice(ASND_GetFirstUnusedVoice(), VOICE_MONO_8BIT, 44100, 0, sounds[3], sound_size[3],  MAX_VOLUME, MAX_VOLUME, NULL);
 				break;
 
 			case SDLK_UP:
@@ -230,6 +242,7 @@ void game::handleEvents()
 			{
 			case 2:
 				player1->setJump();
+				ASND_SetVoice(ASND_GetFirstUnusedVoice(), VOICE_MONO_8BIT, 44100, 0, sounds[3], sound_size[3],  MAX_VOLUME, MAX_VOLUME, NULL);
 				break;
 
 			case 4:
@@ -665,7 +678,7 @@ void game::start()
 						{
 							if (enemies[j]->getLife() > 0)
 							{
-								//play_sfx(sfx_enemies, 1, 1, 0);
+								ASND_SetVoice(ASND_GetFirstUnusedVoice(), VOICE_MONO_8BIT, 44100, 0, sounds[1], sound_size[1],  MAX_VOLUME, MAX_VOLUME, NULL);
 							}
 
 							enemies[j]->subtractLife();
@@ -706,6 +719,7 @@ void game::start()
 						{
 							the_boss[j]->setCollision(true);
 							the_boss[j]->subtractLife();
+							ASND_SetVoice(ASND_GetFirstUnusedVoice(), VOICE_MONO_8BIT, 44100, 0, sounds[1], sound_size[1],  MAX_VOLUME, MAX_VOLUME, NULL);
 						}
 					}
 					else
@@ -745,6 +759,7 @@ void game::start()
 				{
 					if (collision(&tmprect, player1->getRect())) //if we collide with an enemy
 					{
+						ASND_SetVoice(ASND_GetFirstUnusedVoice(), VOICE_MONO_8BIT, 44100, 0, sounds[2], sound_size[2],  MAX_VOLUME, MAX_VOLUME, NULL);
 						items.erase(items.begin() + j);
 					}
 				}
@@ -776,6 +791,7 @@ void game::start()
 			if (player1->getHealth() == 5 || player1->getHealth() == 50 || player1->getHealth() == 100 || player1->getHealth() == 150)
 			{
 				player1->setHealth(player1->getHealth() - 1);
+				ASND_SetVoice(ASND_GetFirstUnusedVoice(), VOICE_MONO_8BIT, 44100, 0, sounds[0], sound_size[0],  MAX_VOLUME, MAX_VOLUME, NULL);
 			}
 
 			SDL_BlitSurface(numb, &numb1, screen, NULL);

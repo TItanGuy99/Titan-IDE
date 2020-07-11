@@ -17,6 +17,7 @@ game::game() //constructor
 
 	// Initialise the audio subsystem
 	ASND_Init();
+	ASND_Pause(0);
 	MP3Player_Init();
 
 	SDL_Delay(200);
@@ -85,6 +86,12 @@ game::game() //constructor
 	press_start1.h = -11;
 	count_end = 0;
 	count_frames = 0;
+	
+	sound_size[0] = ((sfxexplosion_raw_size + 31)/32) * 32;
+	sound_size[1] = ((sfxlaser_raw_size + 31)/32) * 32;
+	
+	sounds[0] = (void *)sfxexplosion_raw;
+	sounds[1] = (void *)sfxlaser_raw;
 }
 
 ///// Destroy all the variables in the memory for the game.
@@ -183,6 +190,7 @@ void game::handleEvents()
 				break;
 
 			case SDLK_SPACE:
+				ASND_SetVoice(ASND_GetFirstUnusedVoice(), VOICE_MONO_8BIT, 44100, 0, sounds[1], sound_size[1],  MAX_VOLUME, MAX_VOLUME, NULL);
 				bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 30, 8, 0));
 				break;
 
@@ -222,6 +230,7 @@ void game::handleEvents()
 			{
 			case 3:
 				bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 30, 8, 0));
+				ASND_SetVoice(ASND_GetFirstUnusedVoice(), VOICE_MONO_8BIT, 44100, 0, sounds[1], sound_size[1],  MAX_VOLUME, MAX_VOLUME, NULL);
 				break;
 
 			case 4:
@@ -610,7 +619,7 @@ void game::start()
 						{
 							if (enemies[j]->getLife() > 0)
 							{
-								
+								ASND_SetVoice(ASND_GetFirstUnusedVoice(), VOICE_MONO_8BIT, 44100, 0, sounds[0], sound_size[0],  MAX_VOLUME, MAX_VOLUME, NULL);
 							}
 
 							enemies[j]->subtractLife();
@@ -627,6 +636,7 @@ void game::start()
 
 						if (enemies[j]->getDead())
 						{
+							ASND_SetVoice(ASND_GetFirstUnusedVoice(), VOICE_MONO_8BIT, 44100, 0, sounds[0], sound_size[0],  MAX_VOLUME, MAX_VOLUME, NULL);
 							enemies.erase(enemies.begin() + j);
 						}
 					}
@@ -636,6 +646,7 @@ void game::start()
 					if (enemies[j]->getCount_Bullets() == 0 && enemies[j]->getLife() > 0)
 					{
 						bullets.push_back(new bullet(bul, enemies[j]->getRect()->x - (enemies[j]->getRect()->w / 4) - baseclass::coord.x, enemies[j]->getRect()->y + 30, -2, 0));
+						ASND_SetVoice(ASND_GetFirstUnusedVoice(), VOICE_MONO_8BIT, 44100, 0, sounds[1], sound_size[1],  MAX_VOLUME, MAX_VOLUME, NULL);
 					}
 				}
 			}
@@ -663,6 +674,7 @@ void game::start()
 
 					if (enemies[j]->getDead())
 					{
+						ASND_SetVoice(ASND_GetFirstUnusedVoice(), VOICE_MONO_8BIT, 44100, 0, sounds[0], sound_size[0],  MAX_VOLUME, MAX_VOLUME, NULL);
 						enemies.erase(enemies.begin() + j);
 					}
 				}
@@ -670,6 +682,7 @@ void game::start()
 				if (collision(player1->getRect(), bullets[i]->getRect())) //if a bullet collide with the player
 				{
 					erase_bullets();
+					ASND_SetVoice(ASND_GetFirstUnusedVoice(), VOICE_MONO_8BIT, 44100, 0, sounds[0], sound_size[0],  MAX_VOLUME, MAX_VOLUME, NULL);
 					player1->setHealth(player1->getHealth() - 200);
 					break;
 				}

@@ -25,7 +25,7 @@ INCLUDES	:=
 # options for code generation
 #---------------------------------------------------------------------------------
 
-CFLAGS		= -O2 -Wall $(MACHDEP) $(INCLUDE) `$(PREFIX)pkg-config --cflags sdl`
+CFLAGS		= -g -O2 -Wall $(MACHDEP) $(INCLUDE) `$(PREFIX)pkg-config --cflags sdl`
 CXXFLAGS	=	$(CFLAGS)
 
 LDFLAGS	=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map
@@ -129,6 +129,7 @@ $(OFILES_SOURCES) : $(HFILES)
 #---------------------------------------------------------------------------------
 %.jpg.o	%_jpg.h :	%.jpg
 %.mp3.o	%_mp3.h :	%.mp3
+%.raw.o	%_raw.h :	%.raw
 #---------------------------------------------------------------------------------
 	@echo $(notdir $<)
 	$(bin2o)

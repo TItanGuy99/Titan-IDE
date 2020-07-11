@@ -23,12 +23,21 @@
 #include "enemy.h"
 #include "boss.h"
 #include "item.h"
+
+// Audio
+#include "sfxdeath_raw.h"
+#include "sfxenemies_raw.h"
+#include "sfxring_raw.h"
+#include "sfxjump_raw.h"
+
 #ifndef GAME_H
 #define GAME_H
 
 class game:public baseclass{
 	SDL_Joystick *joystick;
 	int joystickCount, buttonCount, count_end, save_clock;
+	void *sounds[4];
+	size_t sound_size[4];
 	SDL_Surface *screen, *block, *blocksBG, *ene, *ene2, *bos, *ite, *hud, *energy;
 	SDL_Surface *energy_life, *numb, *m_screen, *press_start, *titan_logo, *game_over, *final_screen;
 	SDL_Surface  *n0, *n1, *n2, *n3, *n4, *n5, *n6, *n7, *n8, *n9;  

@@ -17,6 +17,7 @@ game::game() //constructor
 
 	SDL_Delay(200);
 
+	windowIcon = load_image("rd/images/icon/icon.bmp", 1, 1, 1);
 	titan_logo = load_image("rd/images/menu/Titan.bmp", 1, 1, 1);
 	press_start = load_image("rd/images/menu/Start_Game.bmp", 0x00, 0x00, 0x00);
 	m_screen = load_image("rd/images/menu/menu.bmp", 1, 1, 1);
@@ -41,6 +42,9 @@ game::game() //constructor
 	n2 = load_image("rd/images/numbers/N2.bmp", 0x00, 0x00, 0x00);
 	n1 = load_image("rd/images/numbers/N1.bmp", 0x00, 0x00, 0x00);
 	n0 = load_image("rd/images/numbers/N0.bmp", 0x00, 0x00, 0x00);
+	
+	SDL_WM_SetCaption("Titan App", NULL);
+	SDL_WM_SetIcon(windowIcon, NULL);
 
 	baseclass::coord.x = 0;
 	baseclass::coord.y = 0;

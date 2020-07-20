@@ -19,7 +19,7 @@ class game:public baseclass{
 	int joystickCount;
 	int buttonCount;
 	SDL_Surface *screen, *background, *block, *blocksBG, *bul, *ene, *ene2, *hud, *energy;
-	SDL_Surface *energy_life, *numb, *m_screen, *press_start, *titan_logo, *game_over, *final_screen;
+	SDL_Surface *energy_life, *numb, *m_screen, *press_start, *titan_logo, *game_over, *final_screen, *windowIcon;
 	SDL_Surface  *n0, *n1, *n2, *n3, *n4, *n5, *n6, *n7, *n8, *n9;  
 	SDL_Rect camera, energy1, energy2, energy3, energy4, numb1, press_start1;
 	SDL_Rect clip_number[10];

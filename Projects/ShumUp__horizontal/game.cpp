@@ -179,7 +179,7 @@ void game::handleEvents()
 
 			case SDLK_SPACE:
 				printf("Its here");
-				bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 30, 8, 0));
+				bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 13, 8, 0));
 				snd_sfx_play(sfx_laser, 225, 128);
 				break;
 
@@ -219,7 +219,7 @@ void game::handleEvents()
 			{
 			case 0:
 				printf("Its here");
-				bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 30, 8, 0));
+				bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 13, 8, 0));
 				snd_sfx_play(sfx_laser, 225, 128);
 				break;
 

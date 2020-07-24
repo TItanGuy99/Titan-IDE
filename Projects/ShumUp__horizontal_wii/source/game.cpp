@@ -191,7 +191,7 @@ void game::handleEvents()
 
 			case SDLK_SPACE:
 				ASND_SetVoice(ASND_GetFirstUnusedVoice(), VOICE_MONO_8BIT, 44100, 0, sounds[1], sound_size[1],  MAX_VOLUME, MAX_VOLUME, NULL);
-				bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 30, 8, 0));
+				bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 13, 8, 0));
 				break;
 
 			case SDLK_UP:
@@ -229,7 +229,7 @@ void game::handleEvents()
 			switch (event.jbutton.button)
 			{
 			case 3:
-				bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 30, 8, 0));
+				bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 13, 8, 0));
 				ASND_SetVoice(ASND_GetFirstUnusedVoice(), VOICE_MONO_8BIT, 44100, 0, sounds[1], sound_size[1],  MAX_VOLUME, MAX_VOLUME, NULL);
 				break;
 

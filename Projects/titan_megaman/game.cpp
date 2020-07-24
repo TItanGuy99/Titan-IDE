@@ -13,7 +13,7 @@ game::game() //constructor
 
 	snd_stream_init();
 
-	screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 16, SDL_HWSURFACE);
+	screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 16, SDL_FULLSCREEN);
 	PVR_SET(PVR_SCALER_CFG, 0x400);
 
 	SDL_ShowCursor(SDL_DISABLE);

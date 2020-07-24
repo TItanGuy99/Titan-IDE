@@ -210,7 +210,7 @@ void game::handleEvents()
 				break;
 
 			case SDLK_SPACE:
-				bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 30, 8, 0));
+				bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 13, 8, 0));
 				play_sfx(sfx_laser, 1, 1, 0);
 				break;
 
@@ -249,7 +249,7 @@ void game::handleEvents()
 			switch (event.jbutton.button)
 			{
 			case 0:
-				bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 30, 8, 0));
+				bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 13, 8, 0));
 				play_sfx(sfx_laser, 2, 1, 0);
 				break;
 

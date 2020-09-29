@@ -788,11 +788,11 @@ void game::start()
 
 			if (SDL_GetTicks() - start <= 20)
 			{
-				SDL_Delay(10);
+				SDL_Delay(3);
 			}
 			else
 			{
-				SDL_Delay(1);
+				SDL_Delay(2);
 			}
 
 			//////////////////////////////////////////////////////////

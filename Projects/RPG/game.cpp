@@ -657,7 +657,7 @@ void game::start()
 
 			if (SDL_GetTicks() - start <= 20)
 			{
-				SDL_Delay(5);
+				SDL_Delay(3);
 			}
 			else
 			{

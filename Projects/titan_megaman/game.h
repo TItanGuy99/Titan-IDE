@@ -1,7 +1,8 @@
 /*Code and engine made by Titan Game Studios 2016/2020 coded by Luiz Nai.*/
 #include <fstream>
 #include <vector>
-#include <SDL/SDL.h>
+#include <SDL.h>    
+#include <SDL_image.h> 
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -32,7 +33,7 @@ class game:public baseclass{
 	std::vector<enemy*> enemies_bkp;
 	bool direction[2];
 	SDL_Rect finish;
-	SDL_Surface* load_image(const char* filename, int r, int g, int b);
+	SDL_Surface* load_image(const char* filename, const char* extension, int r, int g, int b);
 	void loadmap(const char* filename, bool isBG);
 	void showmap(std::vector<std::vector<int> > currentMap, bool checkY, SDL_Surface *currentBlock);
 	void menu();

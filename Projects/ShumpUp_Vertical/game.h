@@ -2,7 +2,8 @@
 #include <fstream>
 #include <iostream>             //if we want to write out something, probobly it can be deleted if you don't want
 #include <vector>
-#include <SDL/SDL.h>
+#include <SDL.h>    
+#include <SDL_image.h> 
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -34,7 +35,7 @@ class game:public baseclass{
 	std::vector<bullet*> bullets;
 	bool direction[2];
 	SDL_Rect finish;
-	SDL_Surface* load_image(const char* filename, int r, int g, int b);
+	SDL_Surface* load_image(const char* filename, const char* extension, int r, int g, int b);
 	void loadmap(const char* filename, bool isBG);
 	void showmap(std::vector<std::vector<int> > currentMap, SDL_Surface *currentBlock);
 	void menu();

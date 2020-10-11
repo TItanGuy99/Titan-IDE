@@ -2,7 +2,6 @@
 #include "game.h"
 
 SDL_Rect baseclass::coord; //we have to actually reserve memory for the static SDL_Rect from the baseclass
-int save_clock;
 
 game::game() //constructor
 {
@@ -25,25 +24,30 @@ game::game() //constructor
 
 	SDL_Delay(200);
 
-	titan_logo = load_image("rd/images/menu/Titan.bmp", "bmp", 1, 1, 1);
-	press_start = load_image("rd/images/menu/Start_Game.bmp", "bmp", 0x00, 0x00, 0x00);
-	m_screen = load_image("rd/images/menu/menu.bmp", "bmp", 1, 1, 1);
-	game_over = load_image("rd/images/menu/game_over.bmp", "bmp", 1, 1, 1);
-	final_screen = load_image("rd/images/menu/final_screen.bmp", "bmp", 1, 1, 1);
-	block = load_image("rd/images/blocks/blocks.bmp", "bmp", 0xff, 0x00, 0xff);
-	blocksBG = load_image("rd/images/BG/blocks.bmp", "bmp", 1, 1, 1);
-	hud = load_image("rd/images/hud/HUD.bmp", "bmp", 0xff, 0x00, 0xff);
-	numb = load_image("rd/images/numbers/N3.bmp", "bmp", 0x00, 0x00, 0x00);
-	n9 = load_image("rd/images/numbers/N9.bmp", "bmp", 0x00, 0x00, 0x00);
-	n8 = load_image("rd/images/numbers/N8.bmp", "bmp", 0x00, 0x00, 0x00);
-	n7 = load_image("rd/images/numbers/N7.bmp", "bmp", 0x00, 0x00, 0x00);
-	n6 = load_image("rd/images/numbers/N6.bmp", "bmp", 0x00, 0x00, 0x00);
-	n5 = load_image("rd/images/numbers/N5.bmp", "bmp", 0x00, 0x00, 0x00);
-	n4 = load_image("rd/images/numbers/N4.bmp", "bmp", 0x00, 0x00, 0x00);
-	n3 = load_image("rd/images/numbers/N3.bmp", "bmp", 0x00, 0x00, 0x00);
-	n2 = load_image("rd/images/numbers/N2.bmp", "bmp", 0x00, 0x00, 0x00);
-	n1 = load_image("rd/images/numbers/N1.bmp", "bmp", 0x00, 0x00, 0x00);
-	n0 = load_image("rd/images/numbers/N0.bmp", "bmp", 0x00, 0x00, 0x00);
+	titan_logo = load_image("rd/images/menu/Titan.bmp", 1, 1, 1);
+	press_start = load_image("rd/images/menu/Start_Game.bmp", 0x00, 0x00, 0x00);
+	m_screen = load_image("rd/images/menu/menu.bmp", 1, 1, 1);
+	game_over = load_image("rd/images/menu/game_over.bmp", 1, 1, 1);
+	final_screen = load_image("rd/images/menu/final_screen.bmp", 1, 1, 1);
+	blocksBG = load_image("rd/images/BG/blocks.bmp", 0xff, 0x00, 0x00);
+	bul = load_image("rd/images/bullets/BLT.bmp", 0x00, 0x00, 0x00);
+	ite = load_image("rd/images/itens/rings.bmp", 0xff, 0x00, 0xff);
+	ene = load_image("rd/images/enemy/enemy.bmp", 0xff, 0x00, 0xff);
+	ene2 = load_image("rd/images/enemy/enemy2.bmp", 0xff, 0x00, 0xff);
+	hud = load_image("rd/images/hud/HUD.bmp", 0xff, 0x00, 0xff);
+	numb = load_image("rd/images/numbers/N3.bmp", 0x00, 0x00, 0x00);
+	n9 = load_image("rd/images/numbers/N9.bmp", 0x00, 0x00, 0x00);
+	n8 = load_image("rd/images/numbers/N8.bmp", 0x00, 0x00, 0x00);
+	n7 = load_image("rd/images/numbers/N7.bmp", 0x00, 0x00, 0x00);
+	n6 = load_image("rd/images/numbers/N6.bmp", 0x00, 0x00, 0x00);
+	n5 = load_image("rd/images/numbers/N5.bmp", 0x00, 0x00, 0x00);
+	n4 = load_image("rd/images/numbers/N4.bmp", 0x00, 0x00, 0x00);
+	n3 = load_image("rd/images/numbers/N3.bmp", 0x00, 0x00, 0x00);
+	n2 = load_image("rd/images/numbers/N2.bmp", 0x00, 0x00, 0x00);
+	n1 = load_image("rd/images/numbers/N1.bmp", 0x00, 0x00, 0x00);
+	n0 = load_image("rd/images/numbers/N0.bmp", 0x00, 0x00, 0x00);
+	sfx_laser = snd_sfx_load("/rd/laser.wav");
+	sfx_explosion = snd_sfx_load("/rd/explosion.wav");
 
 	baseclass::coord.x = 0;
 	baseclass::coord.y = 0;
@@ -62,10 +66,12 @@ game::game() //constructor
 	numb1.w = -16;
 	numb1.h = -16;
 
+	baseclass::coord.y = 1808;
+
 	direction[0] = direction[1] = 0;
 	running = true;
 	all_running = true;
-	player1 = new player(load_image("rd/images/player/player.bmp", "bmp", 0xff, 0x00, 0xff));
+	player1 = new player(load_image("rd/images/player/player.bmp", 0xff, 0x00, 0xff));
 	finish.x = 0;
 	finish.y = 0;
 	finish.w = 50;
@@ -75,6 +81,8 @@ game::game() //constructor
 	press_start1.y = -215;
 	press_start1.w = -118;
 	press_start1.h = -11;
+	count_end = 0;
+	count_frames = 0;
 }
 
 ///// Destroy all the variables in the memory for the game.
@@ -85,8 +93,11 @@ game::~game()
 	SDL_FreeSurface(m_screen);
 	SDL_FreeSurface(game_over);
 	SDL_FreeSurface(final_screen);
-	SDL_FreeSurface(block);
 	SDL_FreeSurface(blocksBG);
+	SDL_FreeSurface(bul);
+	SDL_FreeSurface(ite);
+	SDL_FreeSurface(ene);
+	SDL_FreeSurface(ene2);
 	SDL_FreeSurface(hud);
 	SDL_FreeSurface(numb);
 	SDL_FreeSurface(n9);
@@ -100,86 +111,23 @@ game::~game()
 	SDL_FreeSurface(n1);
 	SDL_FreeSurface(n0);
 
-	for (int i = 0; i < obstacles.size(); i++)
-		delete obstacles[i];
-	for (int i = 0; i < obstacles_bkp.size(); i++)
-		delete obstacles_bkp[i];
+	for (int i = 0; i < enemies.size(); i++)
+		delete enemies[i];
+	for (int i = 0; i < enemies_bkp.size(); i++)
+		delete enemies_bkp[i];
+	for (int i = 0; i < items.size(); i++)
+		delete items[i];
+	for (int i = 0; i < items_bkp.size(); i++)
+		delete items_bkp[i];
 
 	SDL_Quit();
 	pvr_shutdown();
 }
 
-//// Function to control the bg (not using on this code)
-void game::control_bg(char d)
-{
-
-	//baseclass::coord.y+=1;
-
-	switch (d)
-	{
-	case 'u':
-		if (player1->getDirection() == 'u' && !player1->return_colliding())
-		{
-			baseclass::coord.y += 1;
-		}
-		else
-		{
-			player1->setDirection('z');
-			baseclass::coord.y -= 1;
-		}
-		break;
-
-	case 'd':
-		if (player1->getDirection() == 'd' && !player1->return_colliding())
-		{
-			baseclass::coord.y -= 1;
-		}
-		else
-		{
-			player1->setDirection('z');
-			baseclass::coord.y += 1;
-		}
-		break;
-
-	case 'l':
-		if (player1->getDirection() == 'l' && !player1->return_colliding())
-		{
-			baseclass::coord.x -= 1;
-		}
-		else
-		{
-			player1->setDirection('z');
-			baseclass::coord.x += 2;
-		}
-		break;
-
-	case 'r':
-		if (player1->getDirection() == 'r' && !player1->return_colliding())
-		{
-			baseclass::coord.x += 1;
-		}
-		else
-		{
-			player1->setDirection('z');
-			baseclass::coord.x -= 2;
-		}
-		break;
-	}
-}
-
 ///////Function to load the images without black
-SDL_Surface *game::load_image(const char *filename, const char* extension, int r, int g, int b) //it will load an image
+SDL_Surface *game::load_image(const char *filename, int r, int g, int b) //it will load an image
 {
-	SDL_Surface *tmp;
-	
-
-	if(extension=="pvr") {
-		tmp= IMG_Load(filename);
-	}
-	else {
-		tmp = SDL_LoadBMP(filename);	//load the BMP to a tmp variable
-	}
-	
+	SDL_Surface *tmp = SDL_LoadBMP(filename);	//load the BMP to a tmp variable
 	SDL_Surface *tmp2 = SDL_DisplayFormat(tmp); //change it to the format of the screen
 	if (r != 1 && g != 1 && b != 1)
 	{
@@ -196,7 +144,7 @@ void game::handleEvents()
 	SDL_Event event;
 
 	while (SDL_PollEvent(&event))
-	{
+	{		
 		switch (event.type)
 		{
 		case SDL_QUIT:
@@ -229,8 +177,8 @@ void game::handleEvents()
 				break;
 
 			case SDLK_SPACE:
-				//bullets.push_back(new bullet(bul,player1->getRect()->x+24,player1->getRect()->y-10,0,-8,false));
-				//snd_sfx_play(sfx_laser,225,128);
+				bullets.push_back(new bullet(bul, player1->getRect()->x + 24, player1->getRect()->y - 10, 0, -8, false));
+				snd_sfx_play(sfx_laser, 225, 128);
 				break;
 
 			case SDLK_UP:
@@ -268,9 +216,9 @@ void game::handleEvents()
 			switch (event.jbutton.button)
 			{
 			case 0:
-				//printf("Its here");
-				//bullets.push_back(new bullet(bul,player1->getRect()->x+24,player1->getRect()->y-10,0,-8,false));
-				//snd_sfx_play(sfx_laser,225,128);
+				printf("Its here");
+				bullets.push_back(new bullet(bul, player1->getRect()->x + 24, player1->getRect()->y - 10, 0, -8, false));
+				snd_sfx_play(sfx_laser, 225, 128);
 				break;
 
 			case 4:
@@ -294,24 +242,40 @@ void game::handleEvents()
 			switch (event.jhat.value)
 			{
 
+			case 0: //neutral
+				player1->setDirection('z');
+				break;
+
 			case 1: //up
 				player1->setDirection('u');
+				break;
+	
+			case 2: //right
+				player1->setDirection('r');
+				break;
+	
+			case 3: // up right
+				player1->setDirection('e');
 				break;
 
 			case 4: //down
 				player1->setDirection('d');
 				break;
 
-			case 2: //right
-				player1->setDirection('r');
+			case 9: // up left
+				player1->setDirection('q');
+				break;
+			
+			case 6: //down right
+				player1->setDirection('c');
+				break;
+			
+			case 12: //down left
+				player1->setDirection('x');
 				break;
 
 			case 8: //left
 				player1->setDirection('l');
-				break;
-
-			case 0: //neutral
-				player1->setDirection('z');
 				break;
 			}
 			break;
@@ -348,18 +312,49 @@ void game::loadmap(const char *filename, bool isBG)
 				std::cout << "File end reached too soon" << std::endl; //write out and exit
 				return;
 			}
-			in >> current; //read the current number
-			if (!isBG)	   //if it's -1 than we put a new enemy to the position
+			in >> current;			  //read the current number
+			if (current < 0 && !isBG) //if it's -1 than we put a new enemy to the position
+			{
+				if (current == -1)
+				{
+					enemies.push_back(new enemy(ene, j * TILE_SIZE, (i * TILE_SIZE) - 50, -2, 0)); //because every tile is TILE_SIZE width and height, we can calculate
+					enemies_bkp.push_back(new enemy(ene, j * TILE_SIZE, (i * TILE_SIZE) - 50, -2, 0));
+					//where they start by multiplying it with the i or j
+					vec.push_back(0); //and we push back 0 to the vector (so nothing will be visible there)
+				}
+				else if (current == -2)
+				{
+					enemies.push_back(new enemy(ene2, j * TILE_SIZE, (i * TILE_SIZE) - 50, -2, 0)); //because every tile is TILE_SIZE width and height, we can calculate
+					enemies_bkp.push_back(new enemy(ene2, j * TILE_SIZE, (i * TILE_SIZE) - 50, -2, 0));
+					//where they start by multiplying it with the i or j
+					vec.push_back(0); //and we push back 0 to the vector (so nothing will be visible there)
+				}
+				else if (current == -5)
+				{
+					/*the_boss.push_back(new boss(bos,j*TILE_SIZE,(i*TILE_SIZE)-50,-2,0));//because every tile is TILE_SIZE width and height, we can calculate
+                                the_boss_bkp.push_back(new boss(bos,j*TILE_SIZE,(i*TILE_SIZE)-50,-2,0));
+								//where they start by multiplying it with the i or j
+                                vec.push_back(0);       //and we push back 0 to the vector (so nothing will be visible there)*/
+				}
+				else if (current == -9)
+				{
+					items.push_back(new item(ite, j * TILE_SIZE + 7, (i * TILE_SIZE), -2, 0)); //because every tile is TILE_SIZE width and height, we can calculate
+					items_bkp.push_back(new item(ite, j * TILE_SIZE + 7, (i * TILE_SIZE), -2, 0));
+					//where they start by multiplying it with the i or j
+					vec.push_back(0); //and we push back 0 to the vector (so nothing will be visible there)
+				}
+			}
+			else if (!isBG)
 			{
 				if (current >= 0 && current <= 13) //if the current is greater or equal then 0 (so nothing) and less or equal than the max number of tiles
 				//change the 7 to a bigger number, if you want to add more tile to the tiles.bmp image, don't forget 50x50 tiles
 				{
-					vec.push_back(current); //put the current into our matrix which represent the map in the game
-					if (current > 2)
+					if (current == 3) //if the current is 3
 					{
-						obstacles.push_back(new obstacle(j * TILE_SIZE, (i * TILE_SIZE) * -1 + 190)); //because every tile is TILE_SIZE width and height, we can calculate
-						obstacles_bkp.push_back(new obstacle(j * TILE_SIZE, (i * TILE_SIZE) * -1 + 190));
+						finish.x = j * 50; //set the finish coordinate
+						finish.y = i * 50;
 					}
+					vec.push_back(current); //put the current into our matrix which represent the map in the game
 				}
 				else
 				{
@@ -370,12 +365,10 @@ void game::loadmap(const char *filename, bool isBG)
 			{
 				if (current >= 0)
 				{
-					printf("está aqui carregando algo");
 					vec.push_back(current); //put the current into our matrix which represent the map in the game
 				}
 				else
 				{
-					printf("está aqui acumulando lixo");
 					vec.push_back(0); //if the tile number is not known than just push 0 (so nothing) in the current position
 				}
 			}
@@ -394,7 +387,7 @@ void game::loadmap(const char *filename, bool isBG)
 }
 
 ////// Function to show the map on the screen
-void game::showmap(std::vector<std::vector<int> > currentMap, bool checkY, SDL_Surface *currentBlock)
+void game::showmap(std::vector<std::vector<int> > currentMap, SDL_Surface *currentBlock)
 {
 	int start = (baseclass::coord.x - (baseclass::coord.x % baseclass::TILE_SIZE)) / baseclass::TILE_SIZE;
 	int end = (baseclass::coord.x + baseclass::coord.w + (baseclass::TILE_SIZE - (baseclass::coord.x + baseclass::coord.w) % baseclass::TILE_SIZE)) / baseclass::TILE_SIZE;
@@ -403,41 +396,27 @@ void game::showmap(std::vector<std::vector<int> > currentMap, bool checkY, SDL_S
 		start = 0;
 	if (end > currentMap[0].size())
 		end = currentMap[0].size();
-
-	int i = 0;
-	int j = start;
-
-	if (!checkY)
+	for (int i = 0; i < currentMap.size(); i++)
 	{
-		for (i = 0; i < currentMap.size(); i++)
+		for (int j = start; j < end; j++)
 		{
-			for (j = 0; j < currentMap[0].size(); j++)
+			if (currentMap[i][j] != 0)
 			{
-				if (currentMap[i][j] != 0)
-				{
-					SDL_Rect blockrect = {(currentMap[i][j] - 1) * baseclass::TILE_SIZE, 0, baseclass::TILE_SIZE, baseclass::TILE_SIZE};
-					SDL_Rect destrect = {j * baseclass::TILE_SIZE, i * baseclass::TILE_SIZE};
-					SDL_BlitSurface(currentBlock, &blockrect, screen, &destrect);
-				}
+				SDL_Rect blockrect = {(currentMap[i][j] - 1) * baseclass::TILE_SIZE, 0, baseclass::TILE_SIZE, baseclass::TILE_SIZE};
+				SDL_Rect destrect = {j * baseclass::TILE_SIZE - baseclass::coord.x, i * baseclass::TILE_SIZE - baseclass::coord.y};
+				SDL_BlitSurface(currentBlock, &blockrect, screen, &destrect);
 			}
 		}
 	}
-	else
+}
+
+/////// Clean arrays of enemies and bullets
+void game::erase_bullets()
+{
+	for (int i = 0; i < bullets.size(); i++) //go through the bullets
 	{
-		for (i = 0; i < currentMap.size(); i++)
-		{
-			for (j = start; j < end; j++)
-			{
-				if (currentMap[i][j] != 0)
-				{
-					SDL_Rect blockrect = {(currentMap[i][j] - 1) * baseclass::TILE_SIZE, 0, baseclass::TILE_SIZE, baseclass::TILE_SIZE};
-					SDL_Rect destrect = {j * baseclass::TILE_SIZE - baseclass::coord.x, i * baseclass::TILE_SIZE};
-					destrect.y += baseclass::coord.y;
-					destrect.x -= 1;
-					SDL_BlitSurface(currentBlock, &blockrect, screen, &destrect);
-				}
-			}
-		}
+		delete bullets[i];
+		bullets.erase(bullets.begin() + i);
 	}
 }
 
@@ -541,8 +520,21 @@ void game::menu()
 
 void game::restart_game()
 {
-	obstacles.clear();
-	obstacles.assign(obstacles_bkp.begin(), obstacles_bkp.end());
+	enemies.clear();
+	enemies.assign(enemies_bkp.begin(), enemies_bkp.end());
+
+	//the_boss.clear();
+	//the_boss.assign(the_boss_bkp.begin(),the_boss_bkp.end());
+
+	items.clear();
+	items.assign(items_bkp.begin(), items_bkp.end());
+
+	for (int i = 0; i < enemies_bkp.size(); i++)
+	{
+		enemies_bkp[i]->setLife();
+	}
+
+	count_end = 0;
 	running = false;
 	direction[0] = 0;
 	direction[1] = 0;
@@ -553,6 +545,7 @@ void game::restart_game()
 	baseclass::coord.y = 0;
 	camera.x = 0;
 	camera.y = 0;
+	baseclass::coord.y = 1808;
 	SDL_FillRect(screen, NULL, 0x000000);
 	SDL_UpdateRect(screen, 0, 0, 0, 0);
 }
@@ -561,6 +554,8 @@ void game::restart_game()
 
 void game::end_game()
 {
+	//cdrom_cdda_play(4, 4, 1, CDDA_TRACKS);
+	//cdrom_cdda_pause();
 	running = false;
 	direction[0] = 0;
 	direction[1] = 0;
@@ -568,6 +563,7 @@ void game::end_game()
 	player1->setLives(3);
 	player1->resetPosition();
 	baseclass::coord.x = 0;
+	baseclass::coord.y = 1808;
 	camera.x = 0;
 	camera.y = 0;
 	numb = n3;
@@ -579,6 +575,11 @@ void game::end_game()
 	SDL_FillRect(screen, NULL, 0x000000);
 	SDL_UpdateRect(screen, 0, 0, 0, 0);
 	restart_game();
+}
+
+void game::control_bg()
+{
+	baseclass::coord.y -= 1;
 }
 
 ///// Function to start the game
@@ -623,23 +624,110 @@ void game::start()
 					SDL_Rect destrect = {j * 32 - baseclass::coord.x, i * 32 - baseclass::coord.y, 32, 32}; //calculate the relative coordinate to the screen (see above)
 				}
 
-			////Collisions between the obstacles and the player
-			for (int j = 0; j < obstacles.size(); j++) //go through the obstacles
+			////Collisions between the enemies and the player
+			for (int j = 0; j < enemies.size(); j++) //go through the enemies
 			{
-				SDL_Rect tmprect = {obstacles[j]->getRect()->x - baseclass::coord.x, obstacles[j]->getRect()->y - baseclass::coord.y + 16, 22, 24};
+				SDL_Rect tmprect = {enemies[j]->getRect()->x - baseclass::coord.x, enemies[j]->getRect()->y - baseclass::coord.y, 32, 32}; //calculate relative coordinates see above
+				SDL_Rect tmpbase = {baseclass::coord.x, baseclass::coord.y + 5, 320, 240};
+				SDL_Rect tmp_player = {player1->getRect()->x, player1->getRect()->y, 16, 16};
+
+				if (collision(&tmpbase, enemies[j]->getRect())) //if the enemy is on the screen, (change thanks for TheAngelbrothers to point out a bug :D)
+				{
+					if (collision(&tmprect, &tmp_player)) //if we collide with an enemy
+					{
+						if (baseclass::coord.y + player1->getRect()->h + player1->getRect()->h / 2 < enemies[j]->getRect()->y) //if we are on the 'head' of the enemy
+						{
+							if (enemies[j]->getLife() > 0)
+							{
+								snd_sfx_play(sfx_explosion, 225, 128);
+							}
+
+							enemies[j]->subtractLife();
+						}
+						else if (enemies[j]->getLife() > 0)
+						{
+							player1->setHealth(player1->getHealth() - 10); //else decrease the health of the player with 1
+						}
+
+						if (enemies[j]->getLife() > 0)
+						{
+							enemies[j]->subtractLife();
+						}
+
+						if (enemies[j]->getDead())
+						{
+							snd_sfx_play(sfx_explosion, 225, 128);
+							enemies.erase(enemies.begin() + j);
+						}
+					}
+
+					enemies[j]->move(map); //only move, when the enemy is on the screen. (change)
+
+					if (enemies[j]->getCount_Bullets() == 0 && enemies[j]->getLife() > 0)
+					{
+						bullets.push_back(new bullet(bul, enemies[j]->getRect()->x + 24, enemies[j]->getRect()->y - baseclass::coord.y + 64, 0, 2, true));
+						snd_sfx_play(sfx_laser, 225, 128);
+					}
+				}
+			}
+
+			for (int i = 0; i < bullets.size(); i++)										//go through the bullets
+				if (bullets[i]->getRect()->y >= screen->h || bullets[i]->getRect()->y <= 0) //and if it's outside of the screen
+				{
+					delete bullets[i]; //delete them
+					bullets.erase(bullets.begin() + i);
+				}
+
+			for (int i = 0; i < bullets.size(); i++) //go through both enemies and bullets
+			{
+				for (int j = 0; j < enemies.size(); j++)
+				{
+					SDL_Rect tmprect = {enemies[j]->getRect()->x - baseclass::coord.x, enemies[j]->getRect()->y - baseclass::coord.y, 40, 40}; //calculate relative coordinates see above
+					if (collision(&tmprect, bullets[i]->getRect()))																			   //if one bullet collide with and enemy
+					{
+						if (bullets[i]->get_bullet_enemy() == false)
+						{
+							//snd_sfx_play(sfx_explosion,225,128);
+							//enemies.erase(enemies.begin()+j);
+							delete bullets[i];
+							bullets.erase(bullets.begin() + i);
+
+							enemies[j]->subtractLife();
+						}
+					}
+
+					if (enemies[j]->getDead())
+					{
+						snd_sfx_play(sfx_explosion, 225, 128);
+						enemies.erase(enemies.begin() + j);
+					}
+				}
+
+				if (collision(player1->getRect(), bullets[i]->getRect())) //if a bullet collide with the player
+				{
+					erase_bullets();
+					snd_sfx_play(sfx_explosion, 225, 128);
+					player1->setHealth(player1->getHealth() - 200);
+					break;
+				}
+			}
+
+			if (enemies.size() <= 0)
+			{
+				end_game();
+			}
+
+			////Collisions between the items and the player
+			for (int j = 0; j < items.size(); j++) //go through the enemies
+			{
+				SDL_Rect tmprect = {items[j]->getRect()->x - baseclass::coord.x, items[j]->getRect()->y - baseclass::coord.y, 40, 40}; //calculate relative coordinates see above
 				SDL_Rect tmpbase = {baseclass::coord.x, baseclass::coord.y, 300, 240};
 
-				if (collision(&tmpbase, obstacles[j]->getRect())) //if the obstacle is on the screen, (change thanks for TheAngelbrothers to point out a bug :D)
+				if (collision(&tmpbase, items[j]->getRect())) //if the enemy is on the screen, (change thanks for TheAngelbrothers to point out a bug :D)
 				{
 					if (collision(&tmprect, player1->getRect())) //if we collide with an enemy
 					{
-						player1->set_colliding(true);
-						break;
-						break;
-					}
-					else
-					{
-						player1->set_colliding(false);
+						items.erase(items.begin() + j);
 					}
 				}
 			}
@@ -648,13 +736,46 @@ void game::start()
 
 			player1->move(map);
 
-			start = SDL_GetTicks();
-			control_bg(player1->getDirection());
+			count_frames++;
 
-			showmap(mapBG, false, blocksBG);
-			showmap(map, true, block);
+			if (count_frames >= 4)
+			{
+				control_bg();
+				count_frames = 0;
+			}
+
+			for (int i = 0; i < bullets.size(); i++)
+			{
+				bullets[i]->move();
+			}
+
+			showmap(mapBG, blocksBG);
+			showmap(map, block);
 
 			player1->show(screen);
+
+			for (int i = 0; i < enemies.size(); i++)
+			{
+				enemies[i]->getPlayerX(player1->getX());
+				enemies[i]->show(screen);
+
+				if (enemies[i]->getRect()->y - baseclass::coord.y > 420)
+				{
+					//printf("Its here");
+					enemies.erase(enemies.begin() + i);
+				}
+			}
+
+			for (int i = 0; i < bullets.size(); i++)
+			{
+				bullets[i]->show(screen);
+			}
+
+			for (int i = 0; i < items.size(); i++)
+			{
+				items[i]->show(screen);
+				items[i]->move();
+			}
 
 			SDL_BlitSurface(hud, &camera, screen, NULL);
 			SDL_BlitSurface(numb, &numb1, screen, NULL);
@@ -666,20 +787,33 @@ void game::start()
 
 			if (SDL_GetTicks() - start <= 20)
 			{
-				SDL_Delay(3);
+				SDL_Delay(10);
 			}
 			else
 			{
-				SDL_Delay(2);
+				SDL_Delay(5);
 			}
 
 			//////////////////////////////////////////////////////////
 
-			if (player1->getHealth() <= 0 || player1->get_mapy() >= 400)
+			if (player1->getHealth() <= 0)
 			{
+				erase_bullets();
 				player1->setLives(player1->getLives() - 1);
-				obstacles.clear();
-				obstacles.assign(obstacles_bkp.begin(), obstacles_bkp.end());
+
+				enemies.clear();
+				enemies.assign(enemies_bkp.begin(), enemies_bkp.end());
+
+				//the_boss.clear();
+				//the_boss.assign(the_boss_bkp.begin(),the_boss_bkp.end());
+
+				items.clear();
+				items.assign(items_bkp.begin(), items_bkp.end());
+
+				for (int i = 0; i < enemies_bkp.size(); i++)
+				{
+					enemies_bkp[i]->setLife();
+				}
 
 				switch (player1->getLives())
 				{
@@ -728,7 +862,7 @@ void game::start()
 				{
 					player1->resetPosition();
 					baseclass::coord.x = 0;
-					baseclass::coord.y = 0;
+					baseclass::coord.y = 1808;
 					camera.x = 0;
 					camera.y = 0;
 					direction[0] = 0;
@@ -737,6 +871,10 @@ void game::start()
 				}
 				else
 				{
+					//cdrom_cdda_pause();
+					//boss_defeated=false;
+					//music_boss=false;
+					count_end = 0;
 					running = false;
 					direction[0] = 0;
 					direction[1] = 0;
@@ -745,7 +883,7 @@ void game::start()
 					player1->setHealth(200);
 					player1->resetPosition();
 					baseclass::coord.x = 0;
-					baseclass::coord.y = 0;
+					baseclass::coord.y = 1808;
 					camera.x = 0;
 					camera.y = 0;
 					numb = n3;

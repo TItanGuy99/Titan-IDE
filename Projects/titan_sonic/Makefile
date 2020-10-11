@@ -1,34 +1,27 @@
-all: rm-elf main.elf
+TARGET = main.elf
+OBJS = main.o game.o base.o player.o enemy.o vmu.o item.o boss.o
+
+all: rm-elf $(TARGET)
 
 include $(KOS_BASE)/Makefile.rules
 
-OBJS = main.o game.o base.o player.o enemy.o vmu.o item.o boss.o
+KOS_CFLAGS += -ml -m4-single-only -pipe -I../kos-ports/include/SDL -I../include/zlib-1.2.3 -I../libpng-1.2.8
 
-KOS_LOCAL_CFLAGS = -I -Os
-	
 clean:
-	-rm -f main.elf $(OBJS)
-	-rm -f romdisk.*
+	-rm -f $(TARGET) $(OBJS) romdisk.*
 
-dist:
-	-rm -f $(OBJS)
-	-rm -f romdisk.*
-	$(KOS_STRIP) main.elf
-	
 rm-elf:
-	-rm -f main.elf
-	-rm -f romdisk.*
+	-rm -f $(TARGET) romdisk.*
 
-main.elf: $(OBJS) romdisk.o 
-	$(KOS_CC) $(KOS_CFLAGS) $(KOS_LDFLAGS) -o $@ $(KOS_START) $^ -lSDL -lstdc++ -lmp3 -lm $(KOS_LIBS)
+$(TARGET): $(OBJS) romdisk.o
+	$(KOS_CC) $(KOS_CFLAGS) $(KOS_LDFLAGS) -o $(TARGET) $(KOS_START) \
+		$(OBJS) romdisk.o $(OBJEXTRA) -L$(KOS_BASE)/lib -lgcc   -lSDL -lSDLPVR_image -lpng -lz -ljpeg  -lSDL -loggvorbisplay -ltremor -lstdc++ -lmp3 -lm  $(KOS_LIBS)
 
 romdisk.img:
-	$(KOS_GENROMFS) -f $@ -d romdisk -v
+	$(KOS_GENROMFS) -f romdisk.img -d romdisk -v
 
 romdisk.o: romdisk.img
-	$(KOS_BASE)/utils/bin2o/bin2o $< romdisk $@
+	$(KOS_BASE)/utils/bin2o/bin2o romdisk.img romdisk romdisk.o
 
-run: main.elf
-	$(KOS_LOADER) $<
-
-
+run: $(TARGET)
+	$(KOS_LOADER) $(TARGET)

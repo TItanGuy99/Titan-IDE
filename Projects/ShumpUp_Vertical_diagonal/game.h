@@ -2,8 +2,7 @@
 #include <fstream>
 #include <iostream>             //if we want to write out something, probobly it can be deleted if you don't want
 #include <vector>
-#include <SDL.h>    
-#include <SDL_image.h> 
+#include <SDL/SDL.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -21,6 +20,7 @@
 class game:public baseclass{
 	SDL_Joystick *joystick;
 	int joystickCount, buttonCount, count_end, count_frames, sfx_laser, sfx_explosion, save_clock;
+	bool dleft, dright, dup, ddown;
 	SDL_Surface *screen, *block, *blocksBG, *ene, *ene2, *ite, *hud, *energy,*bul;
 	SDL_Surface *energy_life, *numb, *m_screen, *press_start, *titan_logo, *game_over, *final_screen;
 	SDL_Surface  *n0, *n1, *n2, *n3, *n4, *n5, *n6, *n7, *n8, *n9;  
@@ -35,7 +35,7 @@ class game:public baseclass{
 	std::vector<bullet*> bullets;
 	bool direction[2];
 	SDL_Rect finish;
-	SDL_Surface* load_image(const char* filename, const char* extension, int r, int g, int b);
+	SDL_Surface* load_image(const char* filename, int r, int g, int b);
 	void loadmap(const char* filename, bool isBG);
 	void showmap(std::vector<std::vector<int> > currentMap, SDL_Surface *currentBlock);
 	void menu();

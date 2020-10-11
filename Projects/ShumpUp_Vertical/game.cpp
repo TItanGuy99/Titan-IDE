@@ -24,28 +24,28 @@ game::game() //constructor
 
 	SDL_Delay(200);
 
-	titan_logo = load_image("rd/images/menu/Titan.bmp", 1, 1, 1);
-	press_start = load_image("rd/images/menu/Start_Game.bmp", 0x00, 0x00, 0x00);
-	m_screen = load_image("rd/images/menu/menu.bmp", 1, 1, 1);
-	game_over = load_image("rd/images/menu/game_over.bmp", 1, 1, 1);
-	final_screen = load_image("rd/images/menu/final_screen.bmp", 1, 1, 1);
-	blocksBG = load_image("rd/images/BG/blocks.bmp", 0xff, 0x00, 0x00);
-	bul = load_image("rd/images/bullets/BLT.bmp", 0x00, 0x00, 0x00);
-	ite = load_image("rd/images/itens/rings.bmp", 0xff, 0x00, 0xff);
-	ene = load_image("rd/images/enemy/enemy.bmp", 0xff, 0x00, 0xff);
-	ene2 = load_image("rd/images/enemy/enemy2.bmp", 0xff, 0x00, 0xff);
-	hud = load_image("rd/images/hud/HUD.bmp", 0xff, 0x00, 0xff);
-	numb = load_image("rd/images/numbers/N3.bmp", 0x00, 0x00, 0x00);
-	n9 = load_image("rd/images/numbers/N9.bmp", 0x00, 0x00, 0x00);
-	n8 = load_image("rd/images/numbers/N8.bmp", 0x00, 0x00, 0x00);
-	n7 = load_image("rd/images/numbers/N7.bmp", 0x00, 0x00, 0x00);
-	n6 = load_image("rd/images/numbers/N6.bmp", 0x00, 0x00, 0x00);
-	n5 = load_image("rd/images/numbers/N5.bmp", 0x00, 0x00, 0x00);
-	n4 = load_image("rd/images/numbers/N4.bmp", 0x00, 0x00, 0x00);
-	n3 = load_image("rd/images/numbers/N3.bmp", 0x00, 0x00, 0x00);
-	n2 = load_image("rd/images/numbers/N2.bmp", 0x00, 0x00, 0x00);
-	n1 = load_image("rd/images/numbers/N1.bmp", 0x00, 0x00, 0x00);
-	n0 = load_image("rd/images/numbers/N0.bmp", 0x00, 0x00, 0x00);
+	titan_logo = load_image("rd/images/menu/Titan.bmp", "bmp", 1, 1, 1);
+	press_start = load_image("rd/images/menu/Start_Game.bmp", "bmp", 0x00, 0x00, 0x00);
+	m_screen = load_image("rd/images/menu/menu.bmp", "bmp", 1, 1, 1);
+	game_over = load_image("rd/images/menu/game_over.bmp", "bmp", 1, 1, 1);
+	final_screen = load_image("rd/images/menu/final_screen.bmp", "bmp", 1, 1, 1);
+	blocksBG = load_image("rd/images/BG/blocks.bmp", "bmp", 0xff, 0x00, 0x00);
+	bul = load_image("rd/images/bullets/BLT.bmp", "bmp", 0x00, 0x00, 0x00);
+	ite = load_image("rd/images/itens/rings.bmp", "bmp", 0xff, 0x00, 0xff);
+	ene = load_image("rd/images/enemy/enemy.bmp", "bmp", 0xff, 0x00, 0xff);
+	ene2 = load_image("rd/images/enemy/enemy2.bmp", "bmp", 0xff, 0x00, 0xff);
+	hud = load_image("rd/images/hud/HUD.bmp", "bmp", 0xff, 0x00, 0xff);
+	numb = load_image("rd/images/numbers/N3.bmp", "bmp", 0x00, 0x00, 0x00);
+	n9 = load_image("rd/images/numbers/N9.bmp", "bmp", 0x00, 0x00, 0x00);
+	n8 = load_image("rd/images/numbers/N8.bmp", "bmp", 0x00, 0x00, 0x00);
+	n7 = load_image("rd/images/numbers/N7.bmp", "bmp", 0x00, 0x00, 0x00);
+	n6 = load_image("rd/images/numbers/N6.bmp", "bmp", 0x00, 0x00, 0x00);
+	n5 = load_image("rd/images/numbers/N5.bmp", "bmp", 0x00, 0x00, 0x00);
+	n4 = load_image("rd/images/numbers/N4.bmp", "bmp", 0x00, 0x00, 0x00);
+	n3 = load_image("rd/images/numbers/N3.bmp", "bmp", 0x00, 0x00, 0x00);
+	n2 = load_image("rd/images/numbers/N2.bmp", "bmp", 0x00, 0x00, 0x00);
+	n1 = load_image("rd/images/numbers/N1.bmp", "bmp", 0x00, 0x00, 0x00);
+	n0 = load_image("rd/images/numbers/N0.bmp", "bmp", 0x00, 0x00, 0x00);
 	sfx_laser = snd_sfx_load("/rd/laser.wav");
 	sfx_explosion = snd_sfx_load("/rd/explosion.wav");
 
@@ -71,7 +71,7 @@ game::game() //constructor
 	direction[0] = direction[1] = 0;
 	running = true;
 	all_running = true;
-	player1 = new player(load_image("rd/images/player/player.bmp", 0xff, 0x00, 0xff));
+	player1 = new player(load_image("rd/images/player/player.bmp", "bmp", 0xff, 0x00, 0xff));
 	finish.x = 0;
 	finish.y = 0;
 	finish.w = 50;
@@ -125,9 +125,18 @@ game::~game()
 }
 
 ///////Function to load the images without black
-SDL_Surface *game::load_image(const char *filename, int r, int g, int b) //it will load an image
+SDL_Surface *game::load_image(const char *filename, const char* extension, int r, int g, int b) //it will load an image
 {
-	SDL_Surface *tmp = SDL_LoadBMP(filename);	//load the BMP to a tmp variable
+	SDL_Surface *tmp;
+	
+
+	if(extension=="pvr") {
+		tmp= IMG_Load(filename);
+	}
+	else {
+		tmp = SDL_LoadBMP(filename);	//load the BMP to a tmp variable
+	}
+	
 	SDL_Surface *tmp2 = SDL_DisplayFormat(tmp); //change it to the format of the screen
 	if (r != 1 && g != 1 && b != 1)
 	{

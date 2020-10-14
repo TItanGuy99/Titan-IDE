@@ -24,7 +24,7 @@ class game:public baseclass{
 	SDL_Surface *screen, *block, *blocksBG, *ene, *ene2, *ite, *hud, *energy,*bul;
 	SDL_Surface *energy_life, *numb, *m_screen, *press_start, *titan_logo, *game_over, *final_screen;
 	SDL_Surface  *n0, *n1, *n2, *n3, *n4, *n5, *n6, *n7, *n8, *n9;  
-	SDL_Rect camera, energy1, energy2, energy3, energy4, numb1, press_start1;
+	SDL_Rect camera, cameraPVR, energy1, energy2, energy3, energy4, numb1, press_start1;
 	SDL_Rect clip_number[10];
 	std::vector<std::vector<int> > map;
 	std::vector<std::vector<int> > mapBG;

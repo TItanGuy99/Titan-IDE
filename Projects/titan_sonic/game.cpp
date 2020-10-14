@@ -24,11 +24,11 @@ game::game() //constructor
 
 	SDL_Delay(200);
 
-	titan_logo = load_image("rd/images/menu/Titan.bmp", "bmp", 1, 1, 1);
+	titan_logo = load_image("rd/images/menu/Titan.pvr", "pvr", 1, 1, 1);
 	press_start = load_image("rd/images/menu/Start_Game.bmp", "bmp", 0x00, 0x00, 0x00);
-	m_screen = load_image("rd/images/menu/menu.bmp", "bmp", 1, 1, 1);
-	game_over = load_image("rd/images/menu/game_over.bmp", "bmp", 1, 1, 1);
-	final_screen = load_image("rd/images/menu/final_screen.bmp", "bmp", 1, 1, 1);
+	m_screen = load_image("rd/images/menu/menu.pvr", "pvr", 1, 1, 1);
+	game_over = load_image("rd/images/menu/game_over.pvr", "pvr", 1, 1, 1);
+	final_screen = load_image("rd/images/menu/final_screen.pvr", "pvr", 1, 1, 1);
 	block = load_image("rd/images/blocks/blocks.bmp", "bmp", 0xff, 0x00, 0xff);
 	blocksBG = load_image("rd/images/BG/blocks.bmp", "bmp", 0xff, 0x00, 0x00);
 	ite = load_image("rd/images/itens/rings.bmp", "bmp", 0xff, 0x00, 0xff);
@@ -55,6 +55,10 @@ game::game() //constructor
 	baseclass::coord.y = 0;
 	camera.x = 0;
 	camera.y = 0;
+	cameraPVR.x = -33;
+	cameraPVR.y = 0;
+	cameraPVR.w = SCREEN_WIDTH;
+	cameraPVR.h = SCREEN_HEIGHT;
 	///////////////
 	baseclass::coord.w = SCREEN_WIDTH;
 	///////////////
@@ -417,16 +421,17 @@ void game::menu()
 	bool check_limit = false;
 	int alpha = 255;
 
+	SDL_FillRect(screen, NULL, 0x000000);
 	SDL_SetAlpha(titan_logo, SDL_SRCALPHA, alpha);
-	SDL_BlitSurface(titan_logo, &camera, screen, NULL);
+	SDL_BlitSurface(titan_logo, &cameraPVR, screen, NULL);
 	SDL_UpdateRect(screen, 0, 0, 0, 0);
 	SDL_Delay(5000);
 
 	while (alpha > 0)
 	{
 		alpha -= 5;
-		SDL_BlitSurface(m_screen, &camera, screen, NULL);
-		SDL_BlitSurface(titan_logo, &camera, screen, NULL);
+		SDL_BlitSurface(m_screen, &cameraPVR, screen, NULL);
+		SDL_BlitSurface(titan_logo, &cameraPVR, screen, NULL);
 		SDL_SetAlpha(titan_logo, SDL_SRCALPHA, alpha);
 		SDL_UpdateRect(screen, 0, 0, 0, 0);
 	}
@@ -458,7 +463,7 @@ void game::menu()
 			}
 		}
 
-		SDL_BlitSurface(m_screen, &camera, screen, NULL);
+		SDL_BlitSurface(m_screen, &cameraPVR, screen, NULL);
 		SDL_BlitSurface(press_start, &press_start1, screen, NULL);
 
 		SDL_SetAlpha(press_start, SDL_SRCALPHA, alpha);
@@ -563,7 +568,7 @@ void game::end_game()
 	numb = n3;
 	SDL_FillRect(screen, NULL, 0x000000);
 	SDL_UpdateRect(screen, 0, 0, 0, 0);
-	SDL_BlitSurface(final_screen, &camera, screen, NULL);
+	SDL_BlitSurface(final_screen, &cameraPVR, screen, NULL);
 	SDL_UpdateRect(screen, 0, 0, 0, 0);
 	SDL_Delay(8000);
 	SDL_FillRect(screen, NULL, 0x000000);
@@ -902,7 +907,7 @@ void game::start()
 					numb = n3;
 					SDL_FillRect(screen, NULL, 0x000000);
 					SDL_UpdateRect(screen, 0, 0, 0, 0);
-					SDL_BlitSurface(game_over, &camera, screen, NULL);
+					SDL_BlitSurface(game_over, &cameraPVR, screen, NULL);
 					SDL_UpdateRect(screen, 0, 0, 0, 0);
 					SDL_Delay(11000);
 					SDL_FillRect(screen, NULL, 0x000000);

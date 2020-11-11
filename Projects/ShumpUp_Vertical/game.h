@@ -19,8 +19,9 @@
 #include <kos.h>
 
 class game:public baseclass{
+	bool is_shoting;
 	SDL_Joystick *joystick;
-	int joystickCount, buttonCount, count_end, count_frames, sfx_laser, sfx_explosion, save_clock;
+	int joystickCount, buttonCount, count_end, count_frames, sfx_laser, sfx_explosion, save_clock, control_bullet;
 	SDL_Surface *screen, *block, *blocksBG, *ene, *ene2, *ite, *hud, *energy,*bul;
 	SDL_Surface *energy_life, *numb, *m_screen, *press_start, *titan_logo, *game_over, *final_screen;
 	SDL_Surface  *n0, *n1, *n2, *n3, *n4, *n5, *n6, *n7, *n8, *n9;  
@@ -39,6 +40,7 @@ class game:public baseclass{
 	void loadmap(const char* filename, bool isBG);
 	void showmap(std::vector<std::vector<int> > currentMap, SDL_Surface *currentBlock);
 	void menu();
+	void shoot();
 	void end_game();
 	void handleEvents();
 	void restart_game();

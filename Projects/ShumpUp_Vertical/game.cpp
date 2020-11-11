@@ -48,6 +48,7 @@ game::game() //constructor
 	n0 = load_image("rd/images/numbers/N0.bmp", "bmp", 0x00, 0x00, 0x00);
 	sfx_laser = snd_sfx_load("/rd/laser.wav");
 	sfx_explosion = snd_sfx_load("/rd/explosion.wav");
+	is_shoting = false;
 
 	baseclass::coord.x = 0;
 	baseclass::coord.y = 0;
@@ -57,6 +58,7 @@ game::game() //constructor
 	cameraPVR.y = 0;
 	cameraPVR.w = SCREEN_WIDTH;
 	cameraPVR.h = SCREEN_HEIGHT;
+	control_bullet = 0;
 
 	///////////////
 	baseclass::coord.w = SCREEN_WIDTH;
@@ -190,8 +192,7 @@ void game::handleEvents()
 				break;
 
 			case SDLK_SPACE:
-				bullets.push_back(new bullet(bul, player1->getRect()->x + 24, player1->getRect()->y - 10, 0, -8, false));
-				snd_sfx_play(sfx_laser, 225, 128);
+				is_shoting = true;
 				break;
 
 			case SDLK_UP:
@@ -222,6 +223,10 @@ void game::handleEvents()
 			case SDLK_DOWN:
 				player1->setDirection('z');
 				break;
+				
+			case SDLK_SPACE:
+				is_shoting = false; // If you drop the space, shooting is false
+				break;
 			}
 			break;
 
@@ -229,9 +234,7 @@ void game::handleEvents()
 			switch (event.jbutton.button)
 			{
 			case 0:
-				printf("Its here");
-				bullets.push_back(new bullet(bul, player1->getRect()->x + 24, player1->getRect()->y - 10, 0, -8, false));
-				snd_sfx_play(sfx_laser, 225, 128);
+				is_shoting = true;
 				break;
 
 			case 4:
@@ -244,8 +247,9 @@ void game::handleEvents()
 		case SDL_JOYBUTTONUP:
 			switch (event.jbutton.button)
 			{
-			case 2:
-
+				
+			case 0:
+				is_shoting = false; // If you drop the key, shooting is false
 				break;
 			}
 			break;
@@ -255,24 +259,40 @@ void game::handleEvents()
 			switch (event.jhat.value)
 			{
 
+			case 0: //neutral
+				player1->setDirection('z');
+				break;
+
 			case 1: //up
 				player1->setDirection('u');
+				break;
+	
+			case 2: //right
+				player1->setDirection('r');
+				break;
+	
+			case 3: // up right
+				player1->setDirection('e');
 				break;
 
 			case 4: //down
 				player1->setDirection('d');
 				break;
 
-			case 2: //right
-				player1->setDirection('r');
+			case 9: // up left
+				player1->setDirection('q');
+				break;
+			
+			case 6: //down right
+				player1->setDirection('c');
+				break;
+			
+			case 12: //down left
+				player1->setDirection('x');
 				break;
 
 			case 8: //left
 				player1->setDirection('l');
-				break;
-
-			case 0: //neutral
-				player1->setDirection('z');
 				break;
 			}
 			break;
@@ -414,6 +434,19 @@ void game::erase_bullets()
 	{
 		delete bullets[i];
 		bullets.erase(bullets.begin() + i);
+	}
+}
+
+///// rapid fire
+void game::shoot() {
+	if(is_shoting) {
+		control_bullet++;
+		
+		if(control_bullet==15) {
+			control_bullet = 0;
+			bullets.push_back(new bullet(bul, player1->getRect()->x + 24, player1->getRect()->y - 10, 0, -8, false));
+			snd_sfx_play(sfx_laser, 225, 128);
+		}	
 	}
 }
 
@@ -577,7 +610,12 @@ void game::end_game()
 
 void game::control_bg()
 {
-	baseclass::coord.y -= 1;
+	/* Put here when you want that the background stop moving,
+	   See the total size for the BG on line 593. 
+	*/
+	if(baseclass::coord.y>1400) {  
+		baseclass::coord.y -= 1;
+	}
 }
 
 ///// Function to start the game
@@ -606,6 +644,7 @@ void game::start()
 		{
 			start = SDL_GetTicks();
 			handleEvents();
+			shoot();
 
 			//calculate the start and the end coordinate (see a little bit above)
 			int str = (baseclass::coord.x - (baseclass::coord.x % baseclass::TILE_SIZE)) / baseclass::TILE_SIZE;

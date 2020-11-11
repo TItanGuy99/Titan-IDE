@@ -98,6 +98,32 @@ void player::move(const std:: vector<std::vector<int> >&map)
 		case 'u':
 			box.y-=2;
 		break;
+	
+		case 'e':
+			if(box.x<260) {
+				box.x+=2;
+				box.y-=2;				
+			}
+		break;
+		
+		case 'q':
+			box.y-=2;
+			box.x-=2;
+		break;
+		
+		case 'c':
+			if(box.y<180) {
+				box.x+=2;
+				box.y+=2;	
+			}
+		break;
+		
+		case 'x':
+			if(box.y<180) {
+				box.y+=2;
+				box.x-=2;	
+			}
+		break;
 		
 		case 'd':
 			if(box.y<180)

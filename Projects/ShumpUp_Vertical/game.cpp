@@ -31,6 +31,7 @@ game::game() //constructor
 	final_screen = load_image("rd/images/menu/final_screen.pvr", "pvr", 1, 1, 1);
 	blocksBG = load_image("rd/images/BG/blocks.bmp", "bmp", 0xff, 0x00, 0x00);
 	bul = load_image("rd/images/bullets/BLT.bmp", "bmp", 0x00, 0x00, 0x00);
+	bul2 = load_image("rd/images/bullets/BLT2.bmp", "bmp", 0x00, 0x00, 0x00);
 	ite = load_image("rd/images/itens/rings.bmp", "bmp", 0xff, 0x00, 0xff);
 	ene = load_image("rd/images/enemy/enemy.bmp", "bmp", 0xff, 0x00, 0xff);
 	ene2 = load_image("rd/images/enemy/enemy2.bmp", "bmp", 0xff, 0x00, 0xff);
@@ -48,7 +49,9 @@ game::game() //constructor
 	n0 = load_image("rd/images/numbers/N0.bmp", "bmp", 0x00, 0x00, 0x00);
 	sfx_laser = snd_sfx_load("/rd/laser.wav");
 	sfx_explosion = snd_sfx_load("/rd/explosion.wav");
+	sfx_ring = snd_sfx_load("/rd/ring.wav");
 	is_shoting = false;
+	power_up = 0;
 
 	baseclass::coord.x = 0;
 	baseclass::coord.y = 0;
@@ -101,6 +104,7 @@ game::~game()
 	SDL_FreeSurface(final_screen);
 	SDL_FreeSurface(blocksBG);
 	SDL_FreeSurface(bul);
+	SDL_FreeSurface(bul2);
 	SDL_FreeSurface(ite);
 	SDL_FreeSurface(ene);
 	SDL_FreeSurface(ene2);
@@ -444,7 +448,23 @@ void game::shoot() {
 		
 		if(control_bullet==15) {
 			control_bullet = 0;
-			bullets.push_back(new bullet(bul, player1->getRect()->x + 24, player1->getRect()->y - 10, 0, -8, false));
+			
+			if(power_up == 0) {
+				bullets.push_back(new bullet(bul, player1->getRect()->x + 24, player1->getRect()->y - 10, 0, -8, false));
+			}
+			else if(power_up == 1) {
+				bullets.push_back(new bullet(bul, player1->getRect()->x + 14, player1->getRect()->y - 10, 0, -8, false));
+				bullets.push_back(new bullet(bul, player1->getRect()->x + 24, player1->getRect()->y - 10, 0, -8, false));
+				bullets.push_back(new bullet(bul, player1->getRect()->x + 34, player1->getRect()->y - 10, 0, -8, false));
+			}
+			else if(power_up == 2) {
+				bullets.push_back(new bullet(bul, player1->getRect()->x + 4, player1->getRect()->y - 10, 0, -8, false));
+				bullets.push_back(new bullet(bul, player1->getRect()->x + 14, player1->getRect()->y - 10, 0, -8, false));
+				bullets.push_back(new bullet(bul, player1->getRect()->x + 24, player1->getRect()->y - 10, 0, -8, false));
+				bullets.push_back(new bullet(bul, player1->getRect()->x + 34, player1->getRect()->y - 10, 0, -8, false));
+				bullets.push_back(new bullet(bul, player1->getRect()->x + 44, player1->getRect()->y - 10, 0, -8, false));
+			}
+			
 			snd_sfx_play(sfx_laser, 225, 128);
 		}	
 	}
@@ -634,7 +654,7 @@ void game::start()
 
 	while (all_running)
 	{
-		menu();
+		//menu();
 		SDL_FillRect(screen, NULL, 0x000000);
 		SDL_UpdateRect(screen, 0, 0, 0, 0);
 		running = true;
@@ -702,7 +722,7 @@ void game::start()
 
 					if (enemies[j]->getCount_Bullets() == 0 && enemies[j]->getLife() > 0)
 					{
-						bullets.push_back(new bullet(bul, enemies[j]->getRect()->x + 24, enemies[j]->getRect()->y - baseclass::coord.y + 64, 0, 2, true));
+						bullets.push_back(new bullet(bul2, enemies[j]->getRect()->x + 24, enemies[j]->getRect()->y - baseclass::coord.y + 64, 0, 2, true));
 						snd_sfx_play(sfx_laser, 225, 128);
 					}
 				}
@@ -764,6 +784,8 @@ void game::start()
 				{
 					if (collision(&tmprect, player1->getRect())) //if we collide with an enemy
 					{
+						power_up++;
+						snd_sfx_play(sfx_ring, 255, 128);
 						items.erase(items.begin() + j);
 					}
 				}
@@ -835,6 +857,7 @@ void game::start()
 
 			if (player1->getHealth() <= 0)
 			{
+				power_up = 0;
 				erase_bullets();
 				player1->setLives(player1->getLives() - 1);
 

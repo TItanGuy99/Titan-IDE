@@ -1,5 +1,13 @@
 /*Code and engine made by Titan Game Studios 2016/2020 coded by Luiz Nai.*/
 #include "game.h"
+#include "SDL_gfxPrimitives.h"
+#include "SDL_gfx_5x7_fnt.h"
+#include "SDL_gfx_7x13_fnt.h"
+#include "SDL_gfx_7x13B_fnt.h"
+#include "SDL_gfx_7x13O_fnt.h"
+#include "SDL_gfx_9x18_fnt.h"
+#include "SDL_gfx_9x18B_fnt.h"
+#include "SDL_gfx_fnt.h"
 
 SDL_Rect baseclass::coord; //we have to actually reserve memory for the static SDL_Rect from the baseclass
 
@@ -35,19 +43,10 @@ game::game() //constructor
 	ene = load_image("rd/images/enemy/enemy.bmp", "bmp", 0xff, 0x00, 0xff);
 	ene2 = load_image("rd/images/enemy/enemy2.bmp", "bmp", 0xff, 0x00, 0xff);
 	hud = load_image("rd/images/hud/HUD.bmp", "bmp", 0xff, 0x00, 0xff);
-	numb = load_image("rd/images/numbers/N3.bmp", "bmp", 0x00, 0x00, 0x00);
-	n9 = load_image("rd/images/numbers/N9.bmp", "bmp", 0x00, 0x00, 0x00);
-	n8 = load_image("rd/images/numbers/N8.bmp", "bmp", 0x00, 0x00, 0x00);
-	n7 = load_image("rd/images/numbers/N7.bmp", "bmp", 0x00, 0x00, 0x00);
-	n6 = load_image("rd/images/numbers/N6.bmp", "bmp", 0x00, 0x00, 0x00);
-	n5 = load_image("rd/images/numbers/N5.bmp", "bmp", 0x00, 0x00, 0x00);
-	n4 = load_image("rd/images/numbers/N4.bmp", "bmp", 0x00, 0x00, 0x00);
-	n3 = load_image("rd/images/numbers/N3.bmp", "bmp", 0x00, 0x00, 0x00);
-	n2 = load_image("rd/images/numbers/N2.bmp", "bmp", 0x00, 0x00, 0x00);
-	n1 = load_image("rd/images/numbers/N1.bmp", "bmp", 0x00, 0x00, 0x00);
-	n0 = load_image("rd/images/numbers/N0.bmp", "bmp", 0x00, 0x00, 0x00);
 	sfx_laser = snd_sfx_load("/rd/laser.wav");
 	sfx_explosion = snd_sfx_load("/rd/explosion.wav");
+	sfx_ring = snd_sfx_load("/rd/ring.wav");
+	is_shoting = false;
 
 	baseclass::coord.x = 0;
 	baseclass::coord.y = 0;
@@ -57,6 +56,9 @@ game::game() //constructor
 	cameraPVR.y = 0;
 	cameraPVR.w = SCREEN_WIDTH;
 	cameraPVR.h = SCREEN_HEIGHT;
+	control_bullet = 0;
+	power_up = 0;
+	score = 0;
 	
 	///////////////
 	baseclass::coord.w = SCREEN_WIDTH;
@@ -64,11 +66,6 @@ game::game() //constructor
 	camera.w = SCREEN_WIDTH;
 	baseclass::coord.h = SCREEN_HEIGHT;
 	camera.h = SCREEN_HEIGHT;
-
-	numb1.x = -25;
-	numb1.y = -2;
-	numb1.w = -16;
-	numb1.h = -16;
 
 	direction[0] = direction[1] = 0;
 	running = true;
@@ -100,17 +97,6 @@ game::~game()
 	SDL_FreeSurface(ene);
 	SDL_FreeSurface(ene2);
 	SDL_FreeSurface(hud);
-	SDL_FreeSurface(numb);
-	SDL_FreeSurface(n9);
-	SDL_FreeSurface(n8);
-	SDL_FreeSurface(n7);
-	SDL_FreeSurface(n6);
-	SDL_FreeSurface(n5);
-	SDL_FreeSurface(n4);
-	SDL_FreeSurface(n3);
-	SDL_FreeSurface(n2);
-	SDL_FreeSurface(n1);
-	SDL_FreeSurface(n0);
 
 	for (int i = 0; i < enemies.size(); i++)
 		delete enemies[i];
@@ -192,9 +178,7 @@ void game::handleEvents()
 				break;
 
 			case SDLK_SPACE:
-				printf("Its here");
-				bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 13, 8, 0));
-				snd_sfx_play(sfx_laser, 225, 128);
+				is_shoting = true;
 				break;
 
 			case SDLK_UP:
@@ -225,6 +209,10 @@ void game::handleEvents()
 			case SDLK_DOWN:
 				player1->setDirection('z');
 				break;
+				
+			case SDLK_SPACE:
+				is_shoting = false; // If you drop the space, shooting is false
+				break;
 			}
 			break;
 
@@ -232,9 +220,7 @@ void game::handleEvents()
 			switch (event.jbutton.button)
 			{
 			case 0:
-				printf("Its here");
-				bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 13, 8, 0));
-				snd_sfx_play(sfx_laser, 225, 128);
+				is_shoting = true;
 				break;
 
 			case 4:
@@ -247,8 +233,9 @@ void game::handleEvents()
 		case SDL_JOYBUTTONUP:
 			switch (event.jbutton.button)
 			{
-			case 2:
-
+				
+			case 0:
+				is_shoting = false; // If you drop the key, shooting is false
 				break;
 			}
 			break;
@@ -258,24 +245,40 @@ void game::handleEvents()
 			switch (event.jhat.value)
 			{
 
+			case 0: //neutral
+				player1->setDirection('z');
+				break;
+
 			case 1: //up
 				player1->setDirection('u');
+				break;
+	
+			case 2: //right
+				player1->setDirection('r');
+				break;
+	
+			case 3: // up right
+				player1->setDirection('e');
 				break;
 
 			case 4: //down
 				player1->setDirection('d');
 				break;
 
-			case 2: //right
-				player1->setDirection('r');
+			case 9: // up left
+				player1->setDirection('q');
+				break;
+			
+			case 6: //down right
+				player1->setDirection('c');
+				break;
+			
+			case 12: //down left
+				player1->setDirection('x');
 				break;
 
 			case 8: //left
 				player1->setDirection('l');
-				break;
-
-			case 0: //neutral
-				player1->setDirection('z');
 				break;
 			}
 			break;
@@ -417,6 +420,28 @@ void game::erase_bullets()
 	{
 		delete bullets[i];
 		bullets.erase(bullets.begin() + i);
+	}
+}
+
+///// rapid fire
+void game::shoot() {
+	if(is_shoting) {
+		control_bullet++;
+		
+		if(control_bullet==15) {
+			control_bullet = 0;
+			
+			if(power_up == 0) {
+				bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 13, 8, 0));
+			}
+			else if(power_up >= 1) {
+				bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 3, 8, 0));
+				bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 13, 8, 0));
+				bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 23, 8, 0));
+			}
+			
+			snd_sfx_play(sfx_laser, 225, 128);
+		}	
 	}
 }
 
@@ -563,7 +588,6 @@ void game::end_game()
 	baseclass::coord.y = 0;
 	camera.x = 0;
 	camera.y = 0;
-	numb = n3;
 	SDL_FillRect(screen, NULL, 0x000000);
 	SDL_UpdateRect(screen, 0, 0, 0, 0);
 	SDL_BlitSurface(final_screen, &cameraPVR, screen, NULL);
@@ -600,6 +624,7 @@ void game::start()
 		{
 			start = SDL_GetTicks();
 			handleEvents();
+			shoot();
 
 			//calculate the start and the end coordinate (see a little bit above)
 			int str = (baseclass::coord.x - (baseclass::coord.x % baseclass::TILE_SIZE)) / baseclass::TILE_SIZE;
@@ -687,6 +712,7 @@ void game::start()
 
 					if (enemies[j]->getDead())
 					{
+						score++;
 						snd_sfx_play(sfx_explosion, 225, 128);
 						enemies.erase(enemies.begin() + j);
 					}
@@ -716,6 +742,8 @@ void game::start()
 				{
 					if (collision(&tmprect, player1->getRect())) //if we collide with an enemy
 					{
+						power_up++;
+						snd_sfx_play(sfx_ring, 255, 128);
 						items.erase(items.begin() + j);
 					}
 				}
@@ -767,7 +795,22 @@ void game::start()
 			}
 
 			SDL_BlitSurface(hud, &camera, screen, NULL);
-			SDL_BlitSurface(numb, &numb1, screen, NULL);
+			
+			char current_live[100];
+			sprintf(current_live,"%d",player1->getLives());
+			
+			gfxPrimitivesSetFont(&SDL_gfx_font_7x13O_fnt,7,13);
+			stringRGBA(screen,22,7,current_live,255,255,255,255);
+			
+ 			char show_score[] = "Score: ";
+
+ 			gfxPrimitivesSetFont(&SDL_gfx_font_5x7_fnt,5,7);
+ 			stringRGBA(screen,4,25,show_score,255,255,255,255);
+
+			char current_score[100];
+			sprintf(current_score,"%d",score);
+			stringRGBA(screen,35,25,current_score,255,255,255,255);
+			
 			SDL_UpdateRect(screen, 0, 0, 0, 0);
 
 			///////////////////////////////////Em teste/////////////////
@@ -787,6 +830,7 @@ void game::start()
 
 			if (player1->getHealth() <= 0)
 			{
+				power_up = 0;
 				erase_bullets();
 				player1->setLives(player1->getLives() - 1);
 
@@ -799,49 +843,6 @@ void game::start()
 				for (int i = 0; i < enemies_bkp.size(); i++)
 				{
 					enemies_bkp[i]->setLife();
-				}
-
-				switch (player1->getLives())
-				{
-				case 9:
-					numb = n9;
-					break;
-
-				case 8:
-					numb = n8;
-					break;
-
-				case 7:
-					numb = n7;
-					break;
-
-				case 6:
-					numb = n6;
-					break;
-
-				case 5:
-					numb = n5;
-					break;
-
-				case 4:
-					numb = n4;
-					break;
-
-				case 3:
-					numb = n3;
-					break;
-
-				case 2:
-					numb = n2;
-					break;
-
-				case 1:
-					numb = n1;
-					break;
-
-				case 0:
-					numb = n0;
-					break;
 				}
 
 				if (player1->getLives() > 0)
@@ -857,6 +858,7 @@ void game::start()
 				}
 				else
 				{
+					score = 0;
 					count_end = 0;
 					running = false;
 					direction[0] = 0;
@@ -869,7 +871,6 @@ void game::start()
 					baseclass::coord.y = 0;
 					camera.x = 0;
 					camera.y = 0;
-					numb = n3;
 					SDL_FillRect(screen, NULL, 0x000000);
 					SDL_UpdateRect(screen, 0, 0, 0, 0);
 					SDL_BlitSurface(game_over, &cameraPVR, screen, NULL);

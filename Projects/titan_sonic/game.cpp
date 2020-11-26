@@ -1,5 +1,13 @@
 /*Code and engine made by Titan Game Studios 2016/2020 coded by Luiz Nai.*/
 #include "game.h"
+#include "SDL_gfxPrimitives.h"
+#include "SDL_gfx_5x7_fnt.h"
+#include "SDL_gfx_7x13_fnt.h"
+#include "SDL_gfx_7x13B_fnt.h"
+#include "SDL_gfx_7x13O_fnt.h"
+#include "SDL_gfx_9x18_fnt.h"
+#include "SDL_gfx_9x18B_fnt.h"
+#include "SDL_gfx_fnt.h"
 
 SDL_Rect baseclass::coord; //we have to actually reserve memory for the static SDL_Rect from the baseclass
 
@@ -36,17 +44,6 @@ game::game() //constructor
 	ene2 = load_image("rd/images/enemy/enemy2.bmp", "bmp", 0x00, 0xff, 0x00);
 	bos = load_image("rd/images/boss/boss.bmp", "bmp", 0xff, 0x00, 0xff);
 	hud = load_image("rd/images/hud/HUD.bmp", "bmp", 0x00, 0x00, 0x00);
-	numb = load_image("rd/images/numbers/N3.bmp", "bmp", 0x00, 0x00, 0x00);
-	n9 = load_image("rd/images/numbers/N9.bmp", "bmp", 0x00, 0x00, 0x00);
-	n8 = load_image("rd/images/numbers/N8.bmp", "bmp", 0x00, 0x00, 0x00);
-	n7 = load_image("rd/images/numbers/N7.bmp", "bmp", 0x00, 0x00, 0x00);
-	n6 = load_image("rd/images/numbers/N6.bmp", "bmp", 0x00, 0x00, 0x00);
-	n5 = load_image("rd/images/numbers/N5.bmp", "bmp", 0x00, 0x00, 0x00);
-	n4 = load_image("rd/images/numbers/N4.bmp", "bmp", 0x00, 0x00, 0x00);
-	n3 = load_image("rd/images/numbers/N3.bmp", "bmp", 0x00, 0x00, 0x00);
-	n2 = load_image("rd/images/numbers/N2.bmp", "bmp", 0x00, 0x00, 0x00);
-	n1 = load_image("rd/images/numbers/N1.bmp", "bmp", 0x00, 0x00, 0x00);
-	n0 = load_image("rd/images/numbers/N0.bmp", "bmp", 0x00, 0x00, 0x00);
 	sfx_enemies = snd_sfx_load("/rd/enemies.wav");
 	sfx_hurt = snd_sfx_load("/rd/death.wav");
 	sfx_ring = snd_sfx_load("/rd/ring.wav");
@@ -65,11 +62,6 @@ game::game() //constructor
 	camera.w = SCREEN_WIDTH;
 	baseclass::coord.h = SCREEN_HEIGHT;
 	camera.h = SCREEN_HEIGHT;
-
-	numb1.x = -25;
-	numb1.y = -2;
-	numb1.w = -16;
-	numb1.h = -16;
 
 	direction[0] = direction[1] = 0;
 	running = true;
@@ -104,17 +96,6 @@ game::~game()
 	SDL_FreeSurface(ene2);
 	SDL_FreeSurface(bos);
 	SDL_FreeSurface(hud);
-	SDL_FreeSurface(numb);
-	SDL_FreeSurface(n9);
-	SDL_FreeSurface(n8);
-	SDL_FreeSurface(n7);
-	SDL_FreeSurface(n6);
-	SDL_FreeSurface(n5);
-	SDL_FreeSurface(n4);
-	SDL_FreeSurface(n3);
-	SDL_FreeSurface(n2);
-	SDL_FreeSurface(n1);
-	SDL_FreeSurface(n0);
 
 	for (int i = 0; i < enemies.size(); i++)
 		delete enemies[i];
@@ -565,7 +546,6 @@ void game::end_game()
 	baseclass::coord.y = 0;
 	camera.x = 0;
 	camera.y = 0;
-	numb = n3;
 	SDL_FillRect(screen, NULL, 0x000000);
 	SDL_UpdateRect(screen, 0, 0, 0, 0);
 	SDL_BlitSurface(final_screen, &cameraPVR, screen, NULL);
@@ -786,6 +766,12 @@ void game::start()
 			}
 
 			SDL_BlitSurface(hud, &camera, screen, NULL);
+			
+			char current_live[100];
+			sprintf(current_live,"%d",player1->getLives());
+			
+			gfxPrimitivesSetFont(&SDL_gfx_font_7x13O_fnt,7,13);
+			stringRGBA(screen,27,7,current_live,255,255,255,255);
 
 			if (player1->getHealth() == 5 || player1->getHealth() == 50 || player1->getHealth() == 100 || player1->getHealth() == 150)
 			{
@@ -793,7 +779,6 @@ void game::start()
 				snd_sfx_play(sfx_hurt, 255, 128);
 			}
 
-			SDL_BlitSurface(numb, &numb1, screen, NULL);
 			SDL_UpdateRect(screen, 0, 0, 0, 0);
 
 			///////////////////////////////////still in test/////////////////
@@ -834,48 +819,6 @@ void game::start()
 					the_boss_bkp[i]->setLife();
 				}
 
-				switch (player1->getLives())
-				{
-				case 9:
-					numb = n9;
-					break;
-
-				case 8:
-					numb = n8;
-					break;
-
-				case 7:
-					numb = n7;
-					break;
-
-				case 6:
-					numb = n6;
-					break;
-
-				case 5:
-					numb = n5;
-					break;
-
-				case 4:
-					numb = n4;
-					break;
-
-				case 3:
-					numb = n3;
-					break;
-
-				case 2:
-					numb = n2;
-					break;
-
-				case 1:
-					numb = n1;
-					break;
-
-				case 0:
-					numb = n0;
-					break;
-				}
 
 				if (player1->getLives() > 0)
 				{
@@ -904,7 +847,6 @@ void game::start()
 					baseclass::coord.y = 0;
 					camera.x = 0;
 					camera.y = 0;
-					numb = n3;
 					SDL_FillRect(screen, NULL, 0x000000);
 					SDL_UpdateRect(screen, 0, 0, 0, 0);
 					SDL_BlitSurface(game_over, &cameraPVR, screen, NULL);

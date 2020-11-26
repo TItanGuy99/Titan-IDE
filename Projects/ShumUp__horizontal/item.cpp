@@ -10,6 +10,7 @@ item::item(SDL_Surface* img, int x, int y, int xVel, int yVel)
 	item_size=16;
 	box.w=item_size;
 	box.h=item_size;
+	direction = rand() % 100 +1;
 
 	for (int i=0;i<8;i++)
 	{
@@ -30,7 +31,26 @@ void item::move()
 	if(frame>=3.4)
 	{
 		frame=0;
-	} 
+	}
+	
+	if(direction>50) 
+	{
+		if(box.y<230) {
+			box.y+=2;	
+		}
+		else {
+			direction = 0;
+		}
+	}
+	else 
+	{
+		if(box.y>0) {
+			box.y-=2;	
+		}
+		else {
+			direction = 100;
+		}		
+	}
 }
 
 //// Show the item on the screen

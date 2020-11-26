@@ -635,7 +635,7 @@ void game::start()
 
 	while (all_running)
 	{
-		//menu();
+		menu();
 		SDL_FillRect(screen, NULL, 0x000000);
 		SDL_UpdateRect(screen, 0, 0, 0, 0);
 		running = true;
@@ -820,7 +820,6 @@ void game::start()
 			
 			SDL_BlitSurface(hud, &camera, screen, NULL);
 			
-
 			char current_live[100];
 			sprintf(current_live,"%d",player1->getLives());
 			

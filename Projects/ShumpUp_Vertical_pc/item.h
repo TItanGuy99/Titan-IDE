@@ -1,6 +1,7 @@
-/*Code and engine made by Titan Game Studios 2016/2017 coded by Luiz Nai.*/
+/*Code and engine made by Titan Game Studios 2016/2020 coded by Luiz Nai.*/
 #include <SDL/SDL.h>
 #include <vector>
+#include <cstdlib>
 #include "base.h"
 #ifndef ITEM_H
 #define ITEM_H
@@ -8,6 +9,7 @@ class item:public baseclass
 {
 	SDL_Rect box;
 	int item_size;
+	int direction;
 	SDL_Surface* image;
 	SDL_Rect clips[8];
 	double frame;	

@@ -74,7 +74,6 @@ void player::show(SDL_Surface* screen)
 ///// Move the player
 void player::move(const std:: vector<std::vector<int> >&map)
 {
-	
 	if(frame<2.4)
 	{
 		frame+=0.1;
@@ -97,6 +96,32 @@ void player::move(const std:: vector<std::vector<int> >&map)
 		
 		case 'u':
 			box.y-=2;
+		break;
+	
+		case 'e':
+			if(box.x<260) {
+				box.x+=2;
+				box.y-=2;				
+			}
+		break;
+		
+		case 'q':
+			box.y-=2;
+			box.x-=2;
+		break;
+		
+		case 'c':
+			if(box.y<180) {
+				box.x+=2;
+				box.y+=2;	
+			}
+		break;
+		
+		case 'x':
+			if(box.y<180) {
+				box.y+=2;
+				box.x-=2;	
+			}
 		break;
 		
 		case 'd':

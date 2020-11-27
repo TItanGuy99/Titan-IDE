@@ -44,6 +44,10 @@ game::game() //constructor
 	n2 = load_image("sd:/apps/Titan_ShumUpHorizontal/rd/images/numbers/N2.bmp", 0x00, 0x00, 0x00);
 	n1 = load_image("sd:/apps/Titan_ShumUpHorizontal/rd/images/numbers/N1.bmp", 0x00, 0x00, 0x00);
 	n0 = load_image("sd:/apps/Titan_ShumUpHorizontal/rd/images/numbers/N0.bmp", 0x00, 0x00, 0x00);
+	is_shoting = false;
+	control_bullet = 0;
+	power_up = 0;
+	score = 0;
 
 	baseclass::coord.x = 0;
 	baseclass::coord.y = 0;
@@ -89,9 +93,11 @@ game::game() //constructor
 	
 	sound_size[0] = ((sfxexplosion_raw_size + 31)/32) * 32;
 	sound_size[1] = ((sfxlaser_raw_size + 31)/32) * 32;
+	sound_size[2] = ((sfxring_raw_size + 31)/32) * 32;
 	
 	sounds[0] = (void *)sfxexplosion_raw;
 	sounds[1] = (void *)sfxlaser_raw;
+	sounds[2] = (void *)sfxring_raw;
 }
 
 ///// Destroy all the variables in the memory for the game.
@@ -190,8 +196,7 @@ void game::handleEvents()
 				break;
 
 			case SDLK_SPACE:
-				ASND_SetVoice(ASND_GetFirstUnusedVoice(), VOICE_MONO_8BIT, 44100, 0, sounds[1], sound_size[1],  MAX_VOLUME, MAX_VOLUME, NULL);
-				bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 13, 8, 0));
+				is_shoting = true;
 				break;
 
 			case SDLK_UP:
@@ -222,6 +227,10 @@ void game::handleEvents()
 			case SDLK_DOWN:
 				player1->setDirection('z');
 				break;
+				
+			case SDLK_SPACE:
+				is_shoting = false;
+				break;
 			}
 			break;
 
@@ -229,8 +238,7 @@ void game::handleEvents()
 			switch (event.jbutton.button)
 			{
 			case 3:
-				bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 13, 8, 0));
-				ASND_SetVoice(ASND_GetFirstUnusedVoice(), VOICE_MONO_8BIT, 44100, 0, sounds[1], sound_size[1],  MAX_VOLUME, MAX_VOLUME, NULL);
+				is_shoting = true;
 				break;
 
 			case 4:
@@ -248,8 +256,8 @@ void game::handleEvents()
 		case SDL_JOYBUTTONUP:
 			switch (event.jbutton.button)
 			{
-			case 2:
-
+			case 3:
+				is_shoting = false;
 				break;
 			}
 			break;
@@ -418,6 +426,28 @@ void game::erase_bullets()
 	{
 		delete bullets[i];
 		bullets.erase(bullets.begin() + i);
+	}
+}
+
+///// rapid fire
+void game::shoot() {
+	if(is_shoting) {
+		control_bullet++;
+		
+		if(control_bullet==15) {
+			control_bullet = 0;
+			
+			if(power_up == 0) {
+				bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 13, 8, 0));
+			}
+			else if(power_up >= 1) {
+				bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 3, 8, 0));
+				bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 13, 8, 0));
+				bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 23, 8, 0));
+			}
+			
+			ASND_SetVoice(ASND_GetFirstUnusedVoice(), VOICE_MONO_8BIT, 44100, 0, sounds[1], sound_size[1],  MAX_VOLUME, MAX_VOLUME, NULL);
+		}	
 	}
 }
 
@@ -636,6 +666,7 @@ void game::start()
 
 						if (enemies[j]->getDead())
 						{
+							score++;
 							ASND_SetVoice(ASND_GetFirstUnusedVoice(), VOICE_MONO_8BIT, 44100, 0, sounds[0], sound_size[0],  MAX_VOLUME, MAX_VOLUME, NULL);
 							enemies.erase(enemies.begin() + j);
 						}
@@ -703,6 +734,8 @@ void game::start()
 				{
 					if (collision(&tmprect, player1->getRect())) //if we collide with an enemy
 					{
+						power_up++;
+						ASND_SetVoice(ASND_GetFirstUnusedVoice(), VOICE_MONO_8BIT, 44100, 0, sounds[2], sound_size[2],  MAX_VOLUME, MAX_VOLUME, NULL);
 						items.erase(items.begin() + j);
 					}
 				}
@@ -760,6 +793,7 @@ void game::start()
 
 			if (player1->getHealth() <= 0)
 			{
+				power_up = 0;
 				erase_bullets();
 				player1->setLives(player1->getLives() - 1);
 
@@ -830,6 +864,7 @@ void game::start()
 				}
 				else
 				{
+					score = 0;
 					count_end = 0;
 					running = false;
 					direction[0] = 0;

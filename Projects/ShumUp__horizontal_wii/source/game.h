@@ -26,13 +26,15 @@
 // Audio
 #include "sfxexplosion_raw.h"
 #include "sfxlaser_raw.h"
+#include "sfxring_raw.h"
 
 #ifndef GAME_H
 #define GAME_H
 
 class game:public baseclass{
+	bool is_shoting;
 	SDL_Joystick *joystick;
-	int joystickCount, save_clock, buttonCount, count_end, count_frames;
+	int joystickCount, save_clock, buttonCount, count_end, count_frames, control_bullet, power_up, score;
 	void *sounds[2];
 	size_t sound_size[2];
 	SDL_Surface *screen, *block, *blocksBG, *ene, *ene2, *ite, *hud, *energy,*bul;
@@ -53,6 +55,7 @@ class game:public baseclass{
 	void loadmap(const char* filename, bool isBG);
 	void showmap(std::vector<std::vector<int> > currentMap, SDL_Surface *currentBlock);
 	void menu();
+	void shoot();
 	void end_game();
 	void handleEvents();
 	void restart_game();

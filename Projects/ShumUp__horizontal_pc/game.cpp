@@ -40,6 +40,10 @@ game::game() //constructor
 	n2 = load_image("rd/images/numbers/N2.bmp", 0x00, 0x00, 0x00);
 	n1 = load_image("rd/images/numbers/N1.bmp", 0x00, 0x00, 0x00);
 	n0 = load_image("rd/images/numbers/N0.bmp", 0x00, 0x00, 0x00);
+	is_shoting = false;
+	control_bullet = 0;
+	power_up = 0;
+	score = 0;
 	
 	SDL_WM_SetCaption("Titan App", NULL);
 	SDL_WM_SetIcon(windowIcon, NULL);
@@ -94,6 +98,7 @@ game::game() //constructor
 	//music = Mix_LoadMUS("rd/wav1.wav");
 	sfx_laser = Mix_LoadWAV("rd/laser.ogg");
 	sfx_explosion = Mix_LoadWAV("rd/explosion.ogg");
+	sfx_ring = Mix_LoadWAV("rd/ring.ogg");
 }
 
 /// Play Music
@@ -116,6 +121,8 @@ game::~game()
 	sfx_laser = NULL;
 	Mix_FreeChunk(sfx_explosion);
 	sfx_explosion = NULL;
+	Mix_FreeChunk(sfx_ring);
+	sfx_ring = NULL;
 
 	SDL_FreeSurface(titan_logo);
 	SDL_FreeSurface(press_start);
@@ -210,8 +217,7 @@ void game::handleEvents()
 				break;
 
 			case SDLK_SPACE:
-				bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 13, 8, 0));
-				play_sfx(sfx_laser, 1, 1, 0);
+				is_shoting = true;
 				break;
 
 			case SDLK_UP:
@@ -242,6 +248,10 @@ void game::handleEvents()
 			case SDLK_DOWN:
 				player1->setDirection('z');
 				break;
+				
+			case SDLK_SPACE:
+				is_shoting = false; // If you drop the space, shooting is false
+				break;
 			}
 			break;
 
@@ -249,8 +259,7 @@ void game::handleEvents()
 			switch (event.jbutton.button)
 			{
 			case 0:
-				bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 13, 8, 0));
-				play_sfx(sfx_laser, 2, 1, 0);
+				is_shoting = true;
 				break;
 
 			case 4:
@@ -263,8 +272,9 @@ void game::handleEvents()
 		case SDL_JOYBUTTONUP:
 			switch (event.jbutton.button)
 			{
-			case 2:
-
+				
+			case 0:
+				is_shoting = false; // If you drop the key, shooting is false
 				break;
 			}
 			break;
@@ -274,24 +284,40 @@ void game::handleEvents()
 			switch (event.jhat.value)
 			{
 
+			case 0: //neutral
+				player1->setDirection('z');
+				break;
+
 			case 1: //up
 				player1->setDirection('u');
+				break;
+	
+			case 2: //right
+				player1->setDirection('r');
+				break;
+	
+			case 3: // up right
+				player1->setDirection('e');
 				break;
 
 			case 4: //down
 				player1->setDirection('d');
 				break;
 
-			case 2: //right
-				player1->setDirection('r');
+			case 9: // up left
+				player1->setDirection('q');
+				break;
+			
+			case 6: //down right
+				player1->setDirection('c');
+				break;
+			
+			case 12: //down left
+				player1->setDirection('x');
 				break;
 
 			case 8: //left
 				player1->setDirection('l');
-				break;
-
-			case 0: //neutral
-				player1->setDirection('z');
 				break;
 			}
 			break;
@@ -433,6 +459,28 @@ void game::erase_bullets()
 	{
 		delete bullets[i];
 		bullets.erase(bullets.begin() + i);
+	}
+}
+
+///// rapid fire
+void game::shoot() {
+	if(is_shoting) {
+		control_bullet++;
+		
+		if(control_bullet==15) {
+			control_bullet = 0;
+			
+			if(power_up == 0) {
+				bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 13, 8, 0));
+			}
+			else if(power_up >= 1) {
+				bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 3, 8, 0));
+				bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 13, 8, 0));
+				bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 23, 8, 0));
+			}
+			
+			play_sfx(sfx_laser, 6, 1, 0);
+		}	
 	}
 }
 
@@ -611,6 +659,7 @@ void game::start()
 		{
 			start = SDL_GetTicks();
 			handleEvents();
+			shoot();
 
 			//calculate the start and the end coordinate (see a little bit above)
 			int str = (baseclass::coord.x - (baseclass::coord.x % baseclass::TILE_SIZE)) / baseclass::TILE_SIZE;
@@ -698,6 +747,7 @@ void game::start()
 
 					if (enemies[j]->getDead())
 					{
+						score++;
 						play_sfx(sfx_explosion, 7, 1, 0);
 						enemies.erase(enemies.begin() + j);
 					}
@@ -727,6 +777,8 @@ void game::start()
 				{
 					if (collision(&tmprect, player1->getRect())) //if we collide with an enemy
 					{
+						play_sfx(sfx_ring, 3, 1, 0);
+						power_up++;
 						items.erase(items.begin() + j);
 					}
 				}
@@ -796,6 +848,7 @@ void game::start()
 
 			if (player1->getHealth() <= 0)
 			{
+				power_up = 0;
 				erase_bullets();
 				player1->setLives(player1->getLives() - 1);
 
@@ -866,6 +919,7 @@ void game::start()
 				}
 				else
 				{
+					score = 0;
 					count_end = 0;
 					running = false;
 					direction[0] = 0;

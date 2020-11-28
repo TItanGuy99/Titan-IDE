@@ -93,11 +93,11 @@ game::game() //constructor
 	
 	sound_size[0] = ((sfxexplosion_raw_size + 31)/32) * 32;
 	sound_size[1] = ((sfxlaser_raw_size + 31)/32) * 32;
-	sound_size[2] = ((sfxring_raw_size + 31)/32) * 32;
+	//sound_size[2] = ((sfxring_raw_size + 31)/32) * 32;
 	
 	sounds[0] = (void *)sfxexplosion_raw;
 	sounds[1] = (void *)sfxlaser_raw;
-	sounds[2] = (void *)sfxring_raw;
+	//sounds[2] = (void *)sfxring_raw;
 }
 
 ///// Destroy all the variables in the memory for the game.
@@ -227,7 +227,7 @@ void game::handleEvents()
 			case SDLK_DOWN:
 				player1->setDirection('z');
 				break;
-				
+
 			case SDLK_SPACE:
 				is_shoting = false;
 				break;
@@ -256,7 +256,7 @@ void game::handleEvents()
 		case SDL_JOYBUTTONUP:
 			switch (event.jbutton.button)
 			{
-			case 3:
+				case 3:
 				is_shoting = false;
 				break;
 			}
@@ -271,12 +271,28 @@ void game::handleEvents()
 				player1->setDirection('u');
 				break;
 
-			case 8: //down
-				player1->setDirection('d');
+			case 3: //up left
+				player1->setDirection('q');
 				break;
 
 			case 4: //right
 				player1->setDirection('r');
+				break;
+
+			case 6: //up right
+				player1->setDirection('e');
+				break;
+
+			case 12: //down right
+				player1->setDirection('c');
+				break;
+
+			case 9: //down left
+				player1->setDirection('x');
+				break;
+
+			case 8: //down
+				player1->setDirection('d');
 				break;
 
 			case 1: //left
@@ -618,6 +634,7 @@ void game::start()
 		while (running)
 		{
 			handleEvents();
+			shoot();
 
 			//calculate the start and the end coordinate (see a little bit above)
 			int str = (baseclass::coord.x - (baseclass::coord.x % baseclass::TILE_SIZE)) / baseclass::TILE_SIZE;
@@ -735,7 +752,7 @@ void game::start()
 					if (collision(&tmprect, player1->getRect())) //if we collide with an enemy
 					{
 						power_up++;
-						ASND_SetVoice(ASND_GetFirstUnusedVoice(), VOICE_MONO_8BIT, 44100, 0, sounds[2], sound_size[2],  MAX_VOLUME, MAX_VOLUME, NULL);
+						//ASND_SetVoice(ASND_GetFirstUnusedVoice(), VOICE_MONO_8BIT, 44100, 0, sounds[2], sound_size[2],  MAX_VOLUME, MAX_VOLUME, NULL);
 						items.erase(items.begin() + j);
 					}
 				}

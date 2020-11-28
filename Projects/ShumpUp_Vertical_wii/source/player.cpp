@@ -73,7 +73,7 @@ void player::show(SDL_Surface* screen)
 
 ///// Move the player
 void player::move(const std:: vector<std::vector<int> >&map)
-{
+{	
 	if(frame<2.4)
 	{
 		frame+=0.1;

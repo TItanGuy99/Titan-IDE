@@ -225,9 +225,9 @@ void game::handleEvents()
 			case SDLK_DOWN:
 				player1->setDirection('z');
 				break;
-				
+
 			case SDLK_SPACE:
-				is_shoting = false; // If you drop the space, shooting is false
+				is_shoting = false;
 				break;
 			}
 			break;
@@ -269,12 +269,28 @@ void game::handleEvents()
 				player1->setDirection('u');
 				break;
 
-			case 8: //down
-				player1->setDirection('d');
+			case 3: //up left
+				player1->setDirection('q');
 				break;
 
 			case 4: //right
 				player1->setDirection('r');
+				break;
+
+			case 6: //up right
+				player1->setDirection('e');
+				break;
+
+			case 12: //down right
+				player1->setDirection('c');
+				break;
+
+			case 9: //down left
+				player1->setDirection('x');
+				break;
+
+			case 8: //down
+				player1->setDirection('d');
 				break;
 
 			case 1: //left
@@ -685,7 +701,6 @@ void game::start()
 
 						if (enemies[j]->getDead())
 						{
-							score++;
 							ASND_SetVoice(ASND_GetFirstUnusedVoice(), VOICE_MONO_8BIT, 44100, 0, sounds[0], sound_size[0],  MAX_VOLUME, MAX_VOLUME, NULL);
 							enemies.erase(enemies.begin() + j);
 						}
@@ -726,6 +741,7 @@ void game::start()
 
 					if (enemies[j]->getDead())
 					{
+						score++;
 						ASND_SetVoice(ASND_GetFirstUnusedVoice(), VOICE_MONO_8BIT, 44100, 0, sounds[0], sound_size[0],  MAX_VOLUME, MAX_VOLUME, NULL);
 						enemies.erase(enemies.begin() + j);
 					}
@@ -885,6 +901,7 @@ void game::start()
 				}
 				else
 				{
+					score = 0;
 					count_end = 0;
 					running = false;
 					direction[0] = 0;

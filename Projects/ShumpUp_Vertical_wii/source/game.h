@@ -36,8 +36,8 @@ class game:public baseclass{
 	bool is_shoting;
 	SDL_Joystick *joystick;
 	int joystickCount, save_clock, buttonCount, count_end, count_frames, control_bullet, power_up, score;
-	void *sounds[2];
-	size_t sound_size[2];
+	void *sounds[3];
+	size_t sound_size[3];
 	SDL_Surface *screen, *block, *blocksBG, *ene, *ene2, *ite, *hud, *energy,*bul;
 	SDL_Surface *energy_life, *numb, *m_screen, *press_start, *titan_logo, *game_over, *final_screen;
 	SDL_Surface  *n0, *n1, *n2, *n3, *n4, *n5, *n6, *n7, *n8, *n9;  
@@ -55,8 +55,8 @@ class game:public baseclass{
 	SDL_Surface* load_image(const char* filename, int r, int g, int b);
 	void loadmap(const char* filename, bool isBG);
 	void showmap(std::vector<std::vector<int> > currentMap, SDL_Surface *currentBlock);
-	void shoot();
 	void menu();
+	void shoot();
 	void end_game();
 	void handleEvents();
 	void restart_game();

@@ -14,8 +14,6 @@ game::game() //constructor
 	joystick = SDL_JoystickOpen(0);
 	buttonCount = SDL_JoystickNumButtons(joystick);
 
-	SDL_Delay(200);
-
 	windowIcon = load_image("rd/images/icon/icon.bmp", 1, 1, 1);
 	titan_logo = load_image("rd/images/menu/Titan.bmp", 1, 1, 1);
 	press_start = load_image("rd/images/menu/Start_Game.bmp", 0x00, 0x00, 0x00);

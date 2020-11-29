@@ -20,8 +20,6 @@ game::game() //constructor
 	ASND_Pause(0);
 	MP3Player_Init();
 
-	SDL_Delay(200);
-
 	titan_logo = load_image("sd:/apps/Titan_ShumUpHorizontal/rd/images/menu/Titan.bmp", 1, 1, 1);
 	press_start = load_image("sd:/apps/Titan_ShumUpHorizontal/rd/images/menu/Start_Game.bmp", 0x00, 0x00, 0x00);
 	m_screen = load_image("sd:/apps/Titan_ShumUpHorizontal/rd/images/menu/menu.bmp", 1, 1, 1);

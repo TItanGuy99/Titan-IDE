@@ -31,8 +31,6 @@ game::game() //constructor
 	joystick = SDL_JoystickOpen(0);
 	buttonCount = SDL_JoystickNumButtons(joystick);
 
-	SDL_Delay(200);
-
 	titan_logo = load_image("rd/images/menu/Titan.pvr", "pvr", 1, 1, 1);
 	press_start = load_image("rd/images/menu/Start_Game.bmp", "bmp", 0x00, 0x00, 0x00);
 	m_screen = load_image("rd/images/menu/menu.pvr", "pvr", 1, 1, 1);
@@ -631,7 +629,6 @@ void game::start()
 
 			player1->move(map);
 
-			start = SDL_GetTicks();
 			control_bg(player1->getDirection());
 
 			showmap(mapBG, false, blocksBG);
@@ -651,7 +648,7 @@ void game::start()
 
 			///////////////////////////////////Em teste/////////////////
 
-			save_clock = SDL_GetTicks() - start;
+			/*save_clock = SDL_GetTicks() - start;
 
 			if (SDL_GetTicks() - start <= 20)
 			{
@@ -660,7 +657,7 @@ void game::start()
 			else
 			{
 				SDL_Delay(2);
-			}
+			}*/
 
 			//////////////////////////////////////////////////////////
 

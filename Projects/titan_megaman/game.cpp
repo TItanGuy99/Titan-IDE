@@ -166,26 +166,30 @@ void game::handleEvents()
 		case SDL_KEYDOWN:
 			switch (event.key.keysym.sym)
 			{
-			case SDLK_LEFT:
-				direction[0] = 1;
-				player1->setMoving(1);
-				break;
+				case SDLK_LEFT:
+					direction[0] = 1;
+					player1->setMoving(1);
+					break;
 
-			case SDLK_RETURN:
-				restart_game();
-				break;
+				case SDLK_RETURN:
+					restart_game();
+					break;
 
-			case SDLK_KP_ENTER:
-				restart_game();
-				break;
+				case SDLK_KP_ENTER:
+					restart_game();
+					break;
 
-			case SDLK_RIGHT:
-				direction[1] = 1;
-				player1->setMoving(1);
-				break;
+				case SDLK_RIGHT:
+					direction[1] = 1;
+					player1->setMoving(1);
+					break;
 
-			case SDLK_SPACE:
-				player1->setJump();
+				case SDLK_SPACE:
+					player1->setJump();
+					break;
+					
+				default:
+				
 				break;
 			}
 			break;
@@ -246,6 +250,10 @@ void game::handleEvents()
 					}
 				}
 
+				break;
+				
+				default:
+				
 				break;
 			}
 			break;
@@ -509,19 +517,23 @@ void game::menu()
 
 				switch (event.key.keysym.sym)
 				{
-				case SDLK_RETURN:
-					thd_sleep(10);
-					menu_running = false;
-					break;
+					case SDLK_RETURN:
+						thd_sleep(10);
+						menu_running = false;
+						break;
 
-				case SDLK_KP_ENTER:
-					thd_sleep(10);
-					menu_running = false;
-					break;
+					case SDLK_KP_ENTER:
+						thd_sleep(10);
+						menu_running = false;
+						break;
 
-				case SDLK_ESCAPE:
-					running = false;
-					all_running = false;
+					case SDLK_ESCAPE:
+						running = false;
+						all_running = false;
+						break;
+						
+					default:
+					
 					break;
 				}
 
@@ -659,12 +671,16 @@ static int quit_cb()
 
 			switch (event.key.keysym.sym)
 			{
-			case SDLK_RETURN:
-				return 1;
-				break;
+				case SDLK_RETURN:
+					return 1;
+					break;
 
-			case SDLK_KP_ENTER:
-				return 1;
+				case SDLK_KP_ENTER:
+					return 1;
+					break;
+					
+				default:
+				
 				break;
 			}
 
@@ -744,12 +760,6 @@ void game::restart_game()
 ///// Function to start the game
 void game::start()
 {
-	int max;
-	int min;
-	int output;
-	bool all_runing = true;
-	static pvr_poly_hdr_t hdr[2];
-	pvr_poly_cxt_t cxt;
 	Uint32 start;
 	loadmap("rd/map/map.map", false);
 	loadmap("rd/map/mapBG.map", true);
@@ -937,10 +947,6 @@ void game::start()
 			if (SDL_GetTicks() - start <= 20)
 			{
 				SDL_Delay(10);
-			}
-			else
-			{
-				SDL_Delay(1);
 			}
 
 			//////////////////////////////////////////////////////////

@@ -152,39 +152,43 @@ void game::handleEvents()
 		case SDL_KEYDOWN:
 			switch (event.key.keysym.sym)
 			{
-			case SDLK_LEFT:
-				player1->setDirection('l');
-				break;
+				case SDLK_LEFT:
+					player1->setDirection('l');
+					break;
 
-			case SDLK_RETURN:
-				player1->setLives(3);
-				restart_game();
-				break;
+				case SDLK_RETURN:
+					player1->setLives(3);
+					restart_game();
+					break;
 
-			case SDLK_KP_ENTER:
-				player1->setLives(3);
-				restart_game();
-				break;
+				case SDLK_KP_ENTER:
+					player1->setLives(3);
+					restart_game();
+					break;
 
-			case SDLK_RIGHT:
-				player1->setDirection('r');
-				break;
+				case SDLK_RIGHT:
+					player1->setDirection('r');
+					break;
 
-			case SDLK_ESCAPE:
-				running = false;
-				all_running = false;
-				break;
+				case SDLK_ESCAPE:
+					running = false;
+					all_running = false;
+					break;
 
-			case SDLK_SPACE:
-				is_shoting = true;
-				break;
+				case SDLK_SPACE:
+					is_shoting = true;
+					break;
 
-			case SDLK_UP:
-				player1->setDirection('u');
-				break;
+				case SDLK_UP:
+					player1->setDirection('u');
+					break;
 
-			case SDLK_DOWN:
-				player1->setDirection('d');
+				case SDLK_DOWN:
+					player1->setDirection('d');
+					break;
+					
+				default:
+				
 				break;
 			}
 			break;
@@ -192,24 +196,28 @@ void game::handleEvents()
 		case SDL_KEYUP:
 			switch (event.key.keysym.sym)
 			{
-			case SDLK_LEFT:
-				player1->setDirection('z');
-				break;
+				case SDLK_LEFT:
+					player1->setDirection('z');
+					break;
 
-			case SDLK_RIGHT:
-				player1->setDirection('z');
-				break;
+				case SDLK_RIGHT:
+					player1->setDirection('z');
+					break;
 
-			case SDLK_UP:
-				player1->setDirection('z');
-				break;
+				case SDLK_UP:
+					player1->setDirection('z');
+					break;
 
-			case SDLK_DOWN:
-				player1->setDirection('z');
-				break;
+				case SDLK_DOWN:
+					player1->setDirection('z');
+					break;
+					
+				case SDLK_SPACE:
+					is_shoting = false; // If you drop the space, shooting is false
+					break;
+					
+				default:
 				
-			case SDLK_SPACE:
-				is_shoting = false; // If you drop the space, shooting is false
 				break;
 			}
 			break;
@@ -456,7 +464,6 @@ void game::menu()
 	//cdrom_cdda_play(1, 1, 10, CDDA_TRACKS);
 	SDL_Event event;
 	bool menu_running = true;
-	bool logo_running = true;
 	bool check_limit = false;
 	int alpha = 255;
 
@@ -515,18 +522,22 @@ void game::menu()
 
 				switch (event.key.keysym.sym)
 				{
-				case SDLK_RETURN:
-					thd_sleep(10);
-					menu_running = false;
-					break;
+					case SDLK_RETURN:
+						thd_sleep(10);
+						menu_running = false;
+						break;
 
-				case SDLK_KP_ENTER:
-					thd_sleep(10);
-					menu_running = false;
-					break;
+					case SDLK_KP_ENTER:
+						thd_sleep(10);
+						menu_running = false;
+						break;
 
-				case SDLK_ESCAPE:
-					SDL_Quit();
+					case SDLK_ESCAPE:
+						SDL_Quit();
+						break;
+						
+					default:
+					
 					break;
 				}
 
@@ -620,11 +631,6 @@ void game::control_bg()
 ///// Function to start the game
 void game::start()
 {
-	int max;
-	int min;
-	int output;
-	static pvr_poly_hdr_t hdr[2];
-	pvr_poly_cxt_t cxt;
 	Uint32 start;
 	loadmap("rd/map/map.map", false);
 	loadmap("rd/map/mapBG.map", true);
@@ -657,7 +663,6 @@ void game::start()
 				{
 					if (map[i][j] == 0) //if it's nothing, we don't have to check collision
 						continue;
-					SDL_Rect destrect = {j * 32 - baseclass::coord.x, i * 32 - baseclass::coord.y, 32, 32}; //calculate the relative coordinate to the screen (see above)
 				}
 
 			////Collisions between the enemies and the player
@@ -837,16 +842,12 @@ void game::start()
 
 			///////////////////////////////////Em teste/////////////////
 
-			/*save_clock = SDL_GetTicks() - start;
+			save_clock = SDL_GetTicks() - start;
 
 			if (SDL_GetTicks() - start <= 20)
 			{
 				SDL_Delay(10);
 			}
-			else
-			{
-				SDL_Delay(5);
-			}*/
 
 			//////////////////////////////////////////////////////////
 

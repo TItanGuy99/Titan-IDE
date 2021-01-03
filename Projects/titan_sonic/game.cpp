@@ -184,6 +184,10 @@ void game::handleEvents()
 			case SDLK_DOWN:
 				player1->setDown(1);
 				break;
+				
+				default:
+				
+				break;
 			}
 			break;
 
@@ -210,6 +214,10 @@ void game::handleEvents()
 
 			case SDLK_f:
 
+				break;
+				
+				default:
+				
 				break;
 			}
 			break;
@@ -457,18 +465,22 @@ void game::menu()
 
 				switch (event.key.keysym.sym)
 				{
-				case SDLK_RETURN:
-					thd_sleep(10);
-					menu_running = false;
-					break;
+					case SDLK_RETURN:
+						thd_sleep(10);
+						menu_running = false;
+						break;
 
-				case SDLK_KP_ENTER:
-					thd_sleep(10);
-					menu_running = false;
-					break;
+					case SDLK_KP_ENTER:
+						thd_sleep(10);
+						menu_running = false;
+						break;
 
-				case SDLK_ESCAPE:
-					SDL_Quit();
+					case SDLK_ESCAPE:
+						SDL_Quit();
+						break;
+						
+					default:
+					
 					break;
 				}
 
@@ -559,11 +571,6 @@ void game::end_game()
 ///// Function to start the game
 void game::start()
 {
-	int max;
-	int min;
-	int output;
-	static pvr_poly_hdr_t hdr[2];
-	pvr_poly_cxt_t cxt;
 	Uint32 start;
 	loadmap("rd/map/map.map", false);
 	loadmap("rd/map/mapBG.map", true);
@@ -639,7 +646,6 @@ void game::start()
 				{
 					if (map[i][j] == 0) //if it's nothing, we don't have to check collision
 						continue;
-					SDL_Rect destrect = {j * 32 - baseclass::coord.x, i * 32 - baseclass::coord.y, 32, 32}; //calculate the relative coordinate to the screen (see above)
 				}
 
 			////Collisions between the enemies and the player

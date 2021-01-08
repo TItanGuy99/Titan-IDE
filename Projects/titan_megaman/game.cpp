@@ -260,10 +260,10 @@ void game::handleEvents()
 		case SDL_JOYBUTTONDOWN:
 
 			switch (event.jbutton.button)
-			{
-			case 0:
+			{				
+			case 2:
 				player1->setJump();
-				break;
+			break;
 
 			case 4:
 				restart_game();
@@ -274,7 +274,7 @@ void game::handleEvents()
 		case SDL_JOYBUTTONUP:
 			switch (event.jbutton.button)
 			{
-			case 2:
+			case 6:
 
 				snd_sfx_stop(sfx_bullet);
 				snd_sfx_play(sfx_bullet, 255, 128);

@@ -224,7 +224,7 @@ void game::handleEvents()
 		case SDL_JOYBUTTONDOWN:
 			switch (event.jbutton.button)
 			{
-			case 0:
+			case 2:
 				player1->setJump();
 				break;
 

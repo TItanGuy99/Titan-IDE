@@ -226,7 +226,7 @@ void game::handleEvents()
 		case SDL_JOYBUTTONDOWN:
 			switch (event.jbutton.button)
 			{
-			case 0:
+			case 2:
 				is_shoting = true;
 				break;
 
@@ -241,7 +241,7 @@ void game::handleEvents()
 			switch (event.jbutton.button)
 			{
 				
-			case 0:
+			case 2:
 				is_shoting = false; // If you drop the key, shooting is false
 				break;
 			}

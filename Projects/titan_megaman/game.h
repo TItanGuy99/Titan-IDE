@@ -1,7 +1,8 @@
 /*Code and engine made by Titan Game Studios 2016/2020 coded by Luiz Nai.*/
 #include <fstream>
 #include <vector>
-#include <SDL.h>    
+#include <SDL.h>
+#include <SDL_dreamcast.h>  
 #include <SDL_image.h> 
 #include <stdlib.h>
 #include <string.h>
@@ -12,7 +13,6 @@
 #include "bullet.h"
 #include "vmu.h"
 #include "enemy.h"
-#include "dreamroqlib.h"
 #ifndef GAME_H
 #define GAME_H
 #include <kos.h>
@@ -38,6 +38,7 @@ class game:public baseclass{
 	void menu();
 	void handleEvents();
 	void restart_game();
+	void update_screen();
 	bool running, all_running;
 	static const int SCREEN_WIDTH=320;
 	static const int SCREEN_HEIGHT=240;

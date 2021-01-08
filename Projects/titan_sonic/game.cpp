@@ -13,15 +13,16 @@ SDL_Rect baseclass::coord; //we have to actually reserve memory for the static S
 
 game::game() //constructor
 {
-	//init kos
-	vid_init(DM_320x240, PM_RGB565);
-	pvr_init_defaults();
+    SDL_DC_ShowAskHz(SDL_FALSE);
+    SDL_DC_Default60Hz(SDL_FALSE);
+    SDL_DC_VerticalWait(SDL_FALSE);
+    SDL_DC_SetVideoDriver(SDL_DC_DMA_VIDEO);
 
-	SDL_Init(SDL_INIT_JOYSTICK);
+	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_JOYSTICK);
 
 	snd_stream_init();
 
-	screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 16, SDL_FULLSCREEN);
+	screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 16, SDL_FULLSCREEN|SDL_DOUBLEBUF|SDL_HWSURFACE);
 	PVR_SET(PVR_SCALER_CFG, 0x400);
 
 	SDL_ShowCursor(SDL_DISABLE);
@@ -29,8 +30,6 @@ game::game() //constructor
 
 	joystick = SDL_JoystickOpen(0);
 	buttonCount = SDL_JoystickNumButtons(joystick);
-
-	SDL_Delay(200);
 
 	titan_logo = load_image("rd/images/menu/Titan.pvr", "pvr", 1, 1, 1);
 	press_start = load_image("rd/images/menu/Start_Game.bmp", "bmp", 0x00, 0x00, 0x00);
@@ -413,7 +412,7 @@ void game::menu()
 	SDL_FillRect(screen, NULL, 0x000000);
 	SDL_SetAlpha(titan_logo, SDL_SRCALPHA, alpha);
 	SDL_BlitSurface(titan_logo, &cameraPVR, screen, NULL);
-	SDL_UpdateRect(screen, 0, 0, 0, 0);
+	update_screen();
 	SDL_Delay(5000);
 
 	while (alpha > 0)
@@ -422,7 +421,7 @@ void game::menu()
 		SDL_BlitSurface(m_screen, &cameraPVR, screen, NULL);
 		SDL_BlitSurface(titan_logo, &cameraPVR, screen, NULL);
 		SDL_SetAlpha(titan_logo, SDL_SRCALPHA, alpha);
-		SDL_UpdateRect(screen, 0, 0, 0, 0);
+		update_screen();
 	}
 
 	alpha = 0;
@@ -499,7 +498,7 @@ void game::menu()
 				break;
 			}
 		}
-		SDL_UpdateRect(screen, 0, 0, 0, 0);
+		update_screen();
 	}
 }
 
@@ -540,7 +539,7 @@ void game::restart_game()
 	camera.x = 0;
 	camera.y = 0;
 	SDL_FillRect(screen, NULL, 0x000000);
-	SDL_UpdateRect(screen, 0, 0, 0, 0);
+	update_screen();
 }
 
 ///////////// Go to end screen
@@ -559,13 +558,18 @@ void game::end_game()
 	camera.x = 0;
 	camera.y = 0;
 	SDL_FillRect(screen, NULL, 0x000000);
-	SDL_UpdateRect(screen, 0, 0, 0, 0);
+	update_screen();
 	SDL_BlitSurface(final_screen, &cameraPVR, screen, NULL);
-	SDL_UpdateRect(screen, 0, 0, 0, 0);
+	update_screen();
 	SDL_Delay(8000);
 	SDL_FillRect(screen, NULL, 0x000000);
-	SDL_UpdateRect(screen, 0, 0, 0, 0);
+	update_screen();
 	restart_game();
+}
+
+void game::update_screen() {
+	SDL_UpdateRect(screen, 0, 0, 0, 0);
+	SDL_Flip(screen);	
 }
 
 ///// Function to start the game
@@ -580,7 +584,7 @@ void game::start()
 	{
 		menu();
 		SDL_FillRect(screen, NULL, 0x000000);
-		SDL_UpdateRect(screen, 0, 0, 0, 0);
+		update_screen();
 		running = true;
 		//cdrom_cdda_play(2, 2, 10, CDDA_TRACKS);
 
@@ -785,7 +789,7 @@ void game::start()
 				snd_sfx_play(sfx_hurt, 255, 128);
 			}
 
-			SDL_UpdateRect(screen, 0, 0, 0, 0);
+			update_screen();
 
 			///////////////////////////////////still in test/////////////////
 
@@ -854,12 +858,12 @@ void game::start()
 					camera.x = 0;
 					camera.y = 0;
 					SDL_FillRect(screen, NULL, 0x000000);
-					SDL_UpdateRect(screen, 0, 0, 0, 0);
+					update_screen();
 					SDL_BlitSurface(game_over, &cameraPVR, screen, NULL);
-					SDL_UpdateRect(screen, 0, 0, 0, 0);
+					update_screen();
 					SDL_Delay(11000);
 					SDL_FillRect(screen, NULL, 0x000000);
-					SDL_UpdateRect(screen, 0, 0, 0, 0);
+					update_screen();
 				}
 			}
 		}

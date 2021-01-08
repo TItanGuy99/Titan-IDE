@@ -2,7 +2,8 @@
 #include <fstream>
 #include <iostream>             //if we want to write out something, probobly it can be deleted if you don't want
 #include <vector>
-#include <SDL.h>    
+#include <SDL.h>
+#include <SDL_dreamcast.h>  
 #include <SDL_image.h> 
 #include <stdlib.h>
 #include <string.h>
@@ -22,9 +23,9 @@ class game:public baseclass{
 	bool is_shoting;
 	SDL_Joystick *joystick;
 	int joystickCount, buttonCount, count_end, count_frames, sfx_laser, sfx_explosion, sfx_ring, save_clock, control_bullet, power_up, score;
-	SDL_Surface *screen, *block, *blocksBG, *ene, *ene2, *ite, *hud, *energy,*bul;
-	SDL_Surface *energy_life, *m_screen, *press_start, *titan_logo, *game_over, *final_screen;  
-	SDL_Rect camera, cameraPVR, energy1, energy2, energy3, energy4, press_start1;
+	SDL_Surface *screen, *block, *blocksBG, *ene, *ene2, *ite, *hud, *energy,*bul, *bul2;
+	SDL_Surface *energy_life, *m_screen, *press_start, *titan_logo, *game_over, *final_screen;
+	SDL_Rect camera, cameraPVR, energy1, energy2, energy3, energy4, numb1, press_start1;
 	SDL_Rect clip_number[10];
 	std::vector<std::vector<int> > map;
 	std::vector<std::vector<int> > mapBG;
@@ -45,6 +46,7 @@ class game:public baseclass{
 	void restart_game();
 	void erase_bullets();
 	void control_bg();
+	void update_screen();
 	bool running, all_running;
 	static const int SCREEN_WIDTH=320;
 	static const int SCREEN_HEIGHT=240;

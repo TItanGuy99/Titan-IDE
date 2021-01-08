@@ -2,7 +2,8 @@
 #include <fstream>
 #include <iostream>             //if we want to write out something, probobly it can be deleted if you don't want
 #include <vector>
-#include <SDL.h>    
+#include <SDL.h>
+#include <SDL_dreamcast.h>  
 #include <SDL_image.h> 
 #include <stdlib.h>
 #include <string.h>
@@ -43,6 +44,7 @@ class game:public baseclass{
 	void end_game();
 	void handleEvents();
 	void restart_game();
+	void update_screen();
 	bool running, all_running;
 	static const int SCREEN_WIDTH=320;
 	static const int SCREEN_HEIGHT=240;

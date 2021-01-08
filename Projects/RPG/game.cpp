@@ -181,137 +181,44 @@ void game::handleEvents()
 	{
 		switch (event.type)
 		{
-		case SDL_QUIT:
-			running = false;
-			return;
-		case SDL_KEYDOWN:
-			switch (event.key.keysym.sym)
-			{
-			case SDLK_LEFT:
-				player1->setDirection('l');
-				break;
-
-			case SDLK_RETURN:
-				player1->setLives(3);
-				restart_game();
-				break;
-
-			case SDLK_KP_ENTER:
-				player1->setLives(3);
-				restart_game();
-				break;
-
-			case SDLK_RIGHT:
-				player1->setDirection('r');
-				break;
-
-			case SDLK_ESCAPE:
-				running = false;
-				all_running = false;
-				break;
-
-			case SDLK_SPACE:
-				//bullets.push_back(new bullet(bul,player1->getRect()->x+24,player1->getRect()->y-10,0,-8,false));
-				//snd_sfx_play(sfx_laser,225,128);
-				break;
-
-			case SDLK_UP:
-				player1->setDirection('u');
-				break;
-
-			case SDLK_DOWN:
-				player1->setDirection('d');
-				break;
-				
-			default:
-			
-			break;
-			}
-			break;
-
-		case SDL_KEYUP:
-			switch (event.key.keysym.sym)
-			{
-			case SDLK_LEFT:
-				player1->setDirection('z');
-				break;
-
-			case SDLK_RIGHT:
-				player1->setDirection('z');
-				break;
-
-			case SDLK_UP:
-				player1->setDirection('z');
-				break;
-
-			case SDLK_DOWN:
-				player1->setDirection('z');
-				break;
-				
-			default:
-			
-			break;
-			}
-			break;
-
-		case SDL_JOYBUTTONDOWN:
-			switch (event.jbutton.button)
-			{
-				case 0:
-					//printf("Its here");
-					//bullets.push_back(new bullet(bul,player1->getRect()->x+24,player1->getRect()->y-10,0,-8,false));
-					//snd_sfx_play(sfx_laser,225,128);
+			case SDL_JOYBUTTONDOWN:
+				switch (event.jbutton.button)
+				{
+					case 3:
+						player1->setLives(3);
+						restart_game();
 					break;
-
-				case 4:
-					player1->setLives(3);
-					restart_game();
-					break;
+						
+					default:
 					
-				default:
-				
-				break;
-			}
+					break;
+				}
 			break;
 
-		case SDL_JOYBUTTONUP:
-			switch (event.jbutton.button)
-			{
-			case 2:
+			case SDL_JOYHATMOTION:
 
-				break;
-			}
-			break;
+				switch (event.jhat.value)
+				{
+					case 14: //up
+						player1->setDirection('u');
+					break;
 
-		case SDL_JOYHATMOTION:
+					case 11: //down
+						player1->setDirection('d');
+					break;
 
-			switch (event.jhat.value)
-			{
+					case 13: //right
+						player1->setDirection('r');
+					break;
 
-			case 1: //up
-				player1->setDirection('u');
-				break;
+					case 7: //left
+						player1->setDirection('l');
+					break;
 
-			case 4: //down
-				player1->setDirection('d');
-				break;
-
-			case 2: //right
-				player1->setDirection('r');
-				break;
-
-			case 8: //left
-				player1->setDirection('l');
-				break;
-
-			case 0: //neutral
-				player1->setDirection('z');
-				break;
-			}
-			break;
-
-		default:
-
+					default: //neutral
+						player1->setDirection('z');
+					break;
+				}
 			break;
 		}
 	}
@@ -439,7 +346,6 @@ void game::showmap(std::vector<std::vector<int> > currentMap, bool checkY, SDL_S
 void game::menu()
 {
 	//cdrom_cdda_play(1, 1, 10, CDDA_TRACKS);
-	SDL_Event event;
 	bool menu_running = true;
 	bool check_limit = false;
 	int alpha = 255;
@@ -491,48 +397,28 @@ void game::menu()
 
 		SDL_SetAlpha(press_start, SDL_SRCALPHA, alpha);
 
+
+		SDL_Event event;
+
 		while (SDL_PollEvent(&event))
 		{
 			switch (event.type)
 			{
-			case SDL_KEYDOWN:
-
-				switch (event.key.keysym.sym)
-				{
-					case SDLK_RETURN:
-						thd_sleep(10);
-						menu_running = false;
+				case SDL_JOYBUTTONDOWN:
+					switch (event.jbutton.button)
+					{
+						case 3:
+							menu_running = false;
 						break;
-
-					case SDLK_KP_ENTER:
-						thd_sleep(10);
-						menu_running = false;
-						break;
-
-					case SDLK_ESCAPE:
-						SDL_Quit();
-						break;
+							
+						default:
 						
-					default:
-					
-					break;
-				}
-
-				break;
-
-			case SDL_JOYBUTTONDOWN:
-
-				switch (event.jbutton.button)
-				{
-				case 4:
-					thd_sleep(10);
-					menu_running = false;
-					break;
-				}
-
+						break;
+					}
 				break;
 			}
 		}
+
 		update_screen();
 	}
 }

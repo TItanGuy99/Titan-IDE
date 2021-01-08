@@ -22,7 +22,7 @@ game::game() //constructor
 
 	snd_stream_init();
 
-	screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 16, SDL_FULLSCREEN|SDL_DOUBLEBUF|SDL_HWSURFACE);
+	screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 16, SDL_FULLSCREEN);
 	PVR_SET(PVR_SCALER_CFG, 0x400);
 
 	SDL_ShowCursor(SDL_DISABLE);
@@ -141,147 +141,53 @@ void game::handleEvents()
 	{
 		switch (event.type)
 		{
-		case SDL_QUIT:
-			running = false;
-			return;
-		case SDL_KEYDOWN:
-			switch (event.key.keysym.sym)
-			{
-			case SDLK_LEFT:
-				direction[0] = 1;
-				player1->setMoving(1);
-				break;
+			case SDL_JOYBUTTONDOWN:
+				switch (event.jbutton.button)
+				{
+					case 2:
+						player1->setJump();
+					break;
 
-			case SDLK_RETURN:
-				player1->setLives(3);
-				restart_game();
-				break;
-
-			case SDLK_KP_ENTER:
-				player1->setLives(3);
-				restart_game();
-				break;
-
-			case SDLK_RIGHT:
-				direction[1] = 1;
-				player1->setMoving(1);
-				break;
-
-			case SDLK_ESCAPE:
-				running = false;
-				all_running = false;
-				break;
-
-			case SDLK_SPACE:
-				player1->setJump();
-				break;
-
-			case SDLK_UP:
-				player1->setLookingUp(1);
-				break;
-
-			case SDLK_DOWN:
-				player1->setDown(1);
-				break;
-				
-				default:
-				
-				break;
-			}
+					case 3:
+						player1->setLives(3);
+						restart_game();
+					break;
+				}
 			break;
 
-		case SDL_KEYUP:
-			switch (event.key.keysym.sym)
-			{
-			case SDLK_LEFT:
-				direction[0] = 0;
-				player1->setMoving(0);
-				break;
+			case SDL_JOYHATMOTION:
 
-			case SDLK_RIGHT:
-				direction[1] = 0;
-				player1->setMoving(0);
-				break;
+				switch (event.jhat.value)
+				{
+					case 14: //up
+						player1->setLookingUp(1);
+						break;
 
-			case SDLK_UP:
-				player1->setLookingUp(0);
-				break;
+					case 11: //down
+						player1->setDown(1);
+						break;
 
-			case SDLK_DOWN:
-				player1->setDown(0);
-				break;
+					case 13: //right
+						direction[0] = 0;
+						direction[1] = 1;
+						player1->setMoving(1);
+						break;
 
-			case SDLK_f:
+					case 7: //left
+						direction[0] = 1;
+						direction[1] = 0;
+						player1->setMoving(1);
+						break;
 
-				break;
-				
-				default:
-				
-				break;
-			}
-			break;
-
-		case SDL_JOYBUTTONDOWN:
-			switch (event.jbutton.button)
-			{
-			case 2:
-				player1->setJump();
-				break;
-
-			case 4:
-				player1->setLives(3);
-				restart_game();
-				break;
-			}
-			break;
-
-		case SDL_JOYBUTTONUP:
-			switch (event.jbutton.button)
-			{
-			case 2:
-
-				break;
-			}
-			break;
-
-		case SDL_JOYHATMOTION:
-
-			switch (event.jhat.value)
-			{
-
-			case 1: //up
-				player1->setLookingUp(1);
-				break;
-
-			case 4: //down
-				player1->setDown(1);
-				break;
-
-			case 2: //right
-				direction[0] = 0;
-				direction[1] = 1;
-				player1->setMoving(1);
-				break;
-
-			case 8: //left
-				direction[0] = 1;
-				direction[1] = 0;
-				player1->setMoving(1);
-				break;
-
-			case 0: //neutral
-				direction[0] = 0;
-				player1->setMoving(0);
-				direction[1] = 0;
-				player1->setMoving(0);
-				player1->setLookingUp(0);
-				player1->setDown(0);
-				break;
-			}
-			break;
-
-		default:
-
+					default: //neutral
+						direction[0] = 0;
+						player1->setMoving(0);
+						direction[1] = 0;
+						player1->setMoving(0);
+						player1->setLookingUp(0);
+						player1->setDown(0);
+					break;
+				}
 			break;
 		}
 	}
@@ -460,44 +366,19 @@ void game::menu()
 		{
 			switch (event.type)
 			{
-			case SDL_KEYDOWN:
+				case SDL_JOYBUTTONDOWN:
 
-				switch (event.key.keysym.sym)
-				{
-					case SDLK_RETURN:
-						thd_sleep(10);
-						menu_running = false;
+					switch (event.jbutton.button)
+					{
+						case 3:
+							menu_running = false;
 						break;
-
-					case SDLK_KP_ENTER:
-						thd_sleep(10);
-						menu_running = false;
-						break;
-
-					case SDLK_ESCAPE:
-						SDL_Quit();
-						break;
-						
-					default:
-					
-					break;
-				}
-
-				break;
-
-			case SDL_JOYBUTTONDOWN:
-
-				switch (event.jbutton.button)
-				{
-				case 4:
-					thd_sleep(10);
-					menu_running = false;
-					break;
-				}
+					}
 
 				break;
 			}
 		}
+		
 		update_screen();
 	}
 }
@@ -798,10 +679,6 @@ void game::start()
 			if (SDL_GetTicks() - start <= 20)
 			{
 				SDL_Delay(3);
-			}
-			else
-			{
-				SDL_Delay(2);
 			}
 
 			//////////////////////////////////////////////////////////

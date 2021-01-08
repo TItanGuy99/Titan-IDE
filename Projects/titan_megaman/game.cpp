@@ -159,195 +159,93 @@ void game::handleEvents()
 	{
 		switch (event.type)
 		{
-		case SDL_QUIT:
-			running = false;
-			return;
-		case SDL_KEYDOWN:
-			switch (event.key.keysym.sym)
-			{
-				case SDLK_LEFT:
-					direction[0] = 1;
-					player1->setMoving(1);
+			case SDL_JOYBUTTONDOWN:
+
+				switch (event.jbutton.button)
+				{				
+					case 2:
+						player1->setJump();
 					break;
 
-				case SDLK_RETURN:
-					restart_game();
+					case 3:
+						restart_game();
 					break;
-
-				case SDLK_KP_ENTER:
-					restart_game();
-					break;
-
-				case SDLK_RIGHT:
-					direction[1] = 1;
-					player1->setMoving(1);
-					break;
-
-				case SDLK_SPACE:
-					player1->setJump();
-					break;
-					
-				default:
-				
-				break;
-			}
+				}
 			break;
 
-		case SDL_KEYUP:
-			switch (event.key.keysym.sym)
-			{
-			case SDLK_LEFT:
-				direction[0] = 0;
-				player1->setMoving(0);
-				break;
-
-			case SDLK_RIGHT:
-				direction[1] = 0;
-				player1->setMoving(0);
-				break;
-
-			case SDLK_f:
-				snd_sfx_stop(sfx_bullet);
-				snd_sfx_play(sfx_bullet, 255, 128);
-
-				if (player1->getDirection() == 'r')
+			case SDL_JOYBUTTONUP:
+				switch (event.jbutton.button)
 				{
-					if (!player1->getJump())
-					{
-						if (!player1->getMoving())
+					case 6:
+
+						snd_sfx_stop(sfx_bullet);
+						snd_sfx_play(sfx_bullet, 255, 128);
+
+						if (player1->getDirection() == 'r')
 						{
-							player1->setFrame();
-							bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 15, 8, 0));
+							if (!player1->getJump())
+							{
+								if (!player1->getMoving())
+								{
+									player1->setFrame();
+									bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 15, 8, 0));
+								}
+								else
+								{
+									bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 15, 8, 0));
+								}
+							}
+							else
+							{
+								bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 8, 8, 0));
+							}
 						}
 						else
 						{
-							bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 15, 8, 0));
+							if (!player1->getJump())
+							{
+								if (!player1->getMoving())
+								{
+									player1->setFrame();
+									bullets.push_back(new bullet(bul, player1->getRect()->x, player1->getRect()->y + 15, -8, 0));
+								}
+								else
+								{
+									bullets.push_back(new bullet(bul, player1->getRect()->x, player1->getRect()->y + 15, -8, 0));
+								}
+							}
+							else
+							{
+								bullets.push_back(new bullet(bul, player1->getRect()->x, player1->getRect()->y + 8, -8, 0));
+							}
 						}
-					}
-					else
-					{
-						bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 8, 8, 0));
-					}
+					break;
 				}
-				else
+			break;
+
+			case SDL_JOYHATMOTION:
+
+				switch (event.jhat.value)
 				{
-					if (!player1->getJump())
-					{
-						if (!player1->getMoving())
-						{
-							player1->setFrame();
-							bullets.push_back(new bullet(bul, player1->getRect()->x, player1->getRect()->y + 15, -8, 0));
-						}
-						else
-						{
-							bullets.push_back(new bullet(bul, player1->getRect()->x, player1->getRect()->y + 15, -8, 0));
-						}
-					}
-					else
-					{
-						bullets.push_back(new bullet(bul, player1->getRect()->x, player1->getRect()->y + 8, -8, 0));
-					}
+					case 13: //right
+						direction[0] = 0;
+						direction[1] = 1;
+						player1->setMoving(1);
+					break;
+
+					case 7: //left
+						direction[0] = 1;
+						direction[1] = 0;
+						player1->setMoving(1);
+					break;
+
+					default: //neutral
+						direction[0] = 0;
+						player1->setMoving(0);
+						direction[1] = 0;
+						player1->setMoving(0);
+					break;
 				}
-
-				break;
-				
-				default:
-				
-				break;
-			}
-			break;
-
-		case SDL_JOYBUTTONDOWN:
-
-			switch (event.jbutton.button)
-			{				
-			case 2:
-				player1->setJump();
-			break;
-
-			case 4:
-				restart_game();
-				break;
-			}
-			break;
-
-		case SDL_JOYBUTTONUP:
-			switch (event.jbutton.button)
-			{
-			case 6:
-
-				snd_sfx_stop(sfx_bullet);
-				snd_sfx_play(sfx_bullet, 255, 128);
-
-				if (player1->getDirection() == 'r')
-				{
-					if (!player1->getJump())
-					{
-						if (!player1->getMoving())
-						{
-							player1->setFrame();
-							bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 15, 8, 0));
-						}
-						else
-						{
-							bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 15, 8, 0));
-						}
-					}
-					else
-					{
-						bullets.push_back(new bullet(bul, player1->getRect()->x + player1->getRect()->w, player1->getRect()->y + 8, 8, 0));
-					}
-				}
-				else
-				{
-					if (!player1->getJump())
-					{
-						if (!player1->getMoving())
-						{
-							player1->setFrame();
-							bullets.push_back(new bullet(bul, player1->getRect()->x, player1->getRect()->y + 15, -8, 0));
-						}
-						else
-						{
-							bullets.push_back(new bullet(bul, player1->getRect()->x, player1->getRect()->y + 15, -8, 0));
-						}
-					}
-					else
-					{
-						bullets.push_back(new bullet(bul, player1->getRect()->x, player1->getRect()->y + 8, -8, 0));
-					}
-				}
-				break;
-			}
-			break;
-
-		case SDL_JOYHATMOTION:
-
-			switch (event.jhat.value)
-			{
-			case 2: //right
-				direction[0] = 0;
-				direction[1] = 1;
-				player1->setMoving(1);
-				break;
-
-			case 8: //left
-				direction[0] = 1;
-				direction[1] = 0;
-				player1->setMoving(1);
-				break;
-
-			case 0: //neutral
-				direction[0] = 0;
-				player1->setMoving(0);
-				direction[1] = 0;
-				player1->setMoving(0);
-				break;
-			}
-			break;
-
-		default:
-
 			break;
 		}
 	}

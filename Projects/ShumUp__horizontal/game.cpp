@@ -58,6 +58,8 @@ game::game() //constructor
 	control_bullet = 0;
 	power_up = 0;
 	score = 0;
+	axi_X = 0;
+	axi_Y = 0;
 	
 	///////////////
 	baseclass::coord.w = SCREEN_WIDTH;
@@ -168,6 +170,55 @@ void game::handleEvents()
 						is_shoting = false; // If you drop the key, shooting is false
 						break;
 				}
+			break;
+
+			case SDL_JOYAXISMOTION:
+				 
+				if(event.jaxis.value!=0) 
+				{	
+					if( event.jaxis.axis==0 ){ //left right
+						axi_X=event.jaxis.value;
+					}
+					else{ //up down
+						axi_Y=event.jaxis.value;
+					}
+					
+					int limit = 50;
+
+					if(axi_Y < -limit && axi_X < -limit) {
+						player1->setDirection('q');
+					}
+					else if(axi_Y < -limit && axi_X > limit){
+						player1->setDirection('e');
+					}
+					else if(axi_Y > limit && axi_X > limit) { 
+						player1->setDirection('c');
+					}
+					else if(axi_Y > limit && axi_X < -limit){
+						player1->setDirection('x');
+					}
+					
+					if(axi_X < 0 && axi_Y >-limit && axi_Y <limit){
+						player1->setDirection('l');
+					}
+					else if(axi_X > 0 && axi_Y >-limit && axi_Y <limit) {
+						player1->setDirection('r');
+					}
+					
+					
+					if(axi_Y < 0 && axi_X > -limit && axi_X < limit){
+						player1->setDirection('u');
+					}
+					else if(axi_Y > 0 && axi_X > -limit && axi_X < limit){
+						player1->setDirection('d');
+					}
+				}
+				else {
+					axi_X = 0;
+					axi_Y = 0;	
+					player1->setDirection('z');
+				}
+								
 			break;
 
 			case SDL_JOYHATMOTION:
@@ -317,8 +368,9 @@ void game::loadmap(const char *filename, bool isBG)
 ////// Function to show the map on the screen
 void game::showmap(std::vector<std::vector<int> > currentMap, SDL_Surface *currentBlock)
 {
-	int start = (baseclass::coord.x - (baseclass::coord.x % baseclass::TILE_SIZE)) / baseclass::TILE_SIZE;
-	int end = (baseclass::coord.x + baseclass::coord.w + (baseclass::TILE_SIZE - (baseclass::coord.x + baseclass::coord.w) % baseclass::TILE_SIZE)) / baseclass::TILE_SIZE;
+	int start=MATH_Fast_Divide(baseclass::coord.x-(baseclass::coord.x%baseclass::TILE_SIZE),baseclass::TILE_SIZE);
+	int end=MATH_Fast_Divide(baseclass::coord.x+baseclass::coord.w+(baseclass::TILE_SIZE-
+	(baseclass::coord.x+baseclass::coord.w)%baseclass::TILE_SIZE), baseclass::TILE_SIZE);
 
 	if (start < 0)
 		start = 0;
@@ -330,8 +382,8 @@ void game::showmap(std::vector<std::vector<int> > currentMap, SDL_Surface *curre
 		{
 			if (currentMap[i][j] != 0)
 			{
-				SDL_Rect blockrect = {(currentMap[i][j] - 1) * baseclass::TILE_SIZE, 0, baseclass::TILE_SIZE, baseclass::TILE_SIZE};
-				SDL_Rect destrect = {j * baseclass::TILE_SIZE - baseclass::coord.x, i * baseclass::TILE_SIZE - baseclass::coord.y};
+				SDL_Rect blockrect = {MATH_fmac((currentMap[i][j] - 1), baseclass::TILE_SIZE, 0), 0, baseclass::TILE_SIZE, baseclass::TILE_SIZE};
+				SDL_Rect destrect = {MATH_fmac_Dec(j, baseclass::TILE_SIZE, baseclass::coord.x), MATH_fmac_Dec(i, baseclass::TILE_SIZE, baseclass::coord.y)};
 				SDL_BlitSurface(currentBlock, &blockrect, screen, &destrect);
 			}
 		}
@@ -481,6 +533,7 @@ void game::end_game()
 {
 	//cdrom_cdda_play(4, 4, 1, CDDA_TRACKS);
 	//cdrom_cdda_pause();
+	erase_bullets();
 	running = false;
 	direction[0] = 0;
 	direction[1] = 0;
@@ -530,8 +583,8 @@ void game::start()
 			shoot();
 
 			//calculate the start and the end coordinate (see a little bit above)
-			int str = (baseclass::coord.x - (baseclass::coord.x % baseclass::TILE_SIZE)) / baseclass::TILE_SIZE;
-			int end = (baseclass::coord.x + baseclass::coord.w + (baseclass::TILE_SIZE - (baseclass::coord.x + baseclass::coord.w) % baseclass::TILE_SIZE)) / 32;
+			int str=MATH_Fast_Divide(baseclass::coord.x-(baseclass::coord.x%baseclass::TILE_SIZE), baseclass::TILE_SIZE);
+			int end=MATH_Fast_Divide(baseclass::coord.x+baseclass::coord.w+(baseclass::TILE_SIZE-(baseclass::coord.x+baseclass::coord.w)%baseclass::TILE_SIZE), 32);
 			if (start < 0)
 				start = 0;
 			if (end > map[0].size())
@@ -554,7 +607,7 @@ void game::start()
 				{
 					if (collision(&tmprect, &tmp_player)) //if we collide with an enemy
 					{
-						if (baseclass::coord.y + player1->getRect()->h + player1->getRect()->h / 2 < enemies[j]->getRect()->y) //if we are on the 'head' of the enemy
+						if (baseclass::coord.y + player1->getRect()->h + MATH_Fast_Divide(player1->getRect()->h, 2) < enemies[j]->getRect()->y) //if we are on the 'head' of the enemy
 						{
 							if (enemies[j]->getLife() > 0)
 							{
@@ -736,6 +789,8 @@ void game::start()
 
 				items.clear();
 				items.assign(items_bkp.begin(), items_bkp.end());
+				
+				erase_bullets();
 
 				for (int i = 0; i < enemies_bkp.size(); i++)
 				{

@@ -543,6 +543,7 @@ void game::end_game()
 {
 	//cdrom_cdda_play(4, 4, 1, CDDA_TRACKS);
 	//cdrom_cdda_pause();
+	erase_bullets();
 	running = false;
 	direction[0] = 0;
 	direction[1] = 0;
@@ -810,6 +811,8 @@ void game::start()
 
 				items.clear();
 				items.assign(items_bkp.begin(), items_bkp.end());
+				
+				erase_bullets();
 
 				for (int i = 0; i < enemies_bkp.size(); i++)
 				{

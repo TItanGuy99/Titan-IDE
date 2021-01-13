@@ -5,7 +5,7 @@ all: rm-elf $(TARGET)
 
 include $(KOS_BASE)/Makefile.rules
 
-KOS_CFLAGS += -Wno-write-strings  -ml -m4-single-only -pipe -I../../include/SDL-1.2.13/include -I../include/zlib-1.2.3 -I../libpng-1.2.8
+KOS_CFLAGS += -Wno-write-strings  -ml -m4-single-only -pipe -I../../include/dreamhal/inc -I../../include/SDL-1.2.13/include -I../include/zlib-1.2.3 -I../libpng-1.2.8
 
 clean:
 	-rm -f $(TARGET) $(OBJS) romdisk.*

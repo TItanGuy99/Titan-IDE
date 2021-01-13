@@ -22,7 +22,7 @@ game::game() //constructor
 
 	snd_stream_init();
 
-	screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 16, SDL_FULLSCREEN|SDL_DOUBLEBUF|SDL_HWSURFACE);
+	screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 16, SDL_FULLSCREEN);
 	PVR_SET(PVR_SCALER_CFG, 0x400);
 
 	SDL_ShowCursor(SDL_DISABLE);
@@ -168,7 +168,7 @@ void game::handleEvents()
 						axi_Y=event.jaxis.value;
 					}
 					
-					int limit = 50;
+					int limit = 90;
 
 					if(axi_Y < -limit && axi_X < -limit) {
 						direction[0] = 1;
@@ -205,9 +205,21 @@ void game::handleEvents()
 					
 					
 					if(axi_Y < 0 && axi_X > -limit && axi_X < limit){
+						direction[0] = 0;
+						player1->setMoving(0);
+						direction[1] = 0;
+						player1->setMoving(0);
+						player1->setDown(0);
+						
 						player1->setLookingUp(1);
 					}
 					else if(axi_Y > 0 && axi_X > -limit && axi_X < limit){
+						direction[0] = 0;
+						player1->setMoving(0);
+						direction[1] = 0;
+						player1->setMoving(0);
+						player1->setLookingUp(0);
+						
 						player1->setDown(1);
 					}
 				}

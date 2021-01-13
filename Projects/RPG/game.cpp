@@ -41,6 +41,9 @@ game::game() //constructor
 	blocksBG = load_image("rd/images/BG/blocks.bmp", "bmp", 1, 1, 1);
 	hud = load_image("rd/images/hud/HUD.bmp", "bmp", 0xff, 0x00, 0xff);
 
+
+	axi_X = 0;
+	axi_Y = 0;
 	baseclass::coord.x = 0;
 	baseclass::coord.y = 0;
 	camera.x = 0;

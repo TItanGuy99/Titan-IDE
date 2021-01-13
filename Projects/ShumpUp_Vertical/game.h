@@ -4,7 +4,8 @@
 #include <vector>
 #include <SDL.h>
 #include <SDL_dreamcast.h>  
-#include <SDL_image.h> 
+#include <SDL_image.h>
+#include "sh4_math.h"
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -22,7 +23,7 @@
 class game:public baseclass{
 	bool is_shoting;
 	SDL_Joystick *joystick;
-	int joystickCount, buttonCount, count_end, count_frames, sfx_laser, sfx_explosion, sfx_ring, save_clock, control_bullet, power_up, score;
+	int joystickCount, buttonCount, count_frames, sfx_laser, sfx_explosion, sfx_ring, save_clock, control_bullet, power_up, score, axi_X, axi_Y;
 	SDL_Surface *screen, *block, *blocksBG, *ene, *ene2, *ite, *hud, *energy,*bul, *bul2;
 	SDL_Surface *energy_life, *m_screen, *press_start, *titan_logo, *game_over, *final_screen;
 	SDL_Rect camera, cameraPVR, energy1, energy2, energy3, energy4, numb1, press_start1;

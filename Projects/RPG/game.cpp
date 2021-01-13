@@ -194,6 +194,55 @@ void game::handleEvents()
 					break;
 				}
 			break;
+			
+			case SDL_JOYAXISMOTION:
+				 
+				if(event.jaxis.value!=0) 
+				{	
+					if( event.jaxis.axis==0 ){ //left right
+						axi_X=event.jaxis.value;
+					}
+					else{ //up down
+						axi_Y=event.jaxis.value;
+					}
+					
+					int limit = 50;
+
+					if(axi_Y < -limit && axi_X < -limit) {
+						player1->setDirection('l');
+					}
+					else if(axi_Y < -limit && axi_X > limit){
+						player1->setDirection('r');
+					}
+					else if(axi_Y > limit && axi_X > limit) { 
+						player1->setDirection('r');
+					}
+					else if(axi_Y > limit && axi_X < -limit){
+						player1->setDirection('l');
+					}
+					
+					if(axi_X < 0 && axi_Y >-limit && axi_Y <limit){
+						player1->setDirection('l');
+					}
+					else if(axi_X > 0 && axi_Y >-limit && axi_Y <limit) {
+						player1->setDirection('r');
+					}
+					
+					
+					if(axi_Y < 0 && axi_X > -limit && axi_X < limit){
+						player1->setDirection('u');
+					}
+					else if(axi_Y > 0 && axi_X > -limit && axi_X < limit){
+						player1->setDirection('d');
+					}
+				}
+				else {
+					axi_X = 0;
+					axi_Y = 0;	
+					player1->setDirection('z');
+				}
+								
+			break;
 
 			case SDL_JOYHATMOTION:
 
@@ -258,8 +307,8 @@ void game::loadmap(const char *filename, bool isBG)
 					vec.push_back(current); //put the current into our matrix which represent the map in the game
 					if (current > 2)
 					{
-						obstacles.push_back(new obstacle(j * TILE_SIZE, (i * TILE_SIZE) * -1 + 190)); //because every tile is TILE_SIZE width and height, we can calculate
-						obstacles_bkp.push_back(new obstacle(j * TILE_SIZE, (i * TILE_SIZE) * -1 + 190));
+						obstacles.push_back(new obstacle(MATH_fmac(j, TILE_SIZE, 0), MATH_fmac((MATH_fmac(i, TILE_SIZE, 0)),-1,190))); //because every tile is TILE_SIZE width and height, we can calculate
+						obstacles_bkp.push_back(new obstacle(MATH_fmac(j, TILE_SIZE, 0), MATH_fmac((MATH_fmac(i, TILE_SIZE, 0)), -1, 190)));
 					}
 				}
 				else
@@ -297,9 +346,11 @@ void game::loadmap(const char *filename, bool isBG)
 ////// Function to show the map on the screen
 void game::showmap(std::vector<std::vector<int> > currentMap, bool checkY, SDL_Surface *currentBlock)
 {
-	int start = (baseclass::coord.x - (baseclass::coord.x % baseclass::TILE_SIZE)) / baseclass::TILE_SIZE;
-	int end = (baseclass::coord.x + baseclass::coord.w + (baseclass::TILE_SIZE - (baseclass::coord.x + baseclass::coord.w) % baseclass::TILE_SIZE)) / baseclass::TILE_SIZE;
-
+	
+	int start=MATH_Fast_Divide(baseclass::coord.x-(baseclass::coord.x%baseclass::TILE_SIZE),baseclass::TILE_SIZE);
+	int end=MATH_Fast_Divide(baseclass::coord.x+baseclass::coord.w+(baseclass::TILE_SIZE-
+	(baseclass::coord.x+baseclass::coord.w)%baseclass::TILE_SIZE), baseclass::TILE_SIZE);
+	
 	if (start < 0)
 		start = 0;
 	if (end > currentMap[0].size())
@@ -316,8 +367,8 @@ void game::showmap(std::vector<std::vector<int> > currentMap, bool checkY, SDL_S
 			{
 				if (currentMap[i][j] != 0)
 				{
-					SDL_Rect blockrect = {(currentMap[i][j] - 1) * baseclass::TILE_SIZE, 0, baseclass::TILE_SIZE, baseclass::TILE_SIZE};
-					SDL_Rect destrect = {j * baseclass::TILE_SIZE, i * baseclass::TILE_SIZE};
+					SDL_Rect blockrect = {MATH_fmac(currentMap[i][j] - 1, baseclass::TILE_SIZE, 0), 0, baseclass::TILE_SIZE, baseclass::TILE_SIZE};
+					SDL_Rect destrect = {MATH_fmac(j, baseclass::TILE_SIZE, 0), MATH_fmac(i, baseclass::TILE_SIZE, 0)};
 					SDL_BlitSurface(currentBlock, &blockrect, screen, &destrect);
 				}
 			}
@@ -331,8 +382,8 @@ void game::showmap(std::vector<std::vector<int> > currentMap, bool checkY, SDL_S
 			{
 				if (currentMap[i][j] != 0)
 				{
-					SDL_Rect blockrect = {(currentMap[i][j] - 1) * baseclass::TILE_SIZE, 0, baseclass::TILE_SIZE, baseclass::TILE_SIZE};
-					SDL_Rect destrect = {j * baseclass::TILE_SIZE - baseclass::coord.x, i * baseclass::TILE_SIZE};
+					SDL_Rect blockrect = {MATH_fmac(currentMap[i][j] - 1, baseclass::TILE_SIZE, 0), 0, baseclass::TILE_SIZE, baseclass::TILE_SIZE};
+					SDL_Rect destrect = {MATH_fmac_Dec(j, baseclass::TILE_SIZE, baseclass::coord.x), MATH_fmac(i , baseclass::TILE_SIZE, 0)};
 					destrect.y += baseclass::coord.y;
 					destrect.x -= 1;
 					SDL_BlitSurface(currentBlock, &blockrect, screen, &destrect);
@@ -492,8 +543,8 @@ void game::start()
 			handleEvents();
 
 			//calculate the start and the end coordinate (see a little bit above)
-			int str = (baseclass::coord.x - (baseclass::coord.x % baseclass::TILE_SIZE)) / baseclass::TILE_SIZE;
-			int end = (baseclass::coord.x + baseclass::coord.w + (baseclass::TILE_SIZE - (baseclass::coord.x + baseclass::coord.w) % baseclass::TILE_SIZE)) / 32;
+			int str=MATH_Fast_Divide(baseclass::coord.x-(baseclass::coord.x%baseclass::TILE_SIZE), baseclass::TILE_SIZE);
+			int end=MATH_Fast_Divide(baseclass::coord.x+baseclass::coord.w+(baseclass::TILE_SIZE-(baseclass::coord.x+baseclass::coord.w)%baseclass::TILE_SIZE), 32);
 			if (start < 0)
 				start = 0;
 			if (end > map[0].size())

@@ -31,7 +31,7 @@ class game:public baseclass{
 	std::vector<bullet*> bullets;
 	std::vector<enemy*> enemies;
 	std::vector<enemy*> enemies_bkp;
-	bool direction[2];
+	bool direction[2], is_paused;
 	SDL_Rect finish;
 	SDL_Surface* load_image(const char* filename, const char* extension, int r, int g, int b);
 	void loadmap(const char* filename, bool isBG);

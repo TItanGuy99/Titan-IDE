@@ -35,7 +35,7 @@ class game:public baseclass{
 	std::vector<enemy*> enemies_bkp;
 	std::vector<boss*> the_boss;
 	std::vector<boss*> the_boss_bkp;
-	bool direction[2];
+	bool direction[2], is_paused;
 	bool music_boss, boss_defeated;
 	SDL_Rect finish;
 	SDL_Surface* load_image(const char* filename, const char* extension, int r, int g, int b);

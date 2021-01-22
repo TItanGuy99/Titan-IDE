@@ -41,7 +41,7 @@ game::game() //constructor
 	blocksBG = load_image("rd/images/BG/blocks.bmp", "bmp", 1, 1, 1);
 	hud = load_image("rd/images/hud/HUD.bmp", "bmp", 0xff, 0x00, 0xff);
 
-
+	is_paused = false;
 	axi_X = 0;
 	axi_Y = 0;
 	baseclass::coord.x = 0;
@@ -188,8 +188,7 @@ void game::handleEvents()
 				switch (event.jbutton.button)
 				{
 					case 3:
-						player1->setLives(3);
-						restart_game();
+						is_paused = !is_paused;
 					break;
 						
 					default:
@@ -544,116 +543,125 @@ void game::start()
 		{
 			start = SDL_GetTicks();
 			handleEvents();
+			
+			if(!is_paused) {
 
-			//calculate the start and the end coordinate (see a little bit above)
-			int str=MATH_Fast_Divide(baseclass::coord.x-(baseclass::coord.x%baseclass::TILE_SIZE), baseclass::TILE_SIZE);
-			int end=MATH_Fast_Divide(baseclass::coord.x+baseclass::coord.w+(baseclass::TILE_SIZE-(baseclass::coord.x+baseclass::coord.w)%baseclass::TILE_SIZE), 32);
-			if (start < 0)
-				start = 0;
-			if (end > map[0].size())
-				end = map[0].size();
-			for (int i = 0; i < map.size(); i++) //go throuh the map
-				for (int j = str; j < end; j++)
+				//calculate the start and the end coordinate (see a little bit above)
+				int str=MATH_Fast_Divide(baseclass::coord.x-(baseclass::coord.x%baseclass::TILE_SIZE), baseclass::TILE_SIZE);
+				int end=MATH_Fast_Divide(baseclass::coord.x+baseclass::coord.w+(baseclass::TILE_SIZE-(baseclass::coord.x+baseclass::coord.w)%baseclass::TILE_SIZE), 32);
+				if (start < 0)
+					start = 0;
+				if (end > map[0].size())
+					end = map[0].size();
+				for (int i = 0; i < map.size(); i++) //go throuh the map
+					for (int j = str; j < end; j++)
+					{
+						if (map[i][j] == 0) //if it's nothing, we don't have to check collision
+							continue;
+					}
+
+				////Collisions between the obstacles and the player
+				for (int j = 0; j < obstacles.size(); j++) //go through the obstacles
 				{
-					if (map[i][j] == 0) //if it's nothing, we don't have to check collision
-						continue;
+					SDL_Rect tmprect = {obstacles[j]->getRect()->x - baseclass::coord.x, obstacles[j]->getRect()->y - baseclass::coord.y + 16, 22, 24};
+					SDL_Rect tmpbase = {baseclass::coord.x, baseclass::coord.y, 300, 240};
+
+					if (collision(&tmpbase, obstacles[j]->getRect())) //if the obstacle is on the screen, (change thanks for TheAngelbrothers to point out a bug :D)
+					{
+						if (collision(&tmprect, player1->getRect())) //if we collide with an enemy
+						{
+							player1->set_colliding(true);
+							break;
+							break;
+						}
+						else
+						{
+							player1->set_colliding(false);
+						}
+					}
 				}
 
-			////Collisions between the obstacles and the player
-			for (int j = 0; j < obstacles.size(); j++) //go through the obstacles
-			{
-				SDL_Rect tmprect = {obstacles[j]->getRect()->x - baseclass::coord.x, obstacles[j]->getRect()->y - baseclass::coord.y + 16, 22, 24};
-				SDL_Rect tmpbase = {baseclass::coord.x, baseclass::coord.y, 300, 240};
+				//move everything
 
-				if (collision(&tmpbase, obstacles[j]->getRect())) //if the obstacle is on the screen, (change thanks for TheAngelbrothers to point out a bug :D)
+				player1->move(map);
+
+				control_bg(player1->getDirection());
+
+				showmap(mapBG, false, blocksBG);
+				showmap(map, true, block);
+
+				player1->show(screen);
+
+				SDL_BlitSurface(hud, &camera, screen, NULL);
+				
+				char current_live[100];
+				sprintf(current_live,"%d",player1->getLives());
+				
+				gfxPrimitivesSetFont(&SDL_gfx_font_7x13O_fnt,7,13);
+				stringRGBA(screen,22,7,current_live,255,255,255,255);
+				
+				update_screen();
+
+				///////////////////////////////////Em teste/////////////////
+
+				/*save_clock = SDL_GetTicks() - start;
+
+				if (SDL_GetTicks() - start <= 20)
 				{
-					if (collision(&tmprect, player1->getRect())) //if we collide with an enemy
-					{
-						player1->set_colliding(true);
-						break;
-						break;
-					}
-					else
-					{
-						player1->set_colliding(false);
-					}
-				}
-			}
-
-			//move everything
-
-			player1->move(map);
-
-			control_bg(player1->getDirection());
-
-			showmap(mapBG, false, blocksBG);
-			showmap(map, true, block);
-
-			player1->show(screen);
-
-			SDL_BlitSurface(hud, &camera, screen, NULL);
-			
-			char current_live[100];
-			sprintf(current_live,"%d",player1->getLives());
-			
-			gfxPrimitivesSetFont(&SDL_gfx_font_7x13O_fnt,7,13);
-			stringRGBA(screen,22,7,current_live,255,255,255,255);
-			
-			update_screen();
-
-			///////////////////////////////////Em teste/////////////////
-
-			/*save_clock = SDL_GetTicks() - start;
-
-			if (SDL_GetTicks() - start <= 20)
-			{
-				SDL_Delay(3);
-			}
-			else
-			{
-				SDL_Delay(2);
-			}*/
-
-			//////////////////////////////////////////////////////////
-
-			if (player1->getHealth() <= 0 || player1->get_mapy() >= 400)
-			{
-				player1->setLives(player1->getLives() - 1);
-				obstacles.clear();
-				obstacles.assign(obstacles_bkp.begin(), obstacles_bkp.end());
-
-				if (player1->getLives() > 0)
-				{
-					player1->resetPosition();
-					baseclass::coord.x = 0;
-					baseclass::coord.y = 0;
-					camera.x = 0;
-					camera.y = 0;
-					direction[0] = 0;
-					direction[1] = 0;
-					player1->setMoving(0);
+					SDL_Delay(3);
 				}
 				else
 				{
-					running = false;
-					direction[0] = 0;
-					direction[1] = 0;
-					player1->setMoving(0);
-					player1->setLives(3);
-					player1->setHealth(200);
-					player1->resetPosition();
-					baseclass::coord.x = 0;
-					baseclass::coord.y = 0;
-					camera.x = 0;
-					camera.y = 0;
-					SDL_FillRect(screen, NULL, 0x000000);
-					update_screen();
-					SDL_BlitSurface(game_over, &cameraPVR, screen, NULL);
-					update_screen();
-					SDL_Delay(11000);
-					SDL_FillRect(screen, NULL, 0x000000);
-					update_screen();
+					SDL_Delay(2);
+				}*/
+
+				//////////////////////////////////////////////////////////
+
+				if (player1->getHealth() <= 0 || player1->get_mapy() >= 400)
+				{
+					player1->setLives(player1->getLives() - 1);
+					obstacles.clear();
+					obstacles.assign(obstacles_bkp.begin(), obstacles_bkp.end());
+
+					if (player1->getLives() > 0)
+					{
+						player1->resetPosition();
+						baseclass::coord.x = 0;
+						baseclass::coord.y = 0;
+						camera.x = 0;
+						camera.y = 0;
+						direction[0] = 0;
+						direction[1] = 0;
+						player1->setMoving(0);
+					}
+					else
+					{
+						running = false;
+						direction[0] = 0;
+						direction[1] = 0;
+						player1->setMoving(0);
+						player1->setLives(3);
+						player1->setHealth(200);
+						player1->resetPosition();
+						baseclass::coord.x = 0;
+						baseclass::coord.y = 0;
+						camera.x = 0;
+						camera.y = 0;
+						SDL_FillRect(screen, NULL, 0x000000);
+						update_screen();
+						SDL_BlitSurface(game_over, &cameraPVR, screen, NULL);
+						update_screen();
+						SDL_Delay(11000);
+						SDL_FillRect(screen, NULL, 0x000000);
+						update_screen();
+					}
 				}
+			}
+			else {
+				char paused[] = "PAUSE";
+				gfxPrimitivesSetFont(&SDL_gfx_font_9x18B_fnt,9,18);
+				stringRGBA(screen,136,120,paused,255,255,255,255);					
+				update_screen();
 			}
 		}
 	}

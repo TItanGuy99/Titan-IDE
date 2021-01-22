@@ -59,7 +59,7 @@ game::game() //constructor
 	cameraPVR.w = SCREEN_WIDTH;
 	cameraPVR.h = SCREEN_HEIGHT;
 	control_bullet = 0;
-	
+	is_paused = false;
 	axi_X = 0;
 	axi_Y = 0;
 
@@ -157,8 +157,7 @@ void game::handleEvents()
 						break;
 
 					case 3:
-						player1->setLives(3);
-						restart_game();
+						is_paused = !is_paused;
 						break;
 				}
 			break;
@@ -593,268 +592,277 @@ void game::start()
 
 		while (running)
 		{
-			start = SDL_GetTicks();
 			handleEvents();
-			shoot();
+			if(!is_paused) {
+				
+				start = SDL_GetTicks();
+				shoot();
 
-			//calculate the start and the end coordinate (see a little bit above)
-			int str=MATH_Fast_Divide(baseclass::coord.x-(baseclass::coord.x%baseclass::TILE_SIZE), baseclass::TILE_SIZE);
-			int end=MATH_Fast_Divide(baseclass::coord.x+baseclass::coord.w+(baseclass::TILE_SIZE-(baseclass::coord.x+baseclass::coord.w)%baseclass::TILE_SIZE), 32);
-			if (start < 0)
-				start = 0;
-			if (end > map[0].size())
-				end = map[0].size();
-			for (int i = 0; i < map.size(); i++) //go throuh the map
-				for (int j = str; j < end; j++)
-				{
-					if (map[i][j] == 0) //if it's nothing, we don't have to check collision
-						continue;
-				}
-
-			////Collisions between the enemies and the player
-			for (int j = 0; j < enemies.size(); j++) //go through the enemies
-			{
-				SDL_Rect tmprect = {enemies[j]->getRect()->x - baseclass::coord.x, enemies[j]->getRect()->y - baseclass::coord.y, 32, 32}; //calculate relative coordinates see above
-				SDL_Rect tmpbase = {baseclass::coord.x, baseclass::coord.y + 5, 320, 240};
-				SDL_Rect tmp_player = {player1->getRect()->x, player1->getRect()->y, 16, 16};
-
-				if (collision(&tmpbase, enemies[j]->getRect())) //if the enemy is on the screen, (change thanks for TheAngelbrothers to point out a bug :D)
-				{
-					if (collision(&tmprect, &tmp_player)) //if we collide with an enemy
+				//calculate the start and the end coordinate (see a little bit above)
+				int str=MATH_Fast_Divide(baseclass::coord.x-(baseclass::coord.x%baseclass::TILE_SIZE), baseclass::TILE_SIZE);
+				int end=MATH_Fast_Divide(baseclass::coord.x+baseclass::coord.w+(baseclass::TILE_SIZE-(baseclass::coord.x+baseclass::coord.w)%baseclass::TILE_SIZE), 32);
+				if (start < 0)
+					start = 0;
+				if (end > map[0].size())
+					end = map[0].size();
+				for (int i = 0; i < map.size(); i++) //go throuh the map
+					for (int j = str; j < end; j++)
 					{
-						if (baseclass::coord.y + player1->getRect()->h + MATH_Fast_Divide(player1->getRect()->h, 2) < enemies[j]->getRect()->y) //if we are on the 'head' of the enemy
+						if (map[i][j] == 0) //if it's nothing, we don't have to check collision
+							continue;
+					}
+
+				////Collisions between the enemies and the player
+				for (int j = 0; j < enemies.size(); j++) //go through the enemies
+				{
+					SDL_Rect tmprect = {enemies[j]->getRect()->x - baseclass::coord.x, enemies[j]->getRect()->y - baseclass::coord.y, 32, 32}; //calculate relative coordinates see above
+					SDL_Rect tmpbase = {baseclass::coord.x, baseclass::coord.y + 5, 320, 240};
+					SDL_Rect tmp_player = {player1->getRect()->x, player1->getRect()->y, 16, 16};
+
+					if (collision(&tmpbase, enemies[j]->getRect())) //if the enemy is on the screen, (change thanks for TheAngelbrothers to point out a bug :D)
+					{
+						if (collision(&tmprect, &tmp_player)) //if we collide with an enemy
 						{
-							if (enemies[j]->getLife() > 0)
+							if (baseclass::coord.y + player1->getRect()->h + MATH_Fast_Divide(player1->getRect()->h, 2) < enemies[j]->getRect()->y) //if we are on the 'head' of the enemy
 							{
-								snd_sfx_play(sfx_explosion, 225, 128);
+								if (enemies[j]->getLife() > 0)
+								{
+									snd_sfx_play(sfx_explosion, 225, 128);
+								}
+
+								enemies[j]->subtractLife();
+							}
+							else if (enemies[j]->getLife() > 0)
+							{
+								player1->setHealth(player1->getHealth() - 10); //else decrease the health of the player with 1
 							}
 
-							enemies[j]->subtractLife();
-						}
-						else if (enemies[j]->getLife() > 0)
-						{
-							player1->setHealth(player1->getHealth() - 10); //else decrease the health of the player with 1
+							if (enemies[j]->getLife() > 0)
+							{
+								enemies[j]->subtractLife();
+							}
+
+							if (enemies[j]->getDead())
+							{
+								snd_sfx_play(sfx_explosion, 225, 128);
+								enemies.erase(enemies.begin() + j);
+							}
 						}
 
-						if (enemies[j]->getLife() > 0)
+						enemies[j]->move(map); //only move, when the enemy is on the screen. (change)
+
+						if (enemies[j]->getCount_Bullets() == 0 && enemies[j]->getLife() > 0)
 						{
-							enemies[j]->subtractLife();
+							bullets.push_back(new bullet(bul2, enemies[j]->getRect()->x + 24, enemies[j]->getRect()->y - baseclass::coord.y + 64, 0, 2, true));
+							snd_sfx_play(sfx_laser, 225, 128);
+						}
+					}
+				}
+
+				for (int i = 0; i < bullets.size(); i++)										//go through the bullets
+					if (bullets[i]->getRect()->y >= screen->h || bullets[i]->getRect()->y <= 0) //and if it's outside of the screen
+					{
+						delete bullets[i]; //delete them
+						bullets.erase(bullets.begin() + i);
+					}
+
+				for (int i = 0; i < bullets.size(); i++) //go through both enemies and bullets
+				{
+					for (int j = 0; j < enemies.size(); j++)
+					{
+						SDL_Rect tmprect = {enemies[j]->getRect()->x - baseclass::coord.x, enemies[j]->getRect()->y - baseclass::coord.y, 40, 40}; //calculate relative coordinates see above
+						if (collision(&tmprect, bullets[i]->getRect()))																			   //if one bullet collide with and enemy
+						{
+							if (bullets[i]->get_bullet_enemy() == false)
+							{
+								//snd_sfx_play(sfx_explosion,225,128);
+								//enemies.erase(enemies.begin()+j);
+								delete bullets[i];
+								bullets.erase(bullets.begin() + i);
+
+								enemies[j]->subtractLife();
+							}
 						}
 
 						if (enemies[j]->getDead())
 						{
+							score++;
 							snd_sfx_play(sfx_explosion, 225, 128);
 							enemies.erase(enemies.begin() + j);
 						}
 					}
 
-					enemies[j]->move(map); //only move, when the enemy is on the screen. (change)
-
-					if (enemies[j]->getCount_Bullets() == 0 && enemies[j]->getLife() > 0)
+					if (collision(player1->getRect(), bullets[i]->getRect())) //if a bullet collide with the player
 					{
-						bullets.push_back(new bullet(bul2, enemies[j]->getRect()->x + 24, enemies[j]->getRect()->y - baseclass::coord.y + 64, 0, 2, true));
-						snd_sfx_play(sfx_laser, 225, 128);
+						erase_bullets();
+						snd_sfx_play(sfx_explosion, 225, 128);
+						player1->setHealth(player1->getHealth() - 200);
+						break;
 					}
 				}
-			}
 
-			for (int i = 0; i < bullets.size(); i++)										//go through the bullets
-				if (bullets[i]->getRect()->y >= screen->h || bullets[i]->getRect()->y <= 0) //and if it's outside of the screen
+				if (enemies.size() <= 0)
 				{
-					delete bullets[i]; //delete them
-					bullets.erase(bullets.begin() + i);
+					end_game();
 				}
 
-			for (int i = 0; i < bullets.size(); i++) //go through both enemies and bullets
-			{
-				for (int j = 0; j < enemies.size(); j++)
+				////Collisions between the items and the player
+				for (int j = 0; j < items.size(); j++) //go through the enemies
 				{
-					SDL_Rect tmprect = {enemies[j]->getRect()->x - baseclass::coord.x, enemies[j]->getRect()->y - baseclass::coord.y, 40, 40}; //calculate relative coordinates see above
-					if (collision(&tmprect, bullets[i]->getRect()))																			   //if one bullet collide with and enemy
-					{
-						if (bullets[i]->get_bullet_enemy() == false)
-						{
-							//snd_sfx_play(sfx_explosion,225,128);
-							//enemies.erase(enemies.begin()+j);
-							delete bullets[i];
-							bullets.erase(bullets.begin() + i);
+					SDL_Rect tmprect = {items[j]->getRect()->x - baseclass::coord.x, items[j]->getRect()->y - baseclass::coord.y, 40, 40}; //calculate relative coordinates see above
+					SDL_Rect tmpbase = {baseclass::coord.x, baseclass::coord.y, 300, 240};
 
-							enemies[j]->subtractLife();
+					if (collision(&tmpbase, items[j]->getRect())) //if the enemy is on the screen, (change thanks for TheAngelbrothers to point out a bug :D)
+					{
+						if (collision(&tmprect, player1->getRect())) //if we collide with an enemy
+						{
+							power_up++;
+							snd_sfx_play(sfx_ring, 255, 128);
+							items.erase(items.begin() + j);
 						}
 					}
+				}
 
-					if (enemies[j]->getDead())
+				//move everything
+
+				player1->move(map);
+
+				count_frames++;
+
+				if (count_frames >= 4)
+				{
+					control_bg();
+					count_frames = 0;
+				}
+
+				for (int i = 0; i < bullets.size(); i++)
+				{
+					bullets[i]->move();
+				}
+
+				showmap(mapBG, blocksBG);
+				showmap(map, block);
+
+				player1->show(screen);
+
+				for (int i = 0; i < enemies.size(); i++)
+				{
+					enemies[i]->getPlayerX(player1->getX());
+					enemies[i]->show(screen);
+
+					if (enemies[i]->getRect()->y - baseclass::coord.y > 420)
 					{
-						score++;
-						snd_sfx_play(sfx_explosion, 225, 128);
-						enemies.erase(enemies.begin() + j);
+						//printf("Its here");
+						enemies.erase(enemies.begin() + i);
 					}
 				}
 
-				if (collision(player1->getRect(), bullets[i]->getRect())) //if a bullet collide with the player
+				for (int i = 0; i < bullets.size(); i++)
 				{
-					erase_bullets();
-					snd_sfx_play(sfx_explosion, 225, 128);
-					player1->setHealth(player1->getHealth() - 200);
-					break;
+					bullets[i]->show(screen);
 				}
-			}
 
-			if (enemies.size() <= 0)
-			{
-				end_game();
-			}
-
-			////Collisions between the items and the player
-			for (int j = 0; j < items.size(); j++) //go through the enemies
-			{
-				SDL_Rect tmprect = {items[j]->getRect()->x - baseclass::coord.x, items[j]->getRect()->y - baseclass::coord.y, 40, 40}; //calculate relative coordinates see above
-				SDL_Rect tmpbase = {baseclass::coord.x, baseclass::coord.y, 300, 240};
-
-				if (collision(&tmpbase, items[j]->getRect())) //if the enemy is on the screen, (change thanks for TheAngelbrothers to point out a bug :D)
+				for (int i = 0; i < items.size(); i++)
 				{
-					if (collision(&tmprect, player1->getRect())) //if we collide with an enemy
-					{
-						power_up++;
-						snd_sfx_play(sfx_ring, 255, 128);
-						items.erase(items.begin() + j);
-					}
+					items[i]->show(screen);
+					items[i]->move();
 				}
-			}
-
-			//move everything
-
-			player1->move(map);
-
-			count_frames++;
-
-			if (count_frames >= 4)
-			{
-				control_bg();
-				count_frames = 0;
-			}
-
-			for (int i = 0; i < bullets.size(); i++)
-			{
-				bullets[i]->move();
-			}
-
-			showmap(mapBG, blocksBG);
-			showmap(map, block);
-
-			player1->show(screen);
-
-			for (int i = 0; i < enemies.size(); i++)
-			{
-				enemies[i]->getPlayerX(player1->getX());
-				enemies[i]->show(screen);
-
-				if (enemies[i]->getRect()->y - baseclass::coord.y > 420)
-				{
-					//printf("Its here");
-					enemies.erase(enemies.begin() + i);
-				}
-			}
-
-			for (int i = 0; i < bullets.size(); i++)
-			{
-				bullets[i]->show(screen);
-			}
-
-			for (int i = 0; i < items.size(); i++)
-			{
-				items[i]->show(screen);
-				items[i]->move();
-			}
-			
-			SDL_BlitSurface(hud, &camera, screen, NULL);
-			
-			char current_live[100];
-			sprintf(current_live,"%d",player1->getLives());
-			
-			gfxPrimitivesSetFont(&SDL_gfx_font_7x13O_fnt,7,13);
-			stringRGBA(screen,22,7,current_live,255,255,255,255);
-
- 			char show_score[] = "Score: ";
-
- 			gfxPrimitivesSetFont(&SDL_gfx_font_5x7_fnt,5,7);
- 			stringRGBA(screen,4,25,show_score,255,255,255,255);
-
-			char current_score[100];
-			sprintf(current_score,"%d",score);
-			stringRGBA(screen,35,25,current_score,255,255,255,255);
-			
-			update_screen();
-
-			///////////////////////////////////Em teste/////////////////
-
-			save_clock = SDL_GetTicks() - start;
-
-			if (SDL_GetTicks() - start <= 20)
-			{
-				SDL_Delay(10);
-			}
-
-			//////////////////////////////////////////////////////////
-
-			if (player1->getHealth() <= 0)
-			{
-				power_up = 0;
-				erase_bullets();
-				player1->setLives(player1->getLives() - 1);
-
-				enemies.clear();
-				enemies.assign(enemies_bkp.begin(), enemies_bkp.end());
-
-				//the_boss.clear();
-				//the_boss.assign(the_boss_bkp.begin(),the_boss_bkp.end());
-
-				items.clear();
-				items.assign(items_bkp.begin(), items_bkp.end());
 				
-				erase_bullets();
+				SDL_BlitSurface(hud, &camera, screen, NULL);
+				
+				char current_live[100];
+				sprintf(current_live,"%d",player1->getLives());
+				
+				gfxPrimitivesSetFont(&SDL_gfx_font_7x13O_fnt,7,13);
+				stringRGBA(screen,22,7,current_live,255,255,255,255);
 
-				for (int i = 0; i < enemies_bkp.size(); i++)
+				char show_score[] = "Score: ";
+
+				gfxPrimitivesSetFont(&SDL_gfx_font_5x7_fnt,5,7);
+				stringRGBA(screen,4,25,show_score,255,255,255,255);
+
+				char current_score[100];
+				sprintf(current_score,"%d",score);
+				stringRGBA(screen,35,25,current_score,255,255,255,255);
+				
+				update_screen();
+
+				///////////////////////////////////Em teste/////////////////
+
+				save_clock = SDL_GetTicks() - start;
+
+				if (SDL_GetTicks() - start <= 20)
 				{
-					enemies_bkp[i]->setLife();
+					SDL_Delay(10);
 				}
 
-				if (player1->getLives() > 0)
+				//////////////////////////////////////////////////////////
+
+				if (player1->getHealth() <= 0)
 				{
-					player1->resetPosition();
-					baseclass::coord.x = 0;
-					baseclass::coord.y = 1808;
-					camera.x = 0;
-					camera.y = 0;
-					direction[0] = 0;
-					direction[1] = 0;
-					player1->setMoving(0);
+					power_up = 0;
+					erase_bullets();
+					player1->setLives(player1->getLives() - 1);
+
+					enemies.clear();
+					enemies.assign(enemies_bkp.begin(), enemies_bkp.end());
+
+					//the_boss.clear();
+					//the_boss.assign(the_boss_bkp.begin(),the_boss_bkp.end());
+
+					items.clear();
+					items.assign(items_bkp.begin(), items_bkp.end());
+					
+					erase_bullets();
+
+					for (int i = 0; i < enemies_bkp.size(); i++)
+					{
+						enemies_bkp[i]->setLife();
+					}
+
+					if (player1->getLives() > 0)
+					{
+						player1->resetPosition();
+						baseclass::coord.x = 0;
+						baseclass::coord.y = 1808;
+						camera.x = 0;
+						camera.y = 0;
+						direction[0] = 0;
+						direction[1] = 0;
+						player1->setMoving(0);
+					}
+					else
+					{
+						//cdrom_cdda_pause();
+						//boss_defeated=false;
+						//music_boss=false;
+						score = 0;
+						running = false;
+						direction[0] = 0;
+						direction[1] = 0;
+						player1->setMoving(0);
+						player1->setLives(3);
+						player1->setHealth(200);
+						player1->resetPosition();
+						baseclass::coord.x = 0;
+						baseclass::coord.y = 1808;
+						camera.x = 0;
+						camera.y = 0;
+						SDL_FillRect(screen, NULL, 0x000000);
+						update_screen();
+						SDL_BlitSurface(game_over, &cameraPVR, screen, NULL);
+						update_screen();
+						SDL_Delay(11000);
+						SDL_FillRect(screen, NULL, 0x000000);
+						update_screen();
+					}
 				}
-				else
-				{
-					//cdrom_cdda_pause();
-					//boss_defeated=false;
-					//music_boss=false;
-					score = 0;
-					running = false;
-					direction[0] = 0;
-					direction[1] = 0;
-					player1->setMoving(0);
-					player1->setLives(3);
-					player1->setHealth(200);
-					player1->resetPosition();
-					baseclass::coord.x = 0;
-					baseclass::coord.y = 1808;
-					camera.x = 0;
-					camera.y = 0;
-					SDL_FillRect(screen, NULL, 0x000000);
-					update_screen();
-					SDL_BlitSurface(game_over, &cameraPVR, screen, NULL);
-					update_screen();
-					SDL_Delay(11000);
-					SDL_FillRect(screen, NULL, 0x000000);
-					update_screen();
-				}
+			}
+			else {
+				char paused[] = "PAUSE";
+				gfxPrimitivesSetFont(&SDL_gfx_font_9x18B_fnt,9,18);
+				stringRGBA(screen,136,120,paused,255,255,255,255);					
+				update_screen();	
 			}
 		}
 	}

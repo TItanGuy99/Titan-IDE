@@ -29,7 +29,7 @@ class game:public baseclass{
 	std::vector<std::vector<int> > mapBG;
 	std::vector<obstacle*> obstacles;
 	std::vector<obstacle*> obstacles_bkp;
-	bool direction[2];
+	bool direction[2], is_paused;
 	SDL_Rect finish;
 	SDL_Surface* load_image(const char* filename, const char* extension, int r, int g, int b);
 	void loadmap(const char* filename, bool isBG);

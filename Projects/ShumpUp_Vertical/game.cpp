@@ -439,7 +439,7 @@ void game::menu()
 	int alpha = 255;
 
 	SDL_FillRect(screen, NULL, 0x000000);
-	SDL_SetAlpha(titan_logo, SDL_SRCALPHA, alpha);
+	SDL_SetAlpha(titan_logo, SDL_SRCALPHA|SDL_RLEACCEL, alpha);
 	SDL_BlitSurface(titan_logo, &cameraPVR, screen, NULL);
 	update_screen();
 	SDL_Delay(5000);
@@ -449,7 +449,7 @@ void game::menu()
 		alpha -= 5;
 		SDL_BlitSurface(m_screen, &cameraPVR, screen, NULL);
 		SDL_BlitSurface(titan_logo, &cameraPVR, screen, NULL);
-		SDL_SetAlpha(titan_logo, SDL_SRCALPHA, alpha);
+		SDL_SetAlpha(titan_logo, SDL_SRCALPHA|SDL_RLEACCEL, alpha);
 		update_screen();
 	}
 
@@ -483,7 +483,7 @@ void game::menu()
 		SDL_BlitSurface(m_screen, &cameraPVR, screen, NULL);
 		SDL_BlitSurface(press_start, &press_start1, screen, NULL);
 
-		SDL_SetAlpha(press_start, SDL_SRCALPHA, alpha);
+		SDL_SetAlpha(press_start, SDL_SRCALPHA|SDL_RLEACCEL, alpha);
 
 		while (SDL_PollEvent(&event))
 		{

@@ -1,4 +1,4 @@
-/*Code and engine made by Titan Game Studios 2016/2017 coded by Luiz Nai.*/
+/*Code and engine made by Titan Game Studios 2016/2021 coded by Luiz Nai.*/
 #include <SDL/SDL.h>
 #include <vector>
 #include <kos.h>
@@ -23,6 +23,7 @@ class player:baseclass{
 	public:
 	SDL_Surface* getImage();
 	player(SDL_Surface* img);
+	~player();
     SDL_Rect* getRect();
 	void setXvel(int vel);
 	int getXvel();

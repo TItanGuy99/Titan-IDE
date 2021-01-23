@@ -1,10 +1,10 @@
-/*Code and engine made by Titan Game Studios 2016/2020 coded by Luiz Nai.*/
+/*Code and engine made by Titan Game Studios 2016/2021 coded by Luiz Nai.*/
 #include "player.h"
 
 ////Main function for the player
 player::player(SDL_Surface *img)
 {
-	sfx_jump = snd_sfx_load("/rd/jump.wav"); 
+	sfx_jump = snd_sfx_load("/stage1/jump.wav"); 
 	is_shooting=false;
 	image=img;
 	count_standing=0;
@@ -40,6 +40,11 @@ player::player(SDL_Surface *img)
 	moving=0;
 	on_top=0;
 	health=200;
+}
+
+player::~player()
+{
+	snd_sfx_unload_all();
 }
 
 /////Check the X and Y, Width and Height of the player

@@ -1,4 +1,4 @@
-/*Code and engine made by Titan Game Studios 2016/2020 coded by Luiz Nai.*/
+/*Code and engine made by Titan Game Studios 2016/2021 coded by Luiz Nai.*/
 #include "game.h"
 #include "SDL_gfxPrimitives.h"
 #include "SDL_gfx_5x7_fnt.h"

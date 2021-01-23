@@ -10,7 +10,7 @@ player::player(SDL_Surface *img)
 	count_standing=0;
 	player_size = 64;
 	box.x=130;
-	box.y=90;
+	box.y=128;
 	box.w=32;
 	box.h=player_size;
 	lives=3;
@@ -40,12 +40,6 @@ player::player(SDL_Surface *img)
 	moving=0;
 	on_top=0;
 	health=200;
-}
-
-////To destroy the player in the memory
-player::~player()
-{
-	SDL_FreeSurface(image);
 }
 
 /////Check the X and Y, Width and Height of the player
@@ -456,7 +450,7 @@ void player::resetPosition()
 	is_shooting=false;
 	health=200;
 	box.x=130;
-	box.y=90;
+	box.y=128;
 	map_y=0;
 }
 

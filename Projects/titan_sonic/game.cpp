@@ -30,22 +30,8 @@ game::game() //constructor
 
 	joystick = SDL_JoystickOpen(0);
 	buttonCount = SDL_JoystickNumButtons(joystick);
-
-	titan_logo = load_image("rd/images/menu/Titan.pvr", "pvr", 1, 1, 1);
-	press_start = load_image("rd/images/menu/Start_Game.bmp", "bmp", 0x00, 0x00, 0x00);
-	m_screen = load_image("rd/images/menu/menu.pvr", "pvr", 1, 1, 1);
-	game_over = load_image("rd/images/menu/game_over.pvr", "pvr", 1, 1, 1);
-	final_screen = load_image("rd/images/menu/final_screen.pvr", "pvr", 1, 1, 1);
-	block = load_image("rd/images/blocks/blocks.bmp", "bmp", 0xff, 0x00, 0xff);
-	blocksBG = load_image("rd/images/BG/blocks.bmp", "bmp", 0xff, 0x00, 0x00);
-	ite = load_image("rd/images/itens/rings.bmp", "bmp", 0xff, 0x00, 0xff);
-	ene = load_image("rd/images/enemy/enemy.bmp", "bmp", 0x00, 0xff, 0x00);
-	ene2 = load_image("rd/images/enemy/enemy2.bmp", "bmp", 0x00, 0xff, 0x00);
-	bos = load_image("rd/images/boss/boss.bmp", "bmp", 0xff, 0x00, 0xff);
-	hud = load_image("rd/images/hud/HUD.bmp", "bmp", 0x00, 0x00, 0x00);
-	sfx_enemies = snd_sfx_load("/rd/enemies.wav");
-	sfx_hurt = snd_sfx_load("/rd/death.wav");
-	sfx_ring = snd_sfx_load("/rd/ring.wav");
+	
+	load_assets(0);
 
 	is_paused = false;
 	axi_X = 0;
@@ -68,7 +54,6 @@ game::game() //constructor
 	direction[0] = direction[1] = 0;
 	running = true;
 	all_running = true;
-	player1 = new player(load_image("rd/images/player/player.bmp", "bmp", 0xff, 0x00, 0xff));
 	finish.x = 0;
 	finish.y = 0;
 	finish.w = 50;
@@ -81,6 +66,143 @@ game::game() //constructor
 	music_boss = false;
 	boss_defeated = false;
 	count_end = 0;
+}
+
+///Load assets in memory
+bool game::mount_romdisk(char *filename, char *mountpoint)
+{
+    void *buffer;
+    ssize_t size = fs_load(filename, &buffer);
+
+    // Successfully read romdisk image
+    if(size != -1)
+    {
+        fs_romdisk_mount(mountpoint, (const uint8*)buffer, 1);
+        return true;
+    }
+    else
+        return false;
+}
+
+void game::clr_stage1_mem() {
+
+	delete player1;
+	
+	SDL_FreeSurface(block);
+	block = NULL;
+	SDL_FreeSurface(blocksBG);
+	blocksBG = NULL;
+	SDL_FreeSurface(ite);
+	ite = NULL;
+	SDL_FreeSurface(ene);
+	ene = NULL;
+	SDL_FreeSurface(ene2);
+	ene2 = NULL;
+	SDL_FreeSurface(bos);
+	bos = NULL;
+	SDL_FreeSurface(hud);
+	hud = NULL;
+	SDL_FreeSurface(spritePlayer);
+	spritePlayer = NULL;
+	fs_romdisk_unmount("/stage1");
+
+	int enemies_size = enemies.size();
+	int enemies_bkp_size = enemies_bkp.size();
+	int items_size = items.size();
+	int items_bkp_size = items_bkp.size();
+			
+	for(int i =0;i<enemies_size;i++)
+		delete enemies[i];
+	for(int i =0;i<enemies_bkp_size;i++)
+		delete enemies_bkp[i];
+	for(int i =0;i<items_size;i++)
+		delete items[i];
+	for(int i =0;i<items_bkp_size;i++)
+		delete items_bkp[i];
+	for(int i =0;i<the_boss.size();i++)
+		delete the_boss[i];
+
+	enemies.clear();
+	enemies_bkp.clear();
+	items.clear();
+	items_bkp.clear();
+	the_boss.clear();
+	map.clear();
+	mapBG.clear();
+
+	snd_sfx_unload_all();
+}
+
+void game::clr_menu_mem() {
+	SDL_FreeSurface(titan_logo);
+	titan_logo = NULL;
+	SDL_FreeSurface(press_start);
+	press_start = NULL;
+	SDL_FreeSurface(m_screen);
+	m_screen = NULL;
+	SDL_FreeSurface(game_over);
+	game_over = NULL;
+	SDL_FreeSurface(final_screen);
+	final_screen = NULL;
+	fs_romdisk_unmount("/menu");
+}
+
+void game::load_assets(int fileToLoad) {
+	SDL_FillRect(screen,NULL, 0x000000);
+	char mytext[] = "Now Loading...";
+	
+	SDL_FillRect(screen,NULL,0);
+
+	gfxPrimitivesSetFont(&SDL_gfx_font_5x7_fnt,5,7);
+	stringRGBA(screen,05,05,mytext,255,255,255,255);
+	update_screen();
+	
+	switch (fileToLoad)
+	{
+		case 0:
+			if(mount_romdisk("/cd/romdisk.img", "/menu")) {
+				titan_logo = load_image("menu/images/menu/Titan.pvr", "pvr", 1, 1, 1);
+				press_start = load_image("menu/images/menu/Start_Game.bmp", "bmp", 0x00, 0x00, 0x00);
+				m_screen = load_image("menu/images/menu/menu.pvr", "pvr", 1, 1, 1);
+				game_over = load_image("menu/images/menu/game_over.pvr", "pvr", 1, 1, 1);
+				final_screen = load_image("menu/images/menu/final_screen.pvr", "pvr", 1, 1, 1);
+			}
+		break;
+
+		case 1:
+			clr_stage1_mem();
+			if(mount_romdisk("/cd/romdisk.img", "/menu")) {
+				titan_logo = load_image("menu/images/menu/Titan.pvr", "pvr", 1, 1, 1);
+				press_start = load_image("menu/images/menu/Start_Game.bmp", "bmp", 0x00, 0x00, 0x00);
+				m_screen = load_image("menu/images/menu/menu.pvr", "pvr", 1, 1, 1);
+				game_over = load_image("menu/images/menu/game_over.pvr", "pvr", 1, 1, 1);
+				final_screen = load_image("menu/images/menu/final_screen.pvr", "pvr", 1, 1, 1);
+			}
+		break;
+
+		case 2:
+			clr_menu_mem();
+			if(mount_romdisk("/cd/romdisk2.img", "/stage1")) {
+				block = load_image("/stage1/images/blocks/blocks.bmp", "bmp", 0xff, 0x00, 0xff);
+				blocksBG = load_image("/stage1/images/BG/blocks.bmp", "bmp", 0xff, 0x00, 0x00);
+				ite = load_image("/stage1/images/itens/rings.bmp", "bmp", 0xff, 0x00, 0xff);
+				ene = load_image("/stage1/images/enemy/enemy.bmp", "bmp", 0x00, 0xff, 0x00);
+				ene2 = load_image("/stage1/images/enemy/enemy2.bmp", "bmp", 0x00, 0xff, 0x00);
+				bos = load_image("/stage1/images/boss/boss.bmp", "bmp", 0xff, 0x00, 0xff);
+				hud = load_image("/stage1/images/hud/HUD.bmp", "bmp", 0x00, 0x00, 0x00);
+				spritePlayer = load_image("/stage1/images/player/player.bmp", "bmp", 0xff, 0x00, 0xff);
+				sfx_enemies = snd_sfx_load("/stage1/enemies.wav");
+				sfx_hurt = snd_sfx_load("/stage1/death.wav");
+				sfx_ring = snd_sfx_load("/stage1/ring.wav");
+				player1 = new player(spritePlayer);
+
+				if(map.size()<=0) {
+					loadmap("/stage1/map/map.map", false);
+					loadmap("/stage1/map/mapBG.map", true);
+				}
+			}
+		break;
+	}
 }
 
 ///// Destroy all the variables in the memory for the game.
@@ -505,8 +627,46 @@ void game::restart_game()
 	update_screen();
 }
 
-///////////// Go to end screen
 
+///Draw Hud
+void game::draw_hud() {
+	SDL_BlitSurface(hud, &camera, screen, NULL);
+				
+	char current_live[100];
+	sprintf(current_live,"%d",player1->getLives());
+				
+	gfxPrimitivesSetFont(&SDL_gfx_font_7x13O_fnt,7,13);
+	stringRGBA(screen,27,7,current_live,255,255,255,255);
+}
+
+////////// Go to Game Over Screen
+void game::f_game_over() 
+{
+	//cdrom_cdda_play(5, 5, 1, CDDA_TRACKS);
+	boss_defeated = false;
+	music_boss = false;
+	count_end = 0;
+	running = false;
+	direction[0] = 0;
+	direction[1] = 0;
+	player1->setMoving(0);
+	player1->setLives(3);
+	player1->resetPosition();
+	baseclass::coord.x = 0;
+	baseclass::coord.y = 0;
+	camera.x = 0;
+	camera.y = 0;
+	load_assets(1);
+	SDL_FillRect(screen, NULL, 0x000000);
+	update_screen();
+	SDL_BlitSurface(game_over, &cameraPVR, screen, NULL);
+	update_screen();
+	SDL_Delay(11000);
+	SDL_FillRect(screen, NULL, 0x000000);
+	update_screen();
+}
+
+///////////// Go to end screen
 void game::end_game()
 {
 	//cdrom_cdda_play(4, 4, 1, CDDA_TRACKS);
@@ -520,6 +680,7 @@ void game::end_game()
 	baseclass::coord.y = 0;
 	camera.x = 0;
 	camera.y = 0;
+	load_assets(1);
 	SDL_FillRect(screen, NULL, 0x000000);
 	update_screen();
 	SDL_BlitSurface(final_screen, &cameraPVR, screen, NULL);
@@ -539,13 +700,12 @@ void game::update_screen() {
 void game::start()
 {
 	Uint32 start;
-	loadmap("rd/map/map.map", false);
-	loadmap("rd/map/mapBG.map", true);
 	vmu();
 
 	while (all_running)
 	{
 		menu();
+		load_assets(2);
 		SDL_FillRect(screen, NULL, 0x000000);
 		update_screen();
 		running = true;
@@ -651,56 +811,6 @@ void game::start()
 					}
 				}
 
-				////Collisions between the boss and the player
-				for (int j = 0; j < the_boss.size(); j++) //go through the bosses
-				{
-					SDL_Rect tmprect = {the_boss[j]->getRect()->x - baseclass::coord.x, the_boss[j]->getRect()->y - baseclass::coord.y, 40, 40}; //calculate relative coordinates see above
-					SDL_Rect tmpbase = {baseclass::coord.x, baseclass::coord.y, 300, 240};
-					SDL_Rect tmp_player = {player1->getRect()->x, player1->getRect()->y, 16, 16};
-
-					if (collision(&tmpbase, the_boss[j]->getRect())) //if the boss is on the screen, (change thanks for TheAngelbrothers to point out a bug :D)
-					{
-						if (!music_boss)
-						{
-							//cdrom_cdda_play(3, 3, 10, CDDA_TRACKS);
-							music_boss = true;
-						}
-
-						if (collision(&tmprect, &tmp_player)) //if we collide with an boss
-						{
-							if (!the_boss[j]->getCollision())
-							{
-								the_boss[j]->setCollision(true);
-								the_boss[j]->subtractLife();
-								snd_sfx_play(sfx_enemies, 225, 128);
-							}
-						}
-						else
-						{
-							the_boss[j]->setCollision(false);
-						}
-
-						the_boss[j]->move(map); //only move, when the boss is on the screen. (change)
-					}
-
-					if (the_boss[j]->getLife() <= 0)
-					{
-						count_end++;
-
-						if (!boss_defeated)
-						{
-							//cdrom_cdda_play(2, 2, 10, CDDA_TRACKS);
-							boss_defeated = true;
-						}
-
-						if (count_end == 300)
-						{
-							the_boss.erase(the_boss.begin() + j);
-							end_game();
-						}
-					}
-				}
-
 				////Collisions between the items and the player
 				for (int j = 0; j < items.size(); j++) //go through the enemies
 				{
@@ -739,13 +849,7 @@ void game::start()
 					items[i]->move();
 				}
 
-				SDL_BlitSurface(hud, &camera, screen, NULL);
-				
-				char current_live[100];
-				sprintf(current_live,"%d",player1->getLives());
-				
-				gfxPrimitivesSetFont(&SDL_gfx_font_7x13O_fnt,7,13);
-				stringRGBA(screen,27,7,current_live,255,255,255,255);
+				draw_hud();
 
 				if (player1->getHealth() == 5 || player1->getHealth() == 50 || player1->getHealth() == 100 || player1->getHealth() == 150)
 				{
@@ -803,27 +907,58 @@ void game::start()
 					}
 					else
 					{
-						//cdrom_cdda_play(5, 5, 1, CDDA_TRACKS);
-						boss_defeated = false;
-						music_boss = false;
-						count_end = 0;
-						running = false;
-						direction[0] = 0;
-						direction[1] = 0;
-						player1->setMoving(0);
-						player1->setLives(3);
-						player1->resetPosition();
-						baseclass::coord.x = 0;
-						baseclass::coord.y = 0;
-						camera.x = 0;
-						camera.y = 0;
-						SDL_FillRect(screen, NULL, 0x000000);
-						update_screen();
-						SDL_BlitSurface(game_over, &cameraPVR, screen, NULL);
-						update_screen();
-						SDL_Delay(11000);
-						SDL_FillRect(screen, NULL, 0x000000);
-						update_screen();
+						f_game_over();
+					}
+				}
+				
+				////Collisions between the boss and the player
+				for (int j = 0; j < the_boss.size(); j++) //go through the bosses
+				{ 
+					SDL_Rect tmprect = {the_boss[j]->getRect()->x - baseclass::coord.x, the_boss[j]->getRect()->y - baseclass::coord.y, 40, 40}; //calculate relative coordinates see above
+					SDL_Rect tmpbase = {baseclass::coord.x, baseclass::coord.y, 300, 240};
+					SDL_Rect tmp_player = {player1->getRect()->x, player1->getRect()->y, 16, 16};
+
+					if (collision(&tmpbase, the_boss[j]->getRect())) //if the boss is on the screen, (change thanks for TheAngelbrothers to point out a bug :D)
+					{
+						if (!music_boss)
+						{
+							//cdrom_cdda_play(3, 3, 10, CDDA_TRACKS);
+							music_boss = true;
+						}
+
+						if (collision(&tmprect, &tmp_player)) //if we collide with an boss
+						{
+							if (!the_boss[j]->getCollision())
+							{
+								the_boss[j]->setCollision(true);
+								the_boss[j]->subtractLife();
+								snd_sfx_play(sfx_enemies, 225, 128);
+							}
+						}
+						else
+						{
+							the_boss[j]->setCollision(false);
+						}
+
+						the_boss[j]->move(map); //only move, when the boss is on the screen. (change)
+					}
+
+					if (the_boss[j]->getLife() <= 0)
+					{
+						count_end++;
+
+						if (!boss_defeated)
+						{
+							//cdrom_cdda_play(2, 2, 10, CDDA_TRACKS);
+							boss_defeated = true;
+						}
+
+						if (count_end == 300)
+						{
+							the_boss.erase(the_boss.begin() + j);
+							the_boss.clear();
+							end_game();
+						}
 					}
 				}
 			}

@@ -4,7 +4,7 @@
 ////Main function for the player
 player::player(SDL_Surface *img)
 {
-	sfx_jump = snd_sfx_load("/rd/jump.wav"); 
+	sfx_jump = snd_sfx_load("/stage1/jump.wav"); 
 	is_shooting=false;
 	image=img;
 	player_size = 32;
@@ -41,7 +41,7 @@ player::player(SDL_Surface *img)
 ////To destroy the player in the memory
 player::~player()
 {
-	SDL_FreeSurface(image);
+	snd_sfx_unload_all();
 }
 
 /////Check the X and Y, Width and Height of the player

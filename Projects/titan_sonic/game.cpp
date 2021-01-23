@@ -208,19 +208,6 @@ void game::load_assets(int fileToLoad) {
 ///// Destroy all the variables in the memory for the game.
 game::~game()
 {
-	SDL_FreeSurface(titan_logo);
-	SDL_FreeSurface(press_start);
-	SDL_FreeSurface(m_screen);
-	SDL_FreeSurface(game_over);
-	SDL_FreeSurface(final_screen);
-	SDL_FreeSurface(block);
-	SDL_FreeSurface(blocksBG);
-	SDL_FreeSurface(ite);
-	SDL_FreeSurface(ene);
-	SDL_FreeSurface(ene2);
-	SDL_FreeSurface(bos);
-	SDL_FreeSurface(hud);
-
 	for (int i = 0; i < enemies.size(); i++)
 		delete enemies[i];
 	for (int i = 0; i < enemies_bkp.size(); i++)

@@ -22,7 +22,7 @@
 class game:public baseclass{
 	SDL_Joystick *joystick;
 	int joystickCount, buttonCount, sfx_bullet, sfx_alien, sfx_hurt, save_clock, axi_X, axi_Y;
-	SDL_Surface *screen, *block, *blocksBG, *bul, *ene, *ene2, *hud, *energy;
+	SDL_Surface *screen, *block, *blocksBG, *bul, *ene, *ene2, *hud, *energy, *spritePlayer;
 	SDL_Surface *energy_life, *m_screen, *press_start, *titan_logo, *game_over, *final_screen;  
 	SDL_Rect camera, cameraPVR, energy1, energy2, energy3, energy4, press_start1;
 	SDL_Rect clip_number[10];
@@ -37,9 +37,16 @@ class game:public baseclass{
 	void loadmap(const char* filename, bool isBG);
 	void showmap(std::vector<std::vector<int> > currentMap, bool checkY, SDL_Surface *currentBlock);
 	void menu();
+	void end_game();
+	void draw_hud();
+	void f_game_over();
 	void handleEvents();
 	void restart_game();
 	void update_screen();
+	bool mount_romdisk(char *filename, char *mountpoint);
+	void load_assets(int fileToLoad);
+	void clr_menu_mem();
+	void clr_stage1_mem();
 	bool running, all_running;
 	static const int SCREEN_WIDTH=320;
 	static const int SCREEN_HEIGHT=240;

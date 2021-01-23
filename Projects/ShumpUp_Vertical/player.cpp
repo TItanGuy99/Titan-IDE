@@ -40,12 +40,6 @@ player::player(SDL_Surface *img)
 	health=200;
 }
 
-////To destroy the player in the memory
-player::~player()
-{
-	SDL_FreeSurface(image);
-}
-
 /////Check the X and Y, Width and Height of the player
 SDL_Rect* player::getRect()
 {

@@ -6,15 +6,18 @@
 #define BULLET_H
  
 class bullet{
+		bool from_enemy;
         SDL_Rect box;   //bounding box (for the blitting and for the collision detection)
         int xvel,yvel;  //the velocity (speed)
         SDL_Surface* image;     //the image of the bullet
         public:
-        bullet(SDL_Surface* img,int x,int y,int xvel,int yvel); //constructor
+        bullet(SDL_Surface* img,int x,int y,int xvel,int yvel, bool is_enemy); //constructor
         //obvious
         void move();
         void show(SDL_Surface* screen);
+		bool get_bullet_enemy();
         SDL_Rect* getRect();
+		
 };
  
 #endif

@@ -2,16 +2,17 @@
 #include "bullet.h"
 
 //// Main class for the bullers
-bullet::bullet(SDL_Surface* img,int x,int y,int xVel,int yVel)  //constructor
+bullet::bullet(SDL_Surface* img,int x,int y,int xVel,int yVel,bool is_enemy)  //constructor
 {
         //just set all of the variables, nothing new in here
         box.x=x;
         box.y=y;
         image=img;
-        box.w=image->w;
-        box.h=image->h;
+        box.w=2;
+        box.h=2;
         xvel=xVel;
         yvel=yVel;
+		from_enemy = is_enemy;
 }
  
 /// Move the bullets on the screen
@@ -27,6 +28,11 @@ void bullet::show(SDL_Surface* screen)
 {
         //blit it to the screen
         SDL_BlitSurface(image,NULL,screen,&box);
+}
+
+bool bullet::get_bullet_enemy()
+{
+	return from_enemy;
 }
  
 

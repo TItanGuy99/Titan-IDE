@@ -10,14 +10,13 @@ player::player(SDL_Surface *img)
 	player_size = 64;
 	box.x=130;
 	box.y=90;
-	box.w=32;
-	box.h=player_size;
+	box.w=16;
+	box.h=16;
 	lives=3;
 	countvel=0;
 	xvel=0;
 	yvel=0;
 	upvel=0;
-	map_y=0;
 	on_wall=false;
 	is_colliding=false;
 	looking_up=false;
@@ -39,12 +38,6 @@ player::player(SDL_Surface *img)
 	moving=0;
 	on_top=0;
 	health=200;
-}
-
-////To destroy the player in the memory
-player::~player()
-{
-	SDL_FreeSurface(image);
 }
 
 /////Check the X and Y, Width and Height of the player
@@ -74,7 +67,7 @@ void player::show(SDL_Surface* screen)
 
 ///// Move the player
 void player::move(const std:: vector<std::vector<int> >&map)
-{
+{	
 	if(frame<2.4)
 	{
 		frame+=0.1;
@@ -112,21 +105,21 @@ void player::move(const std:: vector<std::vector<int> >&map)
 		break;
 		
 		case 'c':
-			if(box.y<180) {
+			if(box.y<200) {
 				box.x+=2;
 				box.y+=2;	
 			}
 		break;
 		
 		case 'x':
-			if(box.y<180) {
+			if(box.y<200) {
 				box.y+=2;
 				box.x-=2;	
 			}
 		break;
 		
 		case 'd':
-			if(box.y<180)
+			if(box.y<200)
 				box.y+=2;
 		break;
 	}
@@ -219,7 +212,6 @@ void player::resetPosition()
 	health=200;
 	box.x=130;
 	box.y=90;
-	map_y=0;
 }
 
 ///// Check the direction

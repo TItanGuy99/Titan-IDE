@@ -23,8 +23,8 @@
 class game:public baseclass{
 	bool is_shoting;
 	SDL_Joystick *joystick;
-	int joystickCount, buttonCount, count_end, count_frames, sfx_laser, sfx_explosion, sfx_ring, save_clock, control_bullet, power_up, score, axi_X, axi_Y;
-	SDL_Surface *screen, *block, *blocksBG, *ene, *ene2, *ite, *hud, *energy,*bul, *bul2;
+	int joystickCount, buttonCount, count_frames, sfx_laser, sfx_explosion, sfx_ring, save_clock, control_bullet, power_up, score, axi_X, axi_Y;
+	SDL_Surface *screen, *block, *blocksBG, *ene, *ene2, *ite, *hud, *energy,*bul, *bul2, *spritePlayer;
 	SDL_Surface *energy_life, *m_screen, *press_start, *titan_logo, *game_over, *final_screen;
 	SDL_Rect camera, cameraPVR, energy1, energy2, energy3, energy4, numb1, press_start1;
 	SDL_Rect clip_number[10];
@@ -43,11 +43,16 @@ class game:public baseclass{
 	void menu();
 	void shoot();
 	void end_game();
+	void draw_hud();
+	void f_game_over();
 	void handleEvents();
-	void restart_game();
 	void erase_bullets();
 	void control_bg();
 	void update_screen();
+	bool mount_romdisk(char *filename, char *mountpoint);
+	void load_assets(int fileToLoad);
+	void clr_menu_mem();
+	void clr_stage1_mem();
 	bool running, all_running;
 	static const int SCREEN_WIDTH=320;
 	static const int SCREEN_HEIGHT=240;

@@ -19,6 +19,8 @@ enemy::enemy(SDL_Surface* img, int x, int y, int xVel, int yVel)
 	yvel=yVel;
 	direction='l';
 	ground=0;
+	count_bullets=0;
+	
 	for (int i=0;i<8;i++)
 	{
 		clips[i].x=i*enemy_size;
@@ -71,30 +73,31 @@ void enemy::move(std::vector<std::vector<int> >& map)
 		}
 	}
 
-	if(player_y>box.y)
+	if(player_x>box.x)
 	{
-		distance=player_y-box.y;
+		distance=player_x-box.x;
 	}
 	else
 	{
-		distance=box.y-player_y;
+		distance=box.x-player_x;
 	}	
 	
-	if(player_y>box.y && distance>20)
+	if(player_x>box.x && distance>20)
 	{
 		if(life>0)
-			box.y++;
+			box.x++;
 	}
 	else if(distance>20)
 	{
 		if(life>0)
-			box.y--;
+			box.x--;
 	}
 	
 	count_bullets++;
 	
-	if(count_bullets>35)
+	if(count_bullets>100)
 	{
+		printf("Its here");
 		count_bullets=0;
 	}
 }
@@ -124,21 +127,21 @@ char enemy::getDirection()
 }
 
 //// Set y of the enemy
-void enemy::setY(int new_y)
+void enemy::setX(int new_x)
 {
-	box.y=new_y;
+	box.x=new_x;
 }
 
 /// Get player y
-void enemy::getPlayerY(int c)
+void enemy::getPlayerX(int c)
 {
-	player_y = c;
+	player_x = c;
 }
 
-/// Get player X
-int enemy::getEnemyX()
+/// Get player Y
+int enemy::getEnemyY()
 {
-	return box.x;
+	return box.y;
 }
 
 ///// Set the direction

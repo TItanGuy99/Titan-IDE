@@ -7,7 +7,7 @@
 class enemy:public baseclass
 {
 	SDL_Rect box;
-	int xvel,yvel,life,count_x,enemy_size, save_x, save_y, player_y, count_bullets, distance;
+	int xvel,yvel,life,count_x,enemy_size, save_x, save_y, player_x, count_bullets, distance;
 	SDL_Surface* image;
 	bool ground, dead;
 	SDL_Rect clips[8];
@@ -19,11 +19,11 @@ class enemy:public baseclass
 	void move(std::vector<std::vector<int> >&);
 	void show(SDL_Surface*);
 	void setDirection(char);
-	void setY(int);
-	void getPlayerY(int);
+	void setX(int);
+	void getPlayerX(int);
 	void setLife();
 	int getY();
-	int getEnemyX();
+	int getEnemyY();
 	int getCount_Bullets();
 	bool getDead();
 	int getInitialY();

@@ -21,7 +21,6 @@ class player:baseclass{
 	public:
 	SDL_Surface* getImage();
 	player(SDL_Surface* img);
-	~player();
     SDL_Rect* getRect();
 	void setXvel(int vel);
 	int getXvel();

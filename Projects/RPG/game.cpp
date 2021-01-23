@@ -32,14 +32,7 @@ game::game() //constructor
 	joystick = SDL_JoystickOpen(0);
 	buttonCount = SDL_JoystickNumButtons(joystick);
 
-	titan_logo = load_image("rd/images/menu/Titan.pvr", "pvr", 1, 1, 1);
-	press_start = load_image("rd/images/menu/Start_Game.bmp", "bmp", 0x00, 0x00, 0x00);
-	m_screen = load_image("rd/images/menu/menu.pvr", "pvr", 1, 1, 1);
-	game_over = load_image("rd/images/menu/game_over.pvr", "pvr", 1, 1, 1);
-	final_screen = load_image("rd/images/menu/final_screen.pvr", "pvr", 1, 1, 1);
-	block = load_image("rd/images/blocks/blocks.bmp", "bmp", 0xff, 0x00, 0xff);
-	blocksBG = load_image("rd/images/BG/blocks.bmp", "bmp", 1, 1, 1);
-	hud = load_image("rd/images/hud/HUD.bmp", "bmp", 0xff, 0x00, 0xff);
+	load_assets(0);
 
 	is_paused = false;
 	axi_X = 0;
@@ -63,7 +56,6 @@ game::game() //constructor
 	direction[0] = direction[1] = 0;
 	running = true;
 	all_running = true;
-	player1 = new player(load_image("rd/images/player/player.bmp", "bmp", 0xff, 0x00, 0xff));
 	finish.x = 0;
 	finish.y = 0;
 	finish.w = 50;
@@ -75,18 +67,117 @@ game::game() //constructor
 	press_start1.h = -11;
 }
 
+///Load assets in memory
+bool game::mount_romdisk(char *filename, char *mountpoint)
+{
+    void *buffer;
+    ssize_t size = fs_load(filename, &buffer);
+
+    // Successfully read romdisk image
+    if(size != -1)
+    {
+        fs_romdisk_mount(mountpoint, (const uint8*)buffer, 1);
+        return true;
+    }
+    else
+        return false;
+}
+
+void game::clr_stage1_mem() {
+	delete player1;
+	
+	SDL_FreeSurface(block);
+	block = NULL;
+	SDL_FreeSurface(blocksBG);
+	blocksBG = NULL;
+	SDL_FreeSurface(hud);
+	hud = NULL;
+	SDL_FreeSurface(spritePlayer);
+	spritePlayer = NULL;	
+	fs_romdisk_unmount("/stage1");
+
+	for (int i = 0; i < obstacles.size(); i++)
+		delete obstacles[i];
+	for (int i = 0; i < obstacles_bkp.size(); i++)
+		delete obstacles_bkp[i];
+
+	obstacles.clear();
+	obstacles_bkp.clear();
+	map.clear();
+	mapBG.clear();
+
+	snd_sfx_unload_all();
+}
+
+void game::clr_menu_mem() {
+	SDL_FreeSurface(titan_logo);
+	titan_logo = NULL;
+	SDL_FreeSurface(press_start);
+	press_start = NULL;
+	SDL_FreeSurface(m_screen);
+	m_screen = NULL;
+	SDL_FreeSurface(game_over);
+	game_over = NULL;
+	SDL_FreeSurface(final_screen);
+	final_screen = NULL;
+	fs_romdisk_unmount("/menu");
+}
+
+void game::load_assets(int fileToLoad) {
+	SDL_FillRect(screen,NULL, 0x000000);
+	char mytext[] = "Now Loading...";
+	
+	SDL_FillRect(screen,NULL,0);
+
+	gfxPrimitivesSetFont(&SDL_gfx_font_5x7_fnt,5,7);
+	stringRGBA(screen,05,05,mytext,255,255,255,255);
+	update_screen();
+		
+	switch (fileToLoad)
+	{
+		case 0:
+			if(mount_romdisk("/cd/romdisk.img", "/menu")) {
+				titan_logo = load_image("menu/images/menu/Titan.pvr", "pvr", 1, 1, 1);
+				press_start = load_image("menu/images/menu/Start_Game.bmp", "bmp", 0x00, 0x00, 0x00);
+				m_screen = load_image("menu/images/menu/menu.pvr", "pvr", 1, 1, 1);
+				game_over = load_image("menu/images/menu/game_over.pvr", "pvr", 1, 1, 1);
+				final_screen = load_image("menu/images/menu/final_screen.pvr", "pvr", 1, 1, 1);
+			}
+		break;
+
+		case 1:
+			clr_stage1_mem();
+			if(mount_romdisk("/cd/romdisk.img", "/menu")) {
+				titan_logo = load_image("menu/images/menu/Titan.pvr", "pvr", 1, 1, 1);
+				press_start = load_image("menu/images/menu/Start_Game.bmp", "bmp", 0x00, 0x00, 0x00);
+				m_screen = load_image("menu/images/menu/menu.pvr", "pvr", 1, 1, 1);
+				game_over = load_image("menu/images/menu/game_over.pvr", "pvr", 1, 1, 1);
+				final_screen = load_image("menu/images/menu/final_screen.pvr", "pvr", 1, 1, 1);
+			}
+		break;
+
+		case 2:
+			clr_menu_mem();
+			if(mount_romdisk("/cd/romdisk2.img", "/stage1")) {
+				block = load_image("/stage1/images/blocks/blocks.bmp", "bmp", 0xff, 0x00, 0xff);
+				blocksBG = load_image("/stage1/images/BG/blocks.bmp", "bmp", 1, 1, 1);
+				hud = load_image("/stage1/images/hud/HUD.bmp", "bmp", 0xff, 0x00, 0xff);
+				spritePlayer = load_image("/stage1/images/player/player.bmp", "bmp", 0xff, 0x00, 0xff);
+				player1 = new player(spritePlayer);
+				player1->setDirection('z');
+
+				if(map.size()<=0) {
+					loadmap("/stage1/map/map.map", false);
+					loadmap("/stage1/map/mapBG.map", true);
+				}
+			}
+		break;
+	}
+}
+
 ///// Destroy all the variables in the memory for the game.
 game::~game()
 {
-	SDL_FreeSurface(titan_logo);
-	SDL_FreeSurface(press_start);
-	SDL_FreeSurface(m_screen);
-	SDL_FreeSurface(game_over);
-	SDL_FreeSurface(final_screen);
-	SDL_FreeSurface(block);
-	SDL_FreeSurface(blocksBG);
-	SDL_FreeSurface(hud);
-
 	for (int i = 0; i < obstacles.size(); i++)
 		delete obstacles[i];
 	for (int i = 0; i < obstacles_bkp.size(); i++)
@@ -476,10 +567,10 @@ void game::menu()
 	}
 }
 
-void game::restart_game()
-{
-	obstacles.clear();
-	obstacles.assign(obstacles_bkp.begin(), obstacles_bkp.end());
+///////////// Go to end screen
+
+void game::end_game()
+{	
 	running = false;
 	direction[0] = 0;
 	direction[1] = 0;
@@ -490,23 +581,7 @@ void game::restart_game()
 	baseclass::coord.y = 0;
 	camera.x = 0;
 	camera.y = 0;
-	SDL_FillRect(screen, NULL, 0x000000);
-	update_screen();
-}
-
-///////////// Go to end screen
-
-void game::end_game()
-{
-	running = false;
-	direction[0] = 0;
-	direction[1] = 0;
-	player1->setMoving(0);
-	player1->setLives(3);
-	player1->resetPosition();
-	baseclass::coord.x = 0;
-	camera.x = 0;
-	camera.y = 0;
+	load_assets(1);
 	SDL_FillRect(screen, NULL, 0x000000);
 	update_screen();
 	SDL_BlitSurface(final_screen, &cameraPVR, screen, NULL);
@@ -514,7 +589,40 @@ void game::end_game()
 	SDL_Delay(8000);
 	SDL_FillRect(screen, NULL, 0x000000);
 	update_screen();
-	restart_game();
+}
+
+///Draw Hud
+void game::draw_hud() {
+	SDL_BlitSurface(hud, &camera, screen, NULL);
+				
+	char current_live[100];
+	sprintf(current_live,"%d",player1->getLives());
+				
+	gfxPrimitivesSetFont(&SDL_gfx_font_7x13O_fnt,7,13);
+	stringRGBA(screen,22,7,current_live,255,255,255,255);
+}
+
+////////// Go to Game Over Screen
+void game::f_game_over() 
+{
+	running = false;
+	direction[0] = 0;
+	direction[1] = 0;
+	player1->setMoving(0);
+	player1->resetPosition();
+	player1->setDirection('z');
+	baseclass::coord.x = 0;
+	baseclass::coord.y = 0;
+	camera.x = 0;
+	camera.y = 0;
+	load_assets(1);
+	SDL_FillRect(screen, NULL, 0x000000);
+	update_screen();
+	SDL_BlitSurface(game_over, &cameraPVR, screen, NULL);
+	update_screen();
+	SDL_Delay(11000);
+	SDL_FillRect(screen, NULL, 0x000000);
+	update_screen();
 }
 
 void game::update_screen() {
@@ -526,14 +634,13 @@ void game::update_screen() {
 void game::start()
 {
 	Uint32 start;
-	loadmap("rd/map/map.map", false);
-	loadmap("rd/map/mapBG.map", true);
 	vmu();
 	player1->setDirection('z');
 
 	while (all_running)
 	{
 		menu();
+		load_assets(2);
 		SDL_FillRect(screen, NULL, 0x000000);
 		update_screen();
 		running = true;
@@ -591,15 +698,7 @@ void game::start()
 				showmap(map, true, block);
 
 				player1->show(screen);
-
-				SDL_BlitSurface(hud, &camera, screen, NULL);
-				
-				char current_live[100];
-				sprintf(current_live,"%d",player1->getLives());
-				
-				gfxPrimitivesSetFont(&SDL_gfx_font_7x13O_fnt,7,13);
-				stringRGBA(screen,22,7,current_live,255,255,255,255);
-				
+				draw_hud();
 				update_screen();
 
 				///////////////////////////////////Em teste/////////////////
@@ -636,24 +735,7 @@ void game::start()
 					}
 					else
 					{
-						running = false;
-						direction[0] = 0;
-						direction[1] = 0;
-						player1->setMoving(0);
-						player1->setLives(3);
-						player1->setHealth(200);
-						player1->resetPosition();
-						baseclass::coord.x = 0;
-						baseclass::coord.y = 0;
-						camera.x = 0;
-						camera.y = 0;
-						SDL_FillRect(screen, NULL, 0x000000);
-						update_screen();
-						SDL_BlitSurface(game_over, &cameraPVR, screen, NULL);
-						update_screen();
-						SDL_Delay(11000);
-						SDL_FillRect(screen, NULL, 0x000000);
-						update_screen();
+						f_game_over();
 					}
 				}
 			}

@@ -13,6 +13,9 @@
 #include "base.h"
 #include "player.h"
 #include "vmu.h"
+#include "animfonts.h"
+#include "animloop.h"
+#include "rumble.h"
 #include "bullet.h"
 #include "enemy.h"
 #include "item.h"
@@ -57,6 +60,10 @@ class game:public baseclass{
 	bool running, all_running;
 	static const int SCREEN_WIDTH=320;
 	static const int SCREEN_HEIGHT=240;
+	animfonts* present_text1;
+	animfonts* completed_text;
+	rumble* rumble_pack;
+	vmu* my_vmu;
 	player* player1;
         public:
         game();

@@ -1,5 +1,5 @@
 TARGET = main.elf
-OBJS = main.o game.o base.o player.o vmu.o obstacle.o
+OBJS = main.o game.o base.o player.o vmu.o obstacle.o animloop.o rumble.o animfonts.o
 
 all: rm-elf $(TARGET)
 
@@ -15,7 +15,7 @@ rm-elf:
 
 $(TARGET): $(OBJS) romdisk.o
 	$(KOS_CC) $(KOS_CFLAGS) $(KOS_LDFLAGS) -o $(TARGET) $(KOS_START) \
-		$(OBJS) $(OBJEXTRA) -L$(KOS_BASE)/lib -lgcc -lSDL_gfx -lSDL_1213 -lSDLPVR_image -lpng -lz -ljpeg -loggvorbisplay -lstdc++ -lmp3 -lm  $(KOS_LIBS)
+		$(OBJS) $(OBJEXTRA) -L$(KOS_BASE)/lib -lgcc -lSDL_gfx -lSDL_1213 -lSDLPVR_image -lpng -lz -lstdc++ -lm  $(KOS_LIBS)
 
 romdisk.img:
 	$(KOS_GENROMFS) -f romdisk.img -d menu -v

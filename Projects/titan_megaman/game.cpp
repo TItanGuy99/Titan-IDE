@@ -30,6 +30,8 @@ game::game() //constructor
 
 	joystick = SDL_JoystickOpen(0);
 	buttonCount = SDL_JoystickNumButtons(joystick);
+	my_vmu = new vmu();
+	rumble_pack = new rumble(true);
 	
 	load_assets(0);
 
@@ -258,6 +260,7 @@ SDL_Surface *game::load_image(const char *filename, const char* extension, int r
 void game::handleEvents()
 {
 	SDL_Event event;
+	int limit = 25;
 
 	while (SDL_PollEvent(&event))
 	{
@@ -328,58 +331,50 @@ void game::handleEvents()
 			break;
 			
 			case SDL_JOYAXISMOTION:
-				 
-				if(event.jaxis.value!=0) 
-				{	
-					if( event.jaxis.axis==0 ){ //left right
-						axi_X=event.jaxis.value;
-					}
-					else{ //up down
-						axi_Y=event.jaxis.value;
-					}
 					
-					int limit = 50;
-
-					if(axi_Y < -limit && axi_X < -limit) {
-						direction[0] = 1;
-						direction[1] = 0;
-						player1->setMoving(1);
-					}
-					else if(axi_Y < -limit && axi_X > limit){
-						direction[0] = 0;
-						direction[1] = 1;
-						player1->setMoving(1);
-						player1->setMoving(1);
-					}
-					else if(axi_Y > limit && axi_X > limit) { 
-						direction[0] = 0;
-						direction[1] = 1;
-						player1->setMoving(1);
-					}
-					else if(axi_Y > limit && axi_X < -limit){
-						direction[0] = 1;
-						direction[1] = 0;
-						player1->setMoving(1);
-					}
-					
-					if(axi_X < 0 && axi_Y >-limit && axi_Y <limit){
-						direction[0] = 1;
-						direction[1] = 0;
-						player1->setMoving(1);
-					}
-					else if(axi_X > 0 && axi_Y >-limit && axi_Y <limit) {
-						direction[0] = 0;
-						direction[1] = 1;
-						player1->setMoving(1);
-					}
-					
-					
-					if(axi_Y < 0 && axi_X > -limit && axi_X < limit){
-						player1->setDirection('u');
-					}
-					else if(axi_Y > 0 && axi_X > -limit && axi_X < limit){
-						player1->setDirection('d');
-					}
+				if( event.jaxis.axis==0 ){ //left right
+					axi_X=event.jaxis.value;
+				}
+						
+				if( event.jaxis.axis==1 ){ //up down
+					axi_Y=event.jaxis.value;
+				}
+						
+				if(axi_Y < -limit && axi_X < -limit) {
+					direction[0] = 1;
+					direction[1] = 0;
+					player1->setMoving(1);
+				}
+				else if(axi_Y < -limit && axi_X > limit){
+					direction[0] = 0;
+					direction[1] = 1;
+					player1->setMoving(1);
+				}
+				else if(axi_Y > limit && axi_X > limit) { 
+					direction[0] = 0;
+					direction[1] = 1;
+					player1->setMoving(1);
+				}
+				else if(axi_Y > limit && axi_X < -limit){
+					direction[0] = 1;
+					direction[1] = 0;
+					player1->setMoving(1);
+				}
+				else if(axi_X < 0 && axi_Y >-limit && axi_Y <limit){
+					direction[0] = 1;
+					direction[1] = 0;
+					player1->setMoving(1);
+				}
+				else if(axi_X > 0 && axi_Y >-limit && axi_Y <limit) {
+					direction[0] = 0;
+					direction[1] = 1;
+					player1->setMoving(1);
+				}
+				else if(axi_Y < 0 && axi_X > -limit && axi_X < limit){
+					player1->setDirection('u');
+				}
+				else if(axi_Y > 0 && axi_X > -limit && axi_X < limit){
+					player1->setDirection('d');
 				}
 				else {
 					axi_X = 0;
@@ -387,11 +382,9 @@ void game::handleEvents()
 					direction[0] = 0;
 					player1->setMoving(0);
 					direction[1] = 0;
-					player1->setMoving(0);
-				}
-								
+				}								
 			break;
-
+			
 			case SDL_JOYHATMOTION:
 
 				switch (event.jhat.value)
@@ -719,7 +712,7 @@ void game::update_screen() {
 void game::start()
 {
 	Uint32 start;
-	vmu();
+	my_vmu->draw(1);
 	
 	while (all_running)
 	{

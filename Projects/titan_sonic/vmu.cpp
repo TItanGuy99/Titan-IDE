@@ -150,9 +150,9 @@ int vmu::DC_SaveToVMU(char* score) {
         compress(zipdata, &zipsize, datasave, data_size);
 
         // Make the package to the VMU.
-        strcpy(pkg.desc_short, "metalcanary");
-        strcpy(pkg.desc_long, "Metal Canary");
-        strcpy(pkg.app_id, "metalcanary");
+        strcpy(pkg.desc_short, "titanide");
+        strcpy(pkg.desc_long, "Titan IDE");
+        strcpy(pkg.app_id, "titanide");
         pkg.icon_cnt = 1;
         memcpy((void *)&pkg.icon_pal[0],icon_data,32);
         pkg.icon_data = icon_data;
@@ -163,8 +163,8 @@ int vmu::DC_SaveToVMU(char* score) {
         vmu_pkg_build(&pkg, &pkg_out, &pkg_size);
 
         // Write at A1 port
-        fs_unlink("/vmu/a1/metalcanary");
-        ft = fs_open("/vmu/a1/metalcanary", O_RDWR);
+        fs_unlink("/vmu/a1/titanide");
+        ft = fs_open("/vmu/a1/titanide", O_RDWR);
         if (!ft) {
             return -1;
         }
@@ -185,7 +185,7 @@ int vmu::DC_SaveToVMU(char* score) {
 
 int vmu::DC_LoadFromVMU() {
    if(hasMemoryCard()) { 
-        char *dst = "metalcanary";
+        char *dst = "titanide";
         char src[32];
         int file;
         int filesize;

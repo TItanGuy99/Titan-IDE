@@ -18,16 +18,22 @@ animfonts::~animfonts() {
 }
 
 char* animfonts::returnText() {
-    //strncpy(new_text,current_text,length_string);
-    snprintf(new_text, length_string, "%s", current_text);
-    count_speed++;
- 
-    if(length_string<strlen(current_text) && count_speed==speed) {
-        count_speed = 0;
-        length_string++;
-    }
 
-    return new_text;
+    
+    if(length_string<=strlen(current_text)) {
+        snprintf(new_text, length_string, "%s", current_text);
+        count_speed++;
+    
+        if(count_speed==speed) {
+            count_speed = 0;
+            length_string++;
+        }
+
+        return new_text; 
+    }
+    else {
+        return current_text;
+    }
 }
 
 void animfonts::resetAnimation() {

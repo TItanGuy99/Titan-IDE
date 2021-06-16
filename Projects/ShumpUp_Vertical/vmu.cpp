@@ -206,7 +206,6 @@ int vmu::DC_LoadFromVMU() {
     // Save buffer into a RAM file
     file_t fd2;
     if ((fd2 = fs_open("/ram/yourfile.dat", O_RDWR)) == -1) {
-      printf("Can't create RAM file from VMU.\n");
       return -1;
     }
     fs_write(fd2, unzipdata, unzipsize);

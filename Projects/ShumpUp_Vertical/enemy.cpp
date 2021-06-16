@@ -81,7 +81,6 @@ void enemy::move(std::vector < std::vector < int > > & map) {
   count_bullets++;
 
   if (count_bullets > 100) {
-    printf("Its here");
     count_bullets = 0;
   }
 }

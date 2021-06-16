@@ -363,10 +363,8 @@ void game::loadmap(const char * filename, bool isBG) {
         }
       } else {
         if (current >= 0) {
-          printf("está aqui carregando algo");
           vec.push_back(current); //put the current into our matrix which represent the map in the game
         } else {
-          printf("está aqui acumulando lixo");
           vec.push_back(0); //if the tile number is not known than just push 0 (so nothing) in the current position
         }
       }

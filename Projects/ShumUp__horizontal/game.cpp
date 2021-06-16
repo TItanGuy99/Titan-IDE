@@ -798,7 +798,6 @@ void game::start() {
           enemies[i] -> show(screen);
 
           if (enemies[i] -> getRect() -> y - baseclass::coord.y > 420) {
-            //printf("Its here");
             enemies.erase(enemies.begin() + i);
           }
         }
